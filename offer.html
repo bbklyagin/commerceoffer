@@ -788,6 +788,15 @@ footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font
 .v3-est__scope-note{margin-top:var(--v3-s4);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--v3-s3);padding-top:var(--v3-s3);border-top:1px solid var(--v3-line)}
 .v3-est__scope-note p{margin:0;font-size:14px;line-height:1.45;color:var(--v3-ink-3)}
 .v3-est__scope-note b{display:block;margin-bottom:4px;color:var(--v3-ink);font-weight:600}
+/* пересмотр предварительной оценки — выделенный фрейм под ценой */
+.v3-est__revision{
+  margin-top:var(--v3-s5);background:var(--v3-surface);
+  border:1px solid var(--v3-line-strong);border-left:3px solid var(--v3-accent);
+  border-radius:var(--v3-radius);padding:clamp(22px,2.4vw,30px) clamp(24px,2.8vw,36px);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--v3-s3) var(--v3-s6);
+}
+.v3-est__revision p{margin:0;font-size:16.5px;line-height:1.6;color:var(--v3-ink-2);max-width:none}
+.v3-est__revision b{color:var(--v3-ink);font-weight:600;white-space:nowrap}
 .v3-est__accordions{margin-top:var(--v3-s6);border-top:2px solid var(--v3-ink)}
 .v3-est__detail{border-bottom:1px solid var(--v3-line)}
 .v3-est__detail[open]{background:linear-gradient(90deg,var(--v3-accent-soft),transparent 30%)}
@@ -1698,6 +1707,8 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
   .v3-est__price .v3-big-number__value{font-size:34pt}
   .v3-est__scope-note{grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
   .v3-est__scope-note p{font-size:8.5pt}
+  .v3-est__revision{margin-top:16px;padding:12px 16px;break-inside:avoid;page-break-inside:avoid}
+  .v3-est__revision p{font-size:9.5pt;max-width:none}
   .v3-est__accordions{margin-top:18px}
   .v3-est__detail{break-inside:avoid;page-break-inside:avoid}
   .v3-est__detail:not([open]) > *:not(summary){display:none}
@@ -1892,7 +1903,6 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <p class="v3-lead">Проектирование и разработка собственной криптовалютной игровой платформы: Web, Telegram, Android, финансовое ядро, Back Office и криптовалютная инфраструктура.</p>
 
         <div class="v3-hero__kpis">
-          <p class="v3-big-number v3-big-number--lead"><span class="v3-big-number__value v3-num">$57,000</span><span class="v3-big-number__label">фиксированная стоимость</span></p>
           <p class="v3-big-number v3-big-number--md"><span class="v3-big-number__value">18–21 нед.</span><span class="v3-big-number__label">срок реализации</span></p>
           <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">Web + Telegram + Android</span><span class="v3-big-number__label">точки входа для игроков</span></p>
           <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">до 3 сетей</span><span class="v3-big-number__label">blockchain-сети на старте</span></p>
@@ -2286,6 +2296,11 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
       </div>
       <p class="v3-big-number v3-est__price"><span class="v3-big-number__value v3-num">$57,000</span><span class="v3-big-number__label">фиксированная стоимость</span></p>
     </div>
+
+    <aside class="v3-est__revision" aria-label="О предварительной оценке проекта">
+      <p>Ранее на этапе первичного обсуждения мы ориентировочно оценивали проект в диапазоне <b>$40,000–50,000</b>. Эта оценка была предварительной и формировалась до детальной проработки требований.</p>
+      <p>После полного анализа ТЗ, архитектуры платформы, финансового и криптовалютного контуров, ролей и доступов, инфраструктуры, безопасности и объёма клиентских приложений была сформирована финальная оценка проекта, представленная в настоящем коммерческом предложении.</p>
+    </aside>
 
     <div class="v3-est__strip" role="img" aria-label="Распределение трудоёмкости: проектирование и интерфейсы 585 часов, деньги и crypto 965 часов, операции и запуск 1190 часов">
       <div class="v3-est__bar"><span class="g1" style="width:21.4%"></span><span class="g2" style="width:35.2%"></span><span class="g3" style="width:43.4%"></span></div>
