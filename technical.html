@@ -321,7 +321,8 @@ table .no{color:var(--ink-3)}
   background:radial-gradient(closest-side,rgba(127,182,196,.13),rgba(127,182,196,0) 70%);
   pointer-events:none;
 }
-.hero .container{position:relative;z-index:1;max-width:1180px}
+/* обложка стоит на той же вертикальной оси, что и разделы */
+.hero .container{position:relative;z-index:1}
 .hero__top{
   display:flex;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
   font-size:13.5px;color:var(--dark-muted);padding-bottom:var(--s6);
@@ -355,7 +356,7 @@ table .no{color:var(--ink-3)}
 .hs-lab{font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.1em;fill:#7FB6C4;text-anchor:middle}
 
 /* ---------- toc ---------- */
-.toc{padding:var(--s5) 0 var(--s1);border-bottom:1px solid var(--line);scroll-margin-top:64px}
+.toc{padding-block:var(--s5) var(--s1);border-bottom:1px solid var(--line);scroll-margin-top:64px}
 .toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 var(--s5)}
 .toc li{margin:0}
 .toc a{display:flex;gap:14px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line);color:var(--ink);font-size:15px}
