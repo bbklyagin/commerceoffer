@@ -79,8 +79,6 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-of
 .stack--sm > * + *{margin-top:var(--s3)}
 .rule{border:0;border-top:1px solid var(--line);margin:0}
 .rule--strong{border-top:2px solid var(--ink)}
-.mt-2{margin-top:var(--s2)}.mt-3{margin-top:var(--s3)}.mt-4{margin-top:var(--s4)}
-.mt-5{margin-top:var(--s5)}.mt-6{margin-top:var(--s6)}.mt-7{margin-top:var(--s7)}
 
 /* ---------- typography ---------- */
 .eyebrow{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
@@ -374,8 +372,16 @@ footer p{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--ink-3);max
 footer p:last-child{margin-bottom:0}
 footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-top:var(--s3)}
 
+/* ---------- utilities (объявлены последними: перебивают margin:0 компонентов) ---------- */
+.mt-2{margin-top:var(--s2)}
+.mt-3{margin-top:var(--s3)}
+.mt-4{margin-top:var(--s4)}
+.mt-5{margin-top:var(--s5)}
+.mt-6{margin-top:var(--s6)}
+.mt-7{margin-top:var(--s7)}
+
 /* ---------- responsive ---------- */
-@media (max-width:1000px){
+@media screen and (max-width:1000px){
   .split,.split--40-60{grid-template-columns:1fr;gap:var(--s4)}
   .pillars{grid-template-columns:1fr 1fr}
   .timeline{grid-template-columns:1fr 1fr}
@@ -386,7 +392,7 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
   .toc li:nth-child(-n+3) a{border-top:1px solid var(--line)}
   .toc li:nth-child(-n+2) a{border-top:0}
 }
-@media (max-width:700px){
+@media screen and (max-width:700px){
   :root{--body:16px;--gutter:20px}
   .heading{max-width:none}
   .split--equal{grid-template-columns:1fr;gap:var(--s4)}
@@ -399,6 +405,7 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
   .toc li:first-child a{border-top:0}
   .topbar .cur{display:none}
   .list--cols{columns:1}
+  code{white-space:normal;overflow-wrap:anywhere}
   .kv > div{grid-template-columns:1fr;gap:4px}
   .chain{flex-direction:column;align-items:flex-start}
   .chain li{width:100%}
@@ -409,6 +416,18 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
   .decision__body{grid-template-columns:1fr}
   .figure__frame{padding:14px;border-radius:var(--r-sm)}
   .figure figcaption::before{content:"Схему можно прокрутить по горизонтали. ";color:var(--ink-3);font-style:italic}
+  /* таблицы на 1–2 колонки умещаются без прокрутки; широкие — прокручиваются
+     с мягкой тенью у края как подсказкой */
+  table:not(:has(th:nth-child(3))){min-width:0}
+  .tablewrap{
+    background-image:
+      radial-gradient(farthest-side at 0 50%, rgba(18,23,27,.10), rgba(18,23,27,0)),
+      radial-gradient(farthest-side at 100% 50%, rgba(18,23,27,.10), rgba(18,23,27,0));
+    background-position:0 0,100% 0;
+    background-repeat:no-repeat;
+    background-size:12px 100%,12px 100%;
+    background-attachment:scroll,scroll;
+  }
   .hero__facts{gap:var(--s3) var(--s5)}
   .hero__visual{display:none}
   .deep__summary{font-size:15px}
@@ -475,6 +494,13 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
   .pillars--2{grid-template-columns:1fr 1fr}
   .pillar .copy,.pillar__effect{max-width:none;font-size:9.4pt}
   .stack > * + *{margin-top:7mm}
+  /* вертикальный ритм в печати компактнее экранного */
+  .mt-2{margin-top:2.5mm}
+  .mt-3{margin-top:3.5mm}
+  .mt-4{margin-top:4.5mm}
+  .mt-5{margin-top:6mm}
+  .mt-6{margin-top:7mm}
+  .mt-7{margin-top:9mm}
 
   .figure__frame{border-radius:0;padding:4mm;overflow:visible;background:#fff}
   .figure svg{min-width:0;width:100%}
@@ -489,27 +515,31 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
   .flow b{font-size:9.8pt}
   .flow span{font-size:9.4pt}
 
-  .chain{flex-wrap:nowrap}
-  .chain li{min-width:0;padding:6px 9px;font-size:9pt}
-  .chain li small{font-size:7.6pt}
-  .chain li + li{margin-left:20px}
-  .chain li + li::before{left:-20px;width:20px}
-  .chain li + li::after{left:-7px}
+  .chain{flex-wrap:nowrap;flex-direction:row}
+  .chain li{min-width:0;width:auto;padding:5px 8px;font-size:8.6pt;border-radius:3px}
+  .chain li small{font-size:7.2pt;margin-top:2px}
+  .chain li + li{margin:0 0 0 16px}
+  .chain li + li::before{left:-16px;top:50%;width:16px;height:1px}
+  .chain li + li::after{left:-6px;top:50%;transform:rotate(45deg)}
 
   /* level 2 раскрывается в печати */
   .deep{border-color:#D8D7CF}
   .deep__summary{padding:8px 0;font-size:10pt;background:none!important;padding-left:0!important}
   .deep__summary::after{display:none}
-  .deep:not([open]) > .deep__body{display:grid!important}
-  .deep__body{padding-bottom:8px;gap:5mm}
+  details{content-visibility:visible!important}
+  details::details-content{content-visibility:visible!important;display:block!important;block-size:auto!important;height:auto!important}
+  .deep__body{display:grid!important;padding-bottom:8px;gap:5mm}
+  .stack--sm > * + *{margin-top:4mm}
   pre{font-size:7.8pt;padding:8px 10px;line-height:1.5}
 
-  .timeline{grid-template-columns:repeat(4,1fr);gap:7mm;padding-left:0}
+  /* на A4 две колонки читаются лучше четырёх — как в основном КП */
+  .timeline{grid-template-columns:1fr 1fr;gap:8mm 10mm;padding-left:0}
   .timeline::before{display:none}
   .timeline__step{padding-top:10px;border-top:1px solid var(--line-strong)}
-  .timeline__step::before{top:-6px}
-  .timeline__title{font-size:12pt}
-  .timeline__what,.timeline__result{font-size:9pt}
+  .timeline__step::before{top:-6px;left:0}
+  .timeline__title{font-size:12.5pt;margin:5px 0 8px}
+  .timeline__what,.timeline__result{font-size:9.2pt}
+  .timeline__what li{margin-bottom:4px}
 
   .decision{padding:6mm 0;grid-template-columns:40px minmax(0,1fr);gap:6mm}
   .decision__title{font-size:12pt}
@@ -1183,7 +1213,7 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
     <p class="copy mt-2">Состав ролей и объём полномочий соответствуют модели доступа, зафиксированной в коммерческом предложении.</p>
     <div class="tablewrap mt-4">
       <table>
-        <thead><tr><th>Роль</th><th>Финансы</th><th>Данные и журналы</th><th>Администрирование</th><th>Не предоставляется</th></tr></thead>
+        <thead><tr><th>Роль</th><th>Финансы</th><th>Данные и журналы</th><th>Администрирование</th><th>Ограничения и условия</th></tr></thead>
         <tbody>
           <tr>
             <td>Founder<br><span class="small">один аккаунт</span></td>
@@ -1383,7 +1413,7 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
             <tr><td>Back Office</td><td>Отдельное приложение на своём поддомене</td><td>Собственный origin и область cookie, обязательный второй фактор при входе</td></tr>
           </tbody>
         </table>
-        <p class="table-note">Распространение Android-приложения — прямая установка и собственный механизм обновления. Публикация в магазине приложений не входит в объём и зависит от политики площадки; iOS-приложение в объём не входит.</p>
+        <p class="table-note">Распространение Android-приложения — прямая установка и собственный механизм обновления. Гарантированное размещение в магазине приложений в объём не входит: аккаунт разработчика и соответствие политике площадки остаются на стороне заказчика. iOS-приложение в объём не входит.</p>
       </div>
     </div>
 
@@ -1518,7 +1548,7 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
     <div class="split mt-7">
       <div>
         <h3 class="subheading">Поддержка</h3>
-        <p class="copy mt-2">Поддержка работает в отдельном интерфейсе, ограниченном по данным, с интеграцией self-hosted платформы обращений вместо разработки собственного helpdesk.</p>
+        <p class="copy mt-2">Поддержка работает в отдельном интерфейсе, ограниченном по данным, с интеграцией self-hosted платформы обращений (Chatwoot) вместо разработки собственного helpdesk. Это даёт омниканальность — веб-чат, Telegram, e-mail — и оставляет данные обращений в инфраструктуре проекта.</p>
       </div>
       <div class="tablewrap">
         <table>
@@ -1721,7 +1751,7 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
   <h2 class="heading">Что именно реализуется на каждом этапе</h2>
   <p class="lead">Этапы соответствуют плану реализации из коммерческого предложения. Ниже — их техническое наполнение: какие компоненты создаются и какой результат можно проверить.</p>
 
-  <p class="callout callout--status mt-4"><b>Срок.</b> Ориентировочный срок реализации согласованного объёма — <b>18–21 неделя</b>. Работы частично выполняются параллельно: инфраструктура, тестирование и клиентские интерфейсы развиваются вместе с основной разработкой. Порядок приёмки и оплаты этапов описан в основном коммерческом предложении.</p>
+  <p class="callout mt-4"><b>Срок.</b> Ориентировочный срок реализации согласованного объёма — <b>18–21 неделя</b>. Работы частично выполняются параллельно: инфраструктура, тестирование и клиентские интерфейсы развиваются вместе с основной разработкой. Порядок приёмки и оплаты этапов описан в основном коммерческом предложении.</p>
 
   <ol class="timeline mt-7">
     <li class="timeline__step">
@@ -1818,7 +1848,7 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
         <li>self-custody Hot / Warm / Cold с подписью в защищённом контуре — расчётная база</li>
         <li>базовый риск-контур и слой интеграции с внешним AML/KYC-провайдером</li>
         <li>базовая партнёрская система: RevShare, CPA и комбинированная модель</li>
-        <li>поддержка на базе self-hosted платформы обращений</li>
+        <li>поддержка на базе self-hosted платформы обращений (Chatwoot)</li>
         <li>языки интерфейса: RU и EN</li>
         <li>собственные игровые модули в объём не входят</li>
         <li>внешний penetration test и сертификация не входят</li>
@@ -1970,6 +2000,30 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
     });
   },{rootMargin:'-10% 0px -75% 0px',threshold:0});
   document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s)});
+})();
+
+/* При печати и сохранении в PDF все блоки «Детали реализации» раскрываются,
+   чтобы документ читался без интерактивных состояний. */
+(function(){
+  var nodes=document.querySelectorAll('details'),saved=null;
+  function expand(){
+    saved=[];
+    nodes.forEach(function(d,i){saved[i]=d.open;d.open=true});
+  }
+  function restore(){
+    if(!saved) return;
+    nodes.forEach(function(d,i){d.open=saved[i]});
+    saved=null;
+  }
+  window.addEventListener('beforeprint',expand);
+  window.addEventListener('afterprint',restore);
+  if(window.matchMedia){
+    var mq=window.matchMedia('print');
+    var onChange=function(m){m.matches?expand():restore()};
+    if(mq.addEventListener){mq.addEventListener('change',onChange)}
+    else if(mq.addListener){mq.addListener(onChange)}
+    if(mq.matches) expand();
+  }
 })();
 </script>
 </body>

@@ -3,1033 +3,307 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crypto Casino Platform — Ключевые решения перед стартом разработки</title>
-<meta name="description" content="14 решений, которые принимает заказчик перед стартом разработки криптовалютной игровой платформы. По каждому — варианты, последствия и наша рекомендация.">
+<title>Crypto Casino Platform — Ключевые решения перед стартом</title>
+<meta name="description" content="14 решений, которые принимает заказчик перед стартом разработки криптовалютной игровой платформы. По каждому — рекомендация команды.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* ===== V3 DESIGN SYSTEM — общий с коммерческим предложением ===== */
 :root{
-  --v3-paper:#F5F4EF;
-  --v3-paper-2:#ECEBE4;
-  --v3-surface:#FFFFFF;
-  --v3-ink:#12171B;
-  --v3-ink-2:#3B454D;
-  --v3-ink-3:#6B757E;
-  --v3-line:#E1E0D8;
-  --v3-line-strong:#C4C6BD;
-  --v3-accent:#14505F;
-  --v3-accent-ink:#0B3B47;
-  --v3-accent-soft:#E3EDF0;
-  --v3-warn-soft:#F3ECDD;
-  --v3-warn-ink:#7A5A1E;
-  --v3-dark:#080A0C;
-  --v3-dark-2:#101417;
-  --v3-dark-line:#20262A;
-  --v3-dark-ink:#F3F2ED;
-  --v3-dark-muted:#A6AFB6;
-  --v3-sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
-  --v3-serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
-  --v3-mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
-  --v3-body:17px;
-  --v3-lead:clamp(20px,2.2vw,23px);
-  --v3-heading:clamp(38px,4.8vw,52px);
-  --v3-subheading:clamp(22px,2.4vw,26px);
-  --v3-display:clamp(64px,9vw,96px);
-  --v3-meta:12.5px;
-  --v3-s1:8px;  --v3-s2:16px; --v3-s3:24px; --v3-s4:32px;
-  --v3-s5:48px; --v3-s6:64px; --v3-s7:96px; --v3-s8:128px;
-  --v3-section:clamp(96px,11vw,144px);
-  --v3-container:1120px;
-  --v3-gutter:32px;
-  --v3-measure:62ch;
-  --v3-radius:6px;
+  --paper:#F5F4EF;
+  --surface:#FFFFFF;
+  --ink:#12171B;
+  --ink-2:#3B454D;
+  --ink-3:#6B757E;
+  --line:#E1E0D8;
+  --line-strong:#C4C6BD;
+  --accent:#14505F;
+  --accent-ink:#0B3B47;
+  --accent-soft:#E3EDF0;
+  --warn-soft:#F3ECDD;
+  --warn-ink:#7A5A1E;
+  --dark:#080A0C;
+  --dark-line:#20262A;
+  --dark-ink:#F3F2ED;
+  --dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --container:920px;
+  --gutter:32px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--v3-paper);color:var(--v3-ink);font-family:var(--v3-sans);font-size:var(--v3-body);line-height:1.6;-webkit-font-smoothing:antialiased}
-::selection{background:var(--v3-accent-soft)}
-a{color:var(--v3-accent);text-decoration:none}
-a:hover{text-decoration:underline;text-underline-offset:.18em}
-h1,h2,h3,h4{margin:0;text-wrap:balance}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-soft)}
+h1,h2{margin:0;text-wrap:balance}
 p{margin:0}
-strong,b{font-weight:600}
+b,strong{font-weight:600}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
 
-/* ---- section & container ---- */
-.v3-section{padding-block:var(--v3-section);scroll-margin-top:60px;color:var(--v3-ink)}
-.v3-section--tight{padding-block:var(--v3-s7)}
-.v3-section--surface{background:var(--v3-paper-2)}
-.v3-section--dark{
-  background:var(--v3-dark);color:var(--v3-dark-ink);
-  --v3-ink:var(--v3-dark-ink);--v3-ink-2:#D4D9DC;--v3-ink-3:var(--v3-dark-muted);
-  --v3-line:var(--v3-dark-line);--v3-line-strong:#3A454E;--v3-surface:var(--v3-dark-2);
-  --v3-accent:#7FB6C4;--v3-accent-soft:#1E2E36;
-}
-.v3-container{max-width:var(--v3-container);margin-inline:auto;padding-inline:var(--v3-gutter)}
-.v3-container--narrow{max-width:860px}
+/* ---------- header ---------- */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(64px,9vw,104px)}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);letter-spacing:.01em;margin-bottom:22px}
+.head__title{font-weight:700;font-size:clamp(38px,6.4vw,64px);line-height:1;letter-spacing:-.035em}
+.head__lead{font-family:var(--serif);font-size:clamp(18px,2.2vw,21px);line-height:1.5;color:#C9D0D5;max-width:54ch;margin-top:clamp(22px,3vw,30px)}
+.head__meta{margin-top:clamp(30px,4vw,42px);padding-top:20px;border-top:1px solid var(--dark-line);display:flex;flex-wrap:wrap;gap:8px 0;font-size:14.5px;color:var(--dark-ink)}
+.head__meta span + span::before{content:"·";margin:0 12px;color:#5D686F}
+.head__note{margin-top:12px;font-size:13.5px;line-height:1.5;color:var(--dark-muted);max-width:66ch}
 
-/* ---- typography ---- */
-.v3-eyebrow{font-size:14px;font-weight:500;letter-spacing:.01em;color:var(--v3-accent);margin:0 0 var(--v3-s2)}
-.v3-eyebrow--muted{color:var(--v3-ink-3)}
-.v3-display{font-weight:700;font-size:var(--v3-display);line-height:.96;letter-spacing:-.035em;color:var(--v3-ink)}
-.v3-heading{font-weight:600;font-size:var(--v3-heading);line-height:1.08;letter-spacing:-.025em;max-width:20ch;color:var(--v3-ink)}
-.v3-subheading{font-weight:600;font-size:var(--v3-subheading);line-height:1.25;letter-spacing:-.015em;color:var(--v3-ink)}
-.v3-title{font-weight:600;font-size:19px;line-height:1.3;letter-spacing:-.01em;color:var(--v3-ink)}
-.v3-lead{font-family:var(--v3-serif);font-size:var(--v3-lead);line-height:1.45;color:var(--v3-ink-2);max-width:56ch}
-.v3-copy{font-size:var(--v3-body);line-height:1.6;color:var(--v3-ink-2);max-width:var(--v3-measure)}
-.v3-copy p + p{margin-top:.9em}
-.v3-small{font-size:15px;line-height:1.55;color:var(--v3-ink-3);max-width:var(--v3-measure)}
-.v3-meta{font-family:var(--v3-mono);font-size:var(--v3-meta);line-height:1.6;letter-spacing:.01em;color:var(--v3-ink-3)}
-.v3-num{font-variant-numeric:tabular-nums}
-.v3-heading + .v3-lead,.v3-display + .v3-lead{margin-top:var(--v3-s4)}
-.v3-lead + .v3-copy{margin-top:var(--v3-s3)}
-.v3-heading + .v3-copy,.v3-subheading + .v3-copy{margin-top:var(--v3-s2)}
-.v3-stack > * + *{margin-top:var(--v3-s5)}
-.v3-stack--sm > * + *{margin-top:var(--v3-s3)}
-.v3-rule{border:0;border-top:1px solid var(--v3-line);margin:0}
-.v3-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:start}
-.v3-split--40-60{grid-template-columns:minmax(0,4fr) minmax(0,6fr)}
-.v3-split > *{min-width:0}
-.v3-big-number__value{display:block;font-weight:700;font-size:clamp(44px,5.6vw,68px);line-height:.92;letter-spacing:-.045em;color:var(--v3-ink);font-variant-numeric:tabular-nums}
-.v3-big-number__label{display:block;margin-top:var(--v3-s2);font-size:17px;line-height:1.4;color:var(--v3-ink-2);max-width:28ch}
-.v3-callout{border-left:2px solid var(--v3-accent);padding:4px 0 4px var(--v3-s3);font-size:17px;line-height:1.55;color:var(--v3-ink-2);max-width:var(--v3-measure)}
-.v3-list{list-style:none;margin:0;padding:0;max-width:var(--v3-measure)}
-.v3-list li{position:relative;padding-left:20px;margin:0 0 8px;font-size:16px;line-height:1.5;color:var(--v3-ink-2)}
-.v3-list li::before{content:"";position:absolute;left:0;top:.7em;width:9px;height:1px;background:var(--v3-accent)}
-.v3-list--cols{columns:2;column-gap:var(--v3-s5);max-width:none}
-.v3-list--cols li{break-inside:avoid}
-.v3-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--v3-s5);list-style:none;margin:0;padding:0;counter-reset:v3s}
-.v3-steps li{counter-increment:v3s}
-.v3-steps li::before{content:"0" counter(v3s);display:block;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.04em;color:var(--v3-accent);margin-bottom:var(--v3-s2)}
-.v3-steps .v3-title{margin-bottom:6px}
-.v3-principles{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--v3-s5) var(--v3-s6);list-style:none;margin:0;padding:0}
-.v3-principle__index{display:block;font-weight:600;font-size:14px;color:var(--v3-accent);margin-bottom:var(--v3-s1)}
-.v3-principle .v3-title{margin-bottom:var(--v3-s1)}
-.v3-principle .v3-copy{font-size:16px;max-width:38ch}
+/* ---------- list ---------- */
+.list{padding-block:clamp(56px,7vw,88px)}
+.d{display:grid;grid-template-columns:76px minmax(0,1fr);gap:0 24px;padding-block:clamp(30px,4vw,40px);border-top:1px solid var(--line)}
+.d:first-child{border-top:0;padding-top:0}
+.d__n{font-family:var(--mono);font-size:14px;color:var(--accent);padding-top:6px;letter-spacing:.04em}
+.d__head{display:flex;align-items:baseline;justify-content:space-between;gap:20px}
+.d__title{font-weight:600;font-size:clamp(20px,2.3vw,24px);line-height:1.28;letter-spacing:-.018em;max-width:30ch}
+.d__when{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;padding-top:4px}
+.d__when--now{color:var(--accent)}
+.d__ctx{margin-top:12px;font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:66ch}
+.d__rec{margin-top:20px;border-left:2px solid var(--accent);padding:2px 0 2px 20px;font-size:16.5px;line-height:1.55;color:var(--ink);max-width:66ch}
+.d__rec b{color:var(--accent);font-weight:600}
+.d__note{margin-top:14px;font-size:14px;line-height:1.5;color:var(--ink-3);max-width:66ch}
+.d__note--cr{display:inline-block;background:var(--warn-soft);color:var(--warn-ink);border-radius:4px;padding:6px 11px;font-size:13.5px}
 
-/* ---- topbar ---- */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:50;height:48px;background:rgba(245,244,239,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--v3-line);transform:translateY(-100%);transition:transform .25s ease}
-.topbar.show{transform:none}
-.topbar .in{max-width:var(--v3-container);margin:0 auto;padding:0 var(--v3-gutter);height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:13px;color:var(--v3-ink-3)}
-.topbar .doc{color:var(--v3-ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar .cur{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar .cur em{font-style:normal;font-family:var(--v3-mono);font-size:11px;color:var(--v3-accent);margin-right:8px}
-.topbar .sum{color:var(--v3-ink);white-space:nowrap}
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding-block:22px 56px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--ink-3)}
 
-/* ---- hero ---- */
-.v3-hero{display:flex;flex-direction:column;min-height:100vh;min-height:100svh;padding-block:clamp(24px,3.4vh,38px)}
-.v3-hero > .v3-container{display:flex;flex-direction:column;justify-content:center;flex:1;width:100%}
-.v3-hero__main{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:clamp(32px,5vw,64px);align-items:center}
-.v3-hero__main > *{min-width:0}
-.v3-hero .v3-display{font-size:clamp(40px,6.4vw,76px)}
-.v3-hero .v3-lead{margin-top:clamp(18px,2.6vh,28px);max-width:46ch;color:var(--v3-dark-muted)}
-.v3-hero__kpis{display:grid;grid-template-columns:auto auto;gap:clamp(18px,2.8vh,30px) 56px;align-items:end;justify-content:start;margin-top:clamp(34px,5vh,54px)}
-.v3-hero__kpis .v3-big-number__value{color:var(--v3-dark-ink);white-space:nowrap;font-size:clamp(30px,3.6vw,46px)}
-.v3-hero__kpis .v3-big-number--sm .v3-big-number__value{font-size:clamp(20px,2.2vw,26px);font-weight:600;letter-spacing:-.03em}
-.v3-hero__kpis .v3-big-number__label{color:var(--v3-dark-muted);font-size:15px;margin-top:10px}
-.v3-hero__line{margin-top:clamp(28px,4.2vh,44px);padding-top:18px;border-top:1px solid var(--v3-dark-line);font-size:15px;color:var(--v3-dark-ink);display:flex;flex-wrap:wrap;gap:6px 0}
-.v3-hero__line span + span::before{content:"·";margin:0 12px;color:var(--v3-dark-muted)}
-.v3-hero__visual{margin:0;display:flex;justify-content:flex-end;opacity:.72}
-.v3-hero__visual svg{width:100%;max-width:min(430px,40vw);height:auto;display:block}
-.hs-ring{fill:none;stroke:#7FB6C4;stroke-opacity:.16;stroke-width:1}
-.hs-dot-a{fill:#7FB6C4}
-.hs-dot-b{fill:#5C7A85}
-.hs-dot-c{fill:none;stroke:#5C7A85;stroke-width:1;stroke-dasharray:2 2}
-.hs-core{fill:#14505F}
-.hs-core-ring{fill:none;stroke:#7FB6C4;stroke-opacity:.45;stroke-width:1}
-.hs-core-num{font-family:var(--v3-sans);font-size:44px;font-weight:700;fill:#F3F2ED;text-anchor:middle;letter-spacing:-.03em}
-.hs-core-sub{font-family:var(--v3-sans);font-size:12px;fill:#CFE1E6;text-anchor:middle}
-
-/* ---- contents ---- */
-.toc{padding-block:var(--v3-s6)}
-.toc__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--v3-s6)}
-.toc__col > .v3-eyebrow{margin-bottom:var(--v3-s2)}
-.toc__when{font-size:13.5px;color:var(--v3-ink-3);margin:0 0 var(--v3-s3);padding-bottom:var(--v3-s3);border-bottom:1px solid var(--v3-line)}
-.toc__list{list-style:none;margin:0;padding:0}
-.toc__list li{margin:0}
-.toc__list a{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:baseline;padding:9px 0;color:var(--v3-ink);font-size:15.5px;line-height:1.35;border-top:1px solid var(--v3-line)}
-.toc__list li:first-child a{border-top:0;padding-top:0}
-.toc__list a em{font-style:normal;font-family:var(--v3-mono);font-size:11.5px;color:var(--v3-accent)}
-.toc__list a:hover{text-decoration:none;color:var(--v3-accent)}
-
-/* ---- how to read ---- */
-.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--v3-s6);margin-top:var(--v3-s6)}
-.howto__item .v3-eyebrow{margin-bottom:6px}
-
-/* ---- decision groups ---- */
-.qgroup{padding-top:var(--v3-s7)}
-.qgroup:first-of-type{padding-top:0}
-.qgroup__head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:end;padding-bottom:var(--v3-s4);border-bottom:2px solid var(--v3-ink)}
-.qgroup__marker{font-family:var(--v3-mono);font-size:var(--v3-meta);letter-spacing:.06em;text-transform:uppercase;color:var(--v3-accent);margin-bottom:var(--v3-s2)}
-.qgroup__title{font-weight:600;font-size:clamp(26px,3.2vw,34px);line-height:1.1;letter-spacing:-.02em}
-.qgroup__note{font-size:16px;line-height:1.55;color:var(--v3-ink-2);max-width:48ch}
-.qgroup__count{margin-top:var(--v3-s2);font-family:var(--v3-mono);font-size:var(--v3-meta);color:var(--v3-ink-3)}
-
-/* ---- decision item ---- */
-.q{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:var(--v3-s6);padding-block:var(--v3-s6);border-top:1px solid var(--v3-line);scroll-margin-top:70px}
-.qgroup__head + .q{border-top:0}
-.q__side{position:sticky;top:80px;align-self:start}
-.q__idx{display:block;font-weight:600;font-size:34px;line-height:1;letter-spacing:-.04em;color:var(--v3-accent);font-variant-numeric:tabular-nums}
-.q__tags{margin-top:var(--v3-s3);display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-.qtag{font-size:12.5px;line-height:1.3;font-weight:500;padding:5px 10px;border-radius:4px;background:var(--v3-paper-2);color:var(--v3-ink-2);border:1px solid var(--v3-line)}
-.qtag--now{background:var(--v3-accent-soft);border-color:#BFD8DE;color:var(--v3-accent-ink)}
-.qtag--cr{background:var(--v3-warn-soft);border-color:#E2D3B4;color:var(--v3-warn-ink)}
-.q__body > * + *{margin-top:var(--v3-s3)}
-.q__title{font-weight:600;font-size:clamp(21px,2.2vw,25px);line-height:1.24;letter-spacing:-.018em;max-width:26ch}
-.q__terms{font-size:15px;line-height:1.55;color:var(--v3-ink-3);max-width:var(--v3-measure);padding-left:var(--v3-s3);border-left:1px solid var(--v3-line)}
-.q__terms b{color:var(--v3-ink-2);font-weight:600}
-.q__stake{font-size:16.5px;line-height:1.6;color:var(--v3-ink-2);max-width:var(--v3-measure)}
-.q__label{font-family:var(--v3-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--v3-ink-3);margin:0 0 var(--v3-s2)}
-.qopts{list-style:none;margin:0;padding:0;max-width:var(--v3-measure)}
-.qopts li{padding:12px 0;border-top:1px solid var(--v3-line);font-size:16px;line-height:1.5;color:var(--v3-ink-2)}
-.qopts li:first-child{border-top:0;padding-top:0}
-.qopts b{color:var(--v3-ink);font-weight:600}
-.qtable{width:100%;border-collapse:collapse;max-width:var(--v3-measure);font-size:15.5px}
-.qtable th{text-align:left;font-family:var(--v3-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--v3-ink-3);padding-bottom:8px;border-bottom:1px solid var(--v3-line-strong)}
-.qtable td{padding:11px 0;border-top:1px solid var(--v3-line);color:var(--v3-ink-2);vertical-align:top;line-height:1.45}
-.qtable td:first-child{width:44%;padding-right:20px;color:var(--v3-ink);font-weight:500}
-.qrec{border-left:2px solid var(--v3-accent);padding:2px 0 2px var(--v3-s3);max-width:var(--v3-measure)}
-.qrec__label{font-family:var(--v3-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--v3-accent);margin-bottom:6px}
-.qrec__text{font-size:17px;line-height:1.55;color:var(--v3-ink)}
-.qrec__text + .qrec__text{margin-top:.7em}
-.q__note{font-size:14.5px;line-height:1.55;color:var(--v3-ink-3);max-width:var(--v3-measure)}
-.q__note b{color:var(--v3-ink-2)}
-
-/* ---- statement ---- */
-.v3-statement{padding-block:var(--v3-s7)}
-.v3-statement__lead{font-family:var(--v3-serif);font-size:clamp(24px,3.4vw,36px);line-height:1.3;letter-spacing:-.01em;color:var(--v3-dark-ink);max-width:24ch}
-.v3-statement__copy{margin-top:var(--v3-s4);font-size:17px;line-height:1.6;color:var(--v3-dark-muted);max-width:52ch}
-
-/* ---- summary ---- */
-.sum-table{width:100%;border-collapse:collapse;margin-top:var(--v3-s5);font-size:15.5px}
-.sum-table th{text-align:left;font-family:var(--v3-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--v3-ink-3);padding-bottom:10px;border-bottom:2px solid var(--v3-ink)}
-.sum-table td{padding:14px 0;border-top:1px solid var(--v3-line);color:var(--v3-ink-2);vertical-align:top;line-height:1.45}
-.sum-table .c-idx{width:42px;font-family:var(--v3-mono);font-size:12.5px;color:var(--v3-accent);padding-right:8px}
-.sum-table .c-q{width:28%;padding-right:24px;color:var(--v3-ink);font-weight:600}
-.sum-table .c-r{padding-right:24px}
-.sum-table .c-w{width:150px;font-size:14px;color:var(--v3-ink-3);white-space:nowrap}
-.sum-table tr:hover td{background:rgba(255,255,255,.5)}
-
-/* ---- fixed / engineering ---- */
-.fixed-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 var(--v3-s6);margin-top:var(--v3-s5)}
-.fixed-grid div{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:13px 0;border-top:1px solid var(--v3-line)}
-.fixed-grid b{font-weight:500;font-size:16px;color:var(--v3-ink)}
-.fixed-grid span{font-size:14px;color:var(--v3-ink-3);white-space:nowrap}
-.eng-cols{columns:2;column-gap:var(--v3-s6);margin-top:var(--v3-s4);max-width:none}
-.eng-cols li{break-inside:avoid}
-
-/* ---- closing ---- */
-.v3-closing{padding-block:var(--v3-s8)}
-.closing__flow{list-style:none;margin:var(--v3-s6) 0 0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 0;font-size:16px;color:var(--v3-dark-ink)}
-.closing__flow li + li::before{content:"";display:inline-block;width:40px;height:1px;background:#3A454E;margin:0 18px;vertical-align:middle}
-.closing__summary{margin-top:var(--v3-s7);padding-top:var(--v3-s4);border-top:1px solid var(--v3-dark-line);display:flex;flex-wrap:wrap;gap:var(--v3-s4) var(--v3-s7)}
-.closing__summary b{display:block;font-weight:700;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.03em;line-height:1;color:var(--v3-dark-ink);font-variant-numeric:tabular-nums}
-.closing__summary span{display:block;margin-top:8px;font-size:14.5px;color:var(--v3-dark-muted)}
-footer{padding:22px 0 56px;border-top:1px solid var(--v3-line);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
-footer div{font-family:var(--v3-mono);font-size:12px;color:var(--v3-ink-3)}
-
-/* ---- responsive ---- */
-@media (max-width:1000px){
-  .v3-split,.v3-split--40-60,.qgroup__head{grid-template-columns:1fr;gap:var(--v3-s4)}
-  .toc__grid,.howto,.v3-principles,.v3-steps{grid-template-columns:1fr 1fr;gap:var(--v3-s5)}
-  .q{grid-template-columns:1fr;gap:var(--v3-s3)}
-  .q__side{position:static;display:flex;align-items:center;gap:var(--v3-s3);flex-wrap:wrap}
-  .q__idx{font-size:26px}
-  .q__tags{margin-top:0;flex-direction:row;flex-wrap:wrap}
-  .v3-hero__main{grid-template-columns:1fr}
-  .v3-hero__visual{display:none}
-  .topbar .cur{display:none}
-}
-@media (max-width:640px){
+@media (max-width:680px){
   body{font-size:16px}
-  :root{--v3-gutter:20px}
-  .toc__grid,.howto,.v3-principles,.v3-steps,.fixed-grid{grid-template-columns:1fr}
-  .v3-list--cols,.eng-cols{columns:1}
-  .v3-hero__kpis{grid-template-columns:1fr;gap:22px}
-  .sum-table .c-q{width:auto}
-  .sum-table,.sum-table thead,.sum-table tbody,.sum-table tr,.sum-table td{display:block;width:auto}
-  .sum-table thead{display:none}
-  .sum-table tr{border-top:1px solid var(--v3-line);padding:16px 0}
-  .sum-table td{border:0;padding:2px 0}
-  .sum-table .c-idx{color:var(--v3-accent)}
-  .qtable td:first-child{width:auto}
-  .closing__flow li + li::before{width:24px;margin:0 12px}
+  :root{--gutter:20px}
+  .d{grid-template-columns:1fr;gap:0}
+  .d__n{padding-top:0;margin-bottom:10px}
+  .d__head{display:block}
+  .d__when{display:block;padding-top:0;margin-bottom:8px}
+  .d__title{max-width:none}
+  .d__rec{padding-left:16px}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-/* ---- print ---- */
-@page{size:A4;margin:15mm 14mm 16mm}
+@page{size:A4;margin:16mm 16mm 15mm}
 @page :first{margin:0}
 @media print{
   html{scroll-behavior:auto}
   body{background:#fff;font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .topbar{display:none!important}
-  .v3-container{max-width:none;padding-inline:0}
-  .v3-section{padding-block:22px}
-  .v3-hero{margin:0;padding:28mm 20mm 22mm;min-height:297mm;height:297mm;justify-content:center;break-after:page;page-break-after:always}
-  .v3-hero .v3-container{max-width:none;padding:0}
-  .v3-hero .v3-display{font-size:36pt}
-  .v3-hero .v3-lead{font-size:12pt}
-  .v3-hero__visual{display:flex}
-  .v3-hero__visual svg{max-width:none}
-  .v3-hero__kpis{margin-top:14mm;gap:8mm 14mm}
-  .v3-hero__kpis .v3-big-number__value{font-size:20pt}
-  .v3-hero__kpis .v3-big-number--sm .v3-big-number__value{font-size:12pt}
-  .toc{break-after:page;page-break-after:always}
-  .qgroup{padding-top:26px;break-before:page;page-break-before:always}
-  .qgroup:first-of-type{break-before:auto;page-break-before:auto}
-  .qgroup__head{break-after:avoid;page-break-after:avoid}
-  .q{break-inside:avoid;page-break-inside:avoid;padding-block:16px;grid-template-columns:minmax(0,140px) minmax(0,1fr);gap:20px}
-  .q__side{position:static}
-  .q__idx{font-size:22pt}
-  .q__title{font-size:14pt}
-  .q__stake,.qrec__text{font-size:10pt}
-  .qopts li,.qtable,.q__terms{font-size:9.5pt}
-  .q__note{font-size:9pt}
-  .qtable td{padding:7px 0}
-  .v3-statement,.v3-closing{break-inside:avoid;page-break-inside:avoid;padding-block:18mm}
-  .v3-heading{font-size:20pt}
-  .v3-lead{font-size:11.5pt}
-  .sum-table{font-size:9pt;break-inside:auto}
-  .sum-table tr{break-inside:avoid;page-break-inside:avoid}
-  .sum-table td{padding:8px 0}
-  .sum-table tr:hover td{background:none}
-  .fixed-grid,.eng-cols,.v3-steps,.howto,.v3-principles{break-inside:avoid;page-break-inside:avoid}
-  #summary,#fixed,#next{break-before:page;page-break-before:always}
-  a{color:inherit}
+  .wrap{max-width:none;padding-inline:0}
+  .head{padding:34mm 18mm 30mm;margin:0;break-after:page;page-break-after:always}
+  .head .wrap{padding-inline:0}
+  .head__title{font-size:34pt}
+  .head__lead{font-size:13pt}
+  .list{padding-block:0}
+  .d{break-inside:avoid;page-break-inside:avoid;padding-block:16px;grid-template-columns:56px minmax(0,1fr)}
+  .d__title{font-size:14pt}
+  .d__ctx,.d__rec{font-size:10pt}
+  .d__note{font-size:8.5pt}
   footer{break-before:avoid;page-break-before:avoid;padding-bottom:0}
 }
 </style>
 </head>
 <body>
 
-<div class="topbar" id="topbar" aria-hidden="true">
-  <div class="in">
-    <div class="doc">Ключевые решения перед стартом</div>
-    <div class="cur" id="topcur"></div>
-    <div class="sum">14 решений · 5 до старта</div>
-  </div>
-</div>
-
-<!-- ===== 01 · COVER ===== -->
-<header class="v3-section v3-section--dark v3-hero" id="s01">
-  <div class="v3-container">
-    <div class="v3-hero__main">
-      <div>
-        <p class="v3-eyebrow" style="color:#A6AFB6">Crypto Casino Platform · Приложение к коммерческому предложению</p>
-        <h1 class="v3-display">Ключевые решения<br>перед стартом</h1>
-        <p class="v3-lead">Архитектура, состав работ и стоимость определены. Осталось четырнадцать решений, которые не может принять за вас команда разработки, — по каждому у нас уже есть рекомендация.</p>
-
-        <div class="v3-hero__kpis">
-          <p class="v3-big-number"><span class="v3-big-number__value">14</span><span class="v3-big-number__label">решений вместо технического опросника</span></p>
-          <p class="v3-big-number"><span class="v3-big-number__value">5</span><span class="v3-big-number__label">нужны до старта разработки</span></p>
-          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">По каждому — рекомендация</span><span class="v3-big-number__label">достаточно подтвердить или скорректировать</span></p>
-          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">$57,000 не меняется</span><span class="v3-big-number__label">решения внутри согласованного объёма работ</span></p>
-        </div>
-
-        <div class="v3-hero__line">
-          <span>Ответы влияют на продукт</span><span>не на смету</span><span>расширение объёма — только через Change Request</span>
-        </div>
-      </div>
-
-      <figure class="v3-hero__visual">
-        <svg viewBox="0 0 440 440" role="img" aria-label="Четырнадцать решений: пять требуются до старта разработки, семь — на этапе проектирования, два — стратегические">
-          <circle cx="220" cy="220" r="200" class="hs-ring"/>
-          <circle cx="220" cy="220" r="170" class="hs-ring"/>
-          <circle cx="220" cy="220" r="86" class="hs-core-ring"/>
-          <circle cx="220" cy="220" r="72" class="hs-core"/>
-          <text x="220" y="228" class="hs-core-num">14</text>
-          <text x="220" y="250" class="hs-core-sub">решений</text>
-
-          <circle cx="220" cy="50"  r="7" class="hs-dot-a"/>
-          <circle cx="293.8" cy="66.8"  r="7" class="hs-dot-a"/>
-          <circle cx="352.9" cy="114"   r="7" class="hs-dot-a"/>
-          <circle cx="385.7" cy="182.2" r="7" class="hs-dot-a"/>
-          <circle cx="385.7" cy="257.8" r="7" class="hs-dot-a"/>
-
-          <circle cx="352.9" cy="326"   r="5.5" class="hs-dot-b"/>
-          <circle cx="293.8" cy="373.2" r="5.5" class="hs-dot-b"/>
-          <circle cx="220" cy="390"     r="5.5" class="hs-dot-b"/>
-          <circle cx="146.2" cy="373.2" r="5.5" class="hs-dot-b"/>
-          <circle cx="87.1" cy="326"    r="5.5" class="hs-dot-b"/>
-          <circle cx="54.3" cy="257.8"  r="5.5" class="hs-dot-b"/>
-          <circle cx="54.3" cy="182.2"  r="5.5" class="hs-dot-b"/>
-
-          <circle cx="87.1" cy="114"    r="5" class="hs-dot-c"/>
-          <circle cx="146.2" cy="66.8"  r="5" class="hs-dot-c"/>
-        </svg>
-      </figure>
+<header class="head">
+  <div class="wrap">
+    <p class="head__eyebrow">Crypto Casino Platform · Приложение к коммерческому предложению</p>
+    <h1 class="head__title">Ключевые решения перед стартом</h1>
+    <p class="head__lead">Архитектура, состав работ и стоимость определены. Осталось четырнадцать решений, которые не может принять за вас команда разработки, — по каждому у нас уже есть рекомендация.</p>
+    <div class="head__meta">
+      <span>5 решений нужны до старта</span><span>остальные фиксируются в процессе</span><span>$57,000 не меняется</span>
     </div>
+    <p class="head__note">Если решение не принято к нужному моменту, мы действуем по своей рекомендации и фиксируем её как допущение проекта. Работа не останавливается.</p>
   </div>
 </header>
 
-<main>
+<main class="list">
+  <div class="wrap">
 
-<!-- ===== 02 · КАК ЧИТАТЬ ===== -->
-<section class="v3-section v3-section--tight" id="s02" data-title="Как устроен документ">
-  <div class="v3-container">
-    <div class="v3-split v3-split--40-60">
+    <article class="d">
+      <div class="d__n">01</div>
       <div>
-        <p class="v3-eyebrow">02 · Как устроен документ</p>
-        <h2 class="v3-heading">Мы не отдаём вам список вопросов. Мы отдаём список решений с готовым вариантом ответа.</h2>
+        <div class="d__head">
+          <h2 class="d__title">В какой юрисдикции работает платформа и какие рынки закрываем?</h2>
+          <span class="d__when d__when--now">До старта</span>
+        </div>
+        <p class="d__ctx">От этого зависят глубина проверки игроков, обязательные инструменты ответственной игры и сроки хранения данных. Ограничение доступа по странам мы закладываем в любом случае — нужен список стран и правовая рамка.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Лицензия базового уровня — Curaçao или Anjouan: предсказуемые сроки и бюджет при умеренных требованиях. Все правила проверок и ограничений реализуем как настройки, поэтому ужесточение требований позже не потребует переписывания платформы.</p>
+        <p class="d__note">Получение лицензии и юридическое сопровождение не входят в стоимость разработки.</p>
       </div>
-      <div class="v3-stack v3-stack--sm">
-        <p class="v3-copy">Исходное ТЗ закрывает большую часть требований, а остальное определяет архитектура. То, что осталось, — это решения о бизнесе, а не о технологиях: где вы работаете, кого проверяете, кому и сколько платите, каким продукт станет через год.</p>
-        <p class="v3-copy">Всё, что относится к устройству системы, мы решаем сами. Каждое из четырнадцати решений ниже влияет на продукт, деньги или юридическую рамку — и поэтому принадлежит вам.</p>
-        <p class="v3-callout">Если решение не принято к нужному моменту — мы действуем по своей рекомендации и фиксируем её как принятое допущение. Проект не останавливается и не дорожает.</p>
-      </div>
-    </div>
+    </article>
 
-    <div class="howto">
-      <div class="howto__item">
-        <p class="v3-eyebrow">Что решаем</p>
-        <p class="v3-copy">Формулировка решения и то, на что оно влияет: на конверсию, на маржу, на риск или на объём работ.</p>
-      </div>
-      <div class="howto__item">
-        <p class="v3-eyebrow">Варианты</p>
-        <p class="v3-copy">Только там, где выбор реален, — с честным описанием того, что вы получаете и чем платите за каждый вариант.</p>
-      </div>
-      <div class="howto__item">
-        <p class="v3-eyebrow">Рекомендуем</p>
-        <p class="v3-copy">Наш вариант для первой версии — с причиной. Это позиция команды, а не перечень возможностей.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 03 · СОДЕРЖАНИЕ ===== -->
-<section class="v3-section v3-section--surface toc" id="s03" data-title="Содержание">
-  <div class="v3-container">
-    <div class="toc__grid">
-      <div class="toc__col">
-        <p class="v3-eyebrow">Группа A · До старта</p>
-        <p class="toc__when">Определяют архитектуру финансового ядра и криптоинфраструктуры. Нужны до начала разработки.</p>
-        <ol class="toc__list">
-          <li><a href="#q01"><em>01</em>Юрисдикция и рынки</a></li>
-          <li><a href="#q02"><em>02</em>Когда проверяем игрока</a></li>
-          <li><a href="#q03"><em>03</em>Ответственная игра</a></li>
-          <li><a href="#q04"><em>04</em>Сети и монеты на запуск</a></li>
-          <li><a href="#q05"><em>05</em>Что такое мультивалютность</a></li>
-        </ol>
-      </div>
-      <div class="toc__col">
-        <p class="v3-eyebrow v3-eyebrow--muted">Группа B · Этап проектирования</p>
-        <p class="toc__when">Не блокируют старт. Фиксируются в первые недели работы — мы начинаем по рекомендации.</p>
-        <ol class="toc__list">
-          <li><a href="#q06"><em>06</em>Вход в аккаунт и его защита</a></li>
-          <li><a href="#q07"><em>07</em>Лимиты, комиссии и правила кассы</a></li>
-          <li><a href="#q08"><em>08</em>Бонусы на запуске</a></li>
-          <li><a href="#q09"><em>09</em>Условия для партнёров</a></li>
-          <li><a href="#q10"><em>10</em>Каналы связи и уведомления</a></li>
-          <li><a href="#q11"><em>11</em>Показатели для собственника</a></li>
-          <li><a href="#q12"><em>12</em>Ожидаемый масштаб</a></li>
-        </ol>
-      </div>
-      <div class="toc__col">
-        <p class="v3-eyebrow v3-eyebrow--muted">Группа C · Стратегия</p>
-        <p class="toc__when">Не влияют на запуск, но определяют, каким продукт станет через год. Ответ — до конца проектирования.</p>
-        <ol class="toc__list">
-          <li><a href="#q13"><em>13</em>Как подключаем игры</a></li>
-          <li><a href="#q14"><em>14</em>Жизнь платформы после запуска</a></li>
-        </ol>
-        <p class="toc__when" style="border:0;margin-top:32px;padding:0">Далее в документе:<br>
-          <a href="#summary">Сводка решений на одной странице</a><br>
-          <a href="#fixed">Что уже определено</a><br>
-          <a href="#engineering">Что решает команда разработки</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 04 · РЕШЕНИЯ ===== -->
-<section class="v3-section" id="s04" data-title="Решения заказчика">
-  <div class="v3-container">
-
-    <!-- ГРУППА A -->
-    <div class="qgroup">
-      <div class="qgroup__head">
-        <div>
-          <p class="qgroup__marker">Группа A</p>
-          <h2 class="qgroup__title">Решения до старта разработки</h2>
-        </div>
-        <div>
-          <p class="qgroup__note">Эти пять решений задают правила, по которым устроены деньги и доступ к ним. Их нельзя «дописать позже»: они проходят через финансовое ядро, а его переработка — самая дорогая из возможных.</p>
-          <p class="qgroup__count">5 решений · нужны до начала работ по финансовому модулю</p>
-        </div>
-      </div>
-
-      <!-- 01 -->
-      <article class="q" id="q01">
-        <div class="q__side">
-          <span class="q__idx">01</span>
-          <div class="q__tags">
-            <span class="qtag qtag--now">Нужно до старта</span>
-            <span class="qtag">В рамках $57,000</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">В какой юрисдикции работает платформа и какие рынки мы закрываем?</h3>
-          <p class="q__stake">Это первое решение, потому что от него зависят три следующих: как глубоко проверяем игроков, какие инструменты ответственной игры обязательны и сколько лет храним данные. Ограничение доступа по странам мы закладываем в проект в любом случае — нам нужен список стран и правовая рамка, под которую настраивается остальная логика.</p>
-          <div>
-            <p class="q__label">Варианты</p>
-            <ul class="qopts">
-              <li><b>Лицензия Curaçao или Anjouan.</b> Стандартный маршрут для крипто-проектов: предсказуемые сроки и бюджет, умеренные требования к проверкам и отчётности.</li>
-              <li><b>Строгая юрисдикция (Мальта, Isle of Man).</b> Выше доверие игроков и доступ к регулируемым рынкам — существенно жёстче требования к KYC, отчётности и ответственной игре.</li>
-              <li><b>Без лицензии, с закрытием проблемных рынков.</b> Самый быстрый старт, но ограничения по платёжным партнёрам, рекламным каналам и уровню риска.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Зафиксировать юрисдикцию до начала работ по финансовому модулю и исходить из лицензии базового уровня. Правила проверок, лимитов и ограничений мы реализуем как настройки, а не как «зашитую» логику: ужесточение требований позже не приведёт к переписыванию платформы.</p>
-          </div>
-          <p class="q__note">Получение лицензии, юридическое сопровождение и сертификация не входят в стоимость разработки. От вас нужно решение и итоговые требования — не документы.</p>
-        </div>
-      </article>
-
-      <!-- 02 -->
-      <article class="q" id="q02">
-        <div class="q__side">
-          <span class="q__idx">02</span>
-          <div class="q__tags">
-            <span class="qtag qtag--now">Нужно до старта</span>
-            <span class="qtag">В рамках $57,000</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">На каком шаге игрок проходит проверку личности?</h3>
-          <p class="q__terms"><b>KYC</b> — проверка личности игрока по документу и селфи через внешний сервис. <b>AML</b> — контроль происхождения средств и подозрительных операций.</p>
-          <p class="q__stake">Решение напрямую влияет на выручку: каждый дополнительный шаг до первого депозита стоит части игроков. И одновременно — на риск: чем позже проверка, тем больше спорных ситуаций при выводе денег.</p>
-          <div>
-            <p class="q__label">Варианты</p>
-            <ul class="qopts">
-              <li><b>Сразу при регистрации.</b> Максимальная строгость и минимум претензий от регулятора — ценой ощутимой потери игроков на входе.</li>
-              <li><b>Перед первым выводом.</b> Игрок свободно вносит депозит и играет; проверка требуется только когда он забирает деньги.</li>
-              <li><b>По сумме и уровню риска.</b> Проверка включается при достижении порога или подозрительной активности.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Проверку перед первым выводом плюс дополнительные проверки по сумме и уровню риска. Это рыночный стандарт: не мешает входу и закрывает основной риск — выдачу денег непроверенному получателю. Если лицензия потребует проверять всех — режим переключается настройкой, без переработки системы.</p>
-          </div>
-          <p class="q__note">Отдельно потребуется выбрать <b>одного провайдера проверки</b> (Sumsub, Veriff и аналоги). Интеграция одного провайдера входит в стоимость разработки; его абонентская плата оплачивается заказчиком.</p>
-        </div>
-      </article>
-
-      <!-- 03 -->
-      <article class="q" id="q03">
-        <div class="q__side">
-          <span class="q__idx">03</span>
-          <div class="q__tags">
-            <span class="qtag qtag--now">Нужно до старта</span>
-            <span class="qtag qtag--cr">Расширенный набор — отдельная оценка</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Какие инструменты ответственной игры включаем на запуске?</h3>
-          <p class="q__terms"><b>Responsible Gambling</b> — набор функций, которыми игрок сам себя ограничивает: лимит депозита, пауза в игре, самоисключение на срок или навсегда.</p>
-          <p class="q__stake">В исходном ТЗ этого блока нет, а большинство лицензий его требуют. Мы выносим его отдельно сознательно: такие ограничения затрагивают депозит, баланс и доступ к аккаунту, поэтому дописывать их в уже работающую финансовую систему заметно дороже, чем заложить сразу.</p>
-          <div>
-            <p class="q__label">Варианты</p>
-            <ul class="qopts">
-              <li><b>Базовый набор.</b> Лимиты депозита, самоисключение на срок и бессрочно, пауза в игре, блокировка аккаунта по запросу игрока.</li>
-              <li><b>Расширенный набор под конкретного регулятора.</b> Лимиты ставок и проигрыша, напоминания о времени в игре, отчётность регулятору, подключение к национальным реестрам самоисключённых игроков.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Базовый набор с настраиваемыми параметрами. Он покрывает требования лицензий базового уровня и оставляет запас: если регулятор потребует больше, надстраивать будет уже на что.</p>
-          </div>
-          <p class="q__note">Базовый набор входит в согласованный объём работ. Расширенный набор и интеграции с государственными реестрами — <b>отдельная оценка / Change Request</b>.</p>
-        </div>
-      </article>
-
-      <!-- 04 -->
-      <article class="q" id="q04">
-        <div class="q__side">
-          <span class="q__idx">04</span>
-          <div class="q__tags">
-            <span class="qtag qtag--now">Нужно до старта</span>
-            <span class="qtag qtag--cr">4-я сеть — отдельная оценка</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Какие три сети и какие монеты запускаем первыми?</h3>
-          <p class="q__stake">В стоимость входит подключение до трёх блокчейн-сетей. По сути это решение о том, какую аудиторию платформа обслуживает в первую очередь. Важная деталь: одна и та же монета в разных сетях — это две разные интеграции, USDT в TRON и USDT в Ethereum считаются отдельно.</p>
-          <div>
-            <p class="q__label">Варианты — по аудитории, а не по технологии</p>
-            <ul class="qopts">
-              <li><b>TRON (USDT-TRC20).</b> Массовая аудитория СНГ: самая привычная игроку монета и самая низкая комиссия за перевод.</li>
-              <li><b>TON.</b> Аудитория Telegram. Логичный выбор, если основная точка входа — Mini App и бот.</li>
-              <li><b>Bitcoin.</b> Платёжеспособный и «репутационный» сегмент, но переводы медленнее и дороже.</li>
-              <li><b>Ethereum или BSC.</b> Игроки, работающие со стейблкоинами вне TRON.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">TRON (USDT), TON и Bitcoin. Эта тройка закрывает массовый депозит, Telegram-аудиторию и премиальный сегмент одновременно. Остальные сети подключаются после запуска, когда видна реальная структура депозитов, — архитектура для этого уже заложена в объём работ.</p>
-          </div>
-          <p class="q__note">Три сети входят в стоимость. Каждая дополнительная сеть — <b>отдельная оценка / Change Request</b>. Оплата RPC-провайдеров и узлов — на стороне заказчика.</p>
-        </div>
-      </article>
-
-      <!-- 05 -->
-      <article class="q" id="q05">
-        <div class="q__side">
-          <span class="q__idx">05</span>
-          <div class="q__tags">
-            <span class="qtag qtag--now">Нужно до старта</span>
-            <span class="qtag qtag--cr">Обменник — отдельная оценка</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Что в вашем продукте означает мультивалютность?</h3>
-          <p class="q__stake">В ТЗ мультивалютность указана одной строкой, но трактовать её можно тремя способами — и это три разных продукта с разной экономикой и разным уровнем риска для платформы.</p>
-          <div>
-            <p class="q__label">Варианты</p>
-            <ul class="qopts">
-              <li><b>Отдельные балансы по каждой монете.</b> Внёс BTC — играет в BTC, внёс USDT — играет в USDT. Балансы не смешиваются, у платформы не возникает курсового риска.</li>
-              <li><b>Балансы плюс отображение эквивалента.</b> Деньги хранятся в криптовалюте, а игрок дополнительно видит «≈ $120» или «≈ 11 000 ₽» — только для удобства восприятия.</li>
-              <li><b>Внутренний обменник.</b> Игрок меняет одну криптовалюту на другую прямо в кабинете.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Первый и второй варианты вместе: реальные балансы по каждой монете плюс отображение эквивалента в долларах и рублях. Это соответствует ожиданиям игроков и не переносит на платформу курсовой риск.</p>
-          </div>
-          <p class="q__note">Внутренний обменник — это, по сути, отдельный финансовый продукт: управление курсовым риском, запас ликвидности по каждой монете, отдельная отчётность и налоговый след. <b>Отдельная оценка / Change Request.</b></p>
-        </div>
-      </article>
-    </div>
-
-    <!-- ГРУППА B -->
-    <div class="qgroup">
-      <div class="qgroup__head">
-        <div>
-          <p class="qgroup__marker">Группа B</p>
-          <h2 class="qgroup__title">Решения на этапе проектирования</h2>
-        </div>
-        <div>
-          <p class="qgroup__note">Эти решения не блокируют старт. Мы начинаем работу по своей рекомендации и фиксируем финальные значения в первые недели проекта — почти все они реализованы как настройки, а не как код.</p>
-          <p class="qgroup__count">7 решений · первые 3–4 недели работы</p>
-        </div>
-      </div>
-
-      <!-- 06 -->
-      <article class="q" id="q06">
-        <div class="q__side">
-          <span class="q__idx">06</span>
-          <div class="q__tags">
-            <span class="qtag">Этап проектирования</span>
-            <span class="qtag">В рамках $57,000</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Как игрок входит в аккаунт и как защищает деньги на нём?</h3>
-          <p class="q__stake">У платформы три точки входа — сайт, Telegram и Android-приложение. Решение здесь — компромисс между конверсией на регистрации и сохранностью аккаунта, в котором лежат реальные деньги.</p>
-          <div>
-            <p class="q__label">Варианты</p>
-            <ul class="qopts">
-              <li><b>Вход только через Telegram.</b> Самая высокая конверсия: регистрация в одно нажатие. Но игрок теряет доступ к деньгам вместе с Telegram-аккаунтом, а поддержка не может подтвердить его личность.</li>
-              <li><b>E-mail и пароль с подтверждением, Telegram — дополнительной привязкой.</b> Регистрация чуть длиннее, зато доступ восстановим, а спорные ситуации разрешимы.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">E-mail с подтверждением как основной идентификатор аккаунта и вход через Telegram в одно нажатие после привязки — конверсия сохраняется, но у аккаунта появляется восстановимый «якорь». Второй фактор (одноразовый код) — по желанию игрока и обязательно при выводе выше согласованной суммы.</p>
-          </div>
-          <p class="q__note">Обязательный второй фактор для сотрудников и усиленная защита аккаунта собственника уже входят в объём работ и отдельного решения не требуют.</p>
-        </div>
-      </article>
-
-      <!-- 07 -->
-      <article class="q" id="q07">
-        <div class="q__side">
-          <span class="q__idx">07</span>
-          <div class="q__tags">
-            <span class="qtag">Этап проектирования</span>
-            <span class="qtag">Настраивается в админ-панели</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Какими будут лимиты, комиссии и правила кассы?</h3>
-          <p class="q__stake">В ТЗ зафиксировано одно правило: вывод свыше $500 требует двойного подтверждения. Остальные правила кассы определяют, насколько платформа удобна игроку и насколько защищена от злоупотреблений. Мы не спрашиваем эти цифры «с нуля» — ниже готовый набор, который достаточно подтвердить или скорректировать.</p>
-          <div>
-            <p class="q__label">Предлагаемые правила по умолчанию</p>
-            <table class="qtable">
-              <thead><tr><th>Правило</th><th>Предлагаемое значение</th></tr></thead>
-              <tbody>
-                <tr><td>Комиссия сети за перевод</td><td>Удерживается с игрока — рыночный стандарт, защищает от вывода мелкими суммами</td></tr>
-                <tr><td>Минимальная сумма вывода</td><td>2–3 комиссии сети в выбранной монете</td></tr>
-                <tr><td>Суточный лимит вывода</td><td>На уровне, покрывающем подавляющее большинство обычных выводов; превышение уходит на ручное подтверждение</td></tr>
-                <tr><td>Отмена заявки игроком</td><td>Возможна до момента отправки транзакции в блокчейн</td></tr>
-                <tr><td>Ручная корректировка баланса</td><td>До согласованной суммы — один сотрудник; выше — обязательное подтверждение вторым и указание причины</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Принять эти значения как стартовые. Все они реализуются как настройки в админ-панели: менять их можно в любой момент, без участия разработчиков и без обновления платформы.</p>
-          </div>
-        </div>
-      </article>
-
-      <!-- 08 -->
-      <article class="q" id="q08">
-        <div class="q__side">
-          <span class="q__idx">08</span>
-          <div class="q__tags">
-            <span class="qtag">Этап проектирования</span>
-            <span class="qtag">В рамках $57,000</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Какие бонусные механики включаем на запуске?</h3>
-          <p class="q__stake">Бонусный движок универсальный: правила задаются настройками, а не кодом. Решение — какой набор механик включаем на старте. Каждая механика это не только канал привлечения, но и канал для злоупотреблений, поэтому запускать всё сразу мы не советуем.</p>
-          <div>
-            <p class="q__label">Доступные механики</p>
-            <ul class="qopts">
-              <li><b>Привлечение:</b> приветственный бонус, бонус на депозит, промокоды.</li>
-              <li><b>Удержание:</b> кэшбэк, ранги и статусы.</li>
-              <li><b>Рост базы:</b> реферальный бонус «приведи друга».</li>
-              <li><b>Работа с игроком:</b> ручной бонус от сотрудника — компенсации и индивидуальные предложения.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">На запуск — бонус на депозит, промокоды, реферальный бонус, ручной бонус и базовые ранги. Кэшбэк и многоуровневые акции подключать после запуска, когда видна реальная экономика: процент, назначенный «на глаз» до первых данных, чаще всего и съедает маржу.</p>
-          </div>
-          <p class="q__note">Правила отыгрыша бонуса привязаны к играм, а игры в текущий объём не входят. Мы реализуем интерфейсы отыгрыша, конкретные коэффициенты настраиваются при подключении игровых модулей.</p>
-        </div>
-      </article>
-
-      <!-- 09 -->
-      <article class="q" id="q09">
-        <div class="q__side">
-          <span class="q__idx">09</span>
-          <div class="q__tags">
-            <span class="qtag">Этап проектирования</span>
-            <span class="qtag qtag--cr">Многоуровневая сеть — отдельная оценка</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">По какой модели и на каких условиях платим партнёрам?</h3>
-          <p class="q__terms"><b>RevShare</b> — партнёр постоянно получает процент от дохода с приведённых игроков. <b>CPA</b> — фиксированная выплата за каждого игрока, выполнившего условие. <b>Hybrid</b> — комбинация обеих схем.</p>
-          <p class="q__stake">Все три модели входят в объём работ — решать нужно не «какую реализовать», а по каким правилам считаются деньги. Именно на этих формулировках партнёрские программы чаще всего и теряют маржу.</p>
-          <div>
-            <p class="q__label">Что определяем</p>
-            <table class="qtable">
-              <thead><tr><th>Параметр</th><th>Выбор</th></tr></thead>
-              <tbody>
-                <tr><td>База расчёта RevShare</td><td>GGR — все проигрыши игроков, или NGR — проигрыши минус бонусы, комиссии и расходы</td></tr>
-                <tr><td>Условие выплаты CPA</td><td>Регистрация или первый депозит от определённой суммы</td></tr>
-                <tr><td>Срок заморозки выплаты</td><td>Период, в течение которого вознаграждение недоступно к выводу — защита от мошенничества</td></tr>
-                <tr><td>Перенос минуса партнёра</td><td>Переносится ли отрицательный результат месяца на следующий период</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Считать RevShare от NGR, засчитывать CPA по первому депозиту от согласованной суммы, а не по регистрации, заморозку выплаты установить на 7–14 дней и включить перенос минуса. Такой набор закрывает ситуацию, в которой партнёр зарабатывает, а платформа работает в убыток.</p>
-          </div>
-          <p class="q__note">Многоуровневая сеть, где партнёры приводят партнёров, в текущий объём не входит — <b>отдельная оценка / Change Request</b>.</p>
-        </div>
-      </article>
-
-      <!-- 10 -->
-      <article class="q" id="q10">
-        <div class="q__side">
-          <span class="q__idx">10</span>
-          <div class="q__tags">
-            <span class="qtag">Этап проектирования</span>
-            <span class="qtag qtag--cr">SMS — отдельная оценка</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Через какие каналы общаемся с игроком и о чём его уведомляем?</h3>
-          <p class="q__stake">Формат поддержки уже определён: отдельный интерфейс для операторов с интеграцией Chatwoot. Решить нужно набор каналов и перечень уведомлений. Практика простая: уведомления о движении денег снимают с поддержки основную часть обращений.</p>
-          <div>
-            <p class="q__label">Базовый набор уведомлений</p>
-            <ul class="v3-list v3-list--cols">
-              <li>Депозит зачислен</li>
-              <li>Заявка на вывод принята</li>
-              <li>Вывод отправлен или отклонён</li>
-              <li>Вход с нового устройства</li>
-              <li>Начислен бонус</li>
-              <li>Ответ поддержки</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Чат в приложении, Telegram и e-mail. SMS не подключать: требует отдельного провайдера в каждой стране, стоит заметных денег и почти не даёт выигрыша там, где у игрока уже есть Telegram.</p>
-          </div>
-          <p class="q__note">Подключение SMS — <b>отдельная оценка / Change Request</b>. Оплата почтового сервиса и сервера Chatwoot — на стороне заказчика.</p>
-        </div>
-      </article>
-
-      <!-- 11 -->
-      <article class="q" id="q11">
-        <div class="q__side">
-          <span class="q__idx">11</span>
-          <div class="q__tags">
-            <span class="qtag">Этап проектирования</span>
-            <span class="qtag">В рамках $57,000</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Какие показатели вы хотите видеть каждый день?</h3>
-          <p class="q__stake">Состав отчётов определяет, какие данные платформа начинает накапливать с первого дня работы. Это единственная причина, по которой вопрос стоит закрыть до запуска, а не после: задним числом такие цифры не восстанавливаются.</p>
-          <div>
-            <p class="q__label">Предлагаемый набор для главного экрана</p>
-            <ul class="v3-list v3-list--cols">
-              <li>Регистрации и первые депозиты</li>
-              <li>Сумма депозитов и выводов</li>
-              <li>Чистый приток денег</li>
-              <li>Активные игроки за день</li>
-              <li>Средний депозит</li>
-              <li>Расходы на бонусы и партнёров</li>
-              <li>Остатки по кошелькам платформы</li>
-              <li>Выгрузка любого отчёта в Excel или CSV</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Принять этот набор как стартовый: он покрывает ежедневное управление крипто-казино и не перегружает экран. Добавить нужные показатели проще, когда платформа уже накапливает данные, — исходные события мы фиксируем с первого дня.</p>
-          </div>
-          <p class="q__note">Универсальный конструктор произвольных отчётов в объём работ не входит.</p>
-        </div>
-      </article>
-
-      <!-- 12 -->
-      <article class="q" id="q12">
-        <div class="q__side">
-          <span class="q__idx">12</span>
-          <div class="q__tags">
-            <span class="qtag">Этап проектирования</span>
-            <span class="qtag qtag--cr">Сверх целевой нагрузки — отдельная оценка</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">На какой масштаб рассчитываем платформу в первый год?</h3>
-          <p class="q__stake">Нам нужна бизнес-оценка, а не технические цифры: сколько игроков вы планируете привлечь за первый год и сколько человек может быть онлайн в пиковый момент. Мощность серверов, устройство базы данных и запас прочности мы рассчитаем сами — от вас нужен только порядок величин.</p>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Проектировать под порядок 50 000 зарегистрированных игроков и несколько тысяч одновременно активных, с возможностью нарастить мощность без переделки системы. Это покрывает реалистичный первый год работы и не заставляет платить за инфраструктуру, которая не понадобится.</p>
-          </div>
-          <p class="q__note">Выход сразу на масштаб крупного международного оператора с географически распределённой инфраструктурой — <b>отдельная оценка / Change Request</b>.</p>
-        </div>
-      </article>
-    </div>
-
-    <!-- ГРУППА C -->
-    <div class="qgroup">
-      <div class="qgroup__head">
-        <div>
-          <p class="qgroup__marker">Группа C</p>
-          <h2 class="qgroup__title">Стратегические решения</h2>
-        </div>
-        <div>
-          <p class="qgroup__note">Не влияют на запуск, но определяют, каким продукт станет через год. Ответ нужен до завершения проектирования — позже эти решения стоят дороже всего.</p>
-          <p class="qgroup__count">2 решения · до конца этапа проектирования</p>
-        </div>
-      </div>
-
-      <!-- 13 -->
-      <article class="q" id="q13">
-        <div class="q__side">
-          <span class="q__idx">13</span>
-          <div class="q__tags">
-            <span class="qtag">Стратегия</span>
-            <span class="qtag qtag--cr">Игры — отдельная оценка</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Как вы планируете подключать игры?</h3>
-          <p class="q__stake">Игры не входят в текущую стоимость, но от стратегии зависит, как мы проектируем стыковку с ними уже сейчас. Этот слой проходит через финансовое ядро — переделывать его позже дороже, чем любую другую часть платформы.</p>
-          <div>
-            <p class="q__label">Варианты</p>
-            <ul class="qopts">
-              <li><b>Собственные игры.</b> Полный контроль над математикой и маржой, продукт нельзя скопировать — но каждая игра требует разработки и сертификации.</li>
-              <li><b>Сторонний агрегатор.</b> Один договор даёт каталог из тысяч игр известных провайдеров: быстрый запуск и доверие игроков — ценой доли дохода и зависимости от поставщика.</li>
-              <li><b>Оба варианта.</b> Агрегатор наполняет каталог, собственные игры дают отличие от конкурентов и полную маржу на них.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Проектировать универсальный слой подключения игр сразу под оба сценария — это уже входит в текущую стоимость и ничего не стоит дополнительно. Практический маршрут: стартовать с агрегатора ради каталога и параллельно разрабатывать одну-две собственные игры.</p>
-          </div>
-          <p class="q__note">Разработка собственных игр и интеграция конкретного агрегатора оцениваются отдельно. Предварительный ориентир по PvP «Дураку» указан в коммерческом предложении.</p>
-        </div>
-      </article>
-
-      <!-- 14 -->
-      <article class="q" id="q14">
-        <div class="q__side">
-          <span class="q__idx">14</span>
-          <div class="q__tags">
-            <span class="qtag">Стратегия</span>
-            <span class="qtag qtag--cr">Сопровождение — отдельный договор</span>
-          </div>
-        </div>
-        <div class="q__body">
-          <h3 class="q__title">Кто сопровождает платформу после запуска?</h3>
-          <p class="q__stake">После запуска действует гарантийный период — мы рекомендуем 45 календарных дней, в течение которых ошибки нашего кода исправляются бесплатно. Но крипто-платформа это работающий финансовый сервис: за кошельками, очередью выводов и инфраструктурой нужно следить ежедневно, а не по факту инцидента.</p>
-          <div>
-            <p class="q__label">Варианты</p>
-            <ul class="qopts">
-              <li><b>Своя техническая команда.</b> Вы принимаете платформу с документацией и передачей знаний и дальше развиваете её сами.</li>
-              <li><b>Сопровождение нашей командой.</b> Отдельный договор: мониторинг, обновления, реагирование на инциденты и дальнейшее развитие.</li>
-            </ul>
-          </div>
-          <div class="qrec">
-            <p class="qrec__label">Рекомендуем</p>
-            <p class="qrec__text">Определить формат до запуска, а не после. Передача, подготовленная заранее, проходит без простоя платформы; передача «по факту» почти всегда стоит нескольких недель — и происходит в момент, когда на платформе уже лежат деньги игроков.</p>
-          </div>
-          <p class="q__note">Сопровождение после гарантийного периода не входит в $57,000 и оформляется отдельным договором на поддержку.</p>
-        </div>
-      </article>
-    </div>
-
-  </div>
-</section>
-
-<!-- ===== 05 · STATEMENT ===== -->
-<section class="v3-section v3-section--dark v3-statement" id="s05" data-title="Позиция команды">
-  <div class="v3-container">
-    <p class="v3-statement__lead">Инженерные решения — не ваша зона ответственности. Мы принимаем их сами и отвечаем за результат.</p>
-    <p class="v3-statement__copy">Вы не выбираете модель HSM, схему хранения ключей, устройство базы данных или параметры отказоустойчивости. Всё это следует из бизнес-требований, которые вы уже сформулировали, и из решений выше. Если какой-либо технический выбор имеет финансовые или юридические последствия — мы выносим его вам отдельно, с объяснением на понятном языке.</p>
-  </div>
-</section>
-
-<!-- ===== 06 · СВОДКА ===== -->
-<section class="v3-section" id="summary" data-title="Сводка решений">
-  <div class="v3-container">
-    <p class="v3-eyebrow">06 · Сводка</p>
-    <h2 class="v3-heading">Все четырнадцать решений на одной странице</h2>
-    <p class="v3-lead" style="margin-top:var(--v3-s3)">Если вы согласны с рекомендациями — достаточно подтвердить их одним сообщением. Мы зафиксируем их как принятые допущения проекта.</p>
-
-    <table class="sum-table">
-      <thead>
-        <tr><th class="c-idx">№</th><th class="c-q">Решение</th><th class="c-r">Наша рекомендация</th><th class="c-w">Когда нужно</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="c-idx">01</td><td class="c-q">Юрисдикция и рынки</td><td class="c-r">Лицензия базового уровня, все ограничения — настройками</td><td class="c-w">До старта</td></tr>
-        <tr><td class="c-idx">02</td><td class="c-q">Проверка личности игрока</td><td class="c-r">Перед первым выводом + проверки по сумме и риску</td><td class="c-w">До старта</td></tr>
-        <tr><td class="c-idx">03</td><td class="c-q">Ответственная игра</td><td class="c-r">Базовый набор с настраиваемыми параметрами</td><td class="c-w">До старта</td></tr>
-        <tr><td class="c-idx">04</td><td class="c-q">Сети и монеты</td><td class="c-r">TRON (USDT), TON и Bitcoin</td><td class="c-w">До старта</td></tr>
-        <tr><td class="c-idx">05</td><td class="c-q">Мультивалютность</td><td class="c-r">Отдельные балансы по монетам + отображение эквивалента</td><td class="c-w">До старта</td></tr>
-        <tr><td class="c-idx">06</td><td class="c-q">Вход в аккаунт</td><td class="c-r">E-mail с подтверждением + вход через Telegram, второй фактор при выводе</td><td class="c-w">Проектирование</td></tr>
-        <tr><td class="c-idx">07</td><td class="c-q">Правила кассы</td><td class="c-r">Комиссия с игрока, предложенные лимиты как стартовые</td><td class="c-w">Проектирование</td></tr>
-        <tr><td class="c-idx">08</td><td class="c-q">Бонусы</td><td class="c-r">Депозитный бонус, промокоды, рефералы, ручной бонус, ранги</td><td class="c-w">Проектирование</td></tr>
-        <tr><td class="c-idx">09</td><td class="c-q">Условия партнёрам</td><td class="c-r">RevShare от NGR, CPA по первому депозиту, заморозка 7–14 дней</td><td class="c-w">Проектирование</td></tr>
-        <tr><td class="c-idx">10</td><td class="c-q">Каналы и уведомления</td><td class="c-r">Чат, Telegram и e-mail; без SMS</td><td class="c-w">Проектирование</td></tr>
-        <tr><td class="c-idx">11</td><td class="c-q">Показатели собственника</td><td class="c-r">Стандартный набор из 8 показателей + выгрузка отчётов</td><td class="c-w">Проектирование</td></tr>
-        <tr><td class="c-idx">12</td><td class="c-q">Масштаб платформы</td><td class="c-r">До 50 000 игроков, рост мощности без переделки</td><td class="c-w">Проектирование</td></tr>
-        <tr><td class="c-idx">13</td><td class="c-q">Подключение игр</td><td class="c-r">Универсальный слой под оба сценария; старт с агрегатора</td><td class="c-w">Стратегия</td></tr>
-        <tr><td class="c-idx">14</td><td class="c-q">Сопровождение после запуска</td><td class="c-r">Определить формат до запуска, а не после</td><td class="c-w">Стратегия</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ===== 07 · УЖЕ ОПРЕДЕЛЕНО ===== -->
-<section class="v3-section v3-section--surface" id="fixed" data-title="Что уже определено">
-  <div class="v3-container">
-    <div class="v3-split v3-split--40-60">
+    <article class="d">
+      <div class="d__n">02</div>
       <div>
-        <p class="v3-eyebrow">07 · Зафиксировано</p>
-        <h2 class="v3-heading">Что уже определено и не требует вашего решения</h2>
+        <div class="d__head">
+          <h2 class="d__title">На каком шаге игрок проходит проверку личности?</h2>
+          <span class="d__when d__when--now">До старта</span>
+        </div>
+        <p class="d__ctx">KYC — проверка личности по документу и селфи через внешний сервис. Каждый лишний шаг до первого депозита стоит части игроков; при этом чем позже проверка, тем больше спорных ситуаций при выводе денег.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Проверку перед первым выводом плюс дополнительные проверки по сумме и уровню риска. Это рыночный стандарт: не мешает входу и закрывает главный риск — выдачу денег непроверенному получателю. Если лицензия потребует проверять всех, режим переключается настройкой.</p>
+        <p class="d__note">Интеграция одного KYC-провайдера входит в стоимость разработки, его абонентская плата — нет.</p>
       </div>
-      <p class="v3-copy">Эти параметры согласованы и заложены в стоимость. Мы приводим их здесь, чтобы вы не искали ответы на вопросы, которые уже закрыты, и чтобы граница объёма работ была видна целиком.</p>
-    </div>
+    </article>
 
-    <div class="fixed-grid">
-      <div><b>Фиксированная стоимость</b><span>$57,000</span></div>
-      <div><b>Публичная веб-версия для игроков</b><span>входит</span></div>
-      <div><b>Разработка игр</b><span>не входит</span></div>
-      <div><b>Языки интерфейса</b><span>RU + EN</span></div>
-      <div><b>Blockchain-сети</b><span>до 3</span></div>
-      <div><b>Поддержка</b><span>Chatwoot</span></div>
-      <div><b>Хранение средств: Hot / Warm / Cold + HSM</b><span>базовая модель</span></div>
-      <div><b>Android-приложение</b><span>Capacitor</span></div>
-      <div><b>Внешний пентест и сертификации</b><span>не входят</span></div>
-      <div><b>iOS-приложение</b><span>не входит</span></div>
-      <div><b>Оплата сторонних сервисов и инфраструктуры</b><span>на стороне заказчика</span></div>
-      <div><b>Расширение объёма работ</b><span>Change Request</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 08 · ТЕХНИЧЕСКИЕ РЕШЕНИЯ ===== -->
-<section class="v3-section" id="engineering" data-title="Решения команды разработки">
-  <div class="v3-container">
-    <div class="v3-split v3-split--40-60">
+    <article class="d">
+      <div class="d__n">03</div>
       <div>
-        <p class="v3-eyebrow">08 · Зона ответственности команды</p>
-        <h2 class="v3-heading">Технические решения, которые принимаем мы</h2>
+        <div class="d__head">
+          <h2 class="d__title">Какие инструменты ответственной игры включаем?</h2>
+          <span class="d__when d__when--now">До старта</span>
+        </div>
+        <p class="d__ctx">Речь о функциях, которыми игрок сам себя ограничивает: лимит депозита, пауза, самоисключение. В исходном ТЗ этого блока нет, а большинство лицензий его требуют. Дописывать такие ограничения позже дороже — они затрагивают депозит, баланс и доступ к аккаунту.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Базовый набор с настраиваемыми параметрами: лимиты депозита, пауза в игре, самоисключение на срок и бессрочно, блокировка аккаунта по запросу игрока. Он покрывает требования лицензий базового уровня и оставляет запас на ужесточение.</p>
+        <p class="d__note d__note--cr">Расширенный набор под конкретного регулятора и интеграции с государственными реестрами — отдельная оценка.</p>
       </div>
-      <div class="v3-stack v3-stack--sm">
-        <p class="v3-copy">Всё, что относится к внутреннему устройству платформы, команда определяет самостоятельно — исходя из согласованных бизнес-требований, отраслевых стандартов и требований безопасности к финансовым системам.</p>
-        <p class="v3-copy">Эти решения фиксируются в архитектурном документе и в разделе Assumptions коммерческого предложения. Вам не нужно в них разбираться и не нужно за них отвечать.</p>
+    </article>
+
+    <article class="d">
+      <div class="d__n">04</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Какие три сети и монеты запускаем первыми?</h2>
+          <span class="d__when d__when--now">До старта</span>
+        </div>
+        <p class="d__ctx">В стоимость входит до трёх блокчейн-сетей, и это по сути выбор аудитории: TRON — массовый игрок СНГ, TON — аудитория Telegram, Bitcoin — платёжеспособный сегмент. Одна и та же монета в двух сетях считается как две интеграции.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> TRON (USDT), TON и Bitcoin. Эта тройка закрывает массовый депозит, Telegram-аудиторию и премиальный сегмент одновременно. Остальные сети подключаются после запуска, когда видна реальная структура депозитов, — архитектура для этого заложена.</p>
+        <p class="d__note d__note--cr">Каждая сеть сверх трёх — отдельная оценка.</p>
       </div>
-    </div>
+    </article>
 
-    <ul class="v3-list eng-cols">
-      <li>Выбор и настройка серверной инфраструктуры, оркестрация и масштабирование</li>
-      <li>Конкретная модель HSM и схема хранения криптографических ключей</li>
-      <li>Правила автоматического перемещения средств между горячим, тёплым и холодным кошельками</li>
-      <li>Схема многоподписных подтверждений операций</li>
-      <li>Устройство базы данных, внутренних сервисов и контрактов между ними</li>
-      <li>Источники курсов валют и правила их резервирования</li>
-      <li>Целевые показатели производительности и запас мощности</li>
-      <li>Параметры резервного копирования и процедуры восстановления</li>
-      <li>Инструменты мониторинга, тестирования и статического анализа кода</li>
-      <li>Модель доступа к продакшену и разграничение прав внутри команды</li>
-    </ul>
+    <article class="d">
+      <div class="d__n">05</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Что означает мультивалютность в вашем продукте?</h2>
+          <span class="d__when d__when--now">До старта</span>
+        </div>
+        <p class="d__ctx">В ТЗ она указана одной строкой, но за ней стоят три разных продукта: отдельные балансы по монетам, отображение эквивалента в привычной валюте или полноценный внутренний обменник.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Реальные балансы отдельно по каждой монете плюс отображение эквивалента в долларах и рублях. Это соответствует ожиданиям игроков и не переносит на платформу курсовой риск.</p>
+        <p class="d__note d__note--cr">Внутренний обменник — отдельный финансовый продукт: курсовой риск, запас ликвидности, отдельная отчётность. Отдельная оценка.</p>
+      </div>
+    </article>
 
-    <p class="v3-callout" style="margin-top:var(--v3-s5)">Если какое-либо из этих решений влияет на бюджет, юридические обязательства или продукт — мы выносим его на согласование отдельно и объясняем последствия на понятном языке.</p>
+    <article class="d">
+      <div class="d__n">06</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Как игрок входит в аккаунт и защищает деньги на нём?</h2>
+          <span class="d__when">Проектирование</span>
+        </div>
+        <p class="d__ctx">У платформы три точки входа — сайт, Telegram и Android. Решение здесь — компромисс между конверсией на регистрации и возможностью восстановить доступ к аккаунту, на котором лежат реальные деньги.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> E-mail с подтверждением как основной идентификатор и вход через Telegram в одно нажатие после привязки: конверсия сохраняется, но у аккаунта появляется восстановимый якорь. Второй фактор — по желанию игрока и обязательно при выводе выше согласованной суммы.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">07</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Какими будут лимиты и комиссии кассы?</h2>
+          <span class="d__when">Проектирование</span>
+        </div>
+        <p class="d__ctx">В ТЗ зафиксировано одно правило: вывод свыше $500 требует двойного подтверждения. Остальные правила кассы определяют, насколько платформа удобна игроку и насколько защищена от злоупотреблений.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Комиссию сети удерживать с игрока, минимальный вывод установить в размере двух-трёх комиссий сети, отмену заявки разрешать до отправки транзакции в блокчейн, а ручную корректировку баланса свыше порога проводить только со вторым подтверждением и указанием причины.</p>
+        <p class="d__note">Все значения реализуются как настройки в админ-панели — менять их можно без участия разработчиков.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">08</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Какие бонусные механики включаем на запуске?</h2>
+          <span class="d__when">Проектирование</span>
+        </div>
+        <p class="d__ctx">Бонусный движок универсальный: правила задаются настройками, а не кодом. Но каждая механика — это ещё и канал для злоупотреблений, поэтому запускать всё сразу не стоит.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> На старт — бонус на депозит, промокоды, реферальный бонус, ручной бонус от сотрудника и базовые ранги. Кэшбэк подключать после запуска, когда видна реальная экономика: процент, назначенный до первых данных, чаще всего и съедает маржу.</p>
+        <p class="d__note">Коэффициенты отыгрыша привязаны к играм и настраиваются при подключении игровых модулей.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">09</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">По каким правилам платим партнёрам?</h2>
+          <span class="d__when">Проектирование</span>
+        </div>
+        <p class="d__ctx">Все модели входят в объём работ: RevShare — постоянный процент от дохода с приведённых игроков, CPA — фиксированная выплата за игрока, Hybrid — их комбинация. Решать нужно не какую реализовать, а по каким правилам считаются деньги: именно на этих формулировках партнёрские программы теряют маржу.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> RevShare считать от NGR — дохода за вычетом бонусов, комиссий и расходов; CPA засчитывать по первому депозиту от согласованной суммы, а не по регистрации; заморозку выплаты установить на 7–14 дней; перенос минуса партнёра на следующий период включить.</p>
+        <p class="d__note d__note--cr">Многоуровневая сеть, где партнёры приводят партнёров, — отдельная оценка.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">10</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Через какие каналы общаемся с игроком?</h2>
+          <span class="d__when">Проектирование</span>
+        </div>
+        <p class="d__ctx">Формат поддержки уже определён: отдельный интерфейс для операторов с интеграцией Chatwoot. Остаётся набор каналов и перечень уведомлений — уведомления о движении денег снимают с поддержки основную часть обращений.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Чат в приложении, Telegram и e-mail. Уведомлять о зачислении депозита, статусе вывода, входе с нового устройства, начислении бонуса и ответе поддержки. SMS не подключать: требует отдельного провайдера в каждой стране и почти не даёт выигрыша там, где у игрока есть Telegram.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">11</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Какие показатели вы смотрите каждый день?</h2>
+          <span class="d__when">Проектирование</span>
+        </div>
+        <p class="d__ctx">Состав отчётов определяет, какие данные платформа начинает накапливать с первого дня. Это единственная причина закрыть вопрос до запуска: задним числом такие цифры не восстанавливаются.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Регистрации и первые депозиты, суммы депозитов и выводов, чистый приток денег, активные игроки за день, средний депозит, расходы на бонусы и партнёров, остатки по кошелькам платформы. Плюс выгрузка любого отчёта в Excel.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">12</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">На какой масштаб рассчитываем платформу?</h2>
+          <span class="d__when">Проектирование</span>
+        </div>
+        <p class="d__ctx">Нужна бизнес-оценка, а не технические цифры: сколько игроков вы планируете привлечь за первый год и сколько человек может быть онлайн в пиковый момент. Мощность серверов и запас прочности мы рассчитаем сами.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Проектировать под порядок 50 000 зарегистрированных игроков и несколько тысяч одновременно активных, с возможностью нарастить мощность без переделки системы. Это покрывает реалистичный первый год и не заставляет платить за инфраструктуру, которая не понадобится.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">13</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Как вы планируете подключать игры?</h2>
+          <span class="d__when">Стратегия</span>
+        </div>
+        <p class="d__ctx">Игры не входят в текущую стоимость, но слой их подключения проходит через финансовое ядро — переделывать его позже дороже, чем любую другую часть платформы. Выбор между собственными играми, сторонним агрегатором и сочетанием обоих определяет и продукт, и структуру дохода.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Проектировать универсальный слой сразу под оба сценария — это уже входит в текущую стоимость. Практический маршрут: стартовать с агрегатора ради готового каталога и параллельно разрабатывать одну-две собственные игры как отличие от конкурентов.</p>
+        <p class="d__note d__note--cr">Разработка собственных игр и интеграция конкретного агрегатора оцениваются отдельно.</p>
+      </div>
+    </article>
+
+    <article class="d">
+      <div class="d__n">14</div>
+      <div>
+        <div class="d__head">
+          <h2 class="d__title">Кто сопровождает платформу после запуска?</h2>
+          <span class="d__when">Стратегия</span>
+        </div>
+        <p class="d__ctx">После запуска действует гарантийный период — мы рекомендуем 45 календарных дней. Но крипто-платформа это работающий финансовый сервис: за кошельками, очередью выводов и инфраструктурой нужно следить ежедневно, а не по факту инцидента.</p>
+        <p class="d__rec"><b>Рекомендуем.</b> Определить формат до запуска, а не после: своя техническая команда с полной передачей знаний либо сопровождение нашей командой. Передача, подготовленная заранее, проходит без простоя платформы; передача по факту почти всегда стоит нескольких недель — и происходит в момент, когда на платформе уже лежат деньги игроков.</p>
+        <p class="d__note d__note--cr">Сопровождение после гарантийного периода оформляется отдельным договором.</p>
+      </div>
+    </article>
+
   </div>
-</section>
-
-<!-- ===== 09 · ЧТО ДАЛЬШЕ ===== -->
-<section class="v3-section v3-section--dark v3-closing" id="next" data-title="Что дальше">
-  <div class="v3-container">
-    <p class="v3-eyebrow" style="color:#7FB6C4">09 · Следующий шаг</p>
-    <h2 class="v3-heading" style="max-width:22ch">Один созвон на час закрывает всё, что блокирует старт</h2>
-    <p class="v3-copy" style="color:#A6AFB6;margin-top:var(--v3-s4)">Пять решений группы A — единственное, что нужно до начала разработки. Остальное фиксируется в рабочем режиме и не влияет ни на срок, ни на стоимость.</p>
-
-    <ol class="closing__flow">
-      <li>Вы отмечаете, где согласны с рекомендацией</li>
-      <li>Созвон по группе A</li>
-      <li>Старт разработки</li>
-    </ol>
-
-    <div class="closing__summary">
-      <div><b>5</b><span>решений до старта</span></div>
-      <div><b class="v3-num">$57,000</b><span>фиксированная стоимость</span></div>
-      <div><b>18–21 нед.</b><span>срок реализации</span></div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <footer>
-  <div class="v3-container" style="display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;width:100%">
-    <div>Crypto Casino Platform · Ключевые решения перед стартом разработки</div>
+  <div class="wrap">
+    <div>Crypto Casino Platform · Ключевые решения перед стартом</div>
     <div>Приложение к коммерческому предложению · $57,000 fixed price</div>
   </div>
 </footer>
 
-<script>
-(function(){
-  var bar=document.getElementById('topbar'),cur=document.getElementById('topcur'),cover=document.getElementById('s01');
-  if(!('IntersectionObserver' in window)||!bar||!cover) return;
-  new IntersectionObserver(function(e){bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:0}).observe(cover);
-  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){cur.innerHTML=(en.target.getAttribute('data-title')||'')}})},{rootMargin:'-10% 0px -75% 0px',threshold:0});
-  document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
-})();
-</script>
 </body>
 </html>
