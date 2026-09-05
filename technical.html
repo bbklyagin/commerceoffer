@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Casino Platform — Техническое приложение</title>
+<meta name="description" content="Техническое приложение к коммерческому предложению: архитектура платформы, финансовое ядро, криптоинфраструктура, роли и доступы, интеграции и инфраструктура реализации.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* =====================================================================
+   ТЕХНИЧЕСКОЕ ПРИЛОЖЕНИЕ — design system
+   Наследует палитру, типографику, сетку, ритм и print-правила
+   основного коммерческого предложения. Плотность выше, поскольку
+   документ технический, но токены и компоненты те же.
+   ===================================================================== */
+:root{
+  /* palette — идентична основному КП */
+  --paper:#F5F4EF;
+  --paper-2:#ECEBE4;
+  --surface:#FFFFFF;
+  --ink:#12171B;
+  --ink-2:#3B454D;
+  --ink-3:#6B757E;
+  --line:#E1E0D8;
+  --line-strong:#C4C6BD;
+  --accent:#14505F;
+  --accent-ink:#0B3B47;
+  --accent-soft:#E3EDF0;
+  --accent-light:#7FB6C4;
+  --dark:#080A0C;
+  --dark-2:#101417;
+  --dark-line:#20262A;
+  --dark-ink:#F3F2ED;
+  --dark-muted:#A6AFB6;
+  --code-bg:#ECEBE4;
+  /* type */
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --body:16.5px;
+  --lead-size:clamp(19px,2vw,21px);
+  --heading:clamp(32px,4vw,44px);
+  --subheading:clamp(21px,2.2vw,25px);
+  --display:clamp(42px,6.4vw,76px);
+  /* rhythm */
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px;
+  --s5:48px; --s6:64px; --s7:96px; --s8:128px;
+  --section:clamp(72px,8vw,104px);
+  /* layout */
+  --container:1120px;
+  --gutter:32px;
+  --measure:66ch;
+  --r-xs:4px; --r-sm:8px; --r-md:12px;
+  --elev-1:0 1px 2px rgba(18,23,27,.04);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:var(--body);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-soft)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- layout ---------- */
+.container{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:var(--section);scroll-margin-top:64px}
+.section--surface{background:var(--paper-2)}
+.split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s6);align-items:start}
+.split--40-60{grid-template-columns:minmax(0,4fr) minmax(0,6fr)}
+.split--equal{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);align-items:start}
+.split > *{min-width:0}
+.stack > * + *{margin-top:var(--s5)}
+.stack--sm > * + *{margin-top:var(--s3)}
+.rule{border:0;border-top:1px solid var(--line);margin:0}
+.rule--strong{border-top:2px solid var(--ink)}
+.mt-2{margin-top:var(--s2)}.mt-3{margin-top:var(--s3)}.mt-4{margin-top:var(--s4)}
+.mt-5{margin-top:var(--s5)}.mt-6{margin-top:var(--s6)}.mt-7{margin-top:var(--s7)}
+
+/* ---------- typography ---------- */
+.eyebrow{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
+.display{font-weight:700;font-size:var(--display);line-height:.96;letter-spacing:-.038em;margin:0;text-wrap:balance}
+.heading{font-weight:600;font-size:var(--heading);line-height:1.1;letter-spacing:-.025em;margin:0;text-wrap:balance;max-width:22ch}
+.subheading{font-weight:600;font-size:var(--subheading);line-height:1.25;letter-spacing:-.015em;margin:0}
+.title{font-weight:600;font-size:18px;line-height:1.3;letter-spacing:-.01em;margin:0}
+.kicker{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:0 0 var(--s2)}
+.lead{font-family:var(--serif);font-size:var(--lead-size);line-height:1.45;color:var(--ink-2);max-width:58ch;margin:0}
+.copy{font-size:16px;line-height:1.6;color:var(--ink-2);max-width:var(--measure);margin:0}
+.copy p{margin:0 0 .85em;max-width:none}
+.copy p:last-child{margin-bottom:0}
+.copy--strong{color:var(--ink)}
+.small{font-size:14.5px;line-height:1.55;color:var(--ink-3);max-width:var(--measure);margin:0}
+.meta{font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--ink-3);margin:0}
+.num{font-variant-numeric:tabular-nums}
+.heading + .lead,.display + .lead{margin-top:var(--s4)}
+.lead + .copy,.lead + .figure,.lead + .tablewrap,.lead + .pillars,.lead + .flow{margin-top:var(--s4)}
+.heading + .copy,.subheading + .copy,.title + .copy{margin-top:var(--s2)}
+.copy + .small,.copy + .meta{margin-top:var(--s2)}
+.subheading + .lead{margin-top:var(--s3)}
+
+/* ---------- code ---------- */
+code{
+  font-family:var(--mono);font-size:.86em;background:var(--code-bg);
+  padding:.1em .34em;border-radius:var(--r-xs);color:var(--accent-ink);
+  white-space:nowrap;
+}
+pre{
+  font-family:var(--mono);font-size:12.5px;line-height:1.65;
+  background:var(--paper-2);border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:18px 20px;overflow-x:auto;margin:0;color:var(--ink-2);
+}
+pre b{color:var(--accent-ink);font-weight:500}
+pre i{color:var(--ink-3);font-style:normal}
+pre code{background:none;padding:0;font-size:inherit;color:inherit;white-space:pre}
+
+/* ---------- lists ---------- */
+.list{list-style:none;margin:0;padding:0;max-width:var(--measure)}
+.list li{position:relative;padding-left:20px;margin:0 0 8px;font-size:15.5px;line-height:1.5;color:var(--ink-2)}
+.list li:last-child{margin-bottom:0}
+.list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--accent)}
+.list--cols{columns:2;column-gap:var(--s6);max-width:none}
+.list--cols li{break-inside:avoid}
+.list--plain li::before{background:var(--line-strong)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.tags li{padding:5px 11px;border:1px solid var(--line-strong);border-radius:999px;font-size:14px;font-weight:500;color:var(--ink-2)}
+.tags li.on{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+
+/* ---------- callouts ---------- */
+.callout{
+  border-left:2px solid var(--accent);padding:2px 0 2px var(--s3);
+  font-size:16px;line-height:1.55;color:var(--ink-2);max-width:var(--measure);margin:0;
+}
+.callout b{color:var(--ink);font-weight:600}
+.callout--quote{font-family:var(--serif);font-size:20px;color:var(--ink)}
+.callout--note{border-left-color:var(--line-strong);font-size:14.5px;color:var(--ink-3)}
+.callout--status{border-left-color:var(--line-strong);font-size:14.5px;color:var(--ink-3)}
+.callout--status b{color:var(--ink-2);font-weight:600}
+
+/* ---------- key/value rows ---------- */
+.kv{display:grid;gap:0;margin:0}
+.kv > div{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:var(--s4);padding:14px 0;border-top:1px solid var(--line)}
+.kv > div:last-child{border-bottom:1px solid var(--line)}
+.kv b{font-weight:600;font-size:15.5px;color:var(--ink)}
+.kv span{font-size:15.5px;color:var(--ink-2)}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;margin:0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.45;min-width:520px}
+th{
+  text-align:left;font-family:var(--sans);font-size:11.5px;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);
+  padding:0 20px 10px 0;border-bottom:1px solid var(--line-strong);vertical-align:bottom;
+}
+td{padding:12px 20px 12px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+th:last-child,td:last-child{padding-right:0}
+tbody tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink);font-weight:600}
+table .no{color:var(--ink-3)}
+.table--sum tbody tr:last-child td{border-top:1px solid var(--line-strong);color:var(--ink);font-weight:600}
+.table-note{margin-top:var(--s2);font-size:13.5px;color:var(--ink-3);max-width:var(--measure)}
+
+/* ---------- figures / diagrams ---------- */
+.figure{margin:0;width:100%}
+.figure__frame{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:clamp(16px,2.4vw,28px);overflow-x:auto}
+.section--surface .figure__frame{background:var(--surface)}
+.figure svg{display:block;width:100%;height:auto;min-width:720px}
+.figure figcaption{margin-top:var(--s2);font-size:13.5px;line-height:1.5;color:var(--ink-3);max-width:var(--measure)}
+/* svg helpers */
+.d-box{fill:var(--surface);stroke:var(--line-strong);stroke-width:1}
+.d-box--soft{fill:var(--paper-2);stroke:none}
+.d-box--accent{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1}
+.d-box--core{fill:var(--accent);stroke:none}
+.d-box--ghost{fill:none;stroke:var(--line-strong);stroke-width:1;stroke-dasharray:5 4}
+.d-zone{fill:var(--accent-soft);opacity:.34;stroke:none}
+.d-zone-edge{fill:none;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:6 5}
+.d-line{stroke:var(--line-strong);stroke-width:1.1;fill:none}
+.d-line--accent{stroke:var(--accent);stroke-width:1.4;fill:none}
+.d-line--ghost{stroke:var(--line-strong);stroke-width:1.1;fill:none;stroke-dasharray:4 4}
+.d-t{font-family:var(--sans);font-size:13px;font-weight:600;fill:var(--ink);text-anchor:middle}
+.d-t--light{fill:#fff}
+.d-s{font-family:var(--sans);font-size:11px;font-weight:400;fill:var(--ink-3);text-anchor:middle}
+.d-s--light{fill:rgba(255,255,255,.78)}
+.d-lab{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.08em;fill:var(--accent);text-anchor:middle}
+.d-cap{font-family:var(--sans);font-size:11px;font-weight:500;fill:var(--accent);text-anchor:middle}
+
+/* ---------- pillars (3-up principles) ---------- */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5) var(--s6);list-style:none;margin:0;padding:0}
+.pillars--2{grid-template-columns:1fr 1fr}
+.pillar{margin:0}
+.pillar__index{display:block;font-size:14px;font-weight:600;color:var(--accent);margin-bottom:var(--s1)}
+.pillar .title{margin-bottom:var(--s1);max-width:22ch}
+.pillar .copy{font-size:15.5px;max-width:40ch}
+.pillar__effect{margin:10px 0 0;padding-left:14px;border-left:2px solid var(--line-strong);font-size:15px;line-height:1.5;color:var(--ink);max-width:40ch}
+
+/* ---------- numbered flow ---------- */
+.flow{list-style:none;margin:0;padding:0;counter-reset:fl;max-width:var(--measure)}
+.flow li{
+  counter-increment:fl;position:relative;padding:0 0 20px 42px;margin:0;
+  border-left:1px solid var(--line);
+}
+.flow li:last-child{border-left-color:transparent;padding-bottom:0}
+.flow li::before{
+  content:counter(fl,decimal-leading-zero);position:absolute;left:-13px;top:-2px;
+  width:26px;height:26px;border-radius:50%;background:var(--paper);
+  border:1px solid var(--line-strong);color:var(--ink-3);
+  font-family:var(--mono);font-size:10.5px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+}
+.section--surface .flow li::before{background:var(--paper-2)}
+.flow li.is-key::before{background:var(--accent);border-color:var(--accent);color:#fff}
+.flow b{display:block;font-size:15.5px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.flow span{display:block;font-size:15px;color:var(--ink-2)}
+.flow--wide{max-width:none}
+
+/* horizontal chain */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:var(--s2) 0;list-style:none;margin:0;padding:0}
+.chain li{
+  position:relative;display:flex;flex-direction:column;justify-content:center;
+  min-width:110px;padding:11px 16px;border:1px solid var(--line-strong);border-radius:var(--r-sm);
+  background:var(--surface);font-size:15px;font-weight:500;line-height:1.3;color:var(--ink);
+}
+.chain li small{display:block;margin-top:3px;font-size:12.5px;font-weight:400;color:var(--ink-3)}
+.chain li.is-key{background:var(--accent);border-color:var(--accent);color:#fff}
+.chain li.is-key small{color:rgba(255,255,255,.75)}
+.chain li.is-ghost{background:transparent;border-style:dashed;color:var(--ink-2)}
+.chain li + li{margin-left:34px}
+.chain li + li::before{content:"";position:absolute;left:-34px;top:50%;width:34px;height:1px;background:var(--line-strong)}
+.chain li + li::after{content:"";position:absolute;left:-8px;top:50%;width:5px;height:5px;margin-top:-3px;border-top:1px solid var(--line-strong);border-right:1px solid var(--line-strong);transform:rotate(45deg)}
+
+/* ---------- details / level 2 ---------- */
+.deep{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0}
+.deep + .deep{border-top:0}
+.deep__summary{
+  list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 26px;
+  align-items:center;gap:var(--s3);padding:16px 0;color:var(--ink);
+  font-size:15.5px;font-weight:600;
+  transition:padding-left .18s ease,background .18s ease;
+}
+.deep__summary::-webkit-details-marker{display:none}
+.deep__summary::marker{content:""}
+.deep__summary small{display:block;margin-top:3px;font-size:13.5px;font-weight:400;color:var(--ink-3)}
+.deep__summary::after{
+  content:"";justify-self:end;width:8px;height:8px;
+  border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);
+  transform:rotate(45deg) translateY(-2px);transition:transform .22s ease,border-color .22s ease;
+}
+.deep[open] > .deep__summary::after{transform:rotate(225deg) translateY(-2px);border-color:var(--accent)}
+.deep:hover > .deep__summary{background:rgba(20,80,95,.028);padding-left:10px}
+.deep[open] > .deep__summary{background:rgba(20,80,95,.04);padding-left:10px}
+.deep__body{padding:0 0 var(--s5);display:grid;gap:var(--s4)}
+.deep__body > *{max-width:none}
+
+/* ---------- timeline (этапы) ---------- */
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);position:relative;list-style:none;margin:0;padding:0}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:5px;height:1px;background:var(--line-strong)}
+.timeline__step{position:relative;padding-top:var(--s4)}
+.timeline__step::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:var(--accent)}
+.timeline__when{font-size:14px;font-weight:600;color:var(--accent)}
+.timeline__title{margin:6px 0 10px;font-size:clamp(19px,2vw,22px);font-weight:600;letter-spacing:-.015em;line-height:1.2}
+.timeline__what{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.timeline__what li{margin-bottom:6px}
+.timeline__result{margin-top:var(--s3);padding-top:var(--s2);border-top:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink)}
+.timeline__result b{display:block;font-weight:600;font-size:13px;color:var(--accent);margin-bottom:4px}
+
+/* ---------- tiers bar ---------- */
+.tiers{margin:0}
+.tierbar{display:flex;gap:3px;height:10px}
+.tierbar span{display:block;border-radius:999px}
+.tierbar .t1{width:5%;min-width:22px;background:var(--accent)}
+.tierbar .t2{width:15%;background:var(--accent-light)}
+.tierbar .t3{flex:1;background:var(--line-strong)}
+.tierlegend{display:flex;flex-wrap:wrap;gap:8px 40px;margin:14px 0 0;padding:0;list-style:none;font-size:14px;color:var(--ink-3)}
+.tierlegend i{display:inline-block;width:8px;height:8px;border-radius:999px;margin-right:8px;vertical-align:1px}
+.tierlegend .t1 i{background:var(--accent)}
+.tierlegend .t2 i{background:var(--accent-light)}
+.tierlegend .t3 i{background:var(--line-strong)}
+.tierlegend b{font-weight:600;color:var(--ink)}
+.tierlegend small{display:block;margin-left:16px;font-size:13px}
+
+/* ---------- decision rows (архитектурные уточнения) ---------- */
+.decisions{margin:0;border-top:2px solid var(--ink)}
+.decision{display:grid;grid-template-columns:56px minmax(0,1fr);gap:var(--s4);padding:var(--s5) 0;border-bottom:1px solid var(--line)}
+.decision__index{font-size:14px;font-weight:600;color:var(--accent);padding-top:5px}
+.decision__title{margin:0 0 var(--s3);font-size:clamp(19px,2vw,22px);font-weight:600;letter-spacing:-.015em;line-height:1.25}
+.decision__body{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3) var(--s5)}
+.decision__part{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.decision__part b{display:block;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.decision__why{grid-column:1/-1;margin:var(--s1) 0 0;padding-top:var(--s3);position:relative;font-size:16px;line-height:1.5;color:var(--ink);max-width:62ch}
+.decision__why::before{content:"";position:absolute;left:0;top:0;width:40px;height:2px;background:var(--accent)}
+.decision__why b{display:block;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;height:48px;
+  background:rgba(245,244,239,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .25s ease;
+}
+.topbar.show{transform:none}
+.topbar .in{
+  max-width:var(--container);margin:0 auto;padding:0 var(--gutter);height:100%;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  font-size:13px;color:var(--ink-3);
+}
+.topbar .doc{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .cur{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;text-align:center}
+.topbar .cur em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--accent);margin-right:8px}
+.topbar .to-toc{white-space:nowrap;color:var(--ink-3)}
+.topbar .to-toc:hover{color:var(--accent);text-decoration:none}
+
+/* ---------- hero ---------- */
+.hero{
+  background:var(--dark);color:var(--dark-ink);position:relative;overflow:hidden;
+  padding-block:clamp(56px,9vw,104px);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.hero::before{
+  content:"";position:absolute;top:-14%;right:-8%;width:66%;height:130%;
+  background:radial-gradient(closest-side,rgba(127,182,196,.13),rgba(127,182,196,0) 70%);
+  pointer-events:none;
+}
+.hero .container{position:relative;z-index:1;max-width:1180px}
+.hero__top{
+  display:flex;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
+  font-size:13.5px;color:var(--dark-muted);padding-bottom:var(--s6);
+}
+.hero__main{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero__main > *{min-width:0}
+.hero .eyebrow{color:var(--accent-light)}
+.hero .display{color:var(--dark-ink)}
+.hero .lead{color:var(--dark-muted);margin-top:var(--s4);max-width:44ch}
+.hero__facts{
+  display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);
+  margin-top:clamp(34px,5vw,54px);padding-top:var(--s4);border-top:1px solid var(--dark-line);
+}
+.hero__facts div b{display:block;font-size:clamp(19px,2vw,23px);font-weight:600;letter-spacing:-.02em;color:var(--dark-ink);line-height:1.15}
+.hero__facts div span{display:block;margin-top:7px;font-size:13.5px;color:var(--dark-muted);max-width:22ch}
+.hero__note{
+  margin:var(--s5) 0 0;padding-top:var(--s3);border-top:1px solid var(--dark-line);
+  font-size:13.5px;line-height:1.55;color:var(--dark-muted);max-width:56ch;
+}
+.hero__visual{margin:0;display:flex;justify-content:center;opacity:.85}
+.hero__visual svg{width:100%;max-width:480px;height:auto;display:block;min-width:0}
+.hs-zone{fill:none;stroke:#7FB6C4;stroke-opacity:.28;stroke-width:1;stroke-dasharray:5 5}
+.hs-box{fill:#101417;stroke:#2C3840;stroke-width:1}
+.hs-box--core{fill:url(#heroCore);stroke:none}
+.hs-box--ghost{fill:none;stroke:#3A454E;stroke-width:1;stroke-dasharray:4 4}
+.hs-line{stroke:#3A454E;stroke-width:1;fill:none}
+.hs-line--accent{stroke:#7FB6C4;stroke-opacity:.55;stroke-width:1.2;fill:none}
+.hs-t{font-family:var(--sans);font-size:12.5px;font-weight:500;fill:#F3F2ED;text-anchor:middle}
+.hs-t--muted{fill:#A6AFB6;font-weight:400}
+.hs-s{font-family:var(--sans);font-size:10.5px;fill:#8D979E;text-anchor:middle}
+.hs-lab{font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.1em;fill:#7FB6C4;text-anchor:middle}
+
+/* ---------- toc ---------- */
+.toc{padding:var(--s5) 0 var(--s1);border-bottom:1px solid var(--line);scroll-margin-top:64px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 var(--s5)}
+.toc li{margin:0}
+.toc a{display:flex;gap:14px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line);color:var(--ink);font-size:15px}
+.toc li:nth-child(-n+3) a{border-top:0}
+.toc a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent)}
+.toc a:hover{text-decoration:none;color:var(--accent)}
+
+/* ---------- footer ---------- */
+footer{
+  max-width:var(--container);margin:0 auto;
+  padding:var(--s5) var(--gutter) var(--s7);border-top:1px solid var(--line);
+}
+footer p{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--ink-3);max-width:78ch}
+footer p:last-child{margin-bottom:0}
+footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-top:var(--s3)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .split,.split--40-60{grid-template-columns:1fr;gap:var(--s4)}
+  .pillars{grid-template-columns:1fr 1fr}
+  .timeline{grid-template-columns:1fr 1fr}
+  .hero__main{grid-template-columns:1fr;gap:var(--s5)}
+  .hero__visual{justify-content:flex-start}
+  .hero__visual svg{max-width:420px}
+  .toc ol{grid-template-columns:1fr 1fr}
+  .toc li:nth-child(-n+3) a{border-top:1px solid var(--line)}
+  .toc li:nth-child(-n+2) a{border-top:0}
+}
+@media (max-width:700px){
+  :root{--body:16px;--gutter:20px}
+  .heading{max-width:none}
+  .split--equal{grid-template-columns:1fr;gap:var(--s4)}
+  .pillars,.pillars--2{grid-template-columns:1fr;gap:var(--s4)}
+  .timeline{grid-template-columns:1fr;gap:var(--s5);padding-left:24px}
+  .timeline::before{left:5px;right:auto;top:6px;bottom:20px;width:1px;height:auto}
+  .timeline__step::before{left:-24px}
+  .toc ol{grid-template-columns:1fr}
+  .toc li:nth-child(-n+3) a{border-top:1px solid var(--line)}
+  .toc li:first-child a{border-top:0}
+  .topbar .cur{display:none}
+  .list--cols{columns:1}
+  .kv > div{grid-template-columns:1fr;gap:4px}
+  .chain{flex-direction:column;align-items:flex-start}
+  .chain li{width:100%}
+  .chain li + li{margin:26px 0 0}
+  .chain li + li::before{left:26px;top:-26px;width:1px;height:26px}
+  .chain li + li::after{left:24px;top:-8px;transform:rotate(135deg)}
+  .decision{grid-template-columns:1fr;gap:var(--s2)}
+  .decision__body{grid-template-columns:1fr}
+  .figure__frame{padding:14px;border-radius:var(--r-sm)}
+  .figure figcaption::before{content:"Схему можно прокрутить по горизонтали. ";color:var(--ink-3);font-style:italic}
+  .hero__facts{gap:var(--s3) var(--s5)}
+  .hero__visual{display:none}
+  .deep__summary{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- print ---------- */
+@page{size:A4;margin:15mm 14mm 16mm}
+@page :first{margin:0}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;color:#000;font-size:9.8pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .topbar{display:none!important}
+  .container{max-width:none;padding-inline:0}
+  a{color:inherit;text-decoration:none}
+
+  /* обложка */
+  .hero{
+    margin:0;padding:28mm 20mm 22mm;min-height:297mm;height:297mm;
+    display:flex;flex-direction:column;justify-content:center;
+    break-after:page;page-break-after:always;
+  }
+  .hero::before{display:none}
+  .hero .container{max-width:none;padding:0}
+  .hero__top{padding-bottom:16mm;font-size:10pt}
+  .hero__main{grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:14mm;align-items:center}
+  .hero .display{font-size:38pt}
+  .hero .lead{font-size:12.5pt;margin-top:14px}
+  .hero__facts{margin-top:12mm;padding-top:14px;gap:16px 34px}
+  .hero__facts div b{font-size:14pt}
+  .hero__facts div span{font-size:9.5pt}
+  .hero__note{margin-top:12mm;font-size:9.5pt}
+  .hero__visual svg{max-width:100%}
+
+  .toc{padding:6mm 0 4mm;break-after:avoid;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
+  .toc a{padding:4px 0;font-size:9.6pt}
+
+  /* Секции идут потоком: страницы заполняются без пустот.
+     Принудительный разрыв — только перед крупными смысловыми блоками. */
+  .section{padding-block:7mm}
+  #s02,#s04,#s06,#s09,#s12,#s13,#s15{break-before:page;page-break-before:always;padding-top:0}
+  .section--surface{background:#fff}
+
+  .eyebrow{font-size:10pt;margin-bottom:8px}
+  .heading{font-size:19pt;max-width:none}
+  .subheading{font-size:13.5pt}
+  .title{font-size:11.5pt}
+  .lead{font-size:11.5pt;max-width:none}
+  .copy,.list li,.callout{font-size:9.8pt;max-width:none}
+  .small,.meta,.table-note,.figure figcaption{font-size:8.6pt;max-width:none}
+  .kicker{font-size:9pt}
+
+  .eyebrow,.heading,.subheading,.title,.kicker,.lead,.decision__title,.timeline__title{
+    break-after:avoid;page-break-after:avoid;
+  }
+  .figure,.tablewrap,.pillar,.flow li,.chain,.kv > div,.callout,.deep,
+  .timeline__step,.decision,.tiers,pre,.split--equal > *{
+    break-inside:avoid;page-break-inside:avoid;
+  }
+
+  .split,.split--40-60{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:10mm}
+  .split--equal{grid-template-columns:1fr 1fr;gap:8mm}
+  .pillars{grid-template-columns:repeat(3,1fr);gap:8mm}
+  .pillars--2{grid-template-columns:1fr 1fr}
+  .pillar .copy,.pillar__effect{max-width:none;font-size:9.4pt}
+  .stack > * + *{margin-top:7mm}
+
+  .figure__frame{border-radius:0;padding:4mm;overflow:visible;background:#fff}
+  .figure svg{min-width:0;width:100%}
+
+  .tablewrap{overflow:visible}
+  table{min-width:0;font-size:8.8pt}
+  th{font-size:7.6pt;padding-bottom:6px;padding-right:10px}
+  td{padding:6px 10px 6px 0}
+
+  .flow li{padding:0 0 10px 34px}
+  .flow li::before{width:20px;height:20px;left:-10px;font-size:8pt}
+  .flow b{font-size:9.8pt}
+  .flow span{font-size:9.4pt}
+
+  .chain{flex-wrap:nowrap}
+  .chain li{min-width:0;padding:6px 9px;font-size:9pt}
+  .chain li small{font-size:7.6pt}
+  .chain li + li{margin-left:20px}
+  .chain li + li::before{left:-20px;width:20px}
+  .chain li + li::after{left:-7px}
+
+  /* level 2 раскрывается в печати */
+  .deep{border-color:#D8D7CF}
+  .deep__summary{padding:8px 0;font-size:10pt;background:none!important;padding-left:0!important}
+  .deep__summary::after{display:none}
+  .deep:not([open]) > .deep__body{display:grid!important}
+  .deep__body{padding-bottom:8px;gap:5mm}
+  pre{font-size:7.8pt;padding:8px 10px;line-height:1.5}
+
+  .timeline{grid-template-columns:repeat(4,1fr);gap:7mm;padding-left:0}
+  .timeline::before{display:none}
+  .timeline__step{padding-top:10px;border-top:1px solid var(--line-strong)}
+  .timeline__step::before{top:-6px}
+  .timeline__title{font-size:12pt}
+  .timeline__what,.timeline__result{font-size:9pt}
+
+  .decision{padding:6mm 0;grid-template-columns:40px minmax(0,1fr);gap:6mm}
+  .decision__title{font-size:12pt}
+  .decision__part,.decision__why{font-size:9.4pt;max-width:none}
+
+  footer{padding:6mm 0 0;break-before:avoid;page-break-before:avoid;max-width:none}
+  footer p{font-size:8.6pt;max-width:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar" aria-hidden="true">
+  <div class="in">
+    <div class="doc">Техническое приложение · Crypto Casino Platform</div>
+    <div class="cur" id="topcur"></div>
+    <a class="to-toc" href="#toc">Содержание</a>
+  </div>
+</div>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="top">
+  <div class="container">
+    <div class="hero__top">
+      <span>Техническое приложение · v1.0</span>
+      <span>05.09.2026</span>
+    </div>
+
+    <div class="hero__main">
+      <div>
+        <p class="eyebrow">Техническое приложение к коммерческому предложению</p>
+        <h1 class="display">Техническая<br>архитектура<br>платформы</h1>
+        <p class="lead">Документ описывает предлагаемую архитектуру платформы: состав сервисов, финансовый контур, модель хранения криптоактивов, разграничение прав, интеграции и инфраструктуру реализации.</p>
+
+        <div class="hero__facts">
+          <div><b>Web · Telegram · Android</b><span>клиентские каналы платформы</span></div>
+          <div><b>до 3 сетей</b><span>blockchain-сети на старте</span></div>
+          <div><b>7 ролей</b><span>модель доступа сотрудников и партнёров</span></div>
+          <div><b>Изолированное ядро</b><span>финансовый контур отделён от остальных сервисов</span></div>
+        </div>
+
+        <p class="hero__note">Состав поставки, сроки, этапы и коммерческие границы проекта зафиксированы в основном коммерческом предложении. Настоящий документ описывает, как предлагается реализовать этот объём технически.</p>
+      </div>
+
+      <figure class="hero__visual">
+        <svg viewBox="0 0 460 470" role="img" aria-label="Схема слоёв платформы: клиентские каналы, прикладные сервисы, изолированное финансовое ядро и подключаемый игровой слой">
+          <defs>
+            <linearGradient id="heroCore" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#1D6A7D"/>
+              <stop offset="100%" stop-color="#12414E"/>
+            </linearGradient>
+          </defs>
+
+          <!-- clients -->
+          <rect class="hs-box" x="20" y="20" width="120" height="46" rx="6"/>
+          <text class="hs-t" x="80" y="41">Web</text><text class="hs-s" x="80" y="56">браузер</text>
+          <rect class="hs-box" x="170" y="20" width="120" height="46" rx="6"/>
+          <text class="hs-t" x="230" y="41">Telegram</text><text class="hs-s" x="230" y="56">Mini App · Bot</text>
+          <rect class="hs-box" x="320" y="20" width="120" height="46" rx="6"/>
+          <text class="hs-t" x="380" y="41">Android</text><text class="hs-s" x="380" y="56">APK</text>
+
+          <path class="hs-line" d="M80 66 L80 88 M230 66 L230 88 M380 66 L380 88 M80 88 L380 88 M230 88 L230 110"/>
+
+          <!-- gateway -->
+          <rect class="hs-box" x="20" y="110" width="420" height="46" rx="6"/>
+          <text class="hs-t" x="230" y="131">API Gateway · RBAC</text>
+          <text class="hs-s" x="230" y="146">аутентификация · проверка прав · rate limiting</text>
+
+          <path class="hs-line" d="M230 156 L230 178"/>
+
+          <!-- services -->
+          <rect class="hs-box" x="20" y="178" width="420" height="46" rx="6"/>
+          <text class="hs-t" x="230" y="199">Прикладные сервисы</text>
+          <text class="hs-s" x="230" y="214">игроки · Back Office · бонусы · партнёрка · уведомления</text>
+
+          <path class="hs-line--accent" d="M230 224 L230 252"/>
+          <text class="hs-lab" x="230" y="244">gRPC · mTLS</text>
+
+          <!-- finance zone -->
+          <rect class="hs-zone" x="8" y="252" width="444" height="128" rx="10"/>
+          <text class="hs-lab" x="230" y="274">ФИНАНСОВОЕ ЯДРО · ИЗОЛИРОВАННЫЙ ПЕРИМЕТР</text>
+          <rect class="hs-box hs-box--core" x="28" y="288" width="404" height="46" rx="6"/>
+          <text class="hs-t" x="230" y="309">Ledger · Wallet · Risk · Payout</text>
+          <text class="hs-s" style="fill:#CFE1E6" x="230" y="324">двойная запись · maker–checker · сверка</text>
+          <rect class="hs-box" x="28" y="344" width="404" height="26" rx="6"/>
+          <text class="hs-s" x="230" y="361">PostgreSQL finance · Vault · HSM</text>
+
+          <path class="hs-line--accent" d="M230 380 L230 404"/>
+          <rect class="hs-box" x="120" y="404" width="220" height="26" rx="6"/>
+          <text class="hs-s" x="230" y="421">Blockchain · до 3 сетей</text>
+
+          <!-- games layer -->
+          <path class="hs-line" d="M20 201 L20 448 M20 448 L108 448" stroke-dasharray="4 4"/>
+          <rect class="hs-box hs-box--ghost" x="108" y="432" width="244" height="30" rx="6"/>
+          <text class="hs-s" x="230" y="451">Game Integration Layer · игры подключаются отдельно</text>
+        </svg>
+      </figure>
+    </div>
+  </div>
+</header>
+
+<nav class="container toc" id="toc" aria-label="Содержание документа">
+  <ol>
+    <li><a href="#s01"><em>01</em>Архитектурные принципы</a></li>
+    <li><a href="#s02"><em>02</em>Карта системы</a></li>
+    <li><a href="#s03"><em>03</em>Технологический стек</a></li>
+    <li><a href="#s04"><em>04</em>Финансовое ядро</a></li>
+    <li><a href="#s05"><em>05</em>Криптоинфраструктура и хранение средств</a></li>
+    <li><a href="#s06"><em>06</em>Роли и разграничение доступа</a></li>
+    <li><a href="#s07"><em>07</em>Аудит и журналирование</a></li>
+    <li><a href="#s08"><em>08</em>Клиентские каналы</a></li>
+    <li><a href="#s09"><em>09</em>Game Integration Layer</a></li>
+    <li><a href="#s10"><em>10</em>Операционные модули платформы</a></li>
+    <li><a href="#s11"><em>11</em>Инфраструктура и развёртывание</a></li>
+    <li><a href="#s12"><em>12</em>Модель безопасности</a></li>
+    <li><a href="#s13"><em>13</em>Этапы технической реализации</a></li>
+    <li><a href="#s14"><em>14</em>Параметры, уточняемые до реализации</a></li>
+    <li><a href="#s15"><em>15</em>Архитектурные уточнения</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ============================ 01 ============================ -->
+<section class="section container" id="s01" data-title="Архитектурные принципы">
+  <p class="eyebrow">01 · Архитектурные принципы</p>
+  <h2 class="heading">Три решения, из которых следует остальная архитектура</h2>
+  <p class="lead">Платформа собирается как набор изолированных сервисов. Ключевое разделение: деньги живут отдельно от всего остального. Прикладные сервисы, интерфейсы и подключаемые игровые модули не имеют сетевого доступа к кошелькам — они обращаются к финансовому ядру, и ядро само решает, разрешена ли операция.</p>
+
+  <ul class="pillars mt-6">
+    <li class="pillar">
+      <span class="pillar__index">01</span>
+      <h3 class="title">Журнал вместо редактируемого баланса</h3>
+      <p class="copy">Баланс не хранится как отдельное изменяемое число. Он выводится из журнала проводок двойной записи, а материализованное значение используется только как кэш для чтения.</p>
+      <p class="pillar__effect">Изменение средств вне журнала архитектурно не предусмотрено: любая операция оставляет проводки.</p>
+    </li>
+    <li class="pillar">
+      <span class="pillar__index">02</span>
+      <h3 class="title">Права проверяются на сервере</h3>
+      <p class="copy">Скрытый в интерфейсе элемент не является защитой. Право проверяется в шлюзе и повторно в сервисе, а часть ограничений закрепляется на уровне базы данных.</p>
+      <p class="pillar__effect">Без соответствующего права запрос получает <code>403</code> и при прямом обращении к API в обход интерфейса.</p>
+    </li>
+    <li class="pillar">
+      <span class="pillar__index">03</span>
+      <h3 class="title">Аудит с защитой от правки задним числом</h3>
+      <p class="copy">Действия сотрудников пишутся в append-only таблицу с хеш-цепочкой и дублируются в WORM-хранилище с заданным сроком хранения.</p>
+      <p class="pillar__effect">Изменение записи задним числом нарушает хеш-цепочку и фиксируется регулярной проверкой целостности.</p>
+    </li>
+  </ul>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Как читать документ</h3>
+      <p class="copy mt-2">Каждый раздел построен по одному принципу: сначала архитектурное решение и его смысл, затем — детали реализации.</p>
+    </div>
+    <div class="stack--sm">
+      <p class="callout"><b>Уровень 1.</b> Вводный абзац, схема или таблица. Достаточно, чтобы понять принятое решение и его последствия для бизнеса.</p>
+      <p class="callout callout--note"><b>Уровень 2.</b> Блоки «Детали реализации» — схемы данных, контракты, конфигурационные параметры. Раскрываются по необходимости; при печати документа раскрываются автоматически.</p>
+      <p class="small">Разделы 04, 06 и 07 описывают три опоры выше. Разделы 05, 08–12 показывают, как на них ложатся криптоинфраструктура, клиентские каналы, операционные модули и эксплуатация.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 02 ============================ -->
+<section class="section section--surface" id="s02" data-title="Карта системы">
+  <div class="container">
+    <p class="eyebrow">02 · Карта системы</p>
+    <h2 class="heading">Финансовое ядро вынесено в отдельный сетевой периметр</h2>
+    <p class="lead">Сервисы за пределами периметра не обращаются к финансовой базе напрямую. Единственный маршрут — вызов сервисов ядра по gRPC поверх mTLS с идемпотентным ключом операции.</p>
+
+    <figure class="figure mt-5">
+      <div class="figure__frame">
+        <svg viewBox="0 0 900 700" role="img" aria-label="Схема сервисов платформы: пограничный слой, клиентские приложения, шлюзы, шина событий, прикладные сервисы, слой подключения игр и изолированное финансовое ядро с доступом к blockchain-сетям">
+          <!-- edge -->
+          <rect class="d-box d-box--soft" x="20" y="14" width="860" height="34" rx="6"/>
+          <text class="d-t" x="450" y="36">Пограничный слой · WAF · CDN · DNS · управление зеркалами</text>
+
+          <path class="d-line" d="M450 48 L450 62 M97 62 L801 62 M97 62 L97 78 M273 62 L273 78 M449 62 L449 78 M625 62 L625 78"/>
+          <path class="d-line--accent" d="M801 62 L801 78"/>
+
+          <!-- clients -->
+          <rect class="d-box" x="20" y="78" width="155" height="50" rx="6"/>
+          <text class="d-t" x="97" y="100">Web</text><text class="d-s" x="97" y="116">приложение игрока</text>
+          <rect class="d-box" x="196" y="78" width="155" height="50" rx="6"/>
+          <text class="d-t" x="273" y="100">Telegram Mini App</text><text class="d-s" x="273" y="116">игровой интерфейс</text>
+          <rect class="d-box" x="372" y="78" width="155" height="50" rx="6"/>
+          <text class="d-t" x="449" y="100">Android APK</text><text class="d-s" x="449" y="116">оболочка + native-модули</text>
+          <rect class="d-box" x="548" y="78" width="155" height="50" rx="6"/>
+          <text class="d-t" x="625" y="100">Telegram Bot</text><text class="d-s" x="625" y="116">сервисный канал</text>
+          <rect class="d-box d-box--accent" x="724" y="78" width="155" height="50" rx="6"/>
+          <text class="d-t" x="801" y="100">Back Office</text><text class="d-s" x="801" y="116">отдельный поддомен</text>
+
+          <path class="d-line" d="M97 128 L97 146 M273 128 L273 146 M449 128 L449 146 M625 128 L625 146 M97 146 L625 146 M360 146 L360 164"/>
+          <path class="d-line--accent" d="M801 128 L801 164"/>
+
+          <!-- gateways -->
+          <rect class="d-box" x="20" y="164" width="680" height="50" rx="6"/>
+          <text class="d-t" x="360" y="186">API Gateway</text>
+          <text class="d-s" x="360" y="202">JWT · проверка прав · rate limiting · идемпотентность</text>
+          <rect class="d-box d-box--accent" x="724" y="164" width="155" height="50" rx="6"/>
+          <text class="d-t" x="801" y="186">Admin Gateway</text><text class="d-s" x="801" y="202">JWT + TOTP · allow-list</text>
+
+          <!-- event bus -->
+          <path class="d-line" d="M360 214 L360 236 M801 214 L801 236 M20 236 L880 236"/>
+          <text class="d-cap" x="450" y="230">Шина событий · асинхронное взаимодействие сервисов</text>
+
+          <path class="d-line" d="M100 236 L100 256 M275 236 L275 256 M450 236 L450 256 M625 236 L625 256 M800 236 L800 256"/>
+
+          <!-- services -->
+          <rect class="d-box" x="20" y="256" width="160" height="56" rx="6"/>
+          <text class="d-t" x="100" y="279">Аккаунты · 2FA</text><text class="d-s" x="100" y="295">сессии · TOTP · FIDO2</text>
+          <rect class="d-box" x="195" y="256" width="160" height="56" rx="6"/>
+          <text class="d-t" x="275" y="279">Профиль · KYC</text><text class="d-s" x="275" y="295">данные игрока</text>
+          <rect class="d-box" x="370" y="256" width="160" height="56" rx="6"/>
+          <text class="d-t" x="450" y="279">Бонусы · Партнёрка</text><text class="d-s" x="450" y="295">отыгрыш · рефералы</text>
+          <rect class="d-box" x="545" y="256" width="160" height="56" rx="6"/>
+          <text class="d-t" x="625" y="279">Уведомления</text><text class="d-s" x="625" y="295">WebSocket · push · Telegram</text>
+          <rect class="d-box d-box--accent" x="720" y="256" width="160" height="56" rx="6"/>
+          <text class="d-t" x="800" y="279">Аудит · RBAC</text><text class="d-s" x="800" y="295">журнал действий · права</text>
+
+          <!-- game integration layer -->
+          <path class="d-line--ghost" d="M450 312 L450 336"/>
+          <rect class="d-box d-box--ghost" x="240" y="336" width="420" height="52" rx="6"/>
+          <text class="d-t" x="450" y="358" style="fill:var(--ink-2)">Game Integration Layer</text>
+          <text class="d-s" x="450" y="374">стандартные интерфейсы подключения · игровые модули вне текущего объёма</text>
+
+          <path class="d-line--accent" d="M100 312 L100 404 M800 312 L800 404 M100 404 L800 404 M450 388 L450 404 M450 404 L450 430"/>
+          <text class="d-cap" x="612" y="398">gRPC · mTLS · idempotency-key</text>
+
+          <!-- finance perimeter -->
+          <rect class="d-zone" x="20" y="430" width="860" height="212" rx="10"/>
+          <rect class="d-zone-edge" x="20" y="430" width="860" height="212" rx="10"/>
+          <text class="d-lab" x="450" y="456">ФИНАНСОВОЕ ЯДРО · ИЗОЛИРОВАННАЯ СЕТЬ</text>
+
+          <rect class="d-box" x="48" y="472" width="190" height="52" rx="6"/>
+          <text class="d-t" x="143" y="494">Ledger</text><text class="d-s" x="143" y="510">двойная запись</text>
+          <rect class="d-box" x="256" y="472" width="190" height="52" rx="6"/>
+          <text class="d-t" x="351" y="494">Wallet</text><text class="d-s" x="351" y="510">счета · резервы</text>
+          <rect class="d-box" x="464" y="472" width="190" height="52" rx="6"/>
+          <text class="d-t" x="559" y="494">Risk · AML</text><text class="d-s" x="559" y="510">правила · лимиты</text>
+          <rect class="d-box" x="672" y="472" width="190" height="52" rx="6"/>
+          <text class="d-t" x="767" y="494">Payout</text><text class="d-s" x="767" y="510">maker–checker</text>
+
+          <path class="d-line" d="M143 524 L143 544 M351 524 L351 544 M559 524 L559 544 M767 524 L767 544 M143 544 L767 544 M450 544 L450 560"/>
+
+          <rect class="d-box d-box--accent" x="48" y="560" width="814" height="56" rx="6"/>
+          <text class="d-t" x="455" y="583">PostgreSQL «finance» · Vault · HSM</text>
+          <text class="d-s" x="455" y="600">append-only проводки · numeric(38,18) · шифрование чувствительных полей</text>
+
+          <path class="d-line--accent" d="M450 642 L450 664"/>
+          <rect class="d-box" x="290" y="664" width="320" height="30" rx="6"/>
+          <text class="d-s" x="450" y="683">Blockchain-узлы и RPC-провайдеры · до 3 согласованных сетей</text>
+        </svg>
+      </div>
+      <figcaption>Пунктирная рамка — сетевой периметр финансового ядра. Линии внутри неё — единственные предусмотренные маршруты; остальные направления закрываются сетевыми политиками. Слой подключения игр показан пунктиром: интерфейсы входят в платформу, сами игровые модули реализуются отдельно.</figcaption>
+    </figure>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Зоны ответственности</h3>
+        <p class="copy mt-2">Границы сервисов зафиксированы на этапе проектирования. Это определяет, какие данные сервис видит и какие операции может инициировать.</p>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Группа сервисов</th><th>Ответственность</th><th>Доступ к финансовым данным</th></tr></thead>
+          <tbody>
+            <tr><td>Аккаунты и доступ</td><td>Регистрация, вход, сессии, 2FA, роли и права</td><td class="no">нет</td></tr>
+            <tr><td>Профиль игрока</td><td>Данные игрока, верификация, история активности</td><td class="no">нет</td></tr>
+            <tr><td>Бонусы и партнёрская система</td><td>Правила начислений, ранги, атрибуция, вознаграждения</td><td>через интерфейсы ядра</td></tr>
+            <tr><td>Уведомления</td><td>Оркестрация сообщений и каналов доставки</td><td class="no">нет</td></tr>
+            <tr><td>Back Office</td><td>Управление игроками, операциями, доступами и настройками</td><td>через интерфейсы ядра</td></tr>
+            <tr><td>Аудит и RBAC</td><td>Журнал действий сотрудников, модель прав</td><td>метаданные операций</td></tr>
+            <tr><td>Финансовое ядро</td><td>Ledger, счета, резервы, риск-правила, выплаты</td><td>единственный владелец данных</td></tr>
+            <tr><td>Криптоинфраструктура</td><td>Адреса, мониторинг сети, комиссии, подпись транзакций</td><td>в пределах периметра ядра</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 03 ============================ -->
+<section class="section container" id="s03" data-title="Технологический стек">
+  <p class="eyebrow">03 · Технологический стек</p>
+  <h2 class="heading">Ограниченный, проверенный набор технологий</h2>
+  <p class="lead">Стек подобран так, чтобы платформу можно было сопровождать и передавать: два языка в production, зрелые хранилища, стандартные инструменты эксплуатации.</p>
+
+  <p class="callout callout--status mt-4"><b>Статус технологий.</b> Архитектурные принципы — изоляция финансового ядра, двойная запись, permission-based RBAC, неизменяемый аудит, GitOps-развёртывание — фиксированы. Конкретные продукты в таблицах ниже приведены как предполагаемая реализация: отдельные компоненты могут быть заменены эквивалентом на этапе проектирования без изменения архитектуры и согласованного объёма работ.</p>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Backend</h3>
+      <p class="copy mt-2">Финансовый путь вынесен в отдельный сервис на компилируемом языке: предсказуемая латентность и компактный код, который проще проверять.</p>
+      <p class="small mt-3">Production-стек ограничен двумя языками — TypeScript и Go. Расширение стека рассматривается как отдельное архитектурное решение: это сохраняет предсказуемость сопровождения и передачи проекта.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Слой</th><th>Предполагаемая реализация</th><th>Причина выбора</th></tr></thead>
+        <tbody>
+          <tr><td>API Gateway / BFF</td><td>NestJS · TypeScript · Node 22</td><td>Зрелые механизмы guard/interceptor под RBAC, общая типизация с клиентом</td></tr>
+          <tr><td>Финансовое ядро</td><td>Go</td><td>Предсказуемая латентность на транзакционном пути, компактный аудируемый код</td></tr>
+          <tr><td>Криптосервисы</td><td>Go</td><td>Работа с узлами сетей, подпись транзакций, фоновые обработчики</td></tr>
+          <tr><td>Realtime</td><td>WebSocket-сервис</td><td>Статусы операций, уведомления в открытом приложении</td></tr>
+          <tr><td>Длительные процессы</td><td>Оркестратор workflow (Temporal или эквивалент)</td><td>Выводы и проверки — многошаговые процессы с повторами и полной трассировкой</td></tr>
+          <tr><td>Telegram Bot</td><td>TypeScript, webhook-режим</td><td>Общая кодовая база с BFF</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Клиентские приложения</h3>
+      <p class="copy mt-2">Web, Telegram Mini App и Android строятся на общей кодовой базе. Это удерживает бизнес-логику в одном месте и снижает расхождение поведения между каналами.</p>
+    </div>
+    <div class="stack--sm">
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Канал</th><th>Предполагаемая реализация</th><th>Особенности</th></tr></thead>
+          <tbody>
+            <tr><td>Web</td><td>Next.js · React · TypeScript</td><td>Тёмная тема, адаптивная вёрстка, дизайн-направление согласуется по референсам</td></tr>
+            <tr><td>Back Office</td><td>React SPA</td><td>Отдельный поддомен, отдельный origin и область cookie</td></tr>
+            <tr><td>Telegram Mini App</td><td>Тот же бандл + Telegram SDK</td><td>Авторизация через <code>initData</code> с проверкой подписи на бэкенде</td></tr>
+            <tr><td>Android</td><td>Capacitor + native-модули</td><td>Push, биометрическая разблокировка, защищённое хранилище токена, certificate pinning</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small"><b>Почему оболочка, а не отдельное native-приложение.</b> Требуется один продукт на трёх каналах с одинаковым поведением. Отдельная native-разработка увеличивает объём работ и создаёт расхождение логики между платформами при каждом изменении. Переход на полностью native-клиент рассматривается как отдельное расширение объёма.</p>
+    </div>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Хранилища данных</h3>
+      <p class="copy mt-2">Разделение кластеров <code>core</code> и <code>finance</code> — не формальность: у сервисов разные сетевые политики и разные учётные записи.</p>
+      <p class="callout mt-3">Компрометация прикладного сервиса не даёт доступа к финансовой базе: маршрут к ней закрыт сетевой политикой, а учётная запись сервиса не имеет там прав.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Хранилище</th><th>Назначение</th></tr></thead>
+        <tbody>
+          <tr><td>PostgreSQL — кластер <code>core</code></td><td>Пользователи, сессии, профили, бонусы, рефералы, настройки платформы</td></tr>
+          <tr><td>PostgreSQL — кластер <code>finance</code></td><td>Ledger, счета, транзакции, заявки на вывод. Отдельная инсталляция, отдельная сеть, отдельные учётные записи</td></tr>
+          <tr><td>Redis</td><td>Сессии, rate limiting, распределённые блокировки, кэш операционных данных</td></tr>
+          <tr><td>Аналитическое хранилище</td><td>Отчётность по игрокам и партнёрам, зеркало журналов, агрегаты для Back Office</td></tr>
+          <tr><td>Шина событий</td><td>Асинхронное взаимодействие сервисов, transactional outbox</td></tr>
+          <tr><td>Объектное хранилище с Object Lock (WORM)</td><td>Архив аудит-журналов, документы верификации, резервные копии</td></tr>
+          <tr><td>Vault</td><td>Секреты, шифрование полей, динамические учётные данные к базам</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">Конкретные продукты аналитического хранилища и шины событий (например, ClickHouse и NATS JetStream либо эквиваленты) фиксируются на этапе проектирования.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 04 ============================ -->
+<section class="section section--surface" id="s04" data-title="Финансовое ядро">
+  <div class="container">
+    <p class="eyebrow">04 · Финансовое ядро</p>
+    <h2 class="heading">Финансовое ядро — источник истины по деньгам</h2>
+    <p class="lead">Все движения средств — депозиты, внутренние операции, бонусы, партнёрские вознаграждения, выводы — проходят через один журнал. Баланс не редактируется напрямую: он является производной от проводок.</p>
+
+    <figure class="figure mt-5">
+      <div class="figure__frame">
+        <svg viewBox="0 0 900 440" role="img" aria-label="Схема финансового контура: входящие операции слева, журнал двойной записи в центре, состояния средств и выплаты справа, сверка и аудит внизу">
+          <!-- inputs -->
+          <text class="d-cap" x="118" y="26" style="text-anchor:start">ВХОДЯЩИЕ СОБЫТИЯ</text>
+          <rect class="d-box" x="20" y="40" width="196" height="46" rx="6"/>
+          <text class="d-t" x="118" y="62">Депозит в сети</text><text class="d-s" x="118" y="77">после подтверждений</text>
+          <rect class="d-box" x="20" y="102" width="196" height="46" rx="6"/>
+          <text class="d-t" x="118" y="124">Бонус · партнёрская выплата</text><text class="d-s" x="118" y="139">по правилам начисления</text>
+          <rect class="d-box d-box--ghost" x="20" y="164" width="196" height="46" rx="6"/>
+          <text class="d-t" x="118" y="186" style="fill:var(--ink-2)">Операция игрового модуля</text><text class="d-s" x="118" y="201">через Game Integration Layer</text>
+          <rect class="d-box" x="20" y="226" width="196" height="46" rx="6"/>
+          <text class="d-t" x="118" y="248">Ручная корректировка</text><text class="d-s" x="118" y="263">с основанием и лимитом</text>
+
+          <path class="d-line--accent" d="M216 63 L300 63 M216 125 L300 125 M216 187 L300 187 M216 249 L300 249"/>
+          <path class="d-line--accent" d="M292 57 L300 63 L292 69 M292 119 L300 125 L292 131 M292 181 L300 187 L292 193 M292 243 L300 249 L292 255"/>
+
+          <!-- ledger -->
+          <rect class="d-box d-box--core" x="300" y="40" width="270" height="232" rx="8"/>
+          <text class="d-t d-t--light" x="435" y="100" style="font-size:17px">Financial Ledger</text>
+          <text class="d-s d-s--light" x="435" y="128">двойная запись · append-only</text>
+          <text class="d-s d-s--light" x="435" y="150">сумма проводок операции = 0</text>
+          <text class="d-s d-s--light" x="435" y="172">идемпотентность операций</text>
+          <text class="d-s d-s--light" x="435" y="194">numeric(38,18) · без округлений</text>
+          <text class="d-s d-s--light" x="435" y="216">типы счетов: игрок · бонус ·</text>
+          <text class="d-s d-s--light" x="435" y="234">резерв · партнёр · компания</text>
+
+          <path class="d-line--accent" d="M570 63 L654 63 M570 125 L654 125 M570 187 L654 187 M570 249 L654 249"/>
+          <path class="d-line--accent" d="M646 57 L654 63 L646 69 M646 119 L654 125 L646 131 M646 181 L654 187 L646 193 M646 243 L654 249 L646 255"/>
+
+          <!-- outputs -->
+          <text class="d-cap" x="782" y="26">СОСТОЯНИЯ И ВЫПЛАТЫ</text>
+          <rect class="d-box" x="654" y="40" width="226" height="46" rx="6"/>
+          <text class="d-t" x="767" y="62">Баланс игрока</text><text class="d-s" x="767" y="77">доступные средства</text>
+          <rect class="d-box" x="654" y="102" width="226" height="46" rx="6"/>
+          <text class="d-t" x="767" y="124">Резерв</text><text class="d-s" x="767" y="139">средства заблокированы под заявку</text>
+          <rect class="d-box d-box--accent" x="654" y="164" width="226" height="46" rx="6"/>
+          <text class="d-t" x="767" y="186">Заявка на вывод</text><text class="d-s" x="767" y="201">maker–checker · подтверждения</text>
+          <rect class="d-box" x="654" y="226" width="226" height="46" rx="6"/>
+          <text class="d-t" x="767" y="248">Выплата в сеть</text><text class="d-s" x="767" y="263">подпись и отправка транзакции</text>
+
+          <!-- verification -->
+          <path class="d-line" d="M118 272 L118 316 M435 272 L435 316 M767 272 L767 316 M118 316 L767 316"/>
+          <rect class="d-box d-box--soft" x="20" y="330" width="860" height="88" rx="8"/>
+          <text class="d-t" x="450" y="356">Контроль корректности</text>
+          <text class="d-s" x="180" y="382">Сверка баланса с журналом</text>
+          <text class="d-s" x="180" y="400">по расписанию</text>
+          <text class="d-s" x="450" y="382">Сверка с транзакциями сетей</text>
+          <text class="d-s" x="450" y="400">и остатками кошельков</text>
+          <text class="d-s" x="720" y="382">Финансовый audit trail</text>
+          <text class="d-s" x="720" y="400">и оповещение при расхождении</text>
+        </svg>
+      </div>
+      <figcaption>Ledger — единственная точка, где изменяется состояние средств. Сверка и audit trail работают поверх журнала и не зависят от прикладных сервисов.</figcaption>
+    </figure>
+
+    <ul class="pillars pillars--2 mt-7">
+      <li class="pillar">
+        <span class="pillar__index">01</span>
+        <h3 class="title">Двойная запись</h3>
+        <p class="copy">Каждая операция создаёт группу проводок, сумма которых равна нулю. Средства не возникают и не теряются: они перемещаются между счетами.</p>
+      </li>
+      <li class="pillar">
+        <span class="pillar__index">02</span>
+        <h3 class="title">Идемпотентность</h3>
+        <p class="copy">Каждая операция имеет уникальный ключ. Повтор запроса при обрыве связи не проводит операцию второй раз.</p>
+      </li>
+      <li class="pillar">
+        <span class="pillar__index">03</span>
+        <h3 class="title">Maker–checker</h3>
+        <p class="copy">Крупные выплаты и значительные ручные корректировки требуют подтверждения второй ответственной ролью. Инициатор и подтверждающий — разные учётные записи.</p>
+      </li>
+      <li class="pillar">
+        <span class="pillar__index">04</span>
+        <h3 class="title">Сверка</h3>
+        <p class="copy">Баланс регулярно пересчитывается из журнала и сверяется с фактическими остатками. Расхождение фиксируется и приводит к оповещению.</p>
+      </li>
+    </ul>
+
+    <details class="deep mt-6">
+      <summary class="deep__summary"><span>Детали реализации · модель данных журнала<small>Структура счетов и проводок, инварианты, материализованный баланс</small></span></summary>
+      <div class="deep__body">
+<pre><code><i>-- Счета: у игрока, компании, бонуса, партнёра — отдельный счёт</i>
+<b>accounts</b> (
+  id          uuid PK,
+  owner_type  enum('player','company','bonus','affiliate','house'),
+  owner_id    uuid,
+  currency    text,
+  kind        enum('main','bonus','locked','hot','warm','cold','profit')
+)
+
+<i>-- Проводки: append-only. UPDATE и DELETE отозваны грантами и триггером</i>
+<b>ledger_entries</b> (
+  id               bigserial PK,
+  tx_id            uuid,               <i>-- группа проводок одной операции</i>
+  account_id       uuid FK,
+  amount           numeric(38,18) NOT NULL,   <i>-- знаковое: дебет / кредит</i>
+  operation        enum('deposit','withdraw','bonus','fee',
+                        'affiliate','adjust','game'),
+  ref_type         text,
+  ref_id           uuid,
+  idempotency_key  text UNIQUE,
+  created_by       uuid,               <i>-- сотрудник, если ручная корректировка</i>
+  created_at       timestamptz
+)</code></pre>
+        <div class="split--equal">
+          <div>
+            <p class="kicker">Инварианты, проверяемые в базе</p>
+            <ul class="list">
+              <li><code>SUM(amount) = 0</code> по каждому <code>tx_id</code> — операция не создаёт и не теряет средства</li>
+              <li>Баланс игрока не уходит в отрицательное значение: проверка выполняется в транзакции с блокировкой строки счёта</li>
+              <li><code>idempotency_key</code> уникален — повтор запроса не проводит операцию дважды</li>
+              <li>Только <code>numeric(38,18)</code>; типы с плавающей точкой не используются</li>
+            </ul>
+          </div>
+          <div>
+            <p class="kicker">Материализованный баланс</p>
+            <p class="copy">Таблица агрегированных балансов существует как кэш для чтения и обновляется в той же транзакции, что и проводки. Отдельный процесс по расписанию пересчитывает баланс из журнала и сравнивает с кэшем; расхождение хотя бы в одну единицу младшего разряда фиксируется и вызывает оповещение.</p>
+            <p class="small mt-3">Периодичность сверки — настраиваемый параметр эксплуатации; рекомендуемый базовый вариант — ежесуточный полный пересчёт и оперативные проверки по критичным счетам.</p>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Пополнение</h3>
+        <p class="copy mt-2">Депозит зачисляется только после подтверждений в сети. До этого момента средства не отражаются в балансе игрока.</p>
+        <p class="small mt-3">Число требуемых подтверждений задаётся отдельно для каждой сети и фиксируется при её подключении.</p>
+      </div>
+      <ol class="flow">
+        <li><b>Выдача адреса</b><span>Криптосервис выдаёт производный адрес депозита. Приватный ключ на прикладных серверах не размещается.</span></li>
+        <li><b>Обнаружение</b><span>Сервис мониторинга отслеживает входящие транзакции по адресам платформы.</span></li>
+        <li><b>Подтверждения</b><span>Ожидается заданное число подтверждений сети; параметр настраивается на уровне конфигурации сети.</span></li>
+        <li class="is-key"><b>Проводка в журнале</b><span>Ledger проводит зачисление на счёт игрока. Баланс становится доступен.</span></li>
+        <li><b>Проверка риска</b><span>Адрес-отправитель проверяется по правилам риск-контура и, при подключении внешнего провайдера, — через его API. При превышении порога средства переводятся в удержание и создаётся задача на ручную проверку.</span></li>
+        <li><b>Консолидация</b><span>Фоновый процесс переносит поступления с адресов депозита на операционный кошелёк; излишек сверх операционного лимита направляется на хранение более высокого уровня.</span></li>
+      </ol>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Вывод: двухэтапный контроль</h3>
+        <p class="copy mt-2">Вывод реализован как длительный процесс с сохранением состояния: он переживает перезапуск сервисов и полностью трассируется.</p>
+        <p class="callout mt-3">Пороги, лимиты и правила маршрутизации настраиваются в Back Office. Значения ниже — базовая конфигурация, зафиксированная в требованиях.</p>
+      </div>
+      <ol class="flow">
+        <li><b>Заявка</b><span>Фиксируются IP, признаки устройства, User-Agent и гео-метка запроса.</span></li>
+        <li><b>Резерв</b><span>Сумма переносится на счёт резерва и становится недоступной для других операций.</span></li>
+        <li><b>Автоматические проверки</b><span>Суточные и месячные лимиты, соотношение с депозитами, незакрытые условия по бонусам, проверка адреса получателя, характерные паттерны вывода, вход с нового устройства.</span></li>
+        <li class="is-key"><b>Маршрутизация</b><span>До $500 при низкой оценке риска — автоматическое одобрение. От $500 или при повышенном риске — подтверждение Admin и Finance. Вывод средств компании — Finance и Founder.</span></li>
+        <li><b>Подтверждения</b><span>Каждое подтверждение — отдельный запрос с одноразовым кодом подтверждающего. Совпадение инициатора и подтверждающего исключается ограничением на уровне базы.</span></li>
+        <li><b>Выплата</b><span>Сервис выплат формирует транзакцию, подписывает её в защищённом контуре и отправляет в сеть.</span></li>
+        <li><b>Расчёт</b><span>После подтверждения транзакции резерв закрывается, статус заявки — завершена. При ошибке резерв возвращается на баланс игрока.</span></li>
+        <li><b>Аудит</b><span>Каждый переход состояния заявки фиксируется с идентификатором сотрудника, IP и меткой времени. Заявка с неполной цепочкой переходов помечается как аномалия.</span></li>
+      </ol>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Мультивалютность и курсы</h3>
+        <p class="copy mt-2">Учёт ведётся в валюте счёта: конвертация при каждой операции не выполняется. Отображение баланса в дополнительной валюте — визуальный пересчёт, который не изменяет фактические остатки.</p>
+      </div>
+      <div class="stack--sm">
+        <ul class="list">
+          <li>Курсы агрегируются из нескольких независимых источников по медиане с резервным источником</li>
+          <li>Существенное расхождение между источниками приостанавливает конвертации и вызывает оповещение</li>
+          <li>Каждая финансовая конвертация журналируется: сумма до и после, курс, источник, метка времени</li>
+          <li>Внутренний обмен между активами не входит в базовый объём и рассматривается отдельно</li>
+        </ul>
+        <p class="small">Периодичность обновления курсов и допустимый порог расхождения — рекомендуемые базовые параметры конфигурации; итоговые значения согласуются вместе с моделью мультивалютности до реализации финансового контура.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 05 ============================ -->
+<section class="section container" id="s05" data-title="Криптоинфраструктура и хранение средств">
+  <p class="eyebrow">05 · Криптоинфраструктура и хранение средств</p>
+  <h2 class="heading">Три уровня хранения и подпись в защищённом контуре</h2>
+  <p class="lead">Базовая конфигурация — self-custody: платформа сама управляет ключами, но объём средств, доступных для автоматических операций, ограничен операционным уровнем. Основной резерв хранится офлайн.</p>
+
+  <figure class="figure mt-5">
+    <div class="figure__frame">
+      <svg viewBox="0 0 900 350" role="img" aria-label="Схема уровней хранения криптоактивов: адреса депозитов, операционный, промежуточный и резервный уровни, а также контур подписи транзакций">
+        <rect class="d-box d-box--soft" x="20" y="16" width="860" height="44" rx="6"/>
+        <text class="d-t" x="450" y="38">Адреса депозитов · производные от watch-only ключа</text>
+        <text class="d-s" x="450" y="53">приватные ключи на прикладных серверах не размещаются</text>
+
+        <path class="d-line--accent" d="M160 60 L160 92 M152 84 L160 92 L168 84"/>
+        <text class="d-cap" x="240" y="80" style="text-anchor:start">консолидация поступлений</text>
+
+        <!-- tiers -->
+        <rect class="d-box d-box--accent" x="20" y="92" width="272" height="112" rx="8"/>
+        <text class="d-t" x="156" y="120">Hot · операционный</text>
+        <text class="d-s" x="156" y="142">автоматическая подпись выплат</text>
+        <text class="d-s" x="156" y="160">в пределах установленного лимита</text>
+        <text class="d-s" x="156" y="182">ключ в защищённом хранилище</text>
+
+        <rect class="d-box" x="314" y="92" width="272" height="112" rx="8"/>
+        <text class="d-t" x="450" y="120">Warm · промежуточный</text>
+        <text class="d-s" x="450" y="142">multisig 2 из 3</text>
+        <text class="d-s" x="450" y="160">операция выполняется вручную</text>
+        <text class="d-s" x="450" y="182">две независимые подписи</text>
+
+        <rect class="d-box" x="608" y="92" width="272" height="112" rx="8"/>
+        <text class="d-t" x="744" y="120">Cold · резерв</text>
+        <text class="d-s" x="744" y="142">аппаратный multisig и HSM</text>
+        <text class="d-s" x="744" y="160">ключи хранятся офлайн</text>
+        <text class="d-s" x="744" y="182">доступ — только владелец платформы</text>
+
+        <path class="d-line" d="M292 128 L314 128 M306 122 L314 128 L306 134"/>
+        <path class="d-line" d="M586 128 L608 128 M600 122 L608 128 L600 134"/>
+        <text class="d-s" x="303" y="116">излишек</text>
+        <text class="d-s" x="597" y="116">излишек</text>
+        <path class="d-line--ghost" d="M608 172 L586 172 M594 166 L586 172 L594 178"/>
+        <path class="d-line--ghost" d="M314 172 L292 172 M300 166 L292 172 L300 178"/>
+        <text class="d-s" x="303" y="194">пополнение</text>
+        <text class="d-s" x="597" y="194">пополнение</text>
+
+        <!-- signing contour -->
+        <path class="d-line--accent" d="M156 204 L156 236 M450 204 L450 236 M744 204 L744 236 M156 236 L744 236 M450 236 L450 252"/>
+        <rect class="d-zone" x="20" y="252" width="860" height="80" rx="8"/>
+        <rect class="d-zone-edge" x="20" y="252" width="860" height="80" rx="8"/>
+        <text class="d-lab" x="450" y="278">КОНТУР ПОДПИСИ</text>
+        <text class="d-s" x="450" y="300">Транзакция подписывается внутри защищённого модуля; экспорт приватного ключа не предусмотрен.</text>
+        <text class="d-s" x="450" y="318">Резервное восстановление — офлайн-схема с разделением секрета на несколько частей в разных местах хранения.</text>
+      </svg>
+    </div>
+    <figcaption>Автоматически подписываются только выплаты в пределах операционного лимита. Перемещение средств с более высоких уровней требует ручной операции с несколькими подписями.</figcaption>
+  </figure>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Распределение средств между уровнями</h3>
+      <p class="copy mt-2">Соотношение уровней управляет балансом между скоростью выплат и объёмом средств, доступных автоматике.</p>
+      <p class="small mt-3">Значения ниже — рекомендуемое целевое распределение. Итоговые лимиты, правила консолидации и multisig-процедуры согласуются до реализации криптоконтура и настраиваются в эксплуатации.</p>
+    </div>
+    <div class="tiers">
+      <div class="tierbar" role="img" aria-label="Рекомендуемое распределение: операционный уровень около 5 процентов, промежуточный около 15 процентов, резервный — оставшаяся часть">
+        <span class="t1"></span><span class="t2"></span><span class="t3"></span>
+      </div>
+      <ul class="tierlegend">
+        <li class="t1"><i></i><b>Hot · ≈5%</b><small>автоматическая подпись в пределах лимита</small></li>
+        <li class="t2"><i></i><b>Warm · ≈15%</b><small>multisig 2 из 3, ручная операция</small></li>
+        <li class="t3"><i></i><b>Cold · остальное</b><small>офлайн-хранение, аппаратный multisig и HSM</small></li>
+      </ul>
+      <div class="tablewrap mt-5">
+        <table>
+          <thead><tr><th>Уровень</th><th>Управление ключами</th><th>Кто инициирует операцию</th></tr></thead>
+          <tbody>
+            <tr><td>Hot</td><td>Ключ в защищённом хранилище платформы</td><td>Сервис выплат — автоматически, в пределах лимита</td></tr>
+            <tr><td>Warm</td><td>Multisig 2 из 3: владелец, Finance, резервный ключ</td><td>Ручная операция с двумя подписями</td></tr>
+            <tr><td>Cold</td><td>Аппаратный multisig, ключи офлайн, подпись в HSM</td><td>Владелец платформы, с физическим доступом к носителям</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Обращение с ключами</h3>
+      <p class="copy mt-2">Ключи не размещаются в исходном коде, переменных окружения, журналах и базах данных. Доступ к операциям подписи предоставляется только сервису выплат в пределах установленной политики.</p>
+    </div>
+    <div class="stack--sm">
+      <ul class="list">
+        <li>Подпись выполняется внутри защищённого модуля; экспорт приватного ключа не предусмотрен архитектурой</li>
+        <li>Резервное восстановление — офлайн-схема с разделением секрета на несколько частей, хранимых раздельно</li>
+        <li>Политики подписи ограничивают сумму, направление и частоту автоматических операций</li>
+        <li>Отклонения от политики фиксируются в журнале и вызывают оповещение дежурного</li>
+      </ul>
+      <p class="callout callout--note">Базовая конфигурация рассчитана на self-custody. Переход на внешнего кастодиана возможен как альтернатива, но меняет состав работ по криптоконтуру и требует пересогласования объёма — условия описаны в основном коммерческом предложении.</p>
+    </div>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Подключение сетей</h3>
+      <p class="copy mt-2">Работа с сетями построена через слой абстракции: добавление новой сети — реализация адаптера, а не изменение финансового ядра.</p>
+    </div>
+    <div class="stack--sm">
+      <ul class="list">
+        <li>В базовый объём входит до трёх согласованных blockchain-сетей</li>
+        <li>Для каждой сети настраиваются: число подтверждений, модель комиссий, правила консолидации, параметры мониторинга</li>
+        <li>Архитектура рассчитана на добавление сетей после запуска; каждая дополнительная сеть оценивается отдельно</li>
+        <li>Мониторинг остатков кошельков и очереди выплат выведен в оповещения и панели наблюдения</li>
+      </ul>
+      <p class="small">Конкретные сети и поддерживаемые токены согласуются до начала работ по криптоконтуру.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 06 ============================ -->
+<section class="section section--surface" id="s06" data-title="Роли и разграничение доступа">
+  <div class="container">
+    <p class="eyebrow">06 · Роли и разграничение доступа</p>
+    <h2 class="heading">Право — это набор разрешений, а не название роли</h2>
+    <p class="lead">Проверка выполняется по конкретному разрешению, а не по имени роли. Это позволяет менять матрицу доступа настройкой, без переписывания кода, и точно фиксировать, кто и что может делать.</p>
+
+    <ul class="chain mt-5" aria-label="Модель прав: роль связана с набором разрешений">
+      <li>Роль<small>назначается сотруднику</small></li>
+      <li>Набор разрешений<small>связь «многие ко многим»</small></li>
+      <li class="is-key">Разрешение<small>например, подтверждение вывода</small></li>
+      <li>Проверка в сервисе<small>на каждом запросе</small></li>
+    </ul>
+
+    <h3 class="subheading mt-7">Матрица доступа</h3>
+    <p class="copy mt-2">Состав ролей и объём полномочий соответствуют модели доступа, зафиксированной в коммерческом предложении.</p>
+    <div class="tablewrap mt-4">
+      <table>
+        <thead><tr><th>Роль</th><th>Финансы</th><th>Данные и журналы</th><th>Администрирование</th><th>Не предоставляется</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Founder<br><span class="small">один аккаунт</span></td>
+            <td>Операции со счетами компании, включая резервные уровни хранения; подпись в защищённом контуре</td>
+            <td>Финансовые, технические журналы и журнал аудита</td>
+            <td>Роли и доступы, конфигурация платформы, второе подтверждение выводов</td>
+            <td class="no">Обязателен аппаратный ключ для входа и критических операций</td>
+          </tr>
+          <tr>
+            <td>Admin</td>
+            <td>Начисление баланса игрокам в пределах лимита, первичное одобрение выводов</td>
+            <td>Журнал аудита и действия игроков</td>
+            <td>Роли, блокировки, выдача доступов</td>
+            <td class="no">Счета прибыли компании, операции с ключами</td>
+          </tr>
+          <tr>
+            <td>Finance</td>
+            <td>Второе подтверждение выводов игроков, начисление баланса, инициирование операций со средствами компании</td>
+            <td>Журналы пополнений и выводов, финансовая статистика</td>
+            <td>—</td>
+            <td class="no">Серверные журналы, конфигурация платформы</td>
+          </tr>
+          <tr>
+            <td>Support</td>
+            <td>Просмотр истории операций игрока для ответа на обращение</td>
+            <td>Профиль и статистика игрока без пароля и без исходного IP</td>
+            <td>Блокировка аккаунта игрока по обращению</td>
+            <td class="no">Финансовые потоки компании</td>
+          </tr>
+          <tr>
+            <td>Affiliate Manager</td>
+            <td>—</td>
+            <td>Общая статистика и статистика по партнёрам</td>
+            <td>Создание партнёров, подготовка условий программ — с последующим утверждением</td>
+            <td class="no">Вывод средств партнёров</td>
+          </tr>
+          <tr>
+            <td>Partner</td>
+            <td>Собственный партнёрский счёт и заявка на вывод</td>
+            <td>Статистика только собственных привлечённых игроков</td>
+            <td>Собственные реферальные ссылки и материалы</td>
+            <td class="no">Данные чужих игроков</td>
+          </tr>
+          <tr>
+            <td>Player</td>
+            <td>Собственный баланс: пополнение и заявка на вывод</td>
+            <td>Только собственная статистика</td>
+            <td>Реферальная ссылка</td>
+            <td class="no">Административные интерфейсы</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="table-note">Лимиты начислений, пороги подтверждения и перечень ролей, допущенных к ручной корректировке баланса, настраиваются в Back Office и согласуются до реализации финансового контура.</p>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Три рубежа проверки</h3>
+        <p class="copy mt-2">Право проверяется последовательно на нескольких уровнях. Интерфейс отвечает за удобство, а не за защиту.</p>
+      </div>
+      <div class="kv">
+        <div><b>Шлюз</b><span>Проверка подписи токена и наличия разрешения. Токен короткоживущий, обновление — по отдельному защищённому маршруту.</span></div>
+        <div><b>Сервис</b><span>Повторная проверка по актуальным правам из базы: токен мог быть выдан до отзыва прав. Здесь же применяются строчные фильтры — например, партнёр получает только собственные записи, и фильтр реализован на уровне репозитория, а не контроллера.</span></div>
+        <div><b>База данных</b><span>Отдельные учётные записи PostgreSQL. У сервиса поддержки нет прав на выборку чувствительных полей, а к базе <code>finance</code> — прав нет вовсе.</span></div>
+      </div>
+    </div>
+
+    <details class="deep mt-6">
+      <summary class="deep__summary"><span>Детали реализации · разделение обязанностей (maker–checker)<small>Кто инициирует и кто подтверждает критические операции</small></span></summary>
+      <div class="deep__body">
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Операция</th><th>Инициатор</th><th>Подтверждающий</th></tr></thead>
+            <tbody>
+              <tr><td>Вывод игрока от $500</td><td>Admin</td><td>Finance</td></tr>
+              <tr><td>Вывод со счёта прибыли компании</td><td>Finance</td><td>Founder</td></tr>
+              <tr><td>Ручная корректировка баланса сверх лимита</td><td>Finance</td><td>Admin</td></tr>
+              <tr><td>Выдача роли с административными правами</td><td>Admin</td><td>Founder</td></tr>
+              <tr><td>Условия партнёрской программы</td><td>Affiliate Manager</td><td>Founder / Admin</td></tr>
+              <tr><td>Изменение критичной конфигурации платформы</td><td>Founder</td><td>Подтверждение одноразовым кодом и аппаратным ключом</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="copy"><b>Интерфейс Back Office</b> получает перечень разрешений при входе и отображает только доступные элементы. Это влияет на удобство работы, но не заменяет проверку: запрос к закрытому маршруту в обход интерфейса получает <code>403</code> и записывается в журнал аудита как событие безопасности. Серия таких попыток вызывает оповещение и временное ограничение сессии.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============================ 07 ============================ -->
+<section class="section container" id="s07" data-title="Аудит и журналирование">
+  <p class="eyebrow">07 · Аудит и журналирование</p>
+  <h2 class="heading">Три независимых потока журналов с разным доступом</h2>
+  <p class="lead">Технические, финансовые и аудиторские записи разделены: у них разные хранилища, разный доступ и разные сроки хранения. Это ограничивает круг лиц, видящих чувствительные данные, и упрощает разбор спорных ситуаций.</p>
+
+  <div class="tablewrap mt-5">
+    <table>
+      <thead><tr><th>Поток</th><th>Хранилище</th><th>Доступ</th><th>Срок хранения</th></tr></thead>
+      <tbody>
+        <tr><td>Технические — ошибки, задержки, обращения к API</td><td>Система сбора логов и трассировки ошибок</td><td>DevOps (только чтение), владелец платформы</td><td>рекомендуемый базовый параметр</td></tr>
+        <tr><td>Финансовые — пополнения, выводы, проводки</td><td>Кластер <code>finance</code> и аналитическое хранилище</td><td>Finance, Admin, Founder</td><td>по требованиям юрисдикции</td></tr>
+        <tr><td>Аудит действий сотрудников</td><td>Отдельная схема БД и объектное хранилище с Object Lock</td><td>Admin, Founder</td><td>по согласованной политике хранения</td></tr>
+      </tbody>
+    </table>
+    <p class="table-note">Конкретные сроки хранения согласуются до реализации: они зависят от выбранной юрисдикции и политики обработки персональных данных. Рекомендуемый подход — раздельные сроки для журнала действий сотрудников и для персональных данных игроков.</p>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Защита от изменения задним числом</h3>
+      <p class="copy mt-2">Журнал аудита рассчитан на то, чтобы изменение исторической записи было обнаружимым, а не просто запрещённым инструкцией.</p>
+    </div>
+    <div class="stack--sm">
+      <ul class="list">
+        <li>Таблица append-only: права на изменение и удаление отозваны, дополнительно установлен запрещающий триггер</li>
+        <li>Хеш-цепочка записей: подмена строки нарушает цепочку, проверка целостности выполняется по расписанию и формирует оповещение при разрыве</li>
+        <li>Периодическая выгрузка в объектное хранилище с Object Lock: удаление объектов ограничено до истечения срока хранения, включая административные учётные записи облака</li>
+        <li>Параллельный поток в аналитическое хранилище на отдельной инфраструктуре</li>
+        <li>Фиксируется в том числе просмотр чувствительных данных: кто и когда открывал карточку игрока</li>
+      </ul>
+      <p class="callout">В журнале сохраняются идентификатор сотрудника, роль, действие, объект, значения «было → стало», IP, устройство и метка времени.</p>
+    </div>
+  </div>
+
+  <details class="deep mt-6">
+    <summary class="deep__summary"><span>Детали реализации · структура журнала аудита и шифрование<small>Схема таблицы, хеш-цепочка, шифрование данных в состоянии покоя</small></span></summary>
+    <div class="deep__body">
+<pre><code><b>audit_log</b> (
+  id           bigserial PK,
+  actor_id     uuid,          <i>-- идентификатор сотрудника</i>
+  actor_role   text,
+  action       text,          <i>-- например, player.balance.credit</i>
+  target_type  text,
+  target_id    uuid,
+  payload      jsonb,         <i>-- было → стало</i>
+  ip           inet,
+  user_agent   text,
+  created_at   timestamptz DEFAULT now(),
+  prev_hash    bytea,         <i>-- хеш предыдущей записи</i>
+  row_hash     bytea          <i>-- SHA-256(prev_hash || поля строки)</i>
+)</code></pre>
+      <div class="split--equal">
+        <div>
+          <p class="kicker">Неизменяемость</p>
+          <ul class="list">
+            <li><code>REVOKE UPDATE, DELETE</code> для всех учётных записей приложения</li>
+            <li>Триггер <code>BEFORE UPDATE OR DELETE</code>, прерывающий операцию</li>
+            <li>Регулярная проверка хеш-цепочки с оповещением при разрыве</li>
+          </ul>
+        </div>
+        <div>
+          <p class="kicker">Шифрование в состоянии покоя</p>
+          <ul class="list">
+            <li>Шифрование чувствительных полей: IP, e-mail, телефон, документы верификации</li>
+            <li>Ключи в Vault: приложение вызывает операции шифрования, не получая мастер-ключ</li>
+            <li>Пароли — <code>Argon2id</code> (см. раздел 15)</li>
+            <li>Ротация ключей по расписанию с сохранением предыдущих версий для расшифровки исторических данных</li>
+            <li>Шифрование томов, TLS наружу и mTLS между сервисами внутри кластера</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ============================ 08 ============================ -->
+<section class="section section--surface" id="s08" data-title="Клиентские каналы">
+  <div class="container">
+    <p class="eyebrow">08 · Клиентские каналы</p>
+    <h2 class="heading">Три точки входа игрока и один сервисный канал</h2>
+    <p class="lead">Web, Telegram Mini App и Android — интерфейсы одного продукта: общий аккаунт, общий баланс, одна и та же серверная логика. Telegram Bot дополняет их как сервисный канал.</p>
+
+    <div class="split mt-6">
+      <div>
+        <h3 class="subheading">Mini App и Bot — разные задачи</h3>
+        <p class="copy mt-2">Оба компонента присутствуют в объёме, поскольку решают разные задачи и не дублируют друг друга.</p>
+      </div>
+      <div class="kv">
+        <div><b>Telegram Mini App</b><span>Игровой пользовательский интерфейс внутри Telegram: аккаунт, баланс, пополнение и вывод, подключённые игровые модули.</span></div>
+        <div><b>Telegram Bot</b><span>Сервисный канал: уведомления и статусы операций, ссылка на актуальный адрес и Mini App, обращения в поддержку, реферальные сценарии.</span></div>
+      </div>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Каналы и их особенности</h3>
+        <p class="copy mt-2">Общая кодовая база интерфейса позволяет сохранять одинаковое поведение в браузере, Telegram и Android-приложении.</p>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Канал</th><th>Реализация</th><th>Ключевые особенности</th></tr></thead>
+          <tbody>
+            <tr><td>Web</td><td>Публичное веб-приложение игрока</td><td>Адаптивная вёрстка, тёмная тема, статика через CDN</td></tr>
+            <tr><td>Telegram Mini App</td><td>Тот же интерфейс внутри Telegram</td><td>Авторизация через <code>initData</code> с проверкой подписи на бэкенде, отдельный сценарий привязки к существующему аккаунту</td></tr>
+            <tr><td>Telegram Bot</td><td>Webhook-режим, отдельный обработчик</td><td>Статусы выводов, актуальный адрес, быстрый баланс, реферальная ссылка, эскалация в поддержку</td></tr>
+            <tr><td>Android</td><td>Оболочка на общей кодовой базе + native-модули</td><td>Push-уведомления, биометрическая разблокировка, защищённое хранение токена, certificate pinning, проверка окружения устройства</td></tr>
+            <tr><td>Back Office</td><td>Отдельное приложение на своём поддомене</td><td>Собственный origin и область cookie, обязательный второй фактор при входе</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Распространение Android-приложения — прямая установка и собственный механизм обновления. Публикация в магазине приложений не входит в объём и зависит от политики площадки; iOS-приложение в объём не входит.</p>
+      </div>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Доступность и резервные адреса</h3>
+        <p class="copy mt-2">Домен API отделён от домена веб-приложения: ограничение доступа к витрине не выводит из строя мобильные клиенты и Mini App.</p>
+      </div>
+      <div class="stack--sm">
+        <ul class="list">
+          <li>Настраиваемый пул резервных доменов с заранее подготовленными записями DNS</li>
+          <li>Мониторинг доступности основного адреса из нескольких географических точек</li>
+          <li>Переключение выполняется через API провайдера DNS и автоматизировано на уровне процедуры эксплуатации</li>
+          <li>Актуальный адрес доставляется игроку через Telegram-бота, push-уведомление в приложении и персональную ссылку-редиректор</li>
+        </ul>
+        <p class="small">Размер пула резервных доменов и целевое время переключения — параметры конфигурации, согласуемые при настройке инфраструктуры.</p>
+      </div>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Языки интерфейса</h3>
+        <p class="copy mt-2">Базовый набор языков — русский и английский. Тексты вынесены в отдельные ресурсы, поэтому добавление языка не требует изменения кода.</p>
+      </div>
+      <div>
+        <p class="copy">Числа, даты и валюты форматируются средствами интернационализации по выбранной локали. Добавление языков сверх базового набора включает перевод и лингвистическую проверку и оценивается отдельно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 09 ============================ -->
+<section class="section container" id="s09" data-title="Game Integration Layer">
+  <p class="eyebrow">09 · Game Integration Layer</p>
+  <h2 class="heading">Платформа готова к подключению игр, сами игры реализуются отдельно</h2>
+  <p class="lead">Собственные игры не входят в объём основной платформы. При этом финансовое ядро и Back Office проектируются так, чтобы игровой модуль — собственный или сторонний — подключался через стандартные интерфейсы, без переработки ядра.</p>
+
+  <p class="callout mt-4"><b>Граница объёма.</b> Разработка игровых модулей, включая PvP «Дурак», а также game engine, генератор случайных чисел, Provably Fair, настройку RTP, игровые интерфейсы и графику — отдельные работы. Условия их подключения зафиксированы в основном коммерческом предложении.</p>
+
+  <h3 class="subheading mt-7">Жизненный цикл игровой операции</h3>
+  <p class="copy mt-2">Игровой модуль не работает с деньгами напрямую: он обращается к финансовому ядру, а ядро проводит операцию и возвращает результат.</p>
+  <ul class="chain mt-4" aria-label="Цикл игровой операции: авторизация, ставка, проведение в ядре, результат, расчёт и обновление баланса">
+    <li>Авторизация<small>сессия игрока</small></li>
+    <li>Ставка<small>запрос к ядру</small></li>
+    <li class="is-key">Финансовое ядро<small>проводка · идемпотентность</small></li>
+    <li>Результат<small>от игрового модуля</small></li>
+    <li>Расчёт<small>выигрыш или списание</small></li>
+    <li>Баланс<small>обновлён и зафиксирован</small></li>
+  </ul>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Что входит в платформу</h3>
+      <p class="copy mt-2">В базовый объём входит слой интеграции: контракты, события и обработка ошибок на стороне платформы.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Интерфейс</th><th>Назначение</th></tr></thead>
+        <tbody>
+          <tr><td>Authorization</td><td>Проверка сессии игрока и допуска к игровому модулю</td></tr>
+          <tr><td>Balance</td><td>Получение доступного баланса с учётом резервов и бонусных счетов</td></tr>
+          <tr><td>Bet / Win</td><td>Списание ставки и зачисление выигрыша проводками в журнале</td></tr>
+          <tr><td>Settlement</td><td>Закрытие раунда и фиксация итогового результата</td></tr>
+          <tr><td>Rollback</td><td>Отмена операции при сбое игрового модуля с возвратом средств</td></tr>
+          <tr><td>Idempotency</td><td>Защита от повторного проведения одной и той же операции</td></tr>
+          <tr><td>Bonus / Wagering</td><td>Учёт оборота по правилам отыгрыша с настраиваемыми коэффициентами</td></tr>
+          <tr><td>Audit</td><td>Фиксация игровых операций в финансовом журнале и журнале аудита</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">Коэффициенты учёта оборота задаются конфигурацией и уточняются при подключении конкретного игрового модуля.</p>
+    </div>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Что относится к игровому модулю</h3>
+      <p class="copy mt-2">Эти компоненты реализуются в составе игрового модуля — собственного или предоставленного провайдером.</p>
+    </div>
+    <div class="stack--sm">
+      <ul class="list list--cols">
+        <li>игровая логика и состояние раунда</li>
+        <li>генератор случайных чисел и его изоляция</li>
+        <li>механика Provably Fair и страница проверки</li>
+        <li>настройка RTP и математическая модель</li>
+        <li>игровые интерфейсы и графика</li>
+        <li>сертификация генератора случайных чисел</li>
+      </ul>
+      <p class="small">Сертификация генератора и лицензирование выполняются внешними организациями и не входят в объём разработки платформы.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 10 ============================ -->
+<section class="section section--surface" id="s10" data-title="Операционные модули платформы">
+  <div class="container">
+    <p class="eyebrow">10 · Операционные модули платформы</p>
+    <h2 class="heading">Бонусы, партнёрская система, поддержка и уведомления</h2>
+    <p class="lead">Эти модули работают поверх финансового ядра и модели прав: любое начисление проходит проводкой, любое действие сотрудника фиксируется в журнале.</p>
+
+    <div class="split mt-6">
+      <div>
+        <h3 class="subheading">Бонусы и ранги</h3>
+        <p class="copy mt-2">Правила описываются как данные, а не как код: условия, суммы, требования по отыгрышу, срок действия и ограничения задаются конфигурацией. Новая акция не требует выпуска новой версии.</p>
+      </div>
+      <div class="stack--sm">
+        <ul class="list">
+          <li>Бонусный баланс — отдельный счёт в журнале; средства переводятся в основной баланс после выполнения условий отыгрыша</li>
+          <li>Учёт оборота ведётся с настраиваемыми коэффициентами; коэффициенты для конкретных игр задаются при подключении игрового модуля</li>
+          <li>Уровни рассчитываются по обороту, а не по сумме пополнений</li>
+          <li>Активация новых условий выполняется после подтверждения ответственной ролью</li>
+        </ul>
+        <p class="small">Набор бонусных механик на запуск согласуется до реализации модуля.</p>
+      </div>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Партнёрская система</h3>
+        <p class="copy mt-2">Базовая партнёрская система: привлечение, закрепление игрока, расчёт вознаграждения и кабинет партнёра.</p>
+      </div>
+      <div class="stack--sm">
+        <ul class="list">
+          <li>Модели вознаграждения: RevShare, CPA и комбинированная</li>
+          <li>Атрибуция по реферальному коду с постоянным закреплением игрока при регистрации</li>
+          <li>Кабинет партнёра: собственный счёт, заявка на вывод, статистика только собственных игроков — фильтрация на уровне доступа к данным</li>
+          <li>Базовые правила контроля злоупотреблений: совпадение признаков устройства, адреса и платёжных реквизитов приводит к приостановке выплаты до проверки</li>
+        </ul>
+        <p class="callout callout--note">Многоуровневая партнёрская программа и субпартнёрские структуры в базовый объём не входят. Формулы расчёта остаются настраиваемыми и согласуются до реализации.</p>
+      </div>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Поддержка</h3>
+        <p class="copy mt-2">Поддержка работает в отдельном интерфейсе, ограниченном по данным, с интеграцией self-hosted платформы обращений вместо разработки собственного helpdesk.</p>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Оператор поддержки</th><th>Объём доступа</th></tr></thead>
+          <tbody>
+            <tr><td>Видит</td><td>Профиль игрока без пароля и без исходного IP, историю операций игрока, собственные обращения</td></tr>
+            <tr><td>Может</td><td>Отвечать на обращения, блокировать аккаунт игрока по жалобе, эскалировать в Finance или Admin</td></tr>
+            <tr><td>Не получает доступ</td><td>Счета компании, финансовые показатели платформы, чужие очереди обращений, журнал аудита</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">Каналы обращений (веб-чат, Telegram, e-mail) согласуются до реализации модуля.</p>
+      </div>
+    </div>
+
+    <div class="split mt-7">
+      <div>
+        <h3 class="subheading">Уведомления и рассылки</h3>
+        <p class="copy mt-2">Оркестрация сообщений отделена от каналов доставки: добавление канала не затрагивает бизнес-логику уведомлений.</p>
+      </div>
+      <div class="stack--sm">
+        <ul class="list">
+          <li><b>WebSocket</b> — события в открытом приложении: статус вывода, сообщение поддержки</li>
+          <li><b>Push</b> — уведомления для Android и браузера</li>
+          <li><b>Telegram</b> — через сервисного бота</li>
+          <li><b>Массовые рассылки</b> — доступны Admin и Support, отправляются через очередь с ограничением скорости, с предпросмотром и подтверждением</li>
+        </ul>
+        <p class="small">Каждая рассылка журналируется: кто, когда, какому сегменту и с каким содержанием. Сегментация — по уровню, активности, географии и языку. Расширенная маркетинговая автоматизация в базовый объём не входит.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 11 ============================ -->
+<section class="section container" id="s11" data-title="Инфраструктура и развёртывание">
+  <p class="eyebrow">11 · Инфраструктура и развёртывание</p>
+  <h2 class="heading">Инфраструктура описана кодом, изменения проходят через ревью</h2>
+  <p class="lead">Три окружения, декларативное описание инфраструктуры и развёртывание через репозиторий. Ручные изменения в production не предусмотрены процессом: каждое изменение проходит через pull request и остаётся в истории.</p>
+
+  <div class="split mt-6">
+    <div>
+      <h3 class="subheading">Контур развёртывания</h3>
+      <p class="copy mt-2">Одинаковый способ доставки для всех окружений снижает вероятность расхождения между тестовым стендом и production.</p>
+    </div>
+    <div class="stack--sm">
+      <ul class="list">
+        <li><b>Окружения</b> — dev, stage и production с раздельными доступами и данными</li>
+        <li><b>Kubernetes</b> — управляемый кластер вне РФ, изоляция по namespace, сетевые политики с запретом по умолчанию</li>
+        <li><b>Terraform</b> — инфраструктура как код, состояние хранится централизованно</li>
+        <li><b>GitOps</b> — состояние кластера соответствует репозиторию; прямое применение конфигурации в production закрыто правами кластера</li>
+        <li><b>CI/CD</b> — сборка, тесты, проверки безопасности и выпуск; развёртывание в production требует подтверждения ответственной роли</li>
+        <li><b>Пограничный слой</b> — DNS, WAF, защита от сетевых атак, CDN для статики, проверка на регистрации и выводе</li>
+      </ul>
+      <p class="small">Конкретный инфраструктурный провайдер и регион размещения согласуются до начала работ. Рекомендуемая конфигурация первой версии — один основной регион с резервным копированием и горизонтальным масштабированием.</p>
+    </div>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Доступ к production</h3>
+      <p class="copy mt-2">Прямых маршрутов из интернета к базам данных не предусмотрено. Доступ предоставляется через промежуточный узел с записью сессии.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Кто</th><th>Объём доступа</th></tr></thead>
+        <tbody>
+          <tr><td>Разработчик</td><td>Только dev и stage. Доступ к production не предоставляется</td></tr>
+          <tr><td>Технический руководитель</td><td>Код, метрики и журналы. Доступ к базам production не предоставляется</td></tr>
+          <tr><td>DevOps</td><td>Инфраструктура и развёртывание. База <code>core</code> — только чтение через промежуточный узел с записью сессии. К базе <code>finance</code> доступ не предоставляется</td></tr>
+          <tr><td>Владелец платформы</td><td>Расширенный доступ, включая экстренные операции. Каждая такая сессия записывается и вызывает оповещение</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">Доступ по SSH — только по ключу с подтверждением одноразовым кодом, через узел в приватной подсети, с ограничением времени сессии и выдачей временных учётных данных к базам. Конкретные значения тайм-аутов — параметры эксплуатации.</p>
+    </div>
+  </div>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Наблюдаемость</h3>
+      <p class="copy mt-2">Метрики, журналы и трассировки собираются централизованно; оповещения направляются дежурному по заранее описанным правилам.</p>
+    </div>
+    <div class="stack--sm">
+      <ul class="list">
+        <li>Метрики и панели наблюдения по сервисам, очередям, кошелькам и финансовым операциям</li>
+        <li>Централизованный сбор журналов и трассировка запросов между сервисами</li>
+        <li>Отслеживание ошибок приложений с привязкой к выпуску</li>
+        <li>Оповещения по правилам: недоступность сервиса, рост ошибок, расхождение при сверке, аномалии в очереди выплат</li>
+      </ul>
+      <p class="small">Состав панелей и пороги срабатывания оповещений уточняются на этапе настройки эксплуатации.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 12 ============================ -->
+<section class="section section--surface" id="s12" data-title="Модель безопасности">
+  <div class="container">
+    <p class="eyebrow">12 · Модель безопасности</p>
+    <h2 class="heading">Семь направлений, вокруг которых построена защита</h2>
+    <p class="lead">Безопасность рассматривается не как список инструментов, а как набор принципов. Каждый принцип имеет техническую реализацию и точку контроля.</p>
+
+    <div class="mt-6">
+      <details class="deep" open>
+        <summary class="deep__summary"><span>01 · Доступ сотрудников<small>Каждый сотрудник получает минимально необходимые полномочия</small></span></summary>
+        <div class="deep__body">
+          <p class="copy">Права выдаются на уровне разрешений и проверяются сервером на каждом запросе. Изменение роли фиксируется в журнале аудита и подтверждается второй ответственной ролью.</p>
+          <ul class="list">
+            <li>Обязательный второй фактор (одноразовый код) для входа в Back Office и подтверждения финансовых операций</li>
+            <li>Аппаратный ключ для владельца платформы при входе и критических действиях</li>
+            <li>Отдельное подтверждение каждой финансовой операции, а не однократная авторизация на рабочий день</li>
+            <li>Ограничение времени сессии и повторная аутентификация при чувствительных действиях</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="deep">
+        <summary class="deep__summary"><span>02 · Защита финансовых операций<small>Критические действия не выполняются одним человеком</small></span></summary>
+        <div class="deep__body">
+          <p class="copy">Финансовое ядро изолировано сетевым периметром, а операции проходят через проверяемые правила: лимиты, пороги подтверждения и разделение инициатора и подтверждающего.</p>
+          <ul class="list">
+            <li>Maker–checker для крупных выплат и значительных ручных корректировок</li>
+            <li>Идемпотентность операций и защита от повторного проведения</li>
+            <li>Ограничение скорости обращений по IP, аккаунту и маршруту API</li>
+            <li>Проверка на стороне пограничного слоя при регистрации, входе и выводе</li>
+            <li>Правила контроля злоупотреблений: признаки устройства, выявление связанных аккаунтов, нетипичные последовательности операций</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="deep">
+        <summary class="deep__summary"><span>03 · Секреты и ключи<small>Секреты хранятся централизованно и не попадают в код</small></span></summary>
+        <div class="deep__body">
+          <p class="copy">Все секреты выдаются из централизованного хранилища с ограниченным сроком действия. Приватные ключи кошельков не размещаются в исходном коде, переменных окружения, журналах и базах данных.</p>
+          <ul class="list">
+            <li>Динамические учётные данные к базам с ограниченным временем жизни</li>
+            <li>Подпись транзакций внутри защищённого модуля; экспорт ключа не предусмотрен</li>
+            <li>Проверка на наличие секретов в коде выполняется в конвейере сборки — коммит с секретом не проходит</li>
+            <li>Ротация ключей шифрования по расписанию с сохранением предыдущих версий для исторических данных</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="deep">
+        <summary class="deep__summary"><span>04 · Защита инфраструктуры<small>Сетевая изоляция и контролируемое изменение конфигурации</small></span></summary>
+        <div class="deep__body">
+          <p class="copy">Сетевые политики закрывают всё, что не разрешено явно. Изменение конфигурации проходит через репозиторий и ревью — см. раздел 11.</p>
+          <ul class="list">
+            <li>Изоляция по namespace, политика «запрещено по умолчанию», отдельные политики для финансового периметра</li>
+            <li>Шифрование трафика: TLS наружу, mTLS между сервисами</li>
+            <li>Статический анализ кода и проверка зависимостей в конвейере сборки, динамическая проверка на тестовом стенде</li>
+            <li>Отсутствие данных production на тестовых стендах: стенды наполняются обезличенным набором данных, генератор входит в поставку</li>
+          </ul>
+          <p class="callout callout--note">Платформа готовится к внешнему penetration test: устраняются типовые классы уязвимостей, фиксируются конфигурации и границы. Сам независимый тест выполняется сторонним провайдером и не входит в объём проекта.</p>
+        </div>
+      </details>
+
+      <details class="deep">
+        <summary class="deep__summary"><span>05 · Мониторинг<small>Отклонения обнаруживаются автоматически</small></span></summary>
+        <div class="deep__body">
+          <p class="copy">Наблюдение охватывает не только техническое состояние сервисов, но и финансовые показатели: расхождение при сверке, задержки в очереди выплат, нетипичные остатки кошельков.</p>
+          <ul class="list">
+            <li>Оповещения по правилам с направлением дежурному</li>
+            <li>Отдельные правила для событий безопасности: серия отказов в доступе, попытки обращения к закрытым маршрутам, вход с нового устройства для сотрудника</li>
+            <li>Проверка целостности журнала аудита по расписанию</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="deep">
+        <summary class="deep__summary"><span>06 · Резервное копирование<small>Восстановление проверяется, а не предполагается</small></span></summary>
+        <div class="deep__body">
+          <p class="copy">Резервное копирование включает восстановление на момент времени и полные снимки. Копии шифруются и размещаются отдельно от основной инфраструктуры.</p>
+          <ul class="list">
+            <li>Восстановление на произвольный момент времени через архив журналов транзакций</li>
+            <li>Регулярный полный снимок и раздельное хранение копий</li>
+            <li>Процедура восстановления описана и проверяется по расписанию: восстановление, которое ни разу не проверялось, не считается подтверждённым</li>
+          </ul>
+          <p class="small">Целевые показатели восстановления (RPO / RTO) и периодичность проверок согласуются до настройки эксплуатации.</p>
+        </div>
+      </details>
+
+      <details class="deep">
+        <summary class="deep__summary"><span>07 · Реагирование на инциденты<small>Действия при инциденте описаны заранее</small></span></summary>
+        <div class="deep__body">
+          <p class="copy">Для критичных сценариев подготовлены инструкции: последовательность действий, ответственные и способ остановки операций.</p>
+          <ul class="list">
+            <li>Инструкция на случай компрометации операционного кошелька</li>
+            <li>Аварийная остановка выплат отдельной операцией</li>
+            <li>Порядок оповещения и фиксации хода разбора инцидента</li>
+            <li>Восстановление доступа и ротация скомпрометированных секретов</li>
+          </ul>
+          <p class="small">Дежурство и сопровождение после запуска не входят в объём проекта и оформляются отдельным соглашением при необходимости.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 13 ============================ -->
+<section class="section container" id="s13" data-title="Этапы технической реализации">
+  <p class="eyebrow">13 · Этапы технической реализации</p>
+  <h2 class="heading">Что именно реализуется на каждом этапе</h2>
+  <p class="lead">Этапы соответствуют плану реализации из коммерческого предложения. Ниже — их техническое наполнение: какие компоненты создаются и какой результат можно проверить.</p>
+
+  <p class="callout callout--status mt-4"><b>Срок.</b> Ориентировочный срок реализации согласованного объёма — <b>18–21 неделя</b>. Работы частично выполняются параллельно: инфраструктура, тестирование и клиентские интерфейсы развиваются вместе с основной разработкой. Порядок приёмки и оплаты этапов описан в основном коммерческом предложении.</p>
+
+  <ol class="timeline mt-7">
+    <li class="timeline__step">
+      <span class="timeline__when">Этап 01</span>
+      <h3 class="timeline__title">Основа платформы</h3>
+      <ul class="list timeline__what">
+        <li>финализация архитектуры, границ сервисов и контрактов</li>
+        <li>окружения, кластер, инфраструктура как код, CI/CD, хранилище секретов</li>
+        <li>схемы баз данных <code>core</code> и <code>finance</code>, каркас сервисов</li>
+        <li>аккаунты, вход, сессии, второй фактор</li>
+        <li>модель разрешений, 7 ролей, проверки на трёх рубежах</li>
+        <li>журнал аудита и каркас Back Office</li>
+        <li>дизайн-направление и основа Design System</li>
+      </ul>
+      <p class="timeline__result"><b>Проверяемый результат</b>Согласованная архитектура и визуальное направление; на стенде работают аккаунты, роли и вход сотрудников.</p>
+    </li>
+    <li class="timeline__step">
+      <span class="timeline__when">Этап 02</span>
+      <h3 class="timeline__title">Финансовое и crypto-ядро</h3>
+      <ul class="list timeline__what">
+        <li>журнал двойной записи, счета, резервы, идемпотентность</li>
+        <li>жизненный цикл депозита и вывода, maker–checker, лимиты</li>
+        <li>базовые правила риск-контура и слой интеграции с внешним провайдером проверки</li>
+        <li>слой абстракции сетей и подключение до трёх согласованных сетей</li>
+        <li>адреса депозитов, мониторинг сети, комиссии, консолидация</li>
+        <li>уровни хранения, политики подписи, мониторинг кошельков</li>
+        <li>сверка, финансовый audit trail, Finance Panel и подтверждение выводов в Back Office</li>
+      </ul>
+      <p class="timeline__result"><b>Проверяемый результат</b>На стенде проходит полный путь денег: депозит, баланс, операция, заявка, подтверждения, выплата и сверка.</p>
+    </li>
+    <li class="timeline__step">
+      <span class="timeline__when">Этап 03</span>
+      <h3 class="timeline__title">Клиентский и бизнес-контур</h3>
+      <ul class="list timeline__what">
+        <li>публичное веб-приложение и интерфейсы кошелька</li>
+        <li>Telegram Mini App и сервисный бот</li>
+        <li>Android-приложение: push, защищённое хранилище, биометрия, обновление</li>
+        <li>бонусный движок, ранги, партнёрская система и кабинет партнёра</li>
+        <li>уведомления и массовые рассылки, языки RU/EN</li>
+        <li>интерфейсы Game Integration Layer и интерфейс поддержки</li>
+      </ul>
+      <p class="timeline__result"><b>Проверяемый результат</b>Игрок, партнёр и сотрудник проходят основные сценарии через свои интерфейсы. Разработка игровых модулей в этап не входит.</p>
+    </li>
+    <li class="timeline__step">
+      <span class="timeline__when">Этап 04</span>
+      <h3 class="timeline__title">Проверка и запуск</h3>
+      <ul class="list timeline__what">
+        <li>интеграционное и регрессионное тестирование, сквозные сценарии</li>
+        <li>нагрузочные проверки и проверки поведения при сбоях</li>
+        <li>проверки безопасности: статический анализ, зависимости, динамическая проверка</li>
+        <li>мониторинг, оповещения, резервное копирование и проверка восстановления</li>
+        <li>резервные адреса и процедуры эксплуатации</li>
+        <li>развёртывание production, документация и передача проекта</li>
+      </ul>
+      <p class="timeline__result"><b>Проверяемый результат</b>Согласованный объём проверен, развёрнут в production и передан вместе с документацией и процедурами эксплуатации.</p>
+    </li>
+  </ol>
+
+  <div class="split mt-7">
+    <div>
+      <h3 class="subheading">Что влияет на график</h3>
+    </div>
+    <div class="stack--sm">
+      <ul class="list">
+        <li>сроки согласования дизайн-направления и предоставления материалов</li>
+        <li>выбор конкретных blockchain-сетей и конфигурации хранения средств</li>
+        <li>предоставление доступов к инфраструктуре, домену и внешним сервисам</li>
+        <li>сроки обратной связи по промежуточным результатам</li>
+      </ul>
+      <p class="small">Задержки в предоставлении решений, материалов и доступов сдвигают календарный срок проекта.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 14 ============================ -->
+<section class="section section--surface" id="s14" data-title="Параметры, уточняемые до реализации">
+  <div class="container">
+    <p class="eyebrow">14 · Параметры, уточняемые до реализации</p>
+    <h2 class="heading">Что уже зафиксировано и что требует решения заказчика</h2>
+    <p class="lead">Основная архитектура и состав платформы определены. Ниже перечислены только те параметры, которые влияют на бизнес-логику, безопасность или инфраструктуру и требуют решения до начала соответствующего этапа.</p>
+
+    <div class="split mt-6">
+      <div>
+        <h3 class="subheading">Зафиксировано в предложении</h3>
+        <p class="copy mt-2">По этим пунктам решение уже принято и дополнительного согласования не требует.</p>
+      </div>
+      <ul class="list list--cols">
+        <li>изоляция финансового ядра и модель двойной записи</li>
+        <li>permission-based RBAC и семь ролей</li>
+        <li>неизменяемый журнал аудита</li>
+        <li>клиентские каналы: Web, Telegram Mini App, Telegram Bot, Android</li>
+        <li>Android реализуется на общей кодовой базе; iOS не входит</li>
+        <li>до трёх согласованных blockchain-сетей</li>
+        <li>self-custody Hot / Warm / Cold с подписью в защищённом контуре — расчётная база</li>
+        <li>базовый риск-контур и слой интеграции с внешним AML/KYC-провайдером</li>
+        <li>базовая партнёрская система: RevShare, CPA и комбинированная модель</li>
+        <li>поддержка на базе self-hosted платформы обращений</li>
+        <li>языки интерфейса: RU и EN</li>
+        <li>собственные игровые модули в объём не входят</li>
+        <li>внешний penetration test и сертификация не входят</li>
+        <li>тарифы и комиссии сторонних сервисов оплачиваются напрямую провайдерам</li>
+      </ul>
+    </div>
+
+    <h3 class="subheading mt-7">Уточняется перед началом реализации</h3>
+    <p class="copy mt-2">Уточнение параметров в пределах согласованного объёма не изменяет коммерческие условия. Расширение объёма оформляется отдельно — порядок описан в основном коммерческом предложении.</p>
+    <div class="tablewrap mt-4">
+      <table>
+        <thead><tr><th>Параметр</th><th>На что влияет</th><th>Когда требуется</th></tr></thead>
+        <tbody>
+          <tr><td>Юрисдикция и планируемая лицензия</td><td>Требования к проверке личности, хранению данных и ограничениям доступа по странам</td><td>до этапа 02</td></tr>
+          <tr><td>Модель проверки личности и внешний AML/KYC-провайдер</td><td>Пороги срабатывания, состав интеграции, сценарии удержания средств</td><td>до этапа 02</td></tr>
+          <tr><td>Конкретные blockchain-сети и поддерживаемые токены</td><td>Состав адаптеров сетей, число подтверждений, модель комиссий</td><td>до этапа 02</td></tr>
+          <tr><td>Конфигурация хранения средств: HSM, лимиты, правила консолидации и multisig</td><td>Реализация криптоконтура и операционные процедуры</td><td>до этапа 02</td></tr>
+          <tr><td>Лимиты выводов и пороги подтверждения</td><td>Правила маршрутизации заявок и maker–checker</td><td>до этапа 02</td></tr>
+          <tr><td>Модель мультивалютности и валюты отображения</td><td>Схема счетов, правила получения и логирования курсов</td><td>до этапа 02</td></tr>
+          <tr><td>Способы регистрации и правила второго фактора для игрока</td><td>Сценарии входа, привязка Telegram, восстановление доступа</td><td>до этапа 01</td></tr>
+          <tr><td>Набор бонусных механик и правила партнёрской программы</td><td>Конфигурация начислений, база расчёта вознаграждения, критерии квалификации</td><td>до этапа 03</td></tr>
+          <tr><td>Каналы поддержки и перечень уведомлений</td><td>Состав интеграции обращений и шаблоны сообщений</td><td>до этапа 03</td></tr>
+          <tr><td>Состав отчётов и показателей Back Office</td><td>Наполнение панелей, фильтры, выгрузка данных</td><td>до этапа 03</td></tr>
+          <tr><td>Дизайн-референсы и материалы бренда</td><td>Визуальное направление и Design System</td><td>до этапа 01</td></tr>
+          <tr><td>Инфраструктурный провайдер и ожидаемая нагрузка</td><td>Топология кластера и стоимость эксплуатации</td><td>до этапа 01</td></tr>
+          <tr><td>Целевые показатели восстановления и политика хранения данных</td><td>Схема резервного копирования и сроки хранения журналов</td><td>до этапа 04</td></tr>
+          <tr><td>Доступы: домен, DNS-аккаунт, инфраструктурный аккаунт, ключи внешних сервисов</td><td>Развёртывание окружений и подключение интеграций</td><td>по мере этапов</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="callout mt-5">Не все параметры должны быть известны в момент подписания договора. Бизнес-критичные решения фиксируются до старта, а технические пороги, провайдеры и операционные политики могут быть финализированы на этапе проектирования, если выбранное решение остаётся внутри согласованного объёма.</p>
+  </div>
+</section>
+
+<!-- ============================ 15 ============================ -->
+<section class="section container" id="s15" data-title="Архитектурные уточнения">
+  <p class="eyebrow">15 · Архитектурные уточнения</p>
+  <h2 class="heading">Где исходное требование было технически уточнено</h2>
+  <p class="lead">В нескольких местах исходное требование сохранено по смыслу, но реализовано иначе — так, чтобы результат был устойчивее. Ниже приведены эти решения с обоснованием.</p>
+
+  <div class="decisions mt-6">
+    <article class="decision">
+      <span class="decision__index">01</span>
+      <div>
+        <h3 class="decision__title">Хранение паролей</h3>
+        <div class="decision__body">
+          <p class="decision__part"><b>Исходное требование</b>Хеширование паролей алгоритмом bcrypt.</p>
+          <p class="decision__part"><b>Предлагаемая реализация</b>Хеширование алгоритмом <code>Argon2id</code> с параметрами, согласованными на этапе проектирования.</p>
+          <p class="decision__why"><b>Почему</b>bcrypt остаётся рабочим вариантом при достаточном параметре сложности, однако Argon2id устойчивее к подбору на специализированном оборудовании и соответствует текущим отраслевым рекомендациям. На этапе проектирования переход не увеличивает объём работ.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="decision">
+      <span class="decision__index">02</span>
+      <div>
+        <h3 class="decision__title">Доступ к приватным ключам через HSM</h3>
+        <div class="decision__body">
+          <p class="decision__part"><b>Исходное требование</b>Просмотр приватных ключей владельцем платформы через HSM-модуль.</p>
+          <p class="decision__part"><b>Предлагаемая реализация</b>Владелец платформы инициирует подпись транзакции внутри защищённого модуля. Экспорт ключа не предусмотрен; резервное восстановление обеспечивается отдельной офлайн-схемой с разделением секрета на несколько частей, хранимых раздельно.</p>
+          <p class="decision__why"><b>Почему</b>Смысл защищённого модуля — в том, что ключ не покидает его границ: подпись выполняется внутри модуля. Экспорт ключа снял бы это свойство. Предложенная схема сохраняет требуемый контроль владельца и одновременно даёт проверяемый способ восстановления доступа.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="decision">
+      <span class="decision__index">03</span>
+      <div>
+        <h3 class="decision__title">Право Admin на начисление баланса</h3>
+        <div class="decision__body">
+          <p class="decision__part"><b>Исходное требование</b>Admin может выдавать балансы игрокам.</p>
+          <p class="decision__part"><b>Предлагаемая реализация</b>Право сохраняется, но ограничено разовым и суточным лимитом. Начисление сверх лимита требует подтверждения второй ответственной ролью и обязательного указания основания.</p>
+          <p class="decision__why"><b>Почему</b>Начисление баланса означает создание средств в системе. Лимит и подтверждение второй ролью сохраняют оперативность работы поддержки и одновременно исключают ситуацию, когда крупное начисление проводится одним сотрудником без следа и согласования.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="decision">
+      <span class="decision__index">04</span>
+      <div>
+        <h3 class="decision__title">Неудаляемые журналы</h3>
+        <div class="decision__body">
+          <p class="decision__part"><b>Исходное требование</b>Логи аудита нельзя удалить.</p>
+          <p class="decision__part"><b>Предлагаемая реализация</b>Append-only таблица с хеш-цепочкой, регулярная проверка целостности и выгрузка в объектное хранилище с Object Lock. Срок хранения определяется отдельно для журнала действий сотрудников и для персональных данных игроков.</p>
+          <p class="decision__why"><b>Почему</b>Требование реализуемо технически, но срок хранения нужно определить заранее: бессрочное хранение всех данных увеличивает расходы на хранилище и может конфликтовать с требованиями к обработке персональных данных в отдельных юрисдикциях. Разделение сроков решает обе задачи.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="decision">
+      <span class="decision__index">05</span>
+      <div>
+        <h3 class="decision__title">Автоматическая смена зеркал</h3>
+        <div class="decision__body">
+          <p class="decision__part"><b>Исходное требование</b>Автоматическая смена зеркал при блокировках.</p>
+          <p class="decision__part"><b>Предлагаемая реализация</b>Настраиваемый пул резервных доменов, мониторинг доступности из нескольких точек и автоматизированное переключение через API провайдера DNS. Домен API отделён от домена веб-приложения.</p>
+          <p class="decision__why"><b>Почему</b>Архитектура решает задачу технической доступности сервиса и скорости переключения. Правовые аспекты работы в конкретных юрисдикциях лежат вне области архитектуры и определяются отдельно.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="decision">
+      <span class="decision__index">06</span>
+      <div>
+        <h3 class="decision__title">Игровой модуль</h3>
+        <div class="decision__body">
+          <p class="decision__part"><b>Исходное требование</b>Набор собственных игр в составе платформы.</p>
+          <p class="decision__part"><b>Предлагаемая реализация</b>В основной платформе реализуется Game Integration Layer — стандартные интерфейсы подключения игровых модулей. Сами игровые модули реализуются отдельно, включая генератор случайных чисел, Provably Fair, настройку RTP и игровые интерфейсы.</p>
+          <p class="decision__why"><b>Почему</b>Такое разделение позволяет запустить платёжный и операционный контур платформы раньше, а игры подключать по мере готовности — собственные или предоставленные провайдером — без переработки финансового ядра. Состав и условия работ по игровым модулям зафиксированы в основном коммерческом предложении.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="decision">
+      <span class="decision__index">07</span>
+      <div>
+        <h3 class="decision__title">Перечень сетей и валют</h3>
+        <div class="decision__body">
+          <p class="decision__part"><b>Исходное требование</b>Мультивалютность и работа с криптовалютными кошельками.</p>
+          <p class="decision__part"><b>Предлагаемая реализация</b>До трёх согласованных blockchain-сетей на запуск, подключаемых через общий слой абстракции. Учёт ведётся в валюте счёта, дополнительные валюты используются для отображения.</p>
+          <p class="decision__why"><b>Почему</b>Каждая сеть — отдельная интеграция со своими правилами подтверждений, комиссий и мониторинга. Ограничение стартового набора снижает сложность запуска и площадь возможных ошибок, а слой абстракции позволяет добавлять сети после запуска.</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Техническое приложение описывает целевую архитектуру проекта. Детальные схемы баз данных, API-контракты и инфраструктурные конфигурации уточняются на этапе проектирования в рамках согласованного объёма работ.</p>
+  <p>Состав поставки, сроки, этапы и коммерческие условия зафиксированы в основном коммерческом предложении. При расхождении формулировок приоритет имеет коммерческое предложение.</p>
+  <p class="doc-id">Crypto Casino Platform · Техническое приложение · v1.0 · 05.09.2026</p>
+</footer>
+
+<script>
+(function(){
+  var bar=document.getElementById('topbar'),
+      cur=document.getElementById('topcur'),
+      hero=document.getElementById('top');
+  if(!('IntersectionObserver' in window)||!bar||!hero) return;
+  new IntersectionObserver(function(e){bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:0}).observe(hero);
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.isIntersecting){
+        cur.innerHTML='<em>'+en.target.id.replace('s','')+'</em>'+(en.target.getAttribute('data-title')||'');
+      }
+    });
+  },{rootMargin:'-10% 0px -75% 0px',threshold:0});
+  document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>

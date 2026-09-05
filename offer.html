@@ -1,0 +1,2713 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Casino Platform — Коммерческое предложение</title>
+<meta name="description" content="Коммерческое предложение на проектирование, разработку и запуск криптовалютной игровой платформы под ключ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F4F3EE;
+  --surface:#FFFFFF;
+  --surface-2:#ECEBE4;
+  --ink:#151A1E;
+  --ink-2:#3E4850;
+  --ink-3:#6C7780;
+  --rule:#DAD9D1;
+  --rule-strong:#B9BBB1;
+  --accent:#164E63;
+  --accent-ink:#0E3947;
+  --accent-soft:#E2ECEF;
+  --cover:#131A1F;
+  --cover-ink:#F2F1EC;
+  --cover-ink-2:#A9B1B7;
+  --cover-rule:#2B353D;
+  --f-sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --f-serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --w:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-sans);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-soft)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+p{margin:0 0 14px;max-width:64ch}
+ul{margin:0 0 14px;padding-left:18px;max-width:64ch}
+li{margin-bottom:5px}
+li::marker{color:var(--ink-3)}
+strong{font-weight:600}
+h1,h2,h3{font-family:var(--f-sans);margin:0;text-wrap:balance;letter-spacing:-.02em}
+.num{font-variant-numeric:tabular-nums}
+.shell{max-width:var(--w);margin:0 auto;padding:0 32px}
+.lead{font-family:var(--f-serif);font-size:20px;line-height:1.5;color:var(--ink-2);max-width:60ch;margin-bottom:22px}
+.muted{color:var(--ink-3)}
+.small{font-size:14.5px}
+.label{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.hint{font-size:14px;color:var(--ink-3);max-width:64ch}
+
+/* top bar */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:50;height:48px;background:rgba(244,243,238,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);transform:translateY(-100%);transition:transform .25s ease}
+.topbar.show{transform:none}
+.topbar .in{max-width:var(--w);margin:0 auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:13px;color:var(--ink-3)}
+.topbar .doc{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .cur{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .cur em{font-style:normal;font-family:var(--f-mono);font-size:11px;color:var(--accent);margin-right:8px}
+.topbar .sum{color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* cover */
+.cover{background:var(--cover);color:var(--cover-ink)}
+.cover .shell{min-height:92vh;padding-top:56px;padding-bottom:56px;display:flex;flex-direction:column;justify-content:space-between}
+.cover-top{display:flex;justify-content:space-between;gap:24px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cover-ink-2)}
+.cover h1{font-weight:700;font-size:clamp(46px,7.6vw,96px);line-height:.96;letter-spacing:-.035em;margin:128px 0 26px;color:var(--cover-ink)}
+.cover .sub{font-family:var(--f-serif);font-size:clamp(18px,2.1vw,22px);line-height:1.45;color:var(--cover-ink-2);max-width:52ch;margin:0}
+.hero-kpi{display:grid;grid-template-columns:1fr 1fr;gap:40px;border-top:1px solid var(--cover-rule);margin-top:88px;padding-top:30px}
+.hero-kpi b{display:block;font-weight:600;font-size:clamp(40px,5.4vw,66px);letter-spacing:-.035em;line-height:1;color:var(--cover-ink);font-variant-numeric:tabular-nums}
+.hero-kpi span{display:block;margin-top:10px;font-size:15px;color:var(--cover-ink-2)}
+.hero-line{display:flex;flex-wrap:wrap;gap:10px 36px;margin-top:34px;padding-top:20px;border-top:1px solid var(--cover-rule);font-size:15px;color:var(--cover-ink-2)}
+.hero-line b{color:var(--cover-ink);font-weight:500}
+
+/* contents */
+.toc{padding:40px 0 8px;border-bottom:1px solid var(--rule)}
+.toc ol{list-style:none;margin:0;padding:0;max-width:none;display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px}
+.toc li{margin:0}
+.toc a{display:flex;gap:14px;align-items:baseline;padding:10px 0;border-top:1px solid var(--rule);color:var(--ink);font-size:15px}
+.toc li:nth-child(-n+3) a{border-top:0}
+.toc a em{font-family:var(--f-mono);font-style:normal;font-size:11px;color:var(--accent)}
+.toc a:hover{text-decoration:none;color:var(--accent)}
+
+/* sections */
+section.sec{padding:112px 0 0;scroll-margin-top:60px}
+.shead{display:flex;align-items:baseline;gap:20px;margin-bottom:30px}
+.shead .n{font-family:var(--f-mono);font-size:12px;color:var(--accent);letter-spacing:.08em}
+h2{font-weight:600;font-size:clamp(30px,4vw,42px);line-height:1.1}
+h3{font-weight:600;font-size:20px;line-height:1.3;letter-spacing:-.012em}
+.two{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:start}
+.two-eq{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+
+/* 02 offer */
+.offer-list{list-style:none;padding:0;margin:26px 0 0;max-width:none;display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.offer-list li{margin:0;padding:14px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:auto 1fr;gap:6px 0}
+.offer-list b{font-weight:600;font-size:16.5px}
+.offer-list span{grid-column:1/-1;font-size:14.5px;color:var(--ink-3)}
+.aside-note{border-left:2px solid var(--accent);padding:4px 0 4px 20px;font-size:15.5px;color:var(--ink-2);max-width:60ch;margin-top:30px}
+
+/* 03 outcomes */
+.outcomes{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:56px;align-items:start}
+.outcomes .intro{position:sticky;top:80px}
+.outcomes ol{list-style:none;margin:0;padding:0;max-width:none}
+.outcome{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--rule)}
+.outcome:first-child{border-top:0;padding-top:4px}
+.outcome i{font-family:var(--f-mono);font-style:normal;font-size:13px;color:var(--accent);padding-top:6px}
+.outcome h3{margin-bottom:6px;font-size:21px}
+.outcome p{margin:0;color:var(--ink-2);max-width:56ch}
+
+/* 04 flows */
+.flows{display:flex;flex-direction:column;gap:30px;margin-top:8px}
+.flow{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center}
+.flow .who{font-weight:600;font-size:17px}
+.flow .who small{display:block;font-weight:400;font-size:13px;color:var(--ink-3)}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:10px 0}
+.chain .nd{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:9px 16px;font-size:15px;font-weight:500;white-space:nowrap}
+.chain .nd.a{background:var(--accent);border-color:var(--accent);color:#fff}
+.chain .nd.g{background:transparent;border-style:dashed;color:var(--ink-2)}
+.chain .ar{width:28px;text-align:center;color:var(--rule-strong);font-size:16px}
+.chain .dot{width:18px;text-align:center;color:var(--rule-strong)}
+.team{display:flex;flex-wrap:wrap;gap:8px 28px;font-size:15px;color:var(--ink-2)}
+.team b{color:var(--ink);font-weight:600}
+
+/* 05 risks */
+.risk{display:grid;grid-template-columns:72px repeat(3,1fr);gap:28px;padding:34px 0;border-top:1px solid var(--rule)}
+.risk:last-child{border-bottom:1px solid var(--rule)}
+.risk .no{grid-row:1/span 2;font-family:var(--f-sans);font-weight:600;font-size:44px;line-height:1;letter-spacing:-.04em;color:var(--accent);opacity:.9}
+.risk h3{grid-column:2/-1;margin:0 0 6px;font-size:22px}
+.risk .col{font-size:15px;line-height:1.55;color:var(--ink-2)}
+.risk .col b{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:8px}
+.risk .col.win{color:var(--ink)}
+.risk .col.win b{color:var(--accent)}
+
+/* 06 estimate */
+.est{margin-top:10px}
+.est .grp{display:grid;grid-template-columns:200px 1fr;gap:32px;padding:30px 0 10px;border-top:2px solid var(--ink);margin-top:20px}
+.est .grp:first-child{margin-top:0}
+.est .grp h3{font-size:20px}
+.est .grp .gd{font-size:14px;color:var(--ink-3);margin-top:6px;max-width:26ch}
+.est .grp .gs{margin-top:16px;font-family:var(--f-mono);font-size:12px;color:var(--ink-3)}
+.est .rows{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:34px 1fr 80px 100px;gap:16px;align-items:baseline;padding:14px 0;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0;padding-top:0}
+.row i{font-family:var(--f-mono);font-style:normal;font-size:12px;color:var(--ink-3)}
+.row b{font-weight:600;font-size:16.5px;display:block}
+.row span{display:block;font-size:14px;color:var(--ink-3);margin-top:2px}
+.row .h{font-family:var(--f-mono);font-size:13px;color:var(--ink-3);text-align:right;white-space:nowrap}
+.row .p{font-weight:600;font-size:17px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.total{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:end;border-top:2px solid var(--ink);margin-top:36px;padding-top:28px}
+.total .big{font-weight:700;font-size:clamp(56px,7vw,84px);letter-spacing:-.04em;line-height:.95;font-variant-numeric:tabular-nums}
+.total .big small{display:block;font-size:15px;font-weight:400;letter-spacing:0;color:var(--ink-3);margin-top:12px}
+.total .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.total .facts b{display:block;font-weight:600;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.total .facts span{display:block;font-size:14px;color:var(--ink-3);margin-top:4px}
+.pricenote{margin-top:44px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px}
+.pricenote h3{font-size:18px}
+.pricenote p{font-size:15.5px;color:var(--ink-2);max-width:none;margin:0}
+
+/* 07 roadmap */
+.rm{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:20px;position:relative}
+.rm::before{content:"";position:absolute;left:0;right:0;top:5px;height:1px;background:var(--rule-strong)}
+.rm .m{position:relative;padding-top:26px}
+.rm .m::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:var(--accent)}
+.rm .m i{font-family:var(--f-mono);font-style:normal;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.rm .m h3{margin:8px 0 8px;font-size:22px}
+.rm .m .w{font-size:14.5px;color:var(--ink-2);margin-bottom:16px;line-height:1.5}
+.rm .m .r{font-size:14.5px;color:var(--ink);border-top:1px solid var(--rule);padding-top:12px;line-height:1.5}
+.rm .m .r b{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:5px}
+
+/* 08 control */
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:28px 48px;margin-top:8px}
+.principle h3{font-size:19px;margin-bottom:6px}
+.principle p{margin:0;color:var(--ink-2);font-size:15.5px}
+.roles{margin-top:56px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.chips span{border:1px solid var(--rule-strong);background:var(--surface);border-radius:3px;padding:6px 12px;font-size:14px;font-weight:500}
+.kv{margin-top:8px;display:grid;grid-template-columns:1fr;gap:0}
+.kv div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--rule);font-size:15px}
+.kv div:last-child{border-bottom:1px solid var(--rule)}
+.kv b{font-weight:600}
+.kv span{color:var(--ink-2)}
+
+/* 09 add-ons */
+.feature{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:center;background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:30px 34px;margin-top:8px}
+.feature h3{font-size:24px;margin-bottom:8px}
+.feature p{margin:0;color:var(--ink-2);font-size:15.5px}
+.feature .pr{text-align:right}
+.feature .pr b{display:block;font-weight:700;font-size:clamp(30px,3.6vw,42px);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.feature .pr span{display:block;margin-top:8px;font-size:14.5px;color:var(--ink-3)}
+.addons{margin:8px 0 0}
+.addon{display:grid;grid-template-columns:1fr 200px;gap:24px;padding:16px 0;border-top:1px solid var(--rule);align-items:baseline}
+.addon:last-child{border-bottom:1px solid var(--rule)}
+.addon b{font-weight:600}
+.addon span{display:block;font-size:14.5px;color:var(--ink-3);margin-top:2px}
+.addon .v{font-size:15px;text-align:right;color:var(--ink-2)}
+.scopebox{margin-top:56px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:start}
+.scopebox h3{font-size:19px;margin-bottom:12px}
+.incl{list-style:none;padding:0;margin:0;max-width:none;columns:2;column-gap:32px;font-size:15px;color:var(--ink-2)}
+.incl li{break-inside:avoid;padding-left:18px;position:relative;margin-bottom:7px}
+.incl li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:var(--accent)}
+.ext{background:var(--surface-2);border-radius:4px;padding:22px 24px;font-size:14.5px;color:var(--ink-2)}
+.ext h3{font-size:16px;margin-bottom:8px;color:var(--ink)}
+.ext p{margin:0 0 10px;max-width:none}
+.ext ul{margin:0;padding-left:16px;max-width:none}
+.ext li{margin-bottom:3px}
+
+/* 10 terms + next */
+.terms{display:grid;grid-template-columns:1fr 1fr;gap:26px 48px;margin-top:8px}
+.term h3{font-size:18px;margin-bottom:6px}
+.term p{margin:0;font-size:15px;color:var(--ink-2)}
+.next{margin-top:72px;border-top:2px solid var(--ink);padding-top:30px}
+.next h3{font-size:clamp(24px,3vw,30px);margin-bottom:28px}
+.steps{list-style:none;padding:0;margin:0;max-width:none;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:st}
+.steps li{counter-increment:st;margin:0}
+.steps li::before{content:"0" counter(st);display:block;font-weight:600;font-size:40px;letter-spacing:-.04em;line-height:1;color:var(--accent);opacity:.9;margin-bottom:12px}
+.steps b{display:block;font-size:17px;font-weight:600;margin-bottom:4px}
+.steps span{font-size:14.5px;color:var(--ink-2)}
+.closing{margin-top:64px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:end}
+.closing p{font-family:var(--f-serif);font-size:20px;line-height:1.45;color:var(--ink);margin:0;max-width:none}
+.closing .meta{font-family:var(--f-mono);font-size:12px;color:var(--ink-3);line-height:1.8;text-align:right}
+.closing .meta b{color:var(--ink);font-weight:500}
+footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-3);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+
+/* responsive */
+@media (max-width:960px){
+  .two,.two-eq,.outcomes,.total,.pricenote,.roles,.feature,.scopebox,.closing{grid-template-columns:1fr;gap:28px}
+  .outcomes .intro{position:static}
+  .rm{grid-template-columns:1fr 1fr}
+  .risk{grid-template-columns:56px 1fr;gap:16px 20px}
+  .risk .no{grid-row:auto}
+  .risk h3{grid-column:2}
+  .risk .col{grid-column:2}
+  .est .grp{grid-template-columns:1fr;gap:12px}
+  .topbar .cur{display:none}
+  .feature .pr{text-align:left}
+  .closing .meta{text-align:left}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .shell{padding:0 20px}
+  .cover .shell{min-height:auto;padding-top:36px}
+  .cover h1{margin-top:64px}
+  .hero-kpi{grid-template-columns:1fr;gap:24px;margin-top:56px}
+  .toc ol{grid-template-columns:1fr}
+  .toc li:nth-child(-n+3) a{border-top:1px solid var(--rule)}
+  .toc li:first-child a{border-top:0}
+  section.sec{padding-top:80px}
+  .shead{flex-direction:column;gap:6px}
+  .offer-list{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr;gap:10px}
+  .chain .nd{white-space:normal}
+  .rm{grid-template-columns:1fr}
+  .row{grid-template-columns:28px 1fr;gap:6px 12px}
+  .row .h,.row .p{grid-column:2;text-align:left}
+  .row .p{margin-top:-2px}
+  .total .facts{grid-template-columns:1fr;gap:14px}
+  .principles,.terms,.steps{grid-template-columns:1fr}
+  .incl{columns:1}
+  .addon{grid-template-columns:1fr}
+  .addon .v{text-align:left}
+  .kv div{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+
+/* print */
+@page{size:A4;margin:15mm 14mm 17mm}
+@page :first{margin:0}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;color:#000;font-size:12.5px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .topbar{display:none!important}
+  .shell{max-width:none;padding:0}
+  .cover{break-after:page;page-break-after:always}
+  .cover .shell{min-height:0;padding:22mm 12mm 18mm;display:block}
+  .cover h1{margin-top:34mm;font-size:52pt}
+  .cover .sub{font-size:14pt}
+  .hero-kpi{margin-top:22mm}
+  .hero-kpi b{font-size:34pt}
+  .toc{padding:3mm 0 6px;break-after:avoid}
+  .toc a{padding:5px 0;font-size:11.5px}
+  section.sec{padding-top:36px}
+  section.sec#s02{padding-top:20px}
+  #s03,#s04,#s06,#s07,#s08,#s09,#s10{break-before:page;page-break-before:always;padding-top:0}
+  #s05{padding-top:40px}
+  .flows,.scopebox,.next{break-inside:avoid;page-break-inside:avoid}
+  .scopebox{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px}
+  .feature{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px;padding:20px 24px}
+  .feature .pr{text-align:right}
+  .pricenote{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:24px}
+  .roles{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px}
+  .shead{margin-bottom:18px;break-after:avoid}
+  h2{font-size:24pt}
+  h3{break-after:avoid;page-break-after:avoid}
+  .lead{font-size:12.5pt;margin-bottom:14px}
+  .outcomes .intro{position:static}
+  .outcome,.risk,.row,.rm .m,.principle,.feature,.addon,.term,.steps li,.total,.pricenote,.ext,.closing,.flow,.grp,.kv,.aside-note{break-inside:avoid;page-break-inside:avoid}
+  .outcome{padding:16px 0}
+  .risk{padding:20px 0;gap:18px}
+  .risk .no{font-size:32px}
+  .risk .col{font-size:11.5px}
+  .est .grp{padding-top:18px}
+  .row{padding:9px 0}
+  .row b{font-size:13px}
+  .row span{font-size:11.5px}
+  .total{margin-top:22px;padding-top:18px}
+  .total .big{font-size:52pt}
+  .pricenote{margin-top:24px}
+  .rm{gap:18px}
+  .rm .m .w,.rm .m .r{font-size:11.5px}
+  .roles{margin-top:28px}
+  .scopebox{margin-top:28px}
+  .next{margin-top:34px}
+  .closing{margin-top:30px}
+  .chain .nd{font-size:11.5px;padding:6px 10px}
+  a{color:inherit}
+  footer{margin-top:24px;padding-bottom:0;break-before:avoid}
+}
+</style>
+
+<style id="v3-design-system">
+/* ===== V3 COMMERCIAL DESIGN SYSTEM =====
+   Фундамент для пересборки разделов 01–10.
+   Правила использования:
+   1. Одна секция = одна мысль. Три уровня иерархии: display/heading или big-number → lead → copy/meta.
+   2. Whitespace вместо рамок. Card только для сравнения равнозначных сущностей.
+   3. Mono только для .v3-meta (метаданные, подписи к схемам). Eyebrow — обычный sans.
+   4. DOM в порядке чтения. Никакого CSS order / реверса колонок.
+   5. Визуалы — схематичные (device/browser/ecosystem), не обещание утверждённого UI.
+   Старые классы (.shell, .sec, .row, .rm …) оставлены для ещё не переработанных секций.
+   ======================================== */
+
+:root{
+  /* palette */
+  --v3-paper:#F5F4EF;
+  --v3-paper-2:#ECEBE4;
+  --v3-surface:#FFFFFF;
+  --v3-ink:#12171B;
+  --v3-ink-2:#3B454D;
+  --v3-ink-3:#6B757E;
+  --v3-line:#E1E0D8;
+  --v3-line-strong:#C4C6BD;
+  --v3-accent:#14505F;
+  --v3-accent-ink:#0B3B47;
+  --v3-accent-soft:#E3EDF0;
+  --v3-dark:#080A0C;
+  --v3-dark-2:#101417;
+  --v3-dark-line:#20262A;
+  --v3-dark-ink:#F3F2ED;
+  --v3-dark-muted:#A6AFB6;
+  --v3-schematic:#D9DCD6;      /* заливка схематичных UI-блоков */
+  --v3-schematic-2:#C3C8C3;
+  /* type */
+  --v3-sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --v3-serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --v3-mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --v3-body:17px;
+  --v3-lead:clamp(20px,2.2vw,23px);
+  --v3-heading:clamp(38px,4.8vw,52px);
+  --v3-subheading:clamp(22px,2.4vw,26px);
+  --v3-display:clamp(64px,9vw,96px);
+  --v3-number:clamp(64px,9.5vw,110px);
+  --v3-meta:12.5px;
+  /* rhythm */
+  --v3-s1:8px;  --v3-s2:16px; --v3-s3:24px; --v3-s4:32px;
+  --v3-s5:48px; --v3-s6:64px; --v3-s7:96px; --v3-s8:128px;
+  --v3-section:clamp(96px,11vw,144px);
+  /* layout */
+  --v3-container:1120px;
+  --v3-gutter:32px;
+  --v3-measure:62ch;
+  --v3-radius:6px;
+}
+
+/* ---- section & container ---- */
+.v3-section{padding-block:var(--v3-section);scroll-margin-top:60px;color:var(--v3-ink)}
+.v3-section--tight{padding-block:var(--v3-s7)}
+.v3-section--flush-top{padding-top:0}
+.v3-section--surface{background:var(--v3-paper-2)}
+.v3-section--dark{
+  background:var(--v3-dark);color:var(--v3-dark-ink);
+  --v3-ink:var(--v3-dark-ink);--v3-ink-2:#D4D9DC;--v3-ink-3:var(--v3-dark-muted);
+  --v3-line:var(--v3-dark-line);--v3-line-strong:#3A454E;--v3-surface:var(--v3-dark-2);
+  --v3-accent:#7FB6C4;--v3-accent-soft:#1E2E36;--v3-schematic:#2A343C;--v3-schematic-2:#3A454E;
+}
+.v3-container{max-width:var(--v3-container);margin-inline:auto;padding-inline:var(--v3-gutter)}
+.v3-container--narrow{max-width:820px}
+.v3-container--wide{max-width:1280px}
+
+/* ---- typography ---- */
+.v3-eyebrow{font-family:var(--v3-sans);font-size:14px;font-weight:500;letter-spacing:.01em;color:var(--v3-accent);margin:0 0 var(--v3-s2)}
+.v3-eyebrow--muted{color:var(--v3-ink-3)}
+.v3-display{font-family:var(--v3-sans);font-weight:700;font-size:var(--v3-display);line-height:.96;letter-spacing:-.035em;margin:0;text-wrap:balance;color:var(--v3-ink)}
+.v3-heading{font-family:var(--v3-sans);font-weight:600;font-size:var(--v3-heading);line-height:1.08;letter-spacing:-.025em;margin:0;text-wrap:balance;max-width:20ch;color:var(--v3-ink)}
+.v3-subheading{font-family:var(--v3-sans);font-weight:600;font-size:var(--v3-subheading);line-height:1.25;letter-spacing:-.015em;margin:0;color:var(--v3-ink)}
+.v3-title{font-family:var(--v3-sans);font-weight:600;font-size:19px;line-height:1.3;letter-spacing:-.01em;margin:0;color:var(--v3-ink)}
+.v3-lead{font-family:var(--v3-serif);font-size:var(--v3-lead);line-height:1.45;color:var(--v3-ink-2);max-width:56ch;margin:0}
+.v3-copy{font-family:var(--v3-sans);font-size:var(--v3-body);line-height:1.6;color:var(--v3-ink-2);max-width:var(--v3-measure);margin:0}
+.v3-copy--strong{color:var(--v3-ink)}
+.v3-copy p{margin:0 0 .9em;max-width:none}
+.v3-copy p:last-child{margin-bottom:0}
+.v3-small{font-size:15px;line-height:1.55;color:var(--v3-ink-3);max-width:var(--v3-measure);margin:0}
+.v3-meta{font-family:var(--v3-mono);font-size:var(--v3-meta);line-height:1.6;letter-spacing:.01em;color:var(--v3-ink-3);margin:0}
+.v3-num{font-variant-numeric:tabular-nums}
+/* вертикальный ритм: heading → lead → copy → detail */
+.v3-heading + .v3-lead,.v3-display + .v3-lead{margin-top:var(--v3-s4)}
+.v3-lead + .v3-copy{margin-top:var(--v3-s3)}
+.v3-heading + .v3-copy,.v3-subheading + .v3-copy{margin-top:var(--v3-s2)}
+.v3-copy + .v3-small,.v3-copy + .v3-meta,.v3-lead + .v3-meta{margin-top:var(--v3-s2)}
+.v3-stack > * + *{margin-top:var(--v3-s5)}
+.v3-stack--sm > * + *{margin-top:var(--v3-s3)}
+.v3-stack--lg > * + *{margin-top:var(--v3-s6)}
+.v3-rule{border:0;border-top:1px solid var(--v3-line);margin:0}
+.v3-rule--strong{border-top:2px solid var(--v3-ink)}
+
+/* ---- A. editorial / split ---- */
+.v3-editorial{display:grid;gap:var(--v3-s4);max-width:var(--v3-container)}
+.v3-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:start}
+.v3-split--40-60{grid-template-columns:minmax(0,4fr) minmax(0,6fr)}
+.v3-split--60-40{grid-template-columns:minmax(0,6fr) minmax(0,4fr)}
+.v3-split--equal{grid-template-columns:1fr 1fr}
+.v3-split--wide-gap{gap:var(--v3-s7)}
+.v3-split--middle{align-items:center}
+.v3-split--end{align-items:end}
+.v3-split > *{min-width:0}
+.v3-split > .v3-sticky{position:sticky;top:96px}
+
+/* ---- B. big number / commercial highlight ---- */
+.v3-big-number{margin:0;display:block}
+.v3-big-number__value{display:block;font-family:var(--v3-sans);font-weight:700;font-size:var(--v3-number);line-height:.92;letter-spacing:-.045em;color:var(--v3-ink);font-variant-numeric:tabular-nums}
+.v3-big-number--md .v3-big-number__value{font-size:clamp(44px,5.6vw,68px)}
+.v3-big-number--sm .v3-big-number__value{font-size:clamp(28px,3.2vw,36px);letter-spacing:-.025em;font-weight:600}
+.v3-big-number__label{display:block;margin-top:var(--v3-s2);font-size:17px;line-height:1.4;color:var(--v3-ink-2);max-width:28ch}
+.v3-big-number__note{display:block;margin-top:var(--v3-s1);font-size:14px;color:var(--v3-ink-3);max-width:32ch}
+.v3-numbers{display:flex;flex-wrap:wrap;gap:var(--v3-s5) var(--v3-s7);align-items:end}
+.v3-numbers--ruled{border-top:1px solid var(--v3-line);padding-top:var(--v3-s4)}
+
+/* ---- C. product visual ---- */
+.v3-visual{margin:0;width:100%;min-width:0;max-width:100%}
+.v3-visual-group{display:flex;flex-wrap:wrap;gap:var(--v3-s4);align-items:flex-end;justify-content:center}
+.v3-visual--wide{width:min(100%,70%)}
+.v3-visual--half{width:min(100%,50%)}
+.v3-visual--panel{background:var(--v3-paper-2);border-radius:var(--v3-radius);padding:clamp(24px,4vw,48px)}
+.v3-section--dark .v3-visual--panel{background:var(--v3-dark-2)}
+.v3-visual--bleed{width:100vw;margin-left:calc(50% - 50vw)}
+.v3-visual__caption{margin-top:var(--v3-s2);font-size:14px;color:var(--v3-ink-3);max-width:var(--v3-measure)}
+.v3-visual svg{display:block;width:100%;height:auto}
+.v3-visual--center{display:flex;flex-direction:column;align-items:center}
+
+/* ---- D. flow ---- */
+.v3-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:var(--v3-s2) 0;list-style:none;margin:0;padding:0}
+.v3-flow__step{position:relative;display:flex;flex-direction:column;justify-content:center;min-width:120px;padding:12px 18px;border:1px solid var(--v3-line-strong);border-radius:var(--v3-radius);background:var(--v3-surface);font-size:16px;font-weight:500;line-height:1.3;color:var(--v3-ink)}
+.v3-flow__step small{display:block;margin-top:3px;font-size:13px;font-weight:400;color:var(--v3-ink-3)}
+.v3-flow__step--focus{background:var(--v3-accent);border-color:var(--v3-accent);color:#fff}
+.v3-flow__step--focus small{color:rgba(255,255,255,.75)}
+.v3-flow__step--ghost{background:transparent;border-style:dashed;color:var(--v3-ink-2)}
+.v3-flow__step + .v3-flow__step{margin-left:40px}
+.v3-flow__step + .v3-flow__step::before{content:"";position:absolute;left:-40px;top:50%;width:40px;height:1px;background:var(--v3-line-strong)}
+.v3-flow__step + .v3-flow__step::after{content:"";position:absolute;left:-9px;top:50%;width:5px;height:5px;margin-top:-3px;border-top:1px solid var(--v3-line-strong);border-right:1px solid var(--v3-line-strong);transform:rotate(45deg)}
+.v3-flow--vertical{flex-direction:column;align-items:flex-start}
+.v3-flow--vertical .v3-flow__step + .v3-flow__step{margin:28px 0 0}
+.v3-flow--vertical .v3-flow__step + .v3-flow__step::before{left:28px;top:-28px;width:1px;height:28px}
+.v3-flow--vertical .v3-flow__step + .v3-flow__step::after{left:26px;top:-9px;transform:rotate(135deg)}
+.v3-flow-row{display:grid;grid-template-columns:120px 1fr;gap:var(--v3-s3);align-items:center}
+.v3-flow-row__who{font-weight:600;font-size:17px}
+
+/* ---- E. comparison ---- */
+.v3-compare{display:grid;grid-template-columns:1fr 1fr;gap:var(--v3-s7);position:relative}
+.v3-compare::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--v3-line)}
+.v3-compare__col > .v3-eyebrow{margin-bottom:var(--v3-s1)}
+.v3-compare__col > .v3-subheading{margin-bottom:var(--v3-s2)}
+.v3-compare__col--base .v3-eyebrow{color:var(--v3-accent)}
+.v3-compare__col--option .v3-eyebrow{color:var(--v3-ink-3)}
+
+/* ---- F. pricing / scope rows ---- */
+.v3-scope{display:block}
+.v3-scope-group{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:var(--v3-s4);padding:var(--v3-s4) 0 var(--v3-s2);border-top:2px solid var(--v3-ink)}
+.v3-scope-group__name{margin:0}
+.v3-scope-group__note{margin-top:6px;font-size:14px;color:var(--v3-ink-3);max-width:26ch}
+.v3-scope-group__sum{margin-top:var(--v3-s2);font-size:14px;color:var(--v3-ink-2);font-variant-numeric:tabular-nums}
+.v3-scope-row{display:grid;grid-template-columns:1fr auto auto;gap:var(--v3-s3);align-items:baseline;padding:14px 0;border-top:1px solid var(--v3-line)}
+.v3-scope-row:first-child{border-top:0;padding-top:0}
+.v3-scope-row__name{font-weight:600;font-size:17px;color:var(--v3-ink)}
+.v3-scope-row__desc{display:block;margin-top:2px;font-size:14.5px;color:var(--v3-ink-3);max-width:52ch}
+.v3-scope-row__hours{font-size:14px;color:var(--v3-ink-3);white-space:nowrap;font-variant-numeric:tabular-nums;min-width:56px;text-align:right}
+.v3-scope-row__price{font-weight:600;font-size:18px;white-space:nowrap;font-variant-numeric:tabular-nums;min-width:88px;text-align:right;color:var(--v3-ink)}
+.v3-scope-total{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s5);align-items:end;border-top:2px solid var(--v3-ink);margin-top:var(--v3-s5);padding-top:var(--v3-s4)}
+
+/* ---- G. timeline ---- */
+.v3-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--v3-s4);position:relative;list-style:none;margin:0;padding:0}
+.v3-timeline::before{content:"";position:absolute;left:0;right:0;top:5px;height:1px;background:var(--v3-line-strong)}
+.v3-timeline__step{position:relative;padding-top:var(--v3-s4)}
+.v3-timeline__step::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:var(--v3-accent)}
+.v3-timeline__when{font-size:14px;font-weight:500;color:var(--v3-ink-3)}
+.v3-timeline__title{margin:6px 0 8px}
+.v3-timeline__what{font-size:15px;color:var(--v3-ink-2);line-height:1.5}
+.v3-timeline__result{margin-top:var(--v3-s2);padding-top:var(--v3-s2);border-top:1px solid var(--v3-line);font-size:15px;line-height:1.5;color:var(--v3-ink)}
+.v3-timeline__result b{display:block;font-weight:500;font-size:13.5px;color:var(--v3-accent);margin-bottom:4px}
+
+/* ---- principles / outcomes (без карточек) ---- */
+.v3-principles{display:grid;grid-template-columns:1fr 1fr;gap:var(--v3-s5) var(--v3-s6);list-style:none;margin:0;padding:0}
+.v3-principles--3{grid-template-columns:repeat(3,1fr)}
+.v3-principle{margin:0}
+.v3-principle__index{display:block;font-weight:600;font-size:14px;color:var(--v3-accent);margin-bottom:var(--v3-s1)}
+.v3-principle .v3-title{margin-bottom:var(--v3-s1)}
+.v3-principle .v3-copy{font-size:16px;max-width:38ch}
+.v3-outcomes{list-style:none;margin:0;padding:0}
+.v3-outcome{display:grid;grid-template-columns:56px 1fr;gap:var(--v3-s3);padding:var(--v3-s4) 0;border-top:1px solid var(--v3-line)}
+.v3-outcome:first-child{border-top:0;padding-top:0}
+.v3-outcome__index{font-weight:600;font-size:15px;color:var(--v3-accent);padding-top:5px}
+
+/* ---- options / add-ons ---- */
+.v3-option{display:grid;grid-template-columns:1fr auto;gap:var(--v3-s4);align-items:baseline;padding:var(--v3-s3) 0;border-top:1px solid var(--v3-line)}
+.v3-option:last-child{border-bottom:1px solid var(--v3-line)}
+.v3-option__value{font-size:16px;color:var(--v3-ink-2);text-align:right;white-space:nowrap}
+.v3-option--featured{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--v3-s5);align-items:center;border:0;padding:var(--v3-s5) 0}
+
+/* ---- H. minimal callout ---- */
+.v3-callout{border-left:2px solid var(--v3-accent);padding:4px 0 4px var(--v3-s3);font-size:17px;line-height:1.55;color:var(--v3-ink-2);max-width:var(--v3-measure);margin:0}
+.v3-callout--quote{font-family:var(--v3-serif);font-size:21px;color:var(--v3-ink)}
+.v3-callout--note{border-left-color:var(--v3-line-strong);font-size:15px;color:var(--v3-ink-3)}
+
+/* ---- lists, tags, steps ---- */
+.v3-list{list-style:none;margin:0;padding:0;max-width:var(--v3-measure)}
+.v3-list li{position:relative;padding-left:20px;margin:0 0 8px;font-size:16px;line-height:1.5;color:var(--v3-ink-2)}
+.v3-list li::before{content:"";position:absolute;left:0;top:.7em;width:9px;height:1px;background:var(--v3-accent)}
+.v3-list--cols{columns:2;column-gap:var(--v3-s5);max-width:none}
+.v3-list--cols li{break-inside:avoid}
+.v3-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.v3-tags li{padding:6px 12px;border:1px solid var(--v3-line-strong);border-radius:var(--v3-radius);font-size:14.5px;font-weight:500;color:var(--v3-ink)}
+.v3-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--v3-s5);list-style:none;margin:0;padding:0;counter-reset:v3s}
+.v3-steps li{counter-increment:v3s}
+.v3-steps li::before{content:"0" counter(v3s);display:block;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.04em;color:var(--v3-accent);margin-bottom:var(--v3-s2)}
+.v3-steps .v3-title{margin-bottom:6px}
+
+/* ---- visuals: device, browser, schematic UI, ecosystem ---- */
+.v3-device{position:relative;width:272px;max-width:100%;flex:none;aspect-ratio:272/560;margin:0;background:var(--v3-dark);border-radius:38px;padding:12px;box-shadow:0 1px 0 rgba(255,255,255,.06) inset}
+.v3-device--sm{width:216px;border-radius:30px;padding:10px}
+.v3-device__screen{position:relative;width:100%;height:100%;overflow:hidden;background:var(--v3-paper);border-radius:28px;padding:34px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.v3-device--sm .v3-device__screen{border-radius:22px;padding:28px 12px 12px}
+.v3-device__notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:80px;height:20px;border-radius:12px;background:var(--v3-dark)}
+.v3-device--dark .v3-device__screen{background:var(--v3-dark-2)}
+.v3-browser{margin:0;max-width:100%;background:var(--v3-surface);border:1px solid var(--v3-line);border-radius:10px;overflow:hidden}
+.v3-browser__bar{display:flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-bottom:1px solid var(--v3-line);background:var(--v3-paper)}
+.v3-browser__bar i{width:9px;height:9px;border-radius:50%;background:var(--v3-line-strong);display:block}
+.v3-browser__url{margin-left:12px;flex:1;height:16px;border-radius:8px;background:var(--v3-paper-2)}
+.v3-browser__body{padding:20px;display:grid;gap:12px;min-height:220px}
+.v3-browser--dark{background:var(--v3-dark-2);border-color:var(--v3-dark-line)}
+.v3-browser--dark .v3-browser__bar{background:var(--v3-dark);border-color:var(--v3-dark-line)}
+.v3-browser--dark .v3-browser__body{--v3-schematic:#2A343C;--v3-schematic-2:#3A454E}
+/* схематичные UI-элементы: намеренно нейтральные, не «готовый дизайн» */
+.v3-ui-bar{height:12px;border-radius:6px;background:var(--v3-schematic-2);width:60%}
+.v3-ui-line{height:8px;border-radius:4px;background:var(--v3-schematic);width:100%}
+.v3-ui-line--short{width:45%}
+.v3-ui-block{border-radius:6px;background:var(--v3-schematic);min-height:56px}
+.v3-ui-block--tall{min-height:120px}
+.v3-ui-block--accent{background:var(--v3-accent-soft);border:1px solid var(--v3-accent);opacity:.9}
+.v3-ui-pill{display:inline-block;height:26px;min-width:64px;border-radius:13px;background:var(--v3-schematic-2)}
+.v3-ui-pill--accent{background:var(--v3-accent)}
+.v3-ui-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.v3-ui-grid--3{grid-template-columns:repeat(3,1fr)}
+.v3-ui-label{font-size:12px;font-weight:500;color:var(--v3-ink-2);line-height:1.2}
+.v3-ui-value{font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--v3-ink);line-height:1.1;font-variant-numeric:tabular-nums}
+/* аннотации к превью */
+.v3-annot{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--v3-ink-2);max-width:32ch}
+.v3-annot__n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--v3-accent);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.v3-annots{display:grid;gap:var(--v3-s3);list-style:none;margin:0;padding:0}
+/* экосистема: центр + сателлиты */
+.v3-ecosystem{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--v3-s4);align-items:center}
+.v3-ecosystem__side{display:grid;gap:var(--v3-s2)}
+.v3-node{padding:14px 18px;border-radius:var(--v3-radius);background:var(--v3-surface);border:1px solid var(--v3-line);font-size:15px;font-weight:500;color:var(--v3-ink);line-height:1.3}
+.v3-node small{display:block;font-weight:400;font-size:13px;color:var(--v3-ink-3);margin-top:2px}
+.v3-node--core{background:var(--v3-accent);border-color:var(--v3-accent);color:#fff;padding:26px 28px;text-align:center;font-size:17px;font-weight:600;min-width:200px}
+.v3-node--core small{color:rgba(255,255,255,.75)}
+.v3-node--ghost{background:transparent;border-style:dashed;color:var(--v3-ink-2)}
+/* inline SVG diagram helpers (architecture-lite) */
+.v3-svg-box{fill:var(--v3-surface);stroke:var(--v3-line-strong);stroke-width:1}
+.v3-svg-box--soft{fill:var(--v3-paper-2);stroke:none}
+.v3-svg-box--core{fill:var(--v3-accent);stroke:none}
+.v3-svg-line{stroke:var(--v3-line-strong);stroke-width:1.2;fill:none}
+.v3-svg-line--accent{stroke:var(--v3-accent);stroke-width:1.4;fill:none}
+.v3-svg-line--dashed{stroke-dasharray:4 4}
+.v3-svg-text{font-family:var(--v3-sans);font-size:13px;font-weight:600;fill:var(--v3-ink);text-anchor:middle}
+.v3-svg-text--light{fill:#fff}
+.v3-svg-text--muted{font-weight:400;font-size:11.5px;fill:var(--v3-ink-3)}
+
+
+/* ---- section 01: hero ---- */
+.v3-hero{display:flex;flex-direction:column;min-height:100vh;min-height:100svh;padding-block:clamp(24px,3.4vh,38px)}
+.v3-hero > .v3-container{display:flex;flex-direction:column;justify-content:center;flex:1;width:100%}
+.v3-hero__top{display:flex;justify-content:space-between;gap:var(--v3-s3);font-size:14px;color:var(--v3-dark-muted);letter-spacing:.01em}
+.v3-hero__main{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:clamp(32px,5vw,64px);align-items:center}
+.v3-hero__main > *{min-width:0}
+.v3-hero .v3-display{font-size:clamp(44px,7.4vw,88px)}
+.v3-hero__nowrap{white-space:nowrap}
+.v3-hero .v3-lead{margin-top:clamp(18px,2.6vh,28px);max-width:44ch;color:var(--v3-dark-muted)}
+.v3-hero__kpis{display:grid;grid-template-columns:auto auto;gap:clamp(18px,2.8vh,30px) 48px;align-items:end;justify-content:start;margin-top:clamp(34px,5vh,54px)}
+.v3-hero__kpis .v3-big-number__value{color:var(--v3-dark-ink);white-space:nowrap}
+.v3-hero__kpis .v3-big-number--lead .v3-big-number__value{font-size:clamp(52px,6.5vw,76px)}
+.v3-hero__kpis .v3-big-number--md .v3-big-number__value{font-size:clamp(28px,3.3vw,42px);font-weight:600;letter-spacing:-.03em}
+.v3-hero__kpis .v3-big-number--sm .v3-big-number__value{font-size:clamp(21px,2.3vw,28px)}
+.v3-hero__kpis .v3-big-number__label{color:var(--v3-dark-muted);font-size:15px;margin-top:10px}
+.v3-hero__kpis .v3-big-number--sm .v3-big-number__label{margin-top:6px;font-size:14px}
+.v3-hero__line{margin-top:clamp(28px,4.2vh,44px);padding-top:18px;border-top:1px solid var(--v3-dark-line);font-size:15px;color:var(--v3-dark-ink);display:flex;flex-wrap:wrap;gap:6px 0}
+.v3-hero__line span + span::before{content:"·";margin:0 12px;color:var(--v3-dark-muted)}
+.v3-hero__note{margin-top:10px;font-size:13.5px;color:var(--v3-dark-muted)}
+.v3-hero__visual{margin:0;display:flex;justify-content:flex-end;opacity:.62}
+.v3-hero__visual svg{width:100%;max-width:min(500px,42vw);height:auto;display:block}
+.v3-hero__bottom{display:flex;justify-content:space-between;align-items:baseline;gap:var(--v3-s3);font-size:14px;color:var(--v3-dark-muted)}
+.v3-hero__bottom a{color:inherit;text-decoration:none}
+.v3-hero__bottom a:hover{color:var(--v3-dark-ink);text-decoration:none}
+/* hero visual (svg) */
+.v3-hs-ring{fill:none;stroke:#7FB6C4;stroke-opacity:.16;stroke-width:1}
+.v3-hs-link{fill:none;stroke:#7FB6C4;stroke-opacity:.45;stroke-width:1}
+.v3-hs-core{fill:#14505F}
+.v3-hs-core-ring{fill:none;stroke:#7FB6C4;stroke-opacity:.5;stroke-width:1}
+.v3-hs-dot{fill:#F3F2ED}
+.v3-hs-dot--ghost{fill:none;stroke:#A6AFB6;stroke-width:1;stroke-dasharray:2 2}
+.v3-hs-label{font-family:var(--v3-sans);font-size:13px;font-weight:500;fill:#F3F2ED}
+.v3-hs-label--muted{fill:#A6AFB6;font-weight:400;font-size:12px}
+.v3-hs-core-text{font-family:var(--v3-sans);font-size:13px;font-weight:600;fill:#F3F2ED;text-anchor:middle}
+.v3-hs-core-sub{font-family:var(--v3-sans);font-size:10.5px;fill:#CFE1E6;text-anchor:middle}
+
+
+/* ---- section 02: product ecosystem ---- */
+.v3-eco__layout{display:grid;grid-template-columns:minmax(0,35fr) minmax(0,65fr);grid-template-areas:"text map" "callout map";gap:var(--v3-s4) var(--v3-s6);align-items:start;margin-top:var(--v3-s6)}
+.v3-eco__text{grid-area:text}
+.v3-eco__callout{grid-area:callout;align-self:end}
+.v3-eco__map{grid-area:map;position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto auto auto;grid-template-areas:". apps ." "fin core crypto" "bo core aff" ". games .";gap:44px 28px;align-items:center;padding:8px 0}
+.v3-eco__lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.v3-eco__lines line{stroke:var(--v3-line-strong);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.v3-eco__lines line.is-entry{stroke:var(--v3-accent);stroke-opacity:.55}
+.v3-eco__lines line.is-optional{stroke-dasharray:4 4}
+.v3-eco__node{position:relative;z-index:1;background:var(--v3-surface);border:1px solid var(--v3-line);border-radius:var(--v3-radius);padding:16px 18px;min-height:88px;display:flex;flex-direction:column;justify-content:center}
+.v3-eco__node--strong{border-color:var(--v3-line-strong);box-shadow:0 1px 0 rgba(18,23,27,.04)}
+.v3-eco__node--soft{background:var(--v3-paper);border-color:var(--v3-line)}
+.v3-eco__node--optional{background:transparent;border-style:dashed;border-color:var(--v3-line-strong)}
+.v3-eco__node--optional .v3-eco__title{color:var(--v3-ink-2)}
+.v3-eco__node--apps{grid-area:apps;text-align:center;align-items:center;padding:18px 24px}
+.v3-eco__node--fin{grid-area:fin}
+.v3-eco__node--crypto{grid-area:crypto}
+.v3-eco__node--bo{grid-area:bo}
+.v3-eco__node--aff{grid-area:aff}
+.v3-eco__node--games{grid-area:games;text-align:center;align-items:center}
+.v3-eco__core{grid-area:core;position:relative;z-index:1;justify-self:center;align-self:center;width:206px;height:206px;border-radius:50%;background:var(--v3-accent);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;box-shadow:0 0 0 12px var(--v3-accent-soft)}
+.v3-eco__core .v3-eco__title{color:#fff;font-size:19px}
+.v3-eco__core .v3-eco__sub{color:rgba(255,255,255,.78)}
+.v3-eco__title{font-family:var(--v3-sans);font-weight:600;font-size:17px;line-height:1.25;letter-spacing:-.012em;color:var(--v3-ink);margin:0}
+.v3-eco__sub{font-size:13.5px;line-height:1.4;color:var(--v3-ink-3);margin:5px 0 0}
+.v3-eco__tag{display:inline-block;margin-top:8px;font-size:12px;color:var(--v3-ink-3);border:1px solid var(--v3-line-strong);border-radius:3px;padding:2px 8px}
+.v3-eco__arrow{display:none}
+
+
+/* ---- section 03: result / product preview ---- */
+.v3-res__stage{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-items:end;margin-top:var(--v3-s6);padding-bottom:18px}
+.v3-res__stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--v3-line-strong)}
+.v3-res__phone{position:relative;z-index:2;grid-row:1}
+.v3-res__phone--tg{grid-column:1/4;justify-self:start;margin-bottom:10px}
+.v3-res__phone--and{grid-column:1/5;justify-self:start;z-index:3;transform:translateX(112px);margin-bottom:-4px}
+.v3-res__bo{grid-column:5/13;grid-row:1;z-index:1;margin-left:22px;margin-bottom:22px;box-shadow:0 18px 40px -28px rgba(18,23,27,.28)}
+.v3-res__stage .v3-device{width:204px;box-shadow:0 22px 44px -30px rgba(18,23,27,.55)}
+.v3-res__stage .v3-device__screen{padding:26px 10px 10px;gap:7px}
+
+
+/* schematic UI text elements (shared by mockups) */
+.v3-ui-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.v3-ui-kicker{font-size:11px;font-weight:500;color:var(--v3-ink-3);letter-spacing:.01em}
+.v3-ui-panel{border-radius:8px;background:var(--v3-surface);border:1px solid var(--v3-line);padding:12px}
+.v3-ui-panel--accent{background:var(--v3-accent);border-color:var(--v3-accent);color:#fff}
+.v3-ui-panel--accent .v3-ui-label{color:rgba(255,255,255,.72)}
+.v3-ui-panel--accent .v3-ui-value{color:#fff}
+.v3-ui-btns{display:flex;gap:8px;margin-top:10px}
+.v3-ui-btn{flex:1;text-align:center;font-size:11.5px;font-weight:500;padding:7px 4px;border-radius:6px;background:rgba(255,255,255,.16);color:#fff}
+.v3-ui-btn--ghost{background:transparent;border:1px solid rgba(255,255,255,.45)}
+.v3-ui-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.v3-ui-tile{aspect-ratio:1.35;border-radius:7px;background:var(--v3-schematic)}
+.v3-ui-tile--soft{background:var(--v3-paper-2)}
+.v3-ui-nav{margin-top:auto;display:flex;justify-content:space-around;gap:6px;padding-top:10px;border-top:1px solid var(--v3-line);font-size:10px;color:var(--v3-ink-3)}
+.v3-ui-nav b{color:var(--v3-accent);font-weight:600}
+.v3-ui-rank{display:flex;align-items:center;gap:10px}
+.v3-ui-rank i{width:30px;height:30px;border-radius:50%;background:var(--v3-accent-soft);border:1px solid var(--v3-accent);flex:none;display:block}
+/* back office */
+.v3-bo{display:grid;grid-template-columns:150px minmax(0,1fr);min-height:420px}
+.v3-bo__side{border-right:1px solid var(--v3-line);padding:16px 12px;background:var(--v3-paper);display:flex;flex-direction:column;gap:2px}
+.v3-bo__brand{height:10px;width:64px;border-radius:5px;background:var(--v3-schematic-2);margin:2px 6px 14px}
+.v3-bo__item{font-size:12.5px;color:var(--v3-ink-2);padding:7px 8px;border-radius:5px}
+.v3-bo__item.is-on{background:var(--v3-accent-soft);color:var(--v3-accent-ink);font-weight:600}
+.v3-bo__main{padding:18px 20px;display:flex;flex-direction:column;gap:16px}
+.v3-bo__title{font-size:14px;font-weight:600;color:var(--v3-ink)}
+.v3-bo__stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.v3-bo__stat{border:1px solid var(--v3-line);border-radius:7px;padding:10px 11px;min-width:0}
+.v3-bo__stat .v3-ui-label{margin-bottom:6px}
+.v3-bo__stat .v3-ui-value{font-size:16px}
+.v3-bo__table{border:1px solid var(--v3-line);border-radius:7px;overflow:hidden;font-size:11.5px}
+.v3-bo__row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:10px;padding:8px 12px;border-top:1px solid var(--v3-line);color:var(--v3-ink-2);align-items:center}
+.v3-bo__row:first-child{border-top:0;background:var(--v3-paper);color:var(--v3-ink-3);font-size:10.5px}
+.v3-bo__row .v3-num{color:var(--v3-ink);font-weight:500}
+.v3-bo__status{display:inline-block;font-size:10px;padding:2px 7px;border-radius:9px;background:var(--v3-paper-2);color:var(--v3-ink-2)}
+.v3-bo__status--ok{background:var(--v3-accent-soft);color:var(--v3-accent-ink)}
+.v3-bo__status--wait{background:#F3ECDD;color:#7A5A1E}
+/* outcomes part */
+.v3-res__outcomes{margin-top:var(--v3-s8)}
+.v3-res__handover{margin-top:var(--v3-s7);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:start;padding-top:var(--v3-s5);border-top:1px solid var(--v3-line)}
+
+
+/* ---- section 04: how it works (three flows) ---- */
+.v3-work__flows{margin-top:var(--v3-s7);position:relative}
+.v3-work__flow{display:grid;grid-template-columns:180px minmax(0,1fr);grid-template-rows:auto auto;gap:var(--v3-s4) var(--v3-s6);align-items:start;padding:var(--v3-s6) 0;border-top:1px solid var(--v3-line)}
+.v3-work__actor{grid-row:1 / span 2}
+.v3-work__steps{grid-column:2}
+.v3-work__outcome{grid-column:2}
+.v3-work__flow:first-child{border-top:0;padding-top:0}
+.v3-work__actor{min-width:0}
+.v3-work__index{display:block;font-weight:600;font-size:15px;color:var(--v3-accent);margin-bottom:6px}
+.v3-work__actor .v3-subheading{font-size:clamp(24px,2.6vw,30px)}
+.v3-work__actor-sub{margin-top:8px;font-size:14px;color:var(--v3-ink-3)}
+.v3-work__steps{list-style:none;margin:0;padding:0;display:flex;position:relative;counter-reset:wk}
+.v3-work__steps::before{content:"";position:absolute;left:5px;right:calc(100% / var(--n) - 5px);top:5px;height:1px;background:var(--v3-line-strong)}
+.v3-work__step{counter-increment:wk;flex:1;min-width:0;position:relative;padding:0 16px 0 0}
+.v3-work__step::before{content:"";display:block;width:11px;height:11px;border-radius:50%;background:var(--v3-paper-2);border:1px solid var(--v3-line-strong);box-sizing:border-box;position:relative;z-index:1}
+.v3-work__step--focus::before{background:var(--v3-accent);border-color:var(--v3-accent)}
+.v3-work__step--end::before{background:var(--v3-ink);border-color:var(--v3-ink)}
+.v3-work__step b{display:block;margin-top:14px;font-weight:600;font-size:18px;line-height:1.25;letter-spacing:-.012em;color:var(--v3-ink)}
+.v3-work__step b::before{content:"0" counter(wk);display:block;font-size:12px;font-weight:500;color:var(--v3-ink-3);margin-bottom:4px;letter-spacing:.02em}
+.v3-work__step small{display:block;margin-top:4px;font-size:13.5px;line-height:1.4;color:var(--v3-ink-3)}
+.v3-work__outcome{font-size:15.5px;line-height:1.55;color:var(--v3-ink-2);margin:0;padding-top:var(--v3-s2);border-top:1px solid var(--v3-line);max-width:60ch;display:grid;grid-template-columns:120px 1fr;gap:4px 20px}
+.v3-work__outcome b{font-weight:600;color:var(--v3-ink)}
+.v3-work__outcome small{display:block;grid-column:2;font-size:13.5px;color:var(--v3-ink-3)}
+.v3-work__end{margin-top:var(--v3-s7);padding-top:var(--v3-s6);border-top:2px solid var(--v3-ink);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:start}
+.v3-work__end .v3-subheading{font-size:clamp(26px,3vw,34px)}
+
+
+/* ---- section 05: strengthened decisions ---- */
+.v3-imp__intro{margin-top:var(--v3-s5)}
+.v3-imp__groups{margin-top:var(--v3-s7)}
+.v3-imp__group{position:relative;padding-left:36px}
+.v3-imp__group + .v3-imp__group{margin-top:var(--v3-s7)}
+.v3-imp__group::before{content:"";position:absolute;left:5px;top:10px;bottom:0;width:1px;background:var(--v3-line-strong)}
+.v3-imp__glabel{position:relative;font-size:14px;font-weight:500;color:var(--v3-ink-3);margin:0 0 var(--v3-s3)}
+.v3-imp__glabel::before{content:"";position:absolute;left:-36px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--v3-accent)}
+.v3-imp__row{display:grid;grid-template-columns:230px minmax(0,1fr);gap:var(--v3-s4) var(--v3-s6);padding:var(--v3-s5) 0;border-top:1px solid var(--v3-line);position:relative}
+.v3-imp__row:last-child{padding-bottom:0}
+.v3-imp__row::before{content:"";position:absolute;left:-36px;top:calc(var(--v3-s5) + 22px);width:11px;height:11px;border-radius:50%;background:var(--v3-paper);border:1px solid var(--v3-line-strong);box-sizing:border-box}
+.v3-imp__num{display:block;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.04em;color:var(--v3-accent);opacity:.9;margin-bottom:10px}
+.v3-imp__title{margin:0;font-size:clamp(21px,2.2vw,24px)}
+.v3-imp__body{display:grid;grid-template-columns:1fr 1fr;gap:var(--v3-s3) var(--v3-s5)}
+.v3-imp__part{font-size:15px;line-height:1.55;color:var(--v3-ink-2);margin:0}
+.v3-imp__part b{display:block;font-size:12.5px;font-weight:600;letter-spacing:.02em;color:var(--v3-ink-3);margin-bottom:6px}
+.v3-imp__win{grid-column:1/-1;margin:var(--v3-s2) 0 0;padding-top:var(--v3-s2);border-top:1px solid var(--v3-line);font-size:18px;line-height:1.45;color:var(--v3-ink);max-width:60ch}
+.v3-imp__win b{display:block;font-size:12.5px;font-weight:600;letter-spacing:.02em;color:var(--v3-accent);margin-bottom:6px}
+.v3-imp__end{margin-top:var(--v3-s7);padding-top:var(--v3-s5);border-top:2px solid var(--v3-ink);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:start}
+
+
+/* ---- section 06: scope & estimate ---- */
+.v3-est__strip{margin-top:var(--v3-s5);max-width:760px}
+.v3-est__bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--v3-paper-2)}
+.v3-est__bar span{display:block;height:100%}
+.v3-est__bar .g1{background:var(--v3-line-strong)}
+.v3-est__bar .g2{background:var(--v3-accent)}
+.v3-est__bar .g3{background:#7FB6C4}
+.v3-est__legend{display:flex;flex-wrap:wrap;gap:8px 24px;margin:10px 0 0;padding:0;list-style:none;font-size:13.5px;color:var(--v3-ink-3)}
+.v3-est__legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:-1px}
+.v3-est__legend .g1 i{background:var(--v3-line-strong)}
+.v3-est__legend .g2 i{background:var(--v3-accent)}
+.v3-est__legend .g3 i{background:#7FB6C4}
+.v3-est__legend b{font-weight:600;color:var(--v3-ink)}
+.v3-est__legend small{color:var(--v3-ink-3);margin-left:6px}
+.v3-est__groups{margin-top:var(--v3-s7)}
+.v3-est .v3-scope-group{grid-template-columns:minmax(0,3fr) minmax(0,9fr);padding:var(--v3-s5) 0 var(--v3-s3)}
+.v3-est .v3-scope-group + .v3-scope-group,.v3-est__tail .v3-scope-group{margin-top:var(--v3-s5)}
+.v3-est .v3-scope-group__note{max-width:24ch}
+.v3-est .v3-scope-row{grid-template-columns:44px minmax(0,1fr) auto auto;gap:var(--v3-s3);padding:18px 0}
+.v3-est .v3-scope-row__idx{font-size:13px;color:var(--v3-ink-3);padding-top:4px}
+.v3-est .v3-scope-row__hours{min-width:60px}
+.v3-est .v3-scope-row__price{min-width:96px}
+.v3-est .v3-scope-row--key{position:relative}
+.v3-est .v3-scope-row--key::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:2px;background:var(--v3-accent)}
+.v3-est .v3-scope-row--key .v3-scope-row__idx{padding-left:14px}
+.v3-est .v3-scope-row--key .v3-scope-row__price{font-size:22px;letter-spacing:-.02em}
+.v3-est .v3-scope-row--key .v3-scope-row__name{font-size:18px}
+.v3-est__total{margin-top:var(--v3-s5);background:var(--v3-paper-2);border-radius:var(--v3-radius);padding:clamp(24px,3.4vw,40px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s5);align-items:end}
+.v3-est__total .v3-big-number__value{font-size:clamp(56px,7.5vw,92px)}
+.v3-est__facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--v3-s4)}
+.v3-est__facts .v3-big-number--sm .v3-big-number__value{font-size:clamp(24px,2.8vw,32px)}
+.v3-est__notes{margin-top:var(--v3-s5);display:grid;grid-template-columns:1fr 1fr;gap:var(--v3-s4) var(--v3-s6)}
+.v3-est__notes p{margin:0}
+.v3-est__head{display:grid;grid-template-columns:minmax(0,7fr) minmax(260px,3fr);gap:var(--v3-s6);align-items:end}
+.v3-est__price{justify-self:end;text-align:right}
+.v3-est__price .v3-big-number__value{font-size:clamp(56px,7.2vw,92px)}
+.v3-est__scope-note{margin-top:var(--v3-s4);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--v3-s3);padding-top:var(--v3-s3);border-top:1px solid var(--v3-line)}
+.v3-est__scope-note p{margin:0;font-size:14px;line-height:1.45;color:var(--v3-ink-3)}
+.v3-est__scope-note b{display:block;margin-bottom:4px;color:var(--v3-ink);font-weight:600}
+.v3-est__accordions{margin-top:var(--v3-s6);border-top:2px solid var(--v3-ink)}
+.v3-est__detail{border-bottom:1px solid var(--v3-line)}
+.v3-est__detail[open]{background:linear-gradient(90deg,var(--v3-accent-soft),transparent 30%)}
+.v3-est__detail:hover{background:rgba(20,80,95,.045)}
+.v3-est__detail[open]:hover{background:linear-gradient(90deg,var(--v3-accent-soft),rgba(20,80,95,.035) 70%)}
+.v3-est__summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr) minmax(86px,auto) minmax(150px,auto) 24px;gap:var(--v3-s3);align-items:baseline;padding:var(--v3-s4) 0;color:var(--v3-ink)}
+.v3-est__summary::-webkit-details-marker{display:none}
+.v3-est__summary::after{content:"+";font-size:22px;line-height:1;color:var(--v3-accent);grid-column:5;grid-row:1 / span 2;justify-self:end;align-self:center}
+.v3-est__detail[open] .v3-est__summary::after{content:"−"}
+.v3-est__idx{font-size:14px;font-weight:600;color:var(--v3-accent);padding-top:4px}
+.v3-est__name{font-size:20px;font-weight:600;line-height:1.25;letter-spacing:-.012em;color:var(--v3-ink)}
+.v3-est__desc{display:block;margin-top:4px;font-size:14px;line-height:1.35;font-weight:400;letter-spacing:0;color:var(--v3-ink-3);max-width:52ch}
+.v3-est__range,.v3-est__hours,.v3-est__block-price{font-size:14.5px;color:var(--v3-ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.v3-est__hours{color:var(--v3-ink-2)}
+.v3-est__block-price{font-weight:700;font-size:19px;color:var(--v3-ink);min-width:88px;text-align:right}
+.v3-est__detail-body{display:grid;grid-template-columns:minmax(0,7fr) minmax(260px,5fr);gap:var(--v3-s5);padding:0 0 var(--v3-s5) 78px}
+.v3-est__table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.4}
+.v3-est__table th{padding:0 0 10px;border-bottom:1px solid var(--v3-line);text-align:left;font-weight:500;color:var(--v3-ink-3)}
+.v3-est__table th:last-child,.v3-est__table td:last-child{text-align:right;white-space:nowrap}
+.v3-est__table td{padding:9px 0;border-bottom:1px solid var(--v3-line);color:var(--v3-ink-2)}
+.v3-est__table tr:last-child td{border-bottom:0;font-weight:600;color:var(--v3-ink)}
+.v3-est__detail-side{display:grid;gap:var(--v3-s3);align-content:start}
+.v3-est__mini-title{font-size:13px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;color:var(--v3-accent);margin:0 0 6px}
+.v3-est__mini-list{list-style:none;margin:0;padding:0}
+.v3-est__mini-list li{position:relative;margin:0 0 6px;padding-left:16px;font-size:14px;line-height:1.42;color:var(--v3-ink-2)}
+.v3-est__mini-list li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--v3-accent)}
+.v3-est__boundary{font-size:14px;line-height:1.48;color:var(--v3-ink-3);margin:0;padding-top:var(--v3-s2);border-top:1px solid var(--v3-line)}
+.v3-est__game-boundary{margin-top:var(--v3-s6);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,9fr);gap:var(--v3-s5);align-items:start;padding-top:var(--v3-s4);border-top:2px solid var(--v3-ink)}
+.v3-est__game-boundary .v3-list{max-width:none}
+
+
+/* ---- section 07: roadmap ---- */
+.v3-road__head{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:var(--v3-s6);align-items:end}
+.v3-road__term{justify-self:end;text-align:right}
+.v3-road__term .v3-big-number__value{font-size:clamp(40px,4.6vw,56px);font-weight:600;letter-spacing:-.03em;white-space:nowrap}
+.v3-road__term .v3-big-number__label{margin-left:auto;max-width:22ch}
+.v3-road .v3-timeline{margin-top:var(--v3-s7)}
+.v3-road .v3-timeline__when{font-weight:600;color:var(--v3-accent)}
+.v3-road .v3-timeline__title{font-size:clamp(22px,2.3vw,26px)}
+.v3-road .v3-timeline__what{color:var(--v3-ink-2)}
+.v3-road .v3-timeline__result{margin-top:var(--v3-s3);font-size:15.5px}
+
+
+
+
+
+.v3-road__notes{margin-top:var(--v3-s6);padding-top:var(--v3-s4);border-top:1px solid var(--v3-line);display:grid;grid-template-columns:1fr 1fr;gap:var(--v3-s3) var(--v3-s6)}
+.v3-road__notes p{margin:0}
+.v3-road__end{margin-top:var(--v3-s6);max-width:60ch}
+
+
+/* ---- section 08: money & control ---- */
+.v3-ctl__line{margin-top:var(--v3-s6)}
+.v3-ctl__line .v3-flow__step:not(.v3-flow__step--focus){background:var(--v3-paper);border-color:var(--v3-line-strong)}
+.v3-ctl__line-note{margin-top:14px;font-size:14px;color:var(--v3-ink-3)}
+.v3-ctl__line-note b{font-weight:500;color:var(--v3-accent)}
+.v3-ctl__principles{margin-top:var(--v3-s5);gap:var(--v3-s5) var(--v3-s6)}
+.v3-ctl__principles .v3-principle__index{font-size:15px}
+.v3-ctl__principles .v3-title{font-size:19px;margin-bottom:8px;max-width:24ch}
+.v3-ctl__principles .v3-copy{font-size:15.5px;max-width:42ch}
+.v3-ctl__effect{margin:10px 0 0;font-size:15px;line-height:1.5;color:var(--v3-ink);max-width:42ch;padding-left:14px;border-left:2px solid var(--v3-line-strong)}
+.v3-ctl__meta{margin-top:10px;font-size:13.5px;color:var(--v3-ink-3)}
+.v3-ctl__anchor{margin-top:var(--v3-s7);padding-top:var(--v3-s5);border-top:2px solid var(--v3-ink);display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:var(--v3-s6);align-items:start}
+.v3-ctl__anchor .v3-subheading{font-size:clamp(24px,2.8vw,32px);max-width:24ch}
+.v3-ctl__roles{margin-top:var(--v3-s7)}
+.v3-ctl__roles-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:start}
+.v3-ctl__group{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:var(--v3-s3) var(--v3-s6);padding:var(--v3-s4) 0;border-top:1px solid var(--v3-line)}
+.v3-ctl__groups{margin-top:var(--v3-s5)}
+.v3-ctl__groups .v3-ctl__group:last-child{border-bottom:1px solid var(--v3-line)}
+.v3-ctl__gname{font-size:14px;font-weight:500;color:var(--v3-ink-3);padding-top:6px}
+.v3-ctl__role{display:grid;grid-template-columns:150px minmax(0,1fr);gap:8px var(--v3-s3);align-items:baseline;padding:6px 0}
+.v3-ctl__role b{display:inline-block;font-weight:600;font-size:15px;color:var(--v3-ink);border:1px solid var(--v3-line-strong);border-radius:var(--v3-radius);padding:5px 11px;background:var(--v3-surface)}
+.v3-ctl__role span{font-size:15px;line-height:1.5;color:var(--v3-ink-2)}
+
+
+/* ---- section 09: scope boundaries ---- */
+.v3-bounds__head{display:grid;grid-template-columns:minmax(0,7fr) minmax(260px,3fr);gap:var(--v3-s6);align-items:end}
+.v3-bounds__price{justify-self:end;text-align:right}
+.v3-bounds__price .v3-big-number__value{font-size:clamp(52px,6.8vw,86px)}
+.v3-bounds__included{margin-top:var(--v3-s7);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,9fr);gap:var(--v3-s5);align-items:start;padding-top:var(--v3-s4);border-top:2px solid var(--v3-ink)}
+.v3-bounds__included h3{font-size:clamp(22px,2.6vw,28px)}
+.v3-bounds__strip{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0}
+.v3-bounds__strip li{margin:0;min-width:0;padding:0 14px 16px;border-left:1px solid var(--v3-line)}
+.v3-bounds__strip li:first-child{border-left:0;padding-left:0}
+.v3-bounds__strip b{display:block;font-size:15.5px;line-height:1.25;color:var(--v3-ink);font-weight:600}
+.v3-bounds__strip span{display:block;margin-top:6px;font-size:13.5px;line-height:1.4;color:var(--v3-ink-3)}
+.v3-bounds__extensions{margin-top:var(--v3-s7)}
+.v3-bounds__extensions-head{display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,9fr);gap:var(--v3-s5);align-items:end;margin-bottom:var(--v3-s2)}
+.v3-bounds__extensions-head .v3-copy{max-width:54ch}
+.v3-bounds__rows{border-top:2px solid var(--v3-ink)}
+.v3-bounds__row{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(150px,auto);gap:var(--v3-s4);align-items:baseline;padding:var(--v3-s4) 0;border-bottom:1px solid var(--v3-line)}
+.v3-bounds__row-index{font-size:14px;font-weight:600;color:var(--v3-accent);padding-top:4px}
+.v3-bounds__row-title{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.v3-bounds__row-title h4{font-size:20px;line-height:1.25;margin:0;color:var(--v3-ink);letter-spacing:-.01em}
+.v3-bounds__tag{display:inline-flex;align-items:center;min-height:22px;border:1px solid var(--v3-line-strong);border-radius:3px;padding:2px 8px;font-size:11.5px;font-weight:600;line-height:1;text-transform:uppercase;letter-spacing:.04em;color:var(--v3-ink-3)}
+.v3-bounds__tag--base{color:var(--v3-accent);border-color:var(--v3-accent)}
+.v3-bounds__row-desc{margin:0;font-size:15.5px;line-height:1.55;color:var(--v3-ink-2);max-width:62ch}
+.v3-bounds__row-note{margin:8px 0 0;font-size:14px;line-height:1.45;color:var(--v3-ink-3);max-width:58ch}
+.v3-bounds__value{text-align:right;color:var(--v3-ink-2);font-size:15px;white-space:nowrap}
+.v3-bounds__value b{display:block;font-size:clamp(28px,3.4vw,40px);line-height:1;letter-spacing:-.03em;color:var(--v3-ink);font-variant-numeric:tabular-nums}
+.v3-bounds__value span{display:block;margin-top:6px;font-size:13.5px;color:var(--v3-ink-3)}
+.v3-bounds__external{margin-top:var(--v3-s6);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,9fr);gap:var(--v3-s5);align-items:start;padding-top:var(--v3-s4);border-top:1px solid var(--v3-line-strong)}
+.v3-bounds__external-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px var(--v3-s5)}
+.v3-bounds__external-list li{position:relative;margin:0;padding-left:18px;font-size:14.5px;line-height:1.45;color:var(--v3-ink-3)}
+.v3-bounds__external-list li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--v3-line-strong)}
+.v3-bounds__note{margin-top:var(--v3-s6);padding-top:var(--v3-s4);border-top:1px solid var(--v3-line);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s6);align-items:start}
+.v3-bounds__note .v3-callout{max-width:60ch}
+
+/* ---- section 10: work format ---- */
+.v3-format__head{display:grid;grid-template-columns:minmax(0,7fr) minmax(260px,3fr);gap:var(--v3-s6);align-items:end}
+.v3-format__summary{justify-self:end;text-align:right;font-size:18px;font-weight:600;color:var(--v3-ink);line-height:1.35}
+.v3-format__summary span{display:block;margin-top:8px;font-size:14px;font-weight:400;color:var(--v3-ink-3)}
+.v3-format__paystrip{margin-top:var(--v3-s5);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:2px solid var(--v3-ink);border-bottom:1px solid var(--v3-line)}
+.v3-format__paystrip span{padding:12px 12px 13px;border-left:1px solid var(--v3-line);font-size:15px;font-weight:600;color:var(--v3-ink);font-variant-numeric:tabular-nums;text-align:center}
+.v3-format__paystrip span:first-child{border-left:0}
+.v3-format__paystrip .is-key{color:var(--v3-accent)}
+.v3-format__milestones{margin-top:var(--v3-s4);border-top:0}
+.v3-format__milestone{display:grid;grid-template-columns:56px minmax(0,1.1fr) minmax(0,2fr);gap:var(--v3-s4);padding:var(--v3-s5) 0;border-bottom:1px solid var(--v3-line);align-items:start}
+.v3-format__milestone--key{position:relative}
+.v3-format__milestone--key::before{content:"";position:absolute;left:0;top:var(--v3-s5);bottom:var(--v3-s5);width:2px;background:var(--v3-accent)}
+.v3-format__index{font-size:14px;font-weight:600;color:var(--v3-accent);padding-top:6px}
+.v3-format__milestone--key .v3-format__index{padding-left:14px}
+.v3-format__title{margin:0;font-size:clamp(20px,2.2vw,24px);line-height:1.22;color:var(--v3-ink);letter-spacing:-.012em}
+.v3-format__money{margin-top:10px;font-size:16px;font-weight:600;color:var(--v3-ink);font-variant-numeric:tabular-nums}
+.v3-format__money span{color:var(--v3-ink-3);font-weight:400}
+.v3-format__includes{margin-top:12px;font-size:13.5px;line-height:1.45;color:var(--v3-ink-3)}
+.v3-format__result{margin:0;font-size:16.5px;line-height:1.55;color:var(--v3-ink);max-width:60ch}
+.v3-format__result b,.v3-format__accept b{font-weight:600;color:var(--v3-ink)}
+.v3-format__accept{margin:8px 0 0;font-size:14.5px;line-height:1.5;color:var(--v3-ink-3);max-width:64ch}
+.v3-format__acceptance{margin-top:var(--v3-s7);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,9fr);gap:var(--v3-s5);align-items:start;padding-top:var(--v3-s4);border-top:2px solid var(--v3-ink)}
+.v3-format__process{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.v3-format__process li{position:relative;margin:0;padding:0 var(--v3-s3) 0 0;min-width:0}
+.v3-format__process li + li{padding-left:var(--v3-s3);border-left:1px solid var(--v3-line)}
+.v3-format__process b{display:block;font-size:17px;color:var(--v3-ink);font-weight:600}
+.v3-format__process span{display:block;margin-top:6px;font-size:14px;line-height:1.45;color:var(--v3-ink-3)}
+.v3-format__review{margin-top:var(--v3-s3);font-size:14px;color:var(--v3-ink-3)}
+.v3-format__after{margin-top:var(--v3-s7);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--v3-s6);align-items:start;position:relative;padding-top:var(--v3-s4);border-top:2px solid var(--v3-ink)}
+.v3-format__warranty{background:transparent;border-left:2px solid var(--v3-accent);padding:0 0 0 var(--v3-s3);border-radius:0}
+.v3-format__warranty-kicker{margin:0 0 6px;font-size:14px;font-weight:600;color:var(--v3-accent)}
+.v3-format__warranty h3,.v3-format__support h3{font-size:clamp(22px,2.4vw,28px);margin:0 0 var(--v3-s2)}
+.v3-format__warranty p,.v3-format__support p{margin:0;font-size:15.5px;line-height:1.55;color:var(--v3-ink-2);max-width:none}
+.v3-format__support{padding-top:0;border-top:0}
+.v3-format__support-flow{display:flex;flex-wrap:wrap;gap:8px 0;list-style:none;margin:var(--v3-s3) 0 0;padding:0}
+.v3-format__support-flow li{position:relative;margin:0;padding:6px 12px;border:1px solid var(--v3-line-strong);border-radius:var(--v3-radius);font-size:14px;color:var(--v3-ink-2);background:var(--v3-surface)}
+.v3-format__support-flow li + li{margin-left:24px}
+.v3-format__support-flow li + li::before{content:"";position:absolute;left:-25px;top:50%;width:24px;height:1px;background:var(--v3-line-strong)}
+.v3-format__bugchange{margin-top:var(--v3-s6);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--v3-s6);padding-top:var(--v3-s4);border-top:1px solid var(--v3-line)}
+.v3-format__bugchange p{margin:0;font-size:15.5px;line-height:1.55;color:var(--v3-ink-2)}
+.v3-format__bugchange b{display:block;margin-bottom:6px;color:var(--v3-ink)}
+.v3-format__note{margin-top:var(--v3-s5);max-width:72ch}
+
+.shell{max-width:none;padding:0}
+.shell > nav.toc,.shell > footer{max-width:1120px;margin-inline:auto;padding-inline:32px}
+
+/* ===== LAYER 5 · ART DIRECTION =====
+   Глобальный визуальный pass поверх V3. Не меняет факты и структуру.
+   1. Единая шкала скруглений, теней и рамок.
+   2. Усиленная типографическая шкала для ключевых экранов.
+   3. Композиционный ритм: у каждой секции свой характер.
+   ==================================== */
+:root{
+  /* radius scale — было 13 разных значений */
+  --v3-r-xs:4px;
+  --v3-r-sm:8px;
+  --v3-r-md:12px;
+  --v3-r-lg:16px;
+  --v3-radius:var(--v3-r-sm);
+  /* elevation — только продуктовые визуалы */
+  --v3-elev-1:0 1px 2px rgba(18,23,27,.04);
+  --v3-elev-2:0 18px 40px -26px rgba(18,23,27,.26);
+  --v3-elev-3:0 30px 60px -34px rgba(18,23,27,.42);
+  /* typographic scale */
+  --v3-display:clamp(64px,8.6vw,104px);
+  --v3-heading:clamp(40px,4.9vw,56px);
+  --v3-number:clamp(72px,9.6vw,116px);
+}
+
+/* --- radius normalisation --- */
+.v3-node,.v3-flow__step,.v3-eco__node,.v3-ui-panel,.v3-bo__stat,.v3-tags li,
+.v3-ctl__role b,.v3-est__row,.v3-visual--panel{border-radius:var(--v3-r-sm)}
+.v3-browser,.v3-ui-block,.v3-ui-tile{border-radius:var(--v3-r-md)}
+.v3-visual--panel,.v3-est__total,.v3-ext{border-radius:var(--v3-r-lg)}
+.v3-ui-line,.v3-ui-bar,.v3-bo__brand,.v3-browser__url{border-radius:999px}
+.v3-ui-btn{border-radius:var(--v3-r-sm)}
+.v3-bo__status,.v3-bounds__tag,.v3-eco__tag,.v3-est__legend i,
+.v3-ui-pill,.v3-tags li{border-radius:999px}
+/* fallback: subgrid поддерживается не везде */
+@supports not (grid-template-columns:subgrid){
+}
+
+/* --- shadows: только устройства и браузер --- */
+.v3-card,.v3-eco__node,.v3-flow__step,.v3-node,.v3-ctl__role b,.v3-tags li{box-shadow:none}
+.v3-browser{box-shadow:var(--v3-elev-2)}
+.v3-device{box-shadow:var(--v3-elev-3)}
+
+/* --- единое оформление цен --- */
+.v3-num,.v3-big-number__value,.v3-scope-row__price,.v3-est__price,
+.v3-format__money,.v3-bounds__price .v3-big-number__value{
+  font-family:var(--v3-sans);font-variant-numeric:tabular-nums;letter-spacing:-.025em;
+}
+
+/* ---------- 01 · HERO ---------- */
+.v3-hero{position:relative;overflow:hidden}
+.v3-hero::before{
+  content:"";position:absolute;top:-10%;right:-6%;width:70%;height:120%;
+  background:radial-gradient(closest-side,rgba(127,182,196,.14),rgba(127,182,196,0) 70%);
+  pointer-events:none;
+}
+.v3-hero .v3-container{position:relative;z-index:1}
+.v3-hero__main{grid-template-columns:minmax(0,57fr) minmax(0,43fr);gap:var(--v3-s7)}
+.v3-hero .v3-display{letter-spacing:-.042em;line-height:.92}
+.v3-hero .v3-lead{margin-top:var(--v3-s4);max-width:40ch;font-size:clamp(19px,1.6vw,22px)}
+/* цена доминирует, остальное — второй план */
+.v3-hero__kpis{grid-template-columns:repeat(3,auto);justify-content:start;gap:var(--v3-s5) var(--v3-s6);margin-top:var(--v3-s6);align-items:baseline}
+.v3-hero__kpis .v3-big-number--lead{grid-column:1 / -1;margin-bottom:var(--v3-s2)}
+.v3-hero__kpis .v3-big-number--lead .v3-big-number__value{
+  font-size:clamp(66px,8.4vw,104px);font-weight:700;letter-spacing:-.045em;line-height:.9;
+}
+.v3-hero__kpis .v3-big-number--lead .v3-big-number__label{
+  font-size:16px;margin-top:14px;color:var(--v3-dark-ink);opacity:.9;
+}
+.v3-hero__kpis .v3-big-number--md .v3-big-number__value{
+  font-size:clamp(26px,2.5vw,32px);font-weight:600;letter-spacing:-.02em;
+}
+.v3-hero__kpis .v3-big-number--sm .v3-big-number__value{
+  font-size:clamp(17px,1.5vw,19px);font-weight:600;letter-spacing:-.008em;
+}
+.v3-hero__kpis .v3-big-number--md .v3-big-number__label,
+.v3-hero__kpis .v3-big-number--sm .v3-big-number__label{font-size:13.5px;margin-top:7px;opacity:.72}
+.v3-hero__note{margin-top:var(--v3-s5);padding-top:var(--v3-s3);border-top:1px solid var(--v3-dark-line);opacity:.62;font-size:13.5px}
+.v3-hero .v3-container{max-width:1240px}
+.v3-hero__visual{align-self:center;justify-content:center}
+.v3-hero__visual svg{width:100%;max-width:560px}
+/* абстрактный core вместо технической схемы */
+.v3-hs-ring{stroke:#7FB6C4;stroke-opacity:.13;stroke-width:1;fill:none}
+.v3-hs-link{stroke:#7FB6C4;stroke-opacity:.3;stroke-width:1;fill:none}
+.v3-hs-core{fill:url(#heroCore)}
+.v3-hs-core-ring{stroke:#7FB6C4;stroke-opacity:.34;stroke-width:1;fill:none}
+.v3-hs-dot{fill:#F3F2ED;fill-opacity:.85}
+.v3-hs-dot--ghost{fill:none;stroke:#A6AFB6;stroke-opacity:.5;stroke-width:1;stroke-dasharray:2 3}
+.v3-hs-label{font-family:var(--v3-sans);font-size:12.5px;font-weight:500;fill:#F3F2ED;fill-opacity:.78}
+.v3-hs-label--muted{fill:#A6AFB6;fill-opacity:.6;font-weight:400;font-size:11.5px}
+.v3-hs-core-text{font-family:var(--v3-sans);font-size:13px;font-weight:600;fill:#F3F2ED;text-anchor:middle}
+
+
+/* ---------- 02 · ECOSYSTEM ---------- */
+.v3-eco__layout{grid-template-columns:minmax(0,32fr) minmax(0,68fr);gap:var(--v3-s4) var(--v3-s7)}
+.v3-eco .v3-container{max-width:1200px}
+.v3-eco__map{grid-template-columns:minmax(0,1fr) 250px minmax(0,1fr);gap:52px 56px;padding:var(--v3-s4) 0}
+.v3-eco__core{grid-row:2 / span 2}
+/* узлы без рамок — типографика в пространстве */
+.v3-eco__node{background:transparent;border:0;padding:0;min-height:0;box-shadow:none}
+.v3-eco__node--apps,.v3-eco__node--games{padding:0}
+.v3-eco__node--fin,.v3-eco__node--bo{text-align:right;align-items:flex-end}
+.v3-eco__node--crypto,.v3-eco__node--aff{text-align:left;align-items:flex-start}
+.v3-eco__title{font-size:18px;font-weight:600;letter-spacing:-.015em}
+.v3-eco__node--strong .v3-eco__title{font-size:19px}
+.v3-eco__sub{font-size:13.5px;line-height:1.45;max-width:24ch}
+.v3-eco__node--fin .v3-eco__sub,.v3-eco__node--bo .v3-eco__sub{margin-left:auto}
+.v3-eco__node--optional{opacity:.72}
+.v3-eco__node--optional .v3-eco__title{font-weight:500}
+.v3-eco__tag{border-color:var(--v3-line);color:var(--v3-ink-3);background:transparent;border-radius:999px;padding:3px 10px}
+/* ядро — единственный залитый объект */
+.v3-eco__core{width:230px;height:230px;box-shadow:0 0 0 14px rgba(20,80,95,.07)}
+.v3-eco__core .v3-eco__title{font-size:20px}
+.v3-eco__core .v3-eco__sub{max-width:18ch}
+.v3-eco__lines line{stroke:var(--v3-line-strong);stroke-opacity:.85}
+.v3-eco__lines line.is-entry{stroke:var(--v3-accent);stroke-opacity:.5}
+.v3-eco__callout{margin-top:var(--v3-s2)}
+
+
+/* ---------- 03 · PRODUCT PREVIEW ---------- */
+.v3-res .v3-container{max-width:1240px}
+.v3-res__stage{margin-top:var(--v3-s7);padding-bottom:22px}
+.v3-res__stage .v3-device{width:262px;box-shadow:var(--v3-elev-3)}
+.v3-res__stage .v3-device__screen{padding:30px 12px 12px;gap:9px}
+.v3-res__bo{box-shadow:var(--v3-elev-2)}
+.v3-res__phone--tg{grid-column:1/4;margin-bottom:26px}
+.v3-res__phone--and{grid-column:2/6;transform:translateX(clamp(14px,2.6vw,40px));margin-bottom:-10px}
+.v3-res__bo{grid-column:6/13;margin-left:0}
+#s03 .v3-res__stage + .v3-small{margin-top:var(--v3-s4)}
+.v3-bo{min-height:452px}
+.v3-bo__side{background:var(--v3-paper)}
+.v3-bo__item{border-radius:var(--v3-r-xs)}
+.v3-bo__stat{border-radius:var(--v3-r-sm)}
+.v3-bo__table{border-radius:var(--v3-r-sm)}
+/* дисклеймер — вторичный, не мешает product reveal */
+.v3-res .v3-small{color:var(--v3-ink-3)}
+.v3-res__outcomes{margin-top:var(--v3-s8)}
+.v3-outcome__index{font-size:14px}
+.v3-outcome .v3-title{font-size:19px}
+
+/* ---------- 04 · FLOWS (визуальная пауза) ---------- */
+.v3-work__flow{padding:var(--v3-s6) 0}
+.v3-work__actor .v3-subheading{font-size:clamp(26px,2.8vw,32px)}
+.v3-work__index{font-size:14px}
+.v3-work__step b{font-size:17px}
+.v3-work__step::before{width:10px;height:10px}
+.v3-work__outcome{border-top-color:var(--v3-line)}
+
+/* ---------- 05 · EXPERTISE (editorial / consulting) ---------- */
+.v3-imp .v3-container{max-width:1160px}
+.v3-imp__row{grid-template-columns:270px minmax(0,1fr);gap:var(--v3-s4) var(--v3-s7);padding:var(--v3-s6) 0}
+.v3-imp__num{
+  font-size:clamp(60px,6vw,82px);font-weight:600;line-height:.9;letter-spacing:-.05em;
+  color:var(--v3-accent);opacity:1;margin-bottom:16px;
+}
+.v3-imp__title{
+  font-family:var(--v3-serif);font-weight:400;font-size:clamp(23px,2.3vw,27px);
+  line-height:1.2;letter-spacing:-.01em;
+}
+.v3-imp__part{font-size:15px}
+.v3-imp__part b{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+/* эффект для владельца — визуально сильнее */
+.v3-imp__win{
+  font-size:19px;line-height:1.45;color:var(--v3-ink);
+  border-top:0;padding:var(--v3-s3) 0 0;margin-top:var(--v3-s3);
+  position:relative;
+}
+.v3-imp__win::before{content:"";position:absolute;left:0;top:0;width:44px;height:2px;background:var(--v3-accent)}
+.v3-imp__win b{font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.v3-imp__glabel{font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+
+
+/* ---------- 06 · COMMERCIAL CENTER ---------- */
+.v3-est .v3-container{max-width:1200px}
+.v3-est__head{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--v3-s6);align-items:end}
+.v3-est__price{justify-self:end;text-align:right}
+.v3-est__price .v3-big-number__value{
+  font-size:clamp(72px,8.4vw,116px);font-weight:700;letter-spacing:-.05em;line-height:.88;
+}
+.v3-est__price .v3-big-number__label{font-size:15px;margin-top:12px;margin-left:auto}
+/* полоса нагрузки — тонкая editorial-визуализация */
+.v3-est__strip{margin-top:var(--v3-s7);max-width:none}
+.v3-est__bar{height:8px;border-radius:999px;gap:3px;background:transparent}
+.v3-est__bar span{border-radius:999px}
+.v3-est__legend{gap:10px 40px;margin-top:16px;font-size:14px}
+.v3-est__legend i{width:8px;height:8px;border-radius:999px}
+.v3-est__legend small{display:block;margin-left:16px;color:var(--v3-ink-3);font-size:13px}
+/* трудоёмкость — тихая строка, не второй ценовой блок */
+.v3-est__total{
+  margin-top:var(--v3-s5);background:transparent;border-radius:0;padding:var(--v3-s4) 0 0;
+  border-top:1px solid var(--v3-line);grid-template-columns:minmax(0,4fr) minmax(0,8fr);
+  gap:var(--v3-s5);align-items:baseline;
+}
+.v3-est__total .v3-big-number__value{font-size:clamp(30px,3vw,38px);font-weight:600;letter-spacing:-.03em}
+.v3-est__total .v3-big-number__label{font-size:14px;margin-top:6px}
+.v3-est__facts{grid-template-columns:repeat(2,1fr);gap:var(--v3-s5)}
+.v3-est__facts .v3-big-number--sm .v3-big-number__value{font-size:19px;font-weight:600}
+.v3-est__facts .v3-big-number__note{font-size:13px;margin-top:5px}
+.v3-est__scope-note{border-top:1px solid var(--v3-line)}
+/* accordion — премиальная коммерческая строка */
+.v3-est__accordions{margin-top:var(--v3-s6);border-top:1px solid var(--v3-line)}
+.v3-est__detail{border:0;border-bottom:1px solid var(--v3-line);background:transparent}
+.v3-est__summary{
+  position:relative;display:grid;
+  grid-template-columns:46px minmax(0,1fr) 130px 150px 26px;
+  gap:var(--v3-s3);align-items:baseline;
+  padding:26px 0;cursor:pointer;list-style:none;
+  transition:background .18s ease,padding-left .18s ease;
+}
+.v3-est__summary::-webkit-details-marker{display:none}
+.v3-est__summary::marker{content:""}
+.v3-est__detail:hover .v3-est__summary{background:rgba(20,80,95,.028);padding-left:12px}
+.v3-est__detail[open] .v3-est__summary{background:rgba(20,80,95,.045);padding-left:12px}
+.v3-est__idx{font-size:13px;color:var(--v3-ink-3);font-variant-numeric:tabular-nums}
+.v3-est__name{font-size:19px;font-weight:600;letter-spacing:-.015em;color:var(--v3-ink);display:block}
+.v3-est__desc{display:block;margin-top:5px;font-size:14px;font-weight:400;color:var(--v3-ink-3);line-height:1.5;max-width:60ch}
+.v3-est__block-price{font-size:23px;font-weight:600;text-align:right;white-space:nowrap;color:var(--v3-ink)}
+.v3-est__range{font-size:13px;color:var(--v3-ink-3);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+/* chevron */
+.v3-est__summary::after{
+  content:"";justify-self:end;align-self:center;width:9px;height:9px;
+  border-right:1.5px solid var(--v3-ink-3);border-bottom:1.5px solid var(--v3-ink-3);
+  transform:rotate(45deg) translateY(-2px);transition:transform .22s ease,border-color .22s ease;
+}
+.v3-est__detail[open] .v3-est__summary::after{transform:rotate(225deg) translateY(-2px);border-color:var(--v3-accent)}
+/* открытое состояние — не серая техническая простыня */
+.v3-est__detail-body{
+  background:var(--v3-paper-2);border-radius:var(--v3-r-md);
+  padding:var(--v3-s4);margin:0 0 var(--v3-s4);
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--v3-s5);
+}
+.v3-est__table{width:100%;border-collapse:collapse;font-size:13.5px}
+.v3-est__table th{
+  text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--v3-ink-3);padding:0 0 10px;border-bottom:1px solid var(--v3-line-strong);
+}
+.v3-est__table th:last-child,.v3-est__table td:last-child{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.v3-est__table td{padding:8px 0;border-bottom:1px solid var(--v3-line);color:var(--v3-ink-2)}
+.v3-est__table tr:last-child td{border-bottom:0;font-weight:600;color:var(--v3-ink);padding-top:12px}
+.v3-est__mini-title{font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--v3-accent);margin:0 0 10px}
+.v3-est__mini-list{list-style:none;margin:0;padding:0;font-size:14px;color:var(--v3-ink-2);line-height:1.5}
+.v3-est__mini-list li{position:relative;padding-left:16px;margin-bottom:7px}
+.v3-est__mini-list li::before{content:"";position:absolute;left:0;top:.66em;width:7px;height:1px;background:var(--v3-accent)}
+.v3-est__boundary{margin-top:var(--v3-s3);padding-top:var(--v3-s3);border-top:1px solid var(--v3-line);font-size:13px;color:var(--v3-ink-3);line-height:1.5}
+
+
+/* ---------- 08 · ROLE & CONTROL MAP ---------- */
+.v3-ctl .v3-container{max-width:1160px}
+.v3-ctl__roles-head{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--v3-s6)}
+.v3-ctl__groups{margin-top:var(--v3-s6)}
+.v3-ctl__group{
+  grid-template-columns:minmax(0,3fr) minmax(0,9fr);
+  gap:var(--v3-s3) var(--v3-s6);padding:var(--v3-s5) 0;
+}
+.v3-ctl__gname{
+  font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--v3-ink-3);padding-top:8px;
+}
+/* роли — типографика в дорожках, без «полей ввода» */
+.v3-ctl__role{
+  grid-template-columns:180px minmax(0,1fr);gap:6px var(--v3-s4);
+  padding:10px 0 10px 18px;position:relative;align-items:baseline;
+}
+.v3-ctl__role::before{
+  content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;
+  background:var(--v3-line-strong);border-radius:999px;
+}
+.v3-ctl__role b{
+  border:0;background:transparent;padding:0;border-radius:0;
+  font-size:18px;font-weight:600;letter-spacing:-.015em;color:var(--v3-ink);
+}
+.v3-ctl__role span{font-size:15px;color:var(--v3-ink-2);max-width:56ch}
+/* акцент только на финансово-критичных ролях */
+.v3-ctl__role--key::before{background:var(--v3-accent)}
+.v3-ctl__role--key b{color:var(--v3-accent-ink)}
+/* принципы — крупнее */
+.v3-ctl__principles{margin-top:var(--v3-s8);gap:var(--v3-s6) var(--v3-s7)}
+.v3-ctl__principles .v3-title{font-size:20px;max-width:20ch}
+.v3-ctl__principles .v3-copy{font-size:15.5px}
+.v3-ctl__effect{font-size:16px;border-left-width:2px}
+
+
+/* ---------- 09 · EXTENSIONS ---------- */
+.v3-bounds .v3-container{max-width:1160px}
+.v3-bounds__price .v3-big-number__value{font-size:clamp(46px,5vw,64px);font-weight:700;letter-spacing:-.04em}
+/* included strip — легче, без таблицы */
+.v3-bounds__strip{border:0;gap:var(--v3-s4) var(--v3-s5)}
+.v3-bounds__strip li{border:0;border-top:1px solid var(--v3-line);padding:14px 0 0}
+.v3-bounds__strip li b{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.v3-bounds__strip li span{font-size:13px;color:var(--v3-ink-3);line-height:1.45}
+/* PvP — сильнее остальных расширений, но без промо-карточки */
+.v3-bounds__row--feature .v3-bounds__name{font-size:23px}
+.v3-bounds__row--feature .v3-bounds__price-lg{font-size:clamp(30px,3.4vw,40px);font-weight:700;letter-spacing:-.035em}
+/* внешние расходы — приглушённо */
+.v3-bounds__external{color:var(--v3-ink-3)}
+.v3-bounds__external li{font-size:13.5px}
+
+/* ---------- 10 · WORKING FORMAT ---------- */
+.v3-format .v3-container{max-width:1160px}
+.v3-format__index{font-size:13px;color:var(--v3-ink-3)}
+.v3-format__title{font-size:21px;font-weight:600;letter-spacing:-.015em}
+.v3-format__money{font-size:19px;font-weight:600;color:var(--v3-ink);letter-spacing:-.02em}
+.v3-format__money span{color:var(--v3-line-strong);margin:0 6px;font-weight:400}
+.v3-format__milestone{padding:var(--v3-s5) 0}
+
+
+/* 09 · included strip — 4 колонки в две строки вместо 7 узких */
+.v3-bounds__strip{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--v3-s4) var(--v3-s5)}
+.v3-bounds__strip li b{display:block;margin-bottom:5px}
+
+/* 10 · пропорциональная полоса платежей */
+.v3-format__paystrip{
+  display:grid;grid-template-columns:20fr 20fr 25fr 20fr 15fr;gap:4px;
+  border:0;margin:var(--v3-s6) 0 0;padding:0;
+}
+.v3-format__paystrip span{
+  position:relative;height:8px;border-radius:999px;background:var(--v3-line-strong);
+  font-size:0;padding:0;border:0;display:block;
+}
+.v3-format__paystrip span.is-key{background:var(--v3-accent)}
+.v3-format__paystrip span::after{
+  content:attr(data-label);position:absolute;left:0;top:16px;
+  font-size:13px;color:var(--v3-ink-3);font-variant-numeric:tabular-nums;letter-spacing:0;
+}
+.v3-format__paystrip span.is-key::after{color:var(--v3-accent)}
+.v3-format__paystrip{margin-bottom:44px}
+
+
+/* ---------- STATEMENT PAUSE (одна на документ, кроме Hero) ---------- */
+.v3-statement{
+  background:var(--v3-paper-2);
+  padding-block:clamp(84px,9vw,132px);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.v3-statement__inner{max-width:1120px;margin-inline:auto;padding-inline:32px}
+.v3-statement__lead{
+  font-family:var(--v3-serif);font-weight:400;
+  font-size:clamp(29px,3.5vw,46px);line-height:1.24;letter-spacing:-.018em;
+  color:var(--v3-ink);max-width:24ch;margin:0;text-wrap:balance;
+}
+.v3-statement__lead b{font-weight:400;color:var(--v3-accent)}
+.v3-statement p.v3-statement__note{
+  margin:var(--v3-s5) 0 0;padding-top:var(--v3-s3);
+  border-top:1px solid var(--v3-line-strong);
+  font-family:var(--v3-sans);font-size:15px;line-height:1.55;
+  color:var(--v3-ink-3);max-width:46ch;
+}
+
+
+/* ---------- CLOSING (без номера, вне TOC) ---------- */
+.v3-closing{
+  background:var(--v3-dark);color:var(--v3-dark-ink);
+  --v3-ink:var(--v3-dark-ink);--v3-ink-2:#D4D9DC;--v3-ink-3:var(--v3-dark-muted);
+  --v3-line:var(--v3-dark-line);--v3-line-strong:#3A454E;
+  padding-block:clamp(110px,13vw,180px);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.v3-closing__inner{max-width:1120px;margin-inline:auto;padding-inline:32px}
+.v3-closing__title{
+  font-family:var(--v3-sans);font-weight:600;
+  font-size:clamp(38px,5vw,62px);line-height:1.06;letter-spacing:-.032em;
+  color:var(--v3-dark-ink);margin:0;max-width:16ch;text-wrap:balance;
+}
+.v3-closing__copy{
+  margin:var(--v3-s4) 0 0;font-family:var(--v3-serif);
+  font-size:clamp(18px,1.8vw,21px);line-height:1.5;color:var(--v3-dark-muted);max-width:52ch;
+}
+/* поток следующего шага */
+.v3-closing__flow{
+  display:flex;flex-wrap:wrap;align-items:center;gap:0;
+  margin-top:clamp(56px,7vw,86px);list-style:none;padding:0;
+}
+.v3-closing__flow li{
+  font-size:17px;font-weight:500;color:var(--v3-dark-ink);white-space:nowrap;
+}
+.v3-closing__flow li + li::before{
+  content:"";display:inline-block;width:52px;height:1px;
+  background:#3A454E;vertical-align:middle;margin:0 22px;
+}
+.v3-closing__flow li:last-child{color:#7FB6C4}
+/* коммерческий итог */
+.v3-closing__summary{
+  display:flex;flex-wrap:wrap;gap:var(--v3-s5) var(--v3-s7);
+  margin-top:clamp(56px,7vw,86px);padding-top:var(--v3-s4);
+  border-top:1px solid var(--v3-dark-line);
+}
+.v3-closing__summary div b{
+  display:block;font-family:var(--v3-sans);font-weight:600;
+  font-size:clamp(30px,3.4vw,42px);letter-spacing:-.035em;line-height:1;
+  color:var(--v3-dark-ink);font-variant-numeric:tabular-nums;
+}
+.v3-closing__summary div span{display:block;margin-top:9px;font-size:14.5px;color:var(--v3-dark-muted)}
+/* footer после closing */
+footer{max-width:1120px;margin:0 auto;padding:26px 32px 56px;border-top:0}
+footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch}
+
+/* ---- utilities ---- */
+.v3-measure{max-width:var(--v3-measure)}
+.v3-right{text-align:right}
+.v3-center{text-align:center}
+.v3-mt-2{margin-top:var(--v3-s2)}.v3-mt-3{margin-top:var(--v3-s3)}.v3-mt-4{margin-top:var(--v3-s4)}.v3-mt-5{margin-top:var(--v3-s5)}.v3-mt-6{margin-top:var(--v3-s6)}.v3-mt-7{margin-top:var(--v3-s7)}
+.v3-section a:focus-visible,.v3-section button:focus-visible{outline:2px solid var(--v3-accent);outline-offset:3px;border-radius:2px}
+.v3-visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---- responsive (mobile-first по порядку DOM) ---- */
+@media (max-width:1100px){.v3-res__stage .v3-device{width:236px}}
+@media (max-width:960px){
+  .v3-split,.v3-split--40-60,.v3-split--60-40,.v3-split--equal,.v3-scope-total,.v3-option--featured{grid-template-columns:1fr;gap:var(--v3-s4)}
+  .v3-split > .v3-sticky{position:static}
+  .v3-timeline{grid-template-columns:1fr 1fr}
+  .v3-principles--3{grid-template-columns:1fr 1fr}
+  .v3-scope-group{grid-template-columns:1fr;gap:var(--v3-s2)}
+  .v3-visual--wide,.v3-visual--half{width:100%}
+  .v3-ecosystem{grid-template-columns:1fr;justify-items:stretch}
+  .v3-ecosystem__side{grid-template-columns:1fr 1fr}
+  .v3-hero__main{grid-template-columns:minmax(0,1fr) minmax(240px,34vw);gap:var(--v3-s4);padding-block:0}
+  .v3-hero__visual{justify-content:flex-start}
+  .v3-hero__visual svg{max-width:min(320px,32vw)}
+  .v3-eco__layout{grid-template-columns:1fr;grid-template-areas:"text" "map" "callout";gap:var(--v3-s5)}
+  .v3-eco__map{gap:36px 20px}
+  .v3-res__stage{grid-template-columns:1fr 1fr;grid-template-areas:"bo bo" "tg and";gap:var(--v3-s5) var(--v3-s4);align-items:start;padding-bottom:36px}
+  .v3-res__phone--tg{grid-area:tg;justify-self:end;margin:0}
+  .v3-res__phone--and{grid-area:and;justify-self:start;transform:none;margin:0}
+  .v3-res__bo{grid-area:bo;margin:0}
+  .v3-res__stage .v3-device{width:240px}
+  .v3-res__handover{grid-template-columns:1fr;gap:var(--v3-s3)}
+  .v3-work__flow{grid-template-columns:1fr;gap:var(--v3-s4);padding:var(--v3-s5) 0}
+  .v3-work__actor{grid-row:auto}
+  .v3-work__steps,.v3-work__outcome{grid-column:1}
+  .v3-work__end{grid-template-columns:1fr;gap:var(--v3-s3)}
+  .v3-imp__row{grid-template-columns:1fr;gap:var(--v3-s3);padding:var(--v3-s5) 0}
+  .v3-imp__row::before{top:calc(var(--v3-s5) + 14px)}
+  .v3-imp__end{grid-template-columns:1fr;gap:var(--v3-s3)}
+  .v3-est .v3-scope-group{grid-template-columns:1fr;gap:var(--v3-s2)}
+  .v3-est__total{grid-template-columns:1fr;gap:var(--v3-s4)}
+  .v3-est__notes{grid-template-columns:1fr}
+  .v3-est__head,.v3-est__detail-body,.v3-est__game-boundary{grid-template-columns:1fr;gap:var(--v3-s4)}
+  .v3-est__price{justify-self:start;text-align:left}
+  .v3-est__scope-note{grid-template-columns:1fr 1fr}
+  .v3-est__detail-body{padding-left:0}
+  .v3-road__head{grid-template-columns:1fr;gap:var(--v3-s4)}
+  .v3-road__term{justify-self:start;text-align:left}
+  .v3-road__term .v3-big-number__label{margin-left:0}
+  .v3-road__notes{grid-template-columns:1fr}
+  .v3-ctl__anchor,.v3-ctl__roles-head{grid-template-columns:1fr;gap:var(--v3-s3)}
+  .v3-ctl__group{grid-template-columns:1fr;gap:var(--v3-s2)}
+  .v3-bounds__head,.v3-bounds__included,.v3-bounds__extensions-head,.v3-bounds__external,.v3-bounds__note{grid-template-columns:1fr;gap:var(--v3-s3)}
+  .v3-bounds__price{justify-self:start;text-align:left}
+  .v3-bounds__strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px var(--v3-s4)}
+  .v3-bounds__strip li{border-left:0;padding:0 0 14px;border-bottom:1px solid var(--v3-line)}
+  .v3-bounds__row{grid-template-columns:44px minmax(0,1fr);gap:var(--v3-s2) var(--v3-s3)}
+  .v3-bounds__value{grid-column:2;text-align:left;white-space:normal}
+  .v3-bounds__value b{font-size:32px}
+  .v3-format__head,.v3-format__acceptance,.v3-format__after,.v3-format__bugchange{grid-template-columns:1fr;gap:var(--v3-s4)}
+  .v3-format__summary{justify-self:start;text-align:left}
+  .v3-format__milestone{grid-template-columns:44px minmax(0,1fr);gap:var(--v3-s2) var(--v3-s3)}
+  .v3-format__milestone > div:last-child{grid-column:2}
+  .v3-format__milestone--key::before{display:none}
+  .v3-format__milestone--key .v3-format__index{padding-left:0}
+  .v3-format__process{grid-template-columns:1fr 1fr;gap:var(--v3-s3)}
+  .v3-format__process li,.v3-format__process li + li{padding:0 0 var(--v3-s2);border-left:0;border-bottom:1px solid var(--v3-line)}
+}
+@media (max-width:640px){
+  :root{--v3-body:16px;--v3-gutter:20px}
+  .v3-heading{max-width:none}
+  .v3-compare{grid-template-columns:1fr;gap:var(--v3-s5)}
+  .v3-compare::before{display:none}
+  .v3-compare__col + .v3-compare__col{border-top:1px solid var(--v3-line);padding-top:var(--v3-s4)}
+  .v3-timeline{grid-template-columns:1fr;gap:var(--v3-s5)}
+  .v3-timeline::before{display:none}
+  .v3-principles,.v3-principles--3,.v3-steps{grid-template-columns:1fr}
+  .v3-list--cols{columns:1}
+  .v3-flow{flex-direction:column;align-items:flex-start}
+  .v3-flow__step + .v3-flow__step{margin:28px 0 0}
+  .v3-flow__step + .v3-flow__step::before{left:28px;top:-28px;width:1px;height:28px}
+  .v3-flow__step + .v3-flow__step::after{left:26px;top:-9px;transform:rotate(135deg)}
+  .v3-flow-row{grid-template-columns:1fr;gap:var(--v3-s2)}
+  .v3-scope-row{grid-template-columns:1fr auto;gap:6px var(--v3-s2)}
+  .v3-scope-row__hours{grid-column:1;text-align:left;min-width:0}
+  .v3-scope-row__price{grid-column:2;grid-row:1 / span 2;align-self:start}
+  .v3-option{grid-template-columns:1fr}
+  .v3-option__value{text-align:left}
+  .v3-numbers{gap:var(--v3-s4)}
+  .v3-ecosystem__side{grid-template-columns:1fr}
+  .v3-device{width:220px}
+  .v3-hero{min-height:100vh;min-height:100svh;padding-block:22px}
+  .v3-hero > .v3-container{justify-content:flex-start;padding-top:clamp(48px,14vh,96px)}
+  .v3-hero__main{grid-template-columns:1fr;gap:var(--v3-s3);padding-block:0}
+  .v3-hero .v3-display{font-size:clamp(40px,12.5vw,54px)}
+  .v3-hero .v3-lead{margin-top:var(--v3-s2);font-size:18px;line-height:1.35}
+  .v3-hero__kpis{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:var(--v3-s4)}
+  .v3-hero__kpis .v3-big-number__value{white-space:normal}
+  .v3-hero__kpis .v3-big-number--lead .v3-big-number__value{font-size:44px}
+  .v3-hero__kpis .v3-big-number--md .v3-big-number__value{font-size:28px}
+  .v3-hero__kpis .v3-big-number--sm .v3-big-number__value{font-size:20px}
+  .v3-hero__kpis .v3-big-number__label{font-size:12.5px;margin-top:5px;max-width:18ch}
+  .v3-hero__top{font-size:13px}
+  .v3-hero__bottom{flex-direction:column;gap:6px}
+  .v3-hero__line{margin-top:var(--v3-s3);padding-top:12px;font-size:13.5px}
+  .v3-hero__note{font-size:13px;margin-top:6px}
+  .v3-hero__visual{display:none}
+  .v3-eco__map{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0}
+  .v3-eco__lines{display:none}
+  .v3-eco__node,.v3-eco__core{text-align:left;align-items:flex-start}
+  .v3-eco__core{width:auto;height:auto;border-radius:var(--v3-radius);box-shadow:none;padding:20px 18px;justify-self:stretch}
+  .v3-eco__node--apps,.v3-eco__node--games{text-align:left;align-items:flex-start;padding:16px 18px}
+  .v3-eco__arrow{display:block;height:28px;width:1px;margin:0 auto;background:var(--v3-line-strong)}
+  .v3-eco__arrow--dashed{background:repeating-linear-gradient(to bottom,var(--v3-line-strong) 0 4px,transparent 4px 8px)}
+  .v3-eco__group{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  /* Layer 5: сброс editorial-выключки на вертикальной раскладке */
+  .v3-eco__node--fin,.v3-eco__node--bo,.v3-eco__node--crypto,.v3-eco__node--aff{
+    text-align:left;align-items:flex-start;
+  }
+  .v3-eco__node--fin .v3-eco__sub,.v3-eco__node--bo .v3-eco__sub{margin-left:0}
+  .v3-eco__sub{max-width:none}
+  .v3-eco__core{width:auto;height:auto;box-shadow:none}
+  .v3-est__summary{grid-template-columns:34px minmax(0,1fr) auto;gap:6px 12px;padding:20px 0}
+  .v3-est__block-price{grid-column:3;grid-row:1}
+  .v3-est__range{grid-column:2 / 4;text-align:left}
+  .v3-est__summary::after{grid-column:3;grid-row:2;justify-self:end}
+  .v3-est__detail-body{grid-template-columns:1fr;gap:var(--v3-s4);padding:var(--v3-s3)}
+  .v3-est__head{grid-template-columns:1fr}
+  .v3-est__price{justify-self:start;text-align:left}
+  .v3-est__price .v3-big-number__label{margin-left:0}
+  .v3-est__total{grid-template-columns:1fr}
+  .v3-est__facts{grid-template-columns:1fr;gap:var(--v3-s3)}
+  .v3-bounds__strip{grid-template-columns:1fr 1fr}
+  .v3-ctl__role{grid-template-columns:1fr;gap:4px;padding-left:14px}
+  .v3-format__paystrip span::after{font-size:11px}
+  .v3-statement__lead{max-width:none}
+  /* closing: вертикальный поток вместо горизонтального ряда */
+  .v3-closing{padding-block:var(--v3-s7)}
+  .v3-closing__inner{padding-inline:20px}
+  .v3-closing__title{max-width:none;font-size:clamp(32px,9vw,42px)}
+  .v3-closing__flow{flex-direction:column;align-items:flex-start;gap:0;margin-top:var(--v3-s6)}
+  .v3-closing__flow li{padding-left:22px;position:relative;line-height:1.3}
+  .v3-closing__flow li + li{margin-top:26px}
+  .v3-closing__flow li + li::before{
+    content:"";position:absolute;left:5px;top:-26px;width:1px;height:26px;
+    background:#3A454E;display:block;margin:0;vertical-align:baseline;
+  }
+  .v3-closing__flow li::after{
+    content:"";position:absolute;left:2px;top:.5em;width:7px;height:7px;border-radius:50%;
+    background:#3A454E;
+  }
+  .v3-closing__flow li:last-child::after{background:#7FB6C4}
+  .v3-closing__summary{gap:var(--v3-s4);margin-top:var(--v3-s6)}
+  footer{padding:20px 20px 44px}
+  .v3-res__stage{display:flex;flex-direction:column;align-items:center;gap:var(--v3-s5);padding-bottom:0}
+  .v3-res__stage::after{display:none}
+  .v3-res__stage .v3-device{width:250px}
+  .v3-res__phone--tg,.v3-res__phone--and{justify-self:auto}
+  .v3-res__bo{width:100%}
+  .v3-bo{grid-template-columns:1fr;min-height:0}
+  .v3-bo__side{flex-direction:row;flex-wrap:wrap;gap:4px;border-right:0;border-bottom:1px solid var(--v3-line);padding:12px}
+  .v3-bo__brand{display:none}
+  .v3-bo__item{font-size:11.5px;padding:5px 8px}
+  .v3-bo__stats{grid-template-columns:1fr 1fr}
+  .v3-bo__row{grid-template-columns:1fr 1fr;gap:6px 10px}
+  .v3-bo__row > :nth-child(2){display:none}
+  .v3-res__outcomes{margin-top:var(--v3-s7)}
+  .v3-work__flows{margin-top:var(--v3-s6)}
+  .v3-work__steps{flex-direction:column;gap:22px}
+  .v3-work__steps::before{left:5px;right:auto;top:5px;bottom:40px;width:1px;height:auto}
+  .v3-work__step{display:grid;grid-template-columns:11px 1fr;gap:0 16px;padding:0}
+  .v3-work__step::before{margin-top:12px}
+  .v3-work__step b{margin-top:0}
+  .v3-work__step b::before{display:inline;margin-right:8px}
+  .v3-work__step small{grid-column:2;margin-top:2px}
+  .v3-work__outcome{grid-template-columns:1fr}
+  .v3-work__outcome small{grid-column:1}
+  .v3-imp__group{padding-left:24px}
+  .v3-imp__glabel::before,.v3-imp__row::before{left:-24px}
+  .v3-imp__body{grid-template-columns:1fr}
+  .v3-imp__num{font-size:32px}
+  .v3-imp__win{font-size:17px}
+  .v3-est .v3-scope-row{grid-template-columns:32px minmax(0,1fr) auto;gap:6px var(--v3-s2);padding:16px 0}
+  .v3-est .v3-scope-row__hours{grid-column:2;text-align:left;min-width:0}
+  .v3-est .v3-scope-row__price{grid-column:3;grid-row:1 / span 2;align-self:start;min-width:0}
+  .v3-est .v3-scope-row--key::before{display:none}
+  .v3-est .v3-scope-row--key .v3-scope-row__idx{padding-left:0}
+  .v3-est__facts{grid-template-columns:1fr;gap:var(--v3-s3)}
+  .v3-est__legend{flex-direction:column;gap:6px}
+  .v3-est__scope-note{grid-template-columns:1fr}
+  .v3-est__summary{grid-template-columns:32px minmax(0,1fr) auto 22px;gap:6px var(--v3-s2);padding:18px 0}
+  .v3-est__summary::after{grid-column:4;grid-row:1 / span 3}
+  .v3-est__range,.v3-est__hours{grid-column:2;font-size:13.5px;white-space:normal}
+  .v3-est__block-price{grid-column:3;grid-row:1;min-width:0;font-size:17px}
+  .v3-est__desc{max-width:none}
+  .v3-est__table{font-size:13px}
+  .v3-est__table td{padding:7px 0}
+  .v3-road .v3-timeline{margin-top:var(--v3-s6);padding-left:22px;position:relative}
+  .v3-road .v3-timeline::before{display:block;left:5px;right:auto;top:6px;bottom:24px;width:1px;height:auto}
+  .v3-road .v3-timeline__step::before{left:-22px}
+  .v3-ctl__principles{gap:var(--v3-s5)}
+  .v3-ctl__role{grid-template-columns:1fr;gap:6px}
+  .v3-bounds__strip,.v3-bounds__external-list{grid-template-columns:1fr}
+  .v3-bounds__row{grid-template-columns:1fr;gap:8px}
+  .v3-bounds__value{grid-column:1}
+  .v3-bounds__row-title{display:block}
+  .v3-bounds__tag{margin-top:8px}
+  .v3-format__milestone{grid-template-columns:1fr;gap:10px}
+  .v3-format__milestone > div:last-child{grid-column:1}
+  .v3-format__paystrip{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .v3-format__paystrip span{font-size:13px;padding:10px 4px}
+  .v3-format__process{grid-template-columns:1fr}
+  .v3-format__support-flow{display:grid;grid-template-columns:1fr;gap:8px}
+  .v3-format__support-flow li + li{margin-left:0}
+  .v3-format__support-flow li + li::before{display:none}
+}
+@media (prefers-reduced-motion:reduce){.v3-section *{transition:none!important;animation:none!important}}
+
+/* ---- print ---- */
+@media print{
+  .v3-section{padding-block:36px;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .v3-section--dark{color:var(--v3-dark-ink)}
+  .v3-break-before{break-before:page;page-break-before:always}
+  .v3-keep,.v3-big-number,.v3-numbers,.v3-callout,.v3-scope-row,.v3-scope-group,.v3-scope-total,.v3-timeline__step,.v3-principle,.v3-outcome,.v3-option,.v3-steps li,.v3-visual,.v3-device,.v3-browser,.v3-flow,.v3-compare__col,.v3-annots{break-inside:avoid;page-break-inside:avoid}
+  .v3-eyebrow,.v3-heading,.v3-subheading,.v3-title,.v3-display{break-after:avoid;page-break-after:avoid}
+  .v3-split > .v3-sticky{position:static}
+  .v3-visual--bleed{width:100%;margin-left:0}
+  .v3-display{font-size:54pt}
+  .v3-heading{font-size:26pt}
+  .v3-lead{font-size:13pt}
+  .v3-copy{font-size:11.5pt}
+  .v3-big-number__value{font-size:56pt}
+  .v3-timeline{grid-template-columns:repeat(4,1fr)}
+  .v3-compare{grid-template-columns:1fr 1fr;gap:var(--v3-s5)}
+  .v3-section a{color:inherit}
+  .v3-split--middle,.v3-split--end{break-inside:avoid;page-break-inside:avoid}
+  .v3-device{width:190px;border-radius:26px;padding:8px}
+  .v3-device__screen{border-radius:20px;padding:24px 10px 10px;gap:7px}
+  .v3-device__notch{width:56px;height:14px;top:7px}
+  .v3-visual-group{gap:var(--v3-s3);justify-content:flex-start}
+  .v3-flow{flex-wrap:nowrap}
+  .v3-flow__step{min-width:0;padding:8px 10px;font-size:10.5pt}
+  .v3-flow__step small{font-size:8.5pt}
+  .v3-flow__step + .v3-flow__step{margin-left:22px}
+  .v3-flow__step + .v3-flow__step::before{left:-22px;width:22px}
+  .v3-flow__step + .v3-flow__step::after{left:-8px}
+  .v3-ecosystem{grid-template-columns:1fr auto 1fr;gap:var(--v3-s3)}
+  .v3-ecosystem__side{grid-template-columns:1fr}
+  .v3-node--core{min-width:150px;padding:18px 20px}
+  .v3-hero{min-height:262mm;padding:14mm 0 12mm;break-after:page;page-break-after:always}
+  .v3-hero__main{grid-template-columns:minmax(0,60fr) minmax(0,40fr);gap:var(--v3-s5);padding-block:16mm 12mm;align-items:center}
+  .v3-hero .v3-display{font-size:44pt}
+  .v3-hero .v3-lead{font-size:12.5pt;margin-top:18px}
+  .v3-hero__kpis{margin-top:36px;gap:22px 40px}
+  .v3-hero__kpis .v3-big-number--lead .v3-big-number__value{font-size:48pt}
+  .v3-hero__kpis .v3-big-number--md .v3-big-number__value{font-size:26pt}
+  .v3-hero__kpis .v3-big-number--sm .v3-big-number__value{font-size:15pt}
+  .v3-hero__kpis .v3-big-number__label{font-size:10.5pt}
+  .v3-hero__line{margin-top:28px;font-size:10.5pt}
+  .v3-hero__visual svg{max-width:100%}
+  .v3-eco__layout{grid-template-columns:1fr;grid-template-areas:"text" "map" "callout";gap:18px;margin-top:18px}
+  .v3-eco__text{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
+  .v3-eco__text .v3-lead{font-size:11.5pt;max-width:none}
+  .v3-eco__text .v3-copy{margin-top:0;font-size:10.5pt;max-width:none}
+  .v3-eco.v3-section{padding-top:16px}
+  .v3-eco .v3-heading{font-size:22pt}
+  .v3-eco__layout{margin-top:12px;gap:14px}
+  .v3-eco__map{max-width:500px;margin:0 auto;gap:16px 14px;break-inside:avoid;page-break-inside:avoid}
+  .v3-eco__node{padding:8px 11px;min-height:50px}
+  .v3-eco__title{font-size:11pt}
+  .v3-eco__sub{font-size:8.5pt}
+  .v3-eco__tag{font-size:8pt;margin-top:5px}
+  .v3-eco__core{width:128px;height:128px;box-shadow:0 0 0 7px var(--v3-accent-soft)}
+  .v3-eco__core .v3-eco__title{font-size:12pt}
+  .v3-eco__callout{font-size:10.5pt;max-width:none;break-inside:avoid}
+  .v3-heading,.v3-display{break-inside:avoid;page-break-inside:avoid}
+  .v3-res__stage{grid-template-columns:1fr 1fr;grid-template-areas:"bo bo" "tg and";gap:22px 24px;align-items:start;margin-top:22px;padding-bottom:26px}
+  .v3-res__bo,.v3-res__phone{break-inside:avoid;page-break-inside:avoid}
+  .v3-res__stage .v3-ui-nav{font-size:8.5px;gap:4px}
+  .v3-res__phone--tg{grid-area:tg;justify-self:end;margin:0}
+  .v3-res__phone--and{grid-area:and;justify-self:start;transform:none;margin:0}
+  .v3-res__bo{grid-area:bo;margin:0;box-shadow:none}
+  .v3-res__stage .v3-device{width:150px;box-shadow:none;border-radius:24px;padding:7px}
+  .v3-res__stage .v3-device__screen{padding:20px 8px 8px;gap:5px;border-radius:20px}
+  .v3-res__stage .v3-device__notch{width:52px;height:12px;top:7px}
+  .v3-res__stage .v3-ui-value{font-size:15px}
+  .v3-res__stage .v3-ui-tile{aspect-ratio:1.6}
+  .v3-res .v3-lead{font-size:12pt}
+  .v3-res__top .v3-lead{break-after:avoid;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
+  .v3-res__stage{gap:18px 20px;margin-top:18px;padding-bottom:22px}
+  .v3-bo__row:last-child{display:none}
+  .v3-bo__stat{padding:7px 9px}
+  .v3-bo__stat .v3-ui-value{font-size:12px}
+  .v3-bo__stat .v3-ui-label{font-size:10.5px;margin-bottom:3px}
+  .v3-res__stage .v3-ui-tile{aspect-ratio:1.9}
+  .v3-res__stage .v3-device__screen{padding:18px 7px 7px;gap:4px}
+  .v3-res__stage .v3-ui-panel{padding:8px}
+  .v3-res__stage .v3-ui-btn{padding:5px 3px;font-size:10px}
+  .v3-bo{min-height:0;grid-template-columns:120px 1fr}
+  .v3-bo__main{padding:12px 14px;gap:10px}
+  .v3-bo__side{padding:12px 10px}
+  .v3-bo__item{font-size:11px;padding:5px 8px}
+  .v3-bo__row{padding:6px 10px}
+  .v3-bo__stat .v3-ui-value{font-size:13px}
+  .v3-res__outcomes{margin-top:34px}
+  .v3-res__handover{margin-top:26px;padding-top:20px;gap:24px;break-inside:avoid;page-break-inside:avoid}
+  .v3-res .v3-outcome{padding:14px 0}
+  .v3-work__flows{margin-top:24px}
+  .v3-work__flow{grid-template-columns:130px minmax(0,1fr);gap:16px 24px;padding:22px 0;break-inside:avoid;page-break-inside:avoid}
+  .v3-work__actor{grid-row:1 / span 2}
+  .v3-work__steps,.v3-work__outcome{grid-column:2}
+  .v3-work__step{padding-right:10px}
+  .v3-work__outcome{grid-template-columns:100px 1fr;padding-top:10px}
+  .v3-work__flow:first-child{break-before:avoid}
+  .v3-work__actor .v3-subheading{font-size:16pt}
+  .v3-work__step b{font-size:11pt;margin-top:8px}
+  .v3-work__step small{font-size:9pt}
+  .v3-work__outcome{font-size:10.5pt}
+  .v3-work__end{margin-top:26px;padding-top:20px;gap:24px;break-inside:avoid;page-break-inside:avoid}
+  .v3-work .v3-lead{break-after:avoid;page-break-after:avoid}
+  .v3-imp__intro{margin-top:18px}
+  .v3-imp__groups{margin-top:26px}
+  .v3-imp__group + .v3-imp__group{margin-top:22px}
+  .v3-imp__group{padding-left:28px}
+  .v3-imp__glabel::before,.v3-imp__row::before{left:-28px}
+  .v3-imp__row{grid-template-columns:170px minmax(0,1fr);gap:14px 24px;padding:15px 0;break-inside:avoid;page-break-inside:avoid}
+  .v3-imp__row::before{top:calc(15px + 16px)}
+  .v3-imp__num{font-size:26px}
+  .v3-imp__title{font-size:14pt}
+  .v3-imp__part{font-size:10pt}
+  .v3-imp__win{font-size:12pt;margin-top:6px;padding-top:6px;break-inside:avoid;page-break-inside:avoid}
+  .v3-imp__glabel{break-after:avoid;page-break-after:avoid}
+  .v3-imp__end{margin-top:14px;padding-top:12px;gap:20px;break-inside:avoid;page-break-inside:avoid;grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+  .v3-imp__end .v3-subheading{font-size:13pt}
+  .v3-imp__end .v3-copy{font-size:10pt}
+  .v3-imp__end .v3-small{display:none}
+  .v3-imp.v3-section{padding-bottom:0}
+  .v3-est__strip{margin-top:20px}
+  .v3-est__groups{margin-top:24px}
+  .v3-est .v3-scope-group{grid-template-columns:minmax(0,3fr) minmax(0,9fr);padding:18px 0 8px;gap:16px}
+  .v3-est .v3-scope-group + .v3-scope-group,.v3-est__tail .v3-scope-group{margin-top:14px}
+  .v3-est__tail{break-before:page;page-break-before:always}
+  .v3-est__tail .v3-scope-group{margin-top:0;border-top:0;padding-top:4px}
+  .v3-est .v3-scope-group__name{break-after:avoid;page-break-after:avoid}
+  .v3-est .v3-scope-row{padding:10px 0;gap:14px}
+  .v3-est .v3-scope-row__name{font-size:12pt}
+  .v3-est .v3-scope-row--key .v3-scope-row__name{font-size:12.5pt}
+  .v3-est .v3-scope-row__desc{font-size:9.5pt}
+  .v3-est .v3-scope-row__price{font-size:12.5pt}
+  .v3-est .v3-scope-row--key .v3-scope-row__price{font-size:15pt}
+  .v3-est .v3-scope-row--key::before{top:10px;bottom:10px}
+  .v3-est__total{margin-top:16px;padding:18px 22px;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;break-inside:avoid;page-break-inside:avoid}
+  .v3-est__total .v3-big-number__value{font-size:38pt}
+  .v3-est__facts .v3-big-number--sm .v3-big-number__value{font-size:16pt}
+  .v3-est__notes{margin-top:18px;gap:14px 24px;break-inside:avoid;page-break-inside:avoid}
+  .v3-est__notes p{font-size:9.5pt}
+  .v3-est__last{break-inside:auto}
+  .v3-est .v3-scope-group:last-child{break-after:avoid;page-break-after:avoid}
+  .v3-est .v3-lead{break-after:avoid}
+  .v3-est__head{grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:24px;break-inside:avoid;page-break-inside:avoid}
+  .v3-est__price{text-align:right;justify-self:end}
+  .v3-est__price .v3-big-number__value{font-size:34pt}
+  .v3-est__scope-note{grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
+  .v3-est__scope-note p{font-size:8.5pt}
+  .v3-est__accordions{margin-top:18px}
+  .v3-est__detail{break-inside:avoid;page-break-inside:avoid}
+  .v3-est__detail:not([open]) > *:not(summary){display:none}
+  .v3-est__summary{grid-template-columns:26px minmax(0,1fr) 62px 84px;padding:10px 0;gap:10px;break-after:avoid;page-break-after:avoid}
+  .v3-est__summary::after{display:none}
+  .v3-est__idx,.v3-est__range,.v3-est__hours{font-size:8.5pt}
+  .v3-est__name{font-size:11pt}
+  .v3-est__desc{font-size:8.5pt;margin-top:2px}
+  .v3-est__block-price{font-size:10pt;min-width:0}
+  .v3-est__detail-body{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:18px;padding:0 0 14px 36px}
+  .v3-est__table{font-size:8.5pt}
+  .v3-est__table th{padding-bottom:5px}
+  .v3-est__table td{padding:4px 0}
+  .v3-est__mini-title,.v3-est__mini-list li,.v3-est__boundary{font-size:8.5pt}
+  .v3-est__game-boundary{margin-top:18px;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:18px;padding-top:14px;break-inside:avoid;page-break-inside:avoid}
+  .v3-est__game-boundary .v3-copy,.v3-est__game-boundary .v3-small{font-size:9pt}
+  .v3-road__head{grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:24px;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
+  .v3-road__term .v3-big-number__value{font-size:28pt}
+  .v3-road .v3-timeline{margin-top:26px;grid-template-columns:1fr 1fr;gap:26px 32px}
+  .v3-road .v3-timeline::before{display:none}
+  .v3-road .v3-timeline__step{padding-top:18px;border-top:1px solid var(--v3-line-strong);break-inside:avoid;page-break-inside:avoid}
+  .v3-road .v3-timeline__step::before{top:-6px}
+  .v3-road .v3-timeline__title{font-size:15pt}
+  .v3-road .v3-timeline__what,.v3-road .v3-timeline__result{font-size:10.5pt}
+  
+  
+  .v3-road__notes{margin-top:22px;padding-top:16px;gap:10px 24px;break-inside:avoid;page-break-inside:avoid}
+  .v3-road__notes p,.v3-road__end{font-size:9.5pt}
+  .v3-road__end{margin-top:18px}
+  .v3-ctl__line{margin-top:20px}
+  .v3-ctl__principles{margin-top:26px;gap:22px 28px}
+  #s08 .v3-principles--3{grid-template-columns:repeat(3,minmax(0,1fr));max-width:none}
+  #s08 .v3-ctl__principles .v3-title,#s08 .v3-ctl__principles .v3-copy,#s08 .v3-ctl__principles .v3-ctl__effect{max-width:none}
+  .v3-ctl__principles .v3-title{font-size:13pt}
+  .v3-ctl__principles .v3-copy,.v3-ctl__effect{font-size:10.5pt}
+  .v3-ctl__meta{font-size:9pt}
+  .v3-ctl__anchor{margin-top:24px;padding-top:16px;gap:24px;break-inside:avoid;page-break-inside:avoid}
+  .v3-ctl__anchor .v3-subheading{font-size:16pt}
+  .v3-ctl__roles{margin-top:26px}
+  .v3-ctl__roles-head{gap:24px;break-after:avoid;page-break-after:avoid}
+  .v3-ctl__groups{margin-top:16px}
+  .v3-ctl__group{padding:14px 0;gap:10px 20px;break-inside:avoid;page-break-inside:avoid}
+  .v3-ctl__role{grid-template-columns:130px minmax(0,1fr);padding:4px 0}
+  .v3-ctl__role b{font-size:10.5pt;padding:3px 8px}
+  .v3-ctl__role span{font-size:10pt}
+  .v3-ctl .v3-lead{break-after:avoid}
+  .v3-format__paystrip{margin-top:18px;break-inside:avoid;page-break-inside:avoid}
+  .v3-format__paystrip span{font-size:9.5pt;padding:7px 8px}
+  .v3-imp__end{margin-top:8px;padding-top:10px}
+  .v3-imp__row .v3-imp__win{font-size:11pt}
+  .v3-imp__group + .v3-imp__group{margin-top:22px}
+  .v3-imp__row{padding:16px 0}
+  .v3-imp__row::before{top:calc(16px + 14px)}
+  .v3-imp__head{break-inside:avoid;page-break-inside:avoid}
+  .v3-imp__glabel{break-after:avoid;page-break-after:avoid}
+  /* ===== LAYER 5 · PRINT ===== */
+  /* Hero в край страницы */
+  .v3-hero{
+    margin:0;padding:30mm 22mm 24mm;min-height:297mm;height:297mm;
+    display:flex;flex-direction:column;justify-content:center;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .v3-hero::before{display:none}
+  .v3-hero .v3-container{max-width:none;padding:0}
+  .v3-hero__main{grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:18mm;align-items:center}
+  .v3-hero .v3-display{font-size:40pt}
+  .v3-hero__kpis{margin-top:14mm;gap:9mm 12mm}
+  .v3-hero__kpis .v3-big-number--lead .v3-big-number__value{font-size:42pt}
+  .v3-hero__kpis .v3-big-number--md .v3-big-number__value{font-size:17pt}
+  .v3-hero__kpis .v3-big-number--sm .v3-big-number__value{font-size:12pt}
+  .v3-hero__visual svg{max-width:none}
+  /* 02 · подписи не наезжают на ядро */
+  .v3-eco__map{grid-template-columns:minmax(0,1fr) 190px minmax(0,1fr);gap:34px 40px}
+  .v3-eco__core{width:180px;height:180px;box-shadow:none}
+  .v3-eco__sub{max-width:22ch}
+  /* 06 · строка сметы не обрезается */
+  .v3-est__summary{grid-template-columns:34px minmax(0,1fr) 92px 108px;padding:12px 0;gap:14px}
+  .v3-est__summary::after{display:none}
+  .v3-est__name{font-size:11.5pt}
+  .v3-est__desc{font-size:9pt;max-width:none}
+  .v3-est__block-price{font-size:12pt}
+  .v3-est__range{font-size:8.5pt;white-space:normal}
+  .v3-est__detail{break-inside:avoid;page-break-inside:avoid}
+  .v3-est__price .v3-big-number__value{font-size:34pt}
+  .v3-est__total{gap:20px}
+  .v3-est__total .v3-big-number__value{font-size:20pt}
+  /* statement pause */
+  .v3-statement{padding-block:16mm;break-inside:avoid;page-break-inside:avoid}
+  .v3-statement__inner{max-width:none;padding-inline:0}
+  .v3-statement__lead{font-size:22pt;max-width:26ch}
+  /* 08 · дорожки ролей */
+  .v3-ctl__role{grid-template-columns:140px minmax(0,1fr);padding-left:14px}
+  .v3-ctl__role b{font-size:12pt}
+  .v3-ctl__role span{font-size:10pt}
+  /* 09 / 10 */
+  .v3-bounds__strip{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 20px}
+  #s09 .v3-bounds__included{margin-top:20px;padding-top:14px}
+  #s09 .v3-bounds__extensions{margin-top:20px}
+  #s09 .v3-bounds__row{padding:12px 0}
+  #s09 .v3-bounds__external{margin-top:18px;padding-top:12px}
+  .v3-format__paystrip{margin-bottom:34px}
+  .v3-format__paystrip span::after{font-size:9pt}
+  /* тени в печати не нужны */
+  .v3-device,.v3-browser{box-shadow:none}
+  /* убрать «хвостовые» страницы: секция должна умещаться целиком */
+  .v3-section{padding-block:26px}
+  /* 02 */
+  .v3-eco__map{gap:26px 36px;padding:0}
+  .v3-eco__core{width:158px;height:158px}
+  .v3-eco__title{font-size:12pt}
+  .v3-eco__sub{font-size:8.5pt}
+  .v3-eco__layout{gap:14px 34px;margin-top:16px}
+  .v3-eco__callout{margin-top:0;font-size:10pt}
+  /* 03 */
+  .v3-res__stage{margin-top:18px;padding-bottom:22px}
+  #s03 .v3-res__stage + .v3-small{margin-top:14px}
+  .v3-res__outcomes{margin-top:22px}
+  .v3-res .v3-outcome{padding:10px 0}
+  .v3-res .v3-outcome .v3-copy{font-size:9.5pt}
+  .v3-res__handover{margin-top:18px;padding-top:14px}
+  .v3-res__handover .v3-list li{margin-bottom:4px;font-size:9.5pt}
+  .v3-res .v3-small{font-size:9pt}
+  /* 07 */
+  .v3-road .v3-timeline{margin-top:20px;gap:20px 26px}
+  
+  .v3-road__notes{margin-top:16px;padding-top:12px}
+  .v3-road__notes p{font-size:9pt}
+  .v3-road__end{margin-top:12px;font-size:9.5pt}
+  .v3-road__term .v3-big-number__value{font-size:22pt}
+  .v3-road .v3-heading{font-size:20pt}
+  .v3-road .v3-lead{font-size:11pt}
+  .v3-road__head{gap:18px}
+  .v3-road .v3-timeline{margin-top:16px;gap:16px 24px}
+  .v3-road .v3-timeline__step{padding-top:14px}
+  .v3-road .v3-timeline__title{font-size:13pt}
+  .v3-road .v3-timeline__what,.v3-road .v3-timeline__result{font-size:9.5pt}
+  .v3-road .v3-timeline__result{margin-top:10px;padding-top:8px}
+  
+  
+  /* 10 · финал компактнее */
+  .v3-format__milestone{padding:12px 0}
+  .v3-format__title{font-size:13pt}
+  .v3-format__money{font-size:12pt}
+  .v3-format__includes,.v3-format__result,.v3-format__accept{font-size:9.5pt}
+  .v3-format__paystrip{margin:18px 0 30px}
+  .v3-format__acceptance,.v3-format__warranty{margin-top:14px;padding-top:12px}
+  .v3-format__after{margin-top:14px}
+  .v3-format__bugchange{margin-top:12px;padding-top:12px;break-inside:avoid;page-break-inside:avoid}
+  .v3-format__note{break-before:avoid;page-break-before:avoid;margin-top:12px;font-size:9pt}
+  .v3-format__tail{break-inside:avoid;page-break-inside:avoid}
+  .v3-format__support-flow{margin:10px 0}
+  .v3-format__review{gap:10px 24px}
+  .v3-format__process{margin-top:10px}
+  .v3-format__warranty,.v3-format__post{break-inside:avoid;page-break-inside:avoid}
+  .v3-format__milestones{margin-top:14px}
+  .v3-format .v3-heading{font-size:20pt}
+  .v3-format .v3-lead{font-size:11pt}
+  /* closing — намеренная последняя страница */
+  .v3-closing{break-before:page;page-break-before:always;
+    margin:0 -14mm;padding:32mm 16mm;min-height:258mm;box-sizing:border-box;
+    break-inside:avoid;page-break-inside:avoid}
+  .v3-closing__inner{max-width:none;padding-inline:0}
+  .v3-closing__title{font-size:30pt}
+  .v3-closing__copy{font-size:12.5pt;margin-top:16px}
+  .v3-closing__flow{margin-top:22mm}
+  .v3-closing__flow li{font-size:11.5pt}
+  .v3-closing__flow li + li::before{width:32px;margin:0 14px}
+  .v3-closing__summary{margin-top:22mm;padding-top:14px;gap:22px 40px}
+  .v3-closing__summary div b{font-size:24pt}
+  .v3-closing__summary div span{font-size:10pt}
+  footer{padding:14px 0 0;break-before:avoid;page-break-before:avoid}
+  footer div{font-size:8.5pt}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar" aria-hidden="true">
+  <div class="in">
+    <div class="doc">Crypto Casino Platform</div>
+    <div class="cur" id="topcur"></div>
+    <div class="sum">$57,000 · 18–21 нед.</div>
+  </div>
+</div>
+
+<!-- 01 COVER -->
+<header class="v3-section v3-section--dark v3-hero" id="s01">
+  <div class="v3-container">
+    <div class="v3-hero__main">
+      <div>
+        <h1 class="v3-display"><span class="v3-hero__nowrap">Crypto Casino</span><br>Platform</h1>
+        <p class="v3-lead">Проектирование и разработка собственной криптовалютной игровой платформы: Web, Telegram, Android, финансовое ядро, Back Office и криптовалютная инфраструктура.</p>
+
+        <div class="v3-hero__kpis">
+          <p class="v3-big-number v3-big-number--lead"><span class="v3-big-number__value v3-num">$57,000</span><span class="v3-big-number__label">фиксированная стоимость</span></p>
+          <p class="v3-big-number v3-big-number--md"><span class="v3-big-number__value">18–21 нед.</span><span class="v3-big-number__label">срок реализации</span></p>
+          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">Web + Telegram + Android</span><span class="v3-big-number__label">точки входа для игроков</span></p>
+          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">до 3 сетей</span><span class="v3-big-number__label">blockchain-сети на старте</span></p>
+        </div>
+
+        <p class="v3-hero__note">Игровые модули подключаются отдельно.</p>
+      </div>
+
+      <figure class="v3-hero__visual">
+        <svg viewBox="-40 -10 620 540" role="img" aria-label="Единая платформа: финансовое ядро в центре, вокруг него клиентские приложения, Back Office, криптоинфраструктура и партнёрская система; игровые модули подключаются отдельно">
+          <defs>
+            <radialGradient id="heroCore" cx="38%" cy="32%" r="78%">
+              <stop offset="0%" stop-color="#1D6A7D"/>
+              <stop offset="100%" stop-color="#12414E"/>
+            </radialGradient>
+          </defs>
+          <circle cx="260" cy="260" r="236" class="v3-hs-ring"/>
+          <circle cx="260" cy="260" r="158" class="v3-hs-ring"/>
+
+          <line x1="260" y1="260" x2="260" y2="70" class="v3-hs-link"/>
+          <line x1="260" y1="260" x2="424" y2="166" class="v3-hs-link"/>
+          <line x1="260" y1="260" x2="424" y2="354" class="v3-hs-link"/>
+          <line x1="260" y1="260" x2="96" y2="354" class="v3-hs-link"/>
+          <line x1="260" y1="260" x2="96" y2="166" class="v3-hs-link"/>
+
+          <circle cx="260" cy="260" r="62" class="v3-hs-core"/>
+          <circle cx="260" cy="260" r="76" class="v3-hs-core-ring"/>
+          <text x="260" y="256" class="v3-hs-core-text">Финансовое</text>
+          <text x="260" y="273" class="v3-hs-core-text">ядро</text>
+
+          <circle cx="260" cy="70" r="4.5" class="v3-hs-dot"/>
+          <text x="260" y="50" class="v3-hs-label" text-anchor="middle">Клиентские приложения</text>
+          <circle cx="424" cy="166" r="4.5" class="v3-hs-dot"/>
+          <text x="440" y="171" class="v3-hs-label">Crypto</text>
+          <circle cx="424" cy="354" r="4.5" class="v3-hs-dot"/>
+          <text x="440" y="359" class="v3-hs-label">Affiliate</text>
+          <circle cx="96" cy="354" r="4.5" class="v3-hs-dot"/>
+          <text x="80" y="359" class="v3-hs-label" text-anchor="end">Back Office</text>
+          <circle cx="96" cy="166" r="4.5" class="v3-hs-dot"/>
+          <text x="80" y="171" class="v3-hs-label" text-anchor="end">Finance</text>
+
+          <line x1="260" y1="260" x2="260" y2="452" class="v3-hs-link" stroke-dasharray="3 5"/>
+          <circle cx="260" cy="452" r="4.5" class="v3-hs-dot--ghost"/>
+          <text x="260" y="474" class="v3-hs-label v3-hs-label--muted" text-anchor="middle">Игровые модули · отдельно</text>
+        </svg>
+      </figure>
+    </div>
+
+  </div>
+</header>
+
+<div class="shell">
+
+<nav class="toc" aria-label="Содержание">
+  <ol>
+    <li><a href="#s02"><em>02</em>Что мы создаём</a></li>
+    <li><a href="#s03"><em>03</em>Что получит заказчик</a></li>
+    <li><a href="#s04"><em>04</em>Как работает платформа</a></li>
+    <li><a href="#s05"><em>05</em>Что мы усилили</a></li>
+    <li><a href="#s06"><em>06</em>Стоимость проекта</a></li>
+    <li><a href="#s07"><em>07</em>Этапы реализации</a></li>
+    <li><a href="#s08"><em>08</em>Деньги, доступы и контроль</a></li>
+    <li><a href="#s09"><em>09</em>Расширения и границы</a></li>
+    <li><a href="#s10"><em>10</em>Формат работы</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- 02 OFFER -->
+<section class="v3-section v3-eco" id="s02" data-title="Что мы создаём">
+  <div class="v3-container">
+    <p class="v3-eyebrow">02 · Что мы создаём</p>
+    <h2 class="v3-heading">Единая платформа для игроков, финансов и команды</h2>
+
+    <div class="v3-eco__layout">
+      <div class="v3-eco__text">
+        <p class="v3-lead">Игрок работает с платформой через Web, Telegram или Android. Внутри все точки входа связаны с финансовым ядром, Back Office, криптовалютной инфраструктурой и партнёрской системой.</p>
+      </div>
+
+      <div class="v3-eco__map" role="img" aria-label="Карта платформы: клиентские приложения для игроков, ядро платформы, финансовое ядро, крипто, Back Office, партнёрская система и подключаемые игровые модули">
+        <svg class="v3-eco__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <line class="is-entry" x1="50" y1="9" x2="50" y2="50"/>
+          <line x1="17" y1="37" x2="50" y2="50"/>
+          <line x1="83" y1="37" x2="50" y2="50"/>
+          <line x1="17" y1="63" x2="50" y2="50"/>
+          <line x1="83" y1="63" x2="50" y2="50"/>
+          <line class="is-optional" x1="50" y1="50" x2="50" y2="91"/>
+        </svg>
+
+        <div class="v3-eco__node v3-eco__node--strong v3-eco__node--apps">
+          <p class="v3-eco__title">Web + Telegram + Android</p>
+          <p class="v3-eco__sub">точки входа для игрока</p>
+        </div>
+        <div class="v3-eco__arrow" aria-hidden="true"></div>
+
+        <div class="v3-eco__core">
+          <p class="v3-eco__title">Ядро платформы</p>
+          <p class="v3-eco__sub">общая логика · данные · управление</p>
+        </div>
+        <div class="v3-eco__arrow" aria-hidden="true"></div>
+
+        <div class="v3-eco__node v3-eco__node--strong v3-eco__node--fin">
+          <p class="v3-eco__title">Финансовое ядро</p>
+          <p class="v3-eco__sub">балансы · ставки · выплаты · история операций</p>
+        </div>
+        <div class="v3-eco__node v3-eco__node--soft v3-eco__node--crypto">
+          <p class="v3-eco__title">Crypto</p>
+          <p class="v3-eco__sub">депозиты · выводы · blockchain-сети</p>
+        </div>
+        <div class="v3-eco__node v3-eco__node--strong v3-eco__node--bo">
+          <p class="v3-eco__title">Back Office</p>
+          <p class="v3-eco__sub">управление игроками, деньгами и командой</p>
+        </div>
+        <div class="v3-eco__node v3-eco__node--soft v3-eco__node--aff">
+          <p class="v3-eco__title">Affiliate</p>
+          <p class="v3-eco__sub">партнёры · referrals · RevShare</p>
+        </div>
+        <div class="v3-eco__arrow v3-eco__arrow--dashed" aria-hidden="true"></div>
+
+        <div class="v3-eco__node v3-eco__node--optional v3-eco__node--games">
+          <p class="v3-eco__title">Games</p>
+          <p class="v3-eco__sub">подключаемые игровые модули</p>
+          <span class="v3-eco__tag">отдельный объём</span>
+        </div>
+      </div>
+
+      <p class="v3-callout v3-eco__callout">Платформа объединяет клиентские приложения, деньги, криптовалютные операции, партнёров и подключаемые игры в одной системе.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 OUTCOMES -->
+<section class="v3-section v3-res" id="s03" data-title="Что получит заказчик">
+  <div class="v3-container">
+    <div class="v3-res__top">
+    <p class="v3-eyebrow">03 · Результат проекта</p>
+    <h2 class="v3-heading">Что получит заказчик</h2>
+    <p class="v3-lead">После разработки у вас будет готовая платформа: интерфейсы игроков, Back Office, финансовое ядро и инфраструктура запуска.</p>
+
+    <figure class="v3-res__stage" role="img" aria-label="Концептуальные превью продукта: Public Web application, Telegram Mini App, Android-приложение и Back Office на одной платформе">
+      <div class="v3-device v3-res__phone v3-res__phone--tg" aria-hidden="true">
+        <div class="v3-device__notch"></div>
+        <div class="v3-device__screen">
+          <div class="v3-ui-head"><span class="v3-ui-kicker">Telegram Mini App</span><span class="v3-ui-bar" style="width:34px;height:10px"></span></div>
+          <div class="v3-ui-panel v3-ui-panel--accent">
+            <div class="v3-ui-label">Баланс</div>
+            <div class="v3-ui-value">$12,480</div>
+            <div class="v3-ui-btns"><span class="v3-ui-btn">Пополнить</span><span class="v3-ui-btn v3-ui-btn--ghost">Вывести</span></div>
+          </div>
+          <div class="v3-ui-kicker">Игры</div>
+          <div class="v3-ui-tiles"><span class="v3-ui-tile"></span><span class="v3-ui-tile"></span><span class="v3-ui-tile v3-ui-tile--soft"></span><span class="v3-ui-tile v3-ui-tile--soft"></span></div>
+          <div class="v3-ui-kicker">Последние операции</div>
+          <div class="v3-ui-line"></div><div class="v3-ui-line v3-ui-line--short"></div>
+          <div class="v3-ui-nav"><b>Баланс</b><span>Игры</span><span>Профиль</span></div>
+        </div>
+      </div>
+
+      <div class="v3-device v3-res__phone v3-res__phone--and" aria-hidden="true">
+        <div class="v3-device__notch"></div>
+        <div class="v3-device__screen">
+          <div class="v3-ui-head"><span class="v3-ui-kicker">Android</span><span class="v3-ui-bar" style="width:34px;height:10px"></span></div>
+          <div class="v3-ui-panel">
+            <div class="v3-ui-rank"><i></i><div><div class="v3-ui-label">Баланс</div><div class="v3-ui-value" style="font-size:17px">$3,150</div></div></div>
+          </div>
+          <div class="v3-ui-kicker">Игры</div>
+          <div class="v3-ui-tiles"><span class="v3-ui-tile"></span><span class="v3-ui-tile"></span></div>
+          <div class="v3-ui-kicker">Бонусы</div>
+          <div class="v3-ui-panel" style="padding:10px 12px"><div class="v3-ui-label">Ранг · Silver</div><div class="v3-ui-line" style="margin-top:8px;width:70%"></div></div>
+          <div class="v3-ui-kicker">История</div>
+          <div class="v3-ui-line"></div><div class="v3-ui-line v3-ui-line--short"></div>
+          <div class="v3-ui-nav"><b>Главная</b><span>Игры</span><span>Бонусы</span><span>Профиль</span></div>
+        </div>
+      </div>
+
+      <div class="v3-browser v3-res__bo" aria-hidden="true">
+        <div class="v3-browser__bar"><i></i><i></i><i></i><span class="v3-browser__url"></span></div>
+        <div class="v3-bo">
+          <div class="v3-bo__side">
+            <span class="v3-bo__brand"></span>
+            <span class="v3-bo__item is-on">Обзор</span>
+            <span class="v3-bo__item">Игроки</span>
+            <span class="v3-bo__item">Финансы</span>
+            <span class="v3-bo__item">Выводы</span>
+            <span class="v3-bo__item">Партнёры</span>
+            <span class="v3-bo__item">Бонусы</span>
+            <span class="v3-bo__item">Аудит</span>
+            <span class="v3-bo__item">Настройки</span>
+          </div>
+          <div class="v3-bo__main">
+            <div class="v3-ui-head"><span class="v3-bo__title">Back Office · Обзор</span><span class="v3-ui-kicker">сегодня</span></div>
+            <div class="v3-bo__stats">
+              <div class="v3-bo__stat"><div class="v3-ui-label">Общий баланс игроков</div><div class="v3-ui-value">$412,300</div></div>
+              <div class="v3-bo__stat"><div class="v3-ui-label">Депозиты</div><div class="v3-ui-value">$38,120</div></div>
+              <div class="v3-bo__stat"><div class="v3-ui-label">Выводы</div><div class="v3-ui-value">$21,760</div></div>
+              <div class="v3-bo__stat"><div class="v3-ui-label">Активные игроки</div><div class="v3-ui-value">1 284</div></div>
+            </div>
+            <div class="v3-bo__title" style="font-size:12.5px">Последние операции</div>
+            <div class="v3-bo__table">
+              <div class="v3-bo__row"><span>Операция</span><span>Игрок</span><span>Сумма</span><span>Статус</span></div>
+              <div class="v3-bo__row"><span>Вывод</span><span>#48213</span><span class="v3-num">$1,200</span><span class="v3-bo__status v3-bo__status--wait">на проверке</span></div>
+              <div class="v3-bo__row"><span>Депозит</span><span>#51907</span><span class="v3-num">$350</span><span class="v3-bo__status v3-bo__status--ok">зачислен</span></div>
+              <div class="v3-bo__row"><span>Выплата партнёру</span><span>P-0142</span><span class="v3-num">$860</span><span class="v3-bo__status">запрос</span></div>
+              <div class="v3-bo__row"><span>Вывод</span><span>#47730</span><span class="v3-num">$420</span><span class="v3-bo__status v3-bo__status--ok">отправлен</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </figure>
+    </div>
+
+    <p class="v3-small v3-mt-7">Интерфейсы на схеме концептуальные. После референсов команда готовит три направления и развивает выбранный вариант.</p>
+
+    <div class="v3-split v3-res__outcomes">
+      <div class="v3-sticky">
+        <h3 class="v3-subheading">В результате проекта</h3>
+        <p class="v3-lead" style="margin-top:var(--v3-s3)">Всё основное для запуска: игроки, деньги, команда, партнёры и эксплуатация.</p>
+      </div>
+      <ol class="v3-outcomes">
+        <li class="v3-outcome"><span class="v3-outcome__index">01</span><div><h4 class="v3-title">Клиентские приложения</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Public Web application, Telegram Mini App и Android. Игрок регистрируется, пополняет баланс, выводит средства и открывает подключённые игры.</p></div></li>
+        <li class="v3-outcome"><span class="v3-outcome__index">02</span><div><h4 class="v3-title">Система управления</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Команда управляет игроками, выплатами, бонусами, партнёрами и доступами из одного Back Office.</p></div></li>
+        <li class="v3-outcome"><span class="v3-outcome__index">03</span><div><h4 class="v3-title">Финансовая система</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Платформа ведёт балансы, депозиты, ставки, выигрыши, выводы и историю средств.</p></div></li>
+        <li class="v3-outcome"><span class="v3-outcome__index">04</span><div><h4 class="v3-title">Партнёрская система</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Партнёры приводят игроков, видят статистику и получают вознаграждение по согласованной модели.</p></div></li>
+        <li class="v3-outcome"><span class="v3-outcome__index">05</span><div><h4 class="v3-title">Готовая инфраструктура</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Система развёрнута, задокументирована и готова к production в согласованной конфигурации.</p></div></li>
+      </ol>
+    </div>
+
+    <div class="v3-res__handover">
+      <div>
+        <h3 class="v3-subheading">После завершения проекта</h3>
+        <p class="v3-small v3-mt-2">Порядок передачи фиксируем в договоре.</p>
+      </div>
+      <ul class="v3-list v3-list--cols">
+        <li>развёрнутая система и доступы</li>
+        <li>настроенная инфраструктура</li>
+        <li>исходный код и репозитории проекта</li>
+        <li>техническая документация</li>
+        <li>Design System и макеты интерфейсов</li>
+        <li>процедуры эксплуатации</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- 04 HOW IT WORKS -->
+<section class="v3-section v3-section--surface v3-work" id="s04" data-title="Как работает платформа">
+  <div class="v3-container">
+    <p class="v3-eyebrow">04 · Как работает платформа</p>
+    <h2 class="v3-heading">Как платформа работает каждый день</h2>
+    <p class="v3-lead">Игрок пользуется продуктом, партнёр приводит аудиторию, команда управляет операциями. Все три сценария работают внутри одной системы.</p>
+
+    <div class="v3-work__flows">
+      <article class="v3-work__flow" aria-label="Сценарий игрока">
+        <div class="v3-work__actor">
+          <span class="v3-work__index">01</span>
+          <h3 class="v3-subheading">Игрок</h3>
+          <p class="v3-work__actor-sub">Web / Telegram Mini App / Android</p>
+        </div>
+        <ol class="v3-work__steps" style="--n:4">
+          <li class="v3-work__step"><b>Регистрация</b><small>аккаунт в приложении</small></li>
+          <li class="v3-work__step"><b>Пополнение</b><small>криптовалютой в поддерживаемой сети</small></li>
+          <li class="v3-work__step v3-work__step--focus"><b>Игра</b><small>подключаемый модуль</small></li>
+          <li class="v3-work__step v3-work__step--end"><b>Вывод</b><small>проходит предусмотренные проверки</small></li>
+        </ol>
+        <p class="v3-work__outcome"><b>Для игрока</b>Один аккаунт и единый баланс во всех клиентских приложениях.</p>
+      </article>
+
+      <article class="v3-work__flow" aria-label="Сценарий партнёра">
+        <div class="v3-work__actor">
+          <span class="v3-work__index">02</span>
+          <h3 class="v3-subheading">Партнёр</h3>
+          <p class="v3-work__actor-sub">кабинет партнёра</p>
+        </div>
+        <ol class="v3-work__steps" style="--n:4">
+          <li class="v3-work__step"><b>Реферальная ссылка</b><small>свои ссылки и материалы</small></li>
+          <li class="v3-work__step"><b>Новый игрок</b><small>закрепляется за партнёром</small></li>
+          <li class="v3-work__step"><b>Доход платформы</b><small>учитывается по игрокам партнёра</small></li>
+          <li class="v3-work__step v3-work__step--focus"><b>Вознаграждение</b><small>RevShare, выплата по запросу</small></li>
+        </ol>
+        <p class="v3-work__outcome"><b>Для бизнеса</b>Понятный учёт привлечённых игроков и партнёрских выплат.</p>
+      </article>
+
+      <article class="v3-work__flow" aria-label="Сценарий команды платформы">
+        <div class="v3-work__actor">
+          <span class="v3-work__index">03</span>
+          <h3 class="v3-subheading">Команда</h3>
+          <p class="v3-work__actor-sub">Admin · Finance · Support</p>
+        </div>
+        <ol class="v3-work__steps" style="--n:5">
+          <li class="v3-work__step"><b>Событие</b><small>игрок или операция</small></li>
+          <li class="v3-work__step"><b>Back Office</b><small>очередь и карточка</small></li>
+          <li class="v3-work__step"><b>Проверка</b><small>ответственным сотрудником</small></li>
+          <li class="v3-work__step v3-work__step--focus"><b>Решение</b><small>одобрить, отклонить, изменить</small></li>
+          <li class="v3-work__step v3-work__step--end"><b>История действий</b><small>остаётся в системе</small></li>
+        </ol>
+        <p class="v3-work__outcome"><b>Для владельца</b>Ключевые операции проходят через Back Office и остаются под контролем.</p>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- 05 STRENGTHENED -->
+<section class="v3-section v3-imp" id="s05" data-title="Что мы усилили после анализа ТЗ">
+  <div class="v3-container">
+    <div class="v3-imp__head">
+    <p class="v3-eyebrow">05 · Архитектурная проработка</p>
+    <h2 class="v3-heading">Что мы усилили после анализа ТЗ</h2>
+    <p class="v3-lead">После разбора ТЗ мы отдельно проверили деньги, доступы и восстановление после сбоев. В четырёх местах закладываем более строгий подход.</p>
+    <p class="v3-callout v3-callout--quote v3-imp__intro">Задача — не просто закрыть требования, а заранее снизить риски, которые дорого исправлять после запуска.</p>
+    </div>
+
+    <div class="v3-imp__groups">
+      <div class="v3-imp__group">
+        <p class="v3-imp__glabel">Сохранность средств</p>
+
+        <article class="v3-imp__row">
+          <div>
+            <span class="v3-imp__num">01</span>
+            <h3 class="v3-subheading v3-imp__title">Защита криптоактивов</h3>
+                      </div>
+          <div class="v3-imp__body">
+            <p class="v3-imp__part"><b>Риск</b>Прямой доступ к ключам усиливает последствия компрометации сотрудника или аккаунта.</p>
+            <p class="v3-imp__part"><b>Решение</b>Ключи не показываются в системе. Средства хранятся в self-custody модели с HSM-backed signing.</p>
+            <p class="v3-imp__win"><b>Для владельца</b>Один сотрудник или взломанный аккаунт не получает прямой контроль над криптоактивами.</p>
+          </div>
+        </article>
+
+        <article class="v3-imp__row">
+          <div>
+            <span class="v3-imp__num">02</span>
+            <h3 class="v3-subheading v3-imp__title">Крупные операции — не в одни руки</h3>
+                      </div>
+          <div class="v3-imp__body">
+            <p class="v3-imp__part"><b>Риск</b>Без лимитов один сотрудник может самостоятельно провести крупное внутреннее начисление.</p>
+            <p class="v3-imp__part"><b>Решение</b>Для начислений действуют лимиты. Крупные суммы подтверждает вторая ответственная роль.</p>
+            <p class="v3-imp__win"><b>Для владельца</b>Крупные финансовые операции требуют контроля второй ответственной роли.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="v3-imp__group">
+        <p class="v3-imp__glabel">Надёжность эксплуатации</p>
+
+        <article class="v3-imp__row">
+          <div>
+            <span class="v3-imp__num">03</span>
+            <h3 class="v3-subheading v3-imp__title">Полная история движения денег</h3>
+                      </div>
+          <div class="v3-imp__body">
+            <p class="v3-imp__part"><b>Риск</b>При сбое или ручной правке баланса важно точно понимать, что произошло с деньгами.</p>
+            <p class="v3-imp__part"><b>Решение</b>Каждое движение проходит через Financial Ledger, не дублируется и сверяется с внешними транзакциями.</p>
+            <p class="v3-imp__win"><b>Для владельца</b>Историю операции можно восстановить и проверить в спорной ситуации.</p>
+          </div>
+        </article>
+
+        <article class="v3-imp__row">
+          <div>
+            <span class="v3-imp__num">04</span>
+            <h3 class="v3-subheading v3-imp__title">Платформа готова к сбоям и развитию</h3>
+                      </div>
+          <div class="v3-imp__body">
+            <p class="v3-imp__part"><b>Риск</b>Без восстановления и точек расширения любой сбой или новый модуль становится дорогой переделкой.</p>
+            <p class="v3-imp__part"><b>Решение</b>Добавляем резервное копирование, проверку восстановления, мониторинг, аварийную остановку выплат и точки расширения.</p>
+            <p class="v3-imp__win"><b>Для владельца</b>Платформу проще восстановить после сбоя и развивать без переделки ядра.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 06 SCOPE & ESTIMATE -->
+<aside class="v3-statement" aria-label="Ключевой акцент проекта">
+  <div class="v3-statement__inner">
+    <p class="v3-statement__lead">Около половины инженерного объёма — это <b>финансовое ядро, криптоинфраструктура и надёжность платформы</b>.</p>
+    <p class="v3-statement__note">Интерфейсы важны, но основная сложность проекта находится там, где проходят деньги и где система должна выдерживать сбои.</p>
+  </div>
+</aside>
+
+<section class="v3-section v3-est" id="s06" data-title="Состав проекта и стоимость">
+  <div class="v3-container">
+    <div class="v3-est__head">
+      <div>
+        <p class="v3-eyebrow">06 · Состав проекта и стоимость</p>
+        <h2 class="v3-heading">Из чего складывается стоимость проекта</h2>
+        <p class="v3-lead">$57,000 — фиксированная стоимость согласованного объёма. Она распределяется между девятью крупными блоками разработки.</p>
+      </div>
+      <p class="v3-big-number v3-est__price"><span class="v3-big-number__value v3-num">$57,000</span><span class="v3-big-number__label">фиксированная стоимость</span></p>
+    </div>
+
+    <div class="v3-est__strip" role="img" aria-label="Распределение трудоёмкости: проектирование и интерфейсы 585 часов, деньги и crypto 965 часов, операции и запуск 1190 часов">
+      <div class="v3-est__bar"><span class="g1" style="width:21.4%"></span><span class="g2" style="width:35.2%"></span><span class="g3" style="width:43.4%"></span></div>
+      <ul class="v3-est__legend">
+        <li class="g1"><i></i><b>Проектирование и интерфейсы</b><small>585 ч · $12,300</small></li>
+        <li class="g2"><i></i><b>Деньги и крипто</b><small>965 ч · $20,100</small></li>
+        <li class="g3"><i></i><b>Операции и запуск</b><small>1,190 ч · $24,600</small></li>
+      </ul>
+    </div>
+
+    <div class="v3-est__total">
+      <p class="v3-big-number"><span class="v3-big-number__value">≈2,740 ч</span><span class="v3-big-number__label">расчётная трудоёмкость проекта</span></p>
+      <div class="v3-est__facts">
+        <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">≈2,560–2,910 ч</span><span class="v3-big-number__note">реалистичный диапазон оценки</span></p>
+        <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">9 блоков</span><span class="v3-big-number__note">каждый раскрывается по составу работ</span></p>
+      </div>
+    </div>
+
+    <div class="v3-est__scope-note">
+      <p><b>Игры отдельно</b>Game engines, RNG, RTP logic, game UI и proprietary games не входят в текущий объём.</p>
+      <p><b>Web входит</b>Public Web application для игроков включён вместе с Telegram и Android.</p>
+      <p><b>Self-custody входит</b>Стоимость учитывает Hot / Warm / Cold tiers и HSM-backed signing.</p>
+      <p><b>До 3 сетей</b>Конкретные blockchain-сети согласуются до crypto-модуля.</p>
+    </div>
+
+    <div class="v3-est__accordions">
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">01</span><span class="v3-est__name">Проектирование и архитектура<span class="v3-est__desc">Требования, service boundaries, data model, ledger, custody и deployment architecture.</span></span><span class="v3-est__block-price v3-num">$3,000</span><span class="v3-est__range">140 ч · диапазон 130–150 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Финализация требований, scope и технических ограничений</td><td>15 ч</td></tr><tr><td>Пользовательские и ключевые бизнес-сценарии</td><td>10 ч</td></tr><tr><td>Архитектура сервисов и service boundaries</td><td>20 ч</td></tr><tr><td>Архитектура Core / Finance и сетевой изоляции</td><td>15 ч</td></tr><tr><td>Модель данных и основные схемы БД</td><td>15 ч</td></tr><tr><td>Архитектура Internal Ledger</td><td>15 ч</td></tr><tr><td>Wallet/custody architecture</td><td>15 ч</td></tr><tr><td>API Gateway, BFF, gRPC и event contracts</td><td>15 ч</td></tr><tr><td>Permission model / RBAC architecture</td><td>10 ч</td></tr><tr><td>Infrastructure / deployment architecture</td><td>10 ч</td></tr><tr><td>Итого</td><td>140 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>финализация technical scope и service boundaries</li><li>архитектура core, finance, ledger и wallet/custody</li><li>API, gRPC и event contracts</li><li>RBAC и permission architecture</li><li>инфраструктурная и deployment architecture</li></ul></div><p class="v3-est__boundary">Детальная работа с контрактами, сервисами и инфраструктурой относится к соответствующим последующим блокам.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">02</span><span class="v3-est__name">Product Design + Web Frontend<span class="v3-est__desc">UX/UI, Design System, Public Web application, responsive states и API integration.</span></span><span class="v3-est__block-price v3-num">$5,200</span><span class="v3-est__range">250 ч · диапазон 230–270 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Анализ референсов и UX-концепция</td><td>15 ч</td></tr><tr><td>2–3 визуальных направления ключевых экранов</td><td>25 ч</td></tr><tr><td>Финализация выбранной концепции</td><td>15 ч</td></tr><tr><td>Design System / UI Kit</td><td>25 ч</td></tr><tr><td>UX пользовательской части платформы</td><td>20 ч</td></tr><tr><td>UI основных пользовательских экранов</td><td>30 ч</td></tr><tr><td>UI wallet / deposit / withdrawal flows</td><td>15 ч</td></tr><tr><td>Responsive states и adaptive layouts</td><td>15 ч</td></tr><tr><td>Реализация Web Frontend / layout</td><td>55 ч</td></tr><tr><td>Интеграция Frontend с API</td><td>20 ч</td></tr><tr><td>Client-side states / errors / loading / validation</td><td>10 ч</td></tr><tr><td>Cross-browser / responsive polishing</td><td>5 ч</td></tr><tr><td>Итого</td><td>250 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Public Web application для игроков</li><li>UX/UI основных сценариев и Design System</li><li>wallet / deposit / withdrawal interfaces</li><li>client-side validation, states и API integration</li><li>адаптация под desktop/mobile resolutions</li></ul></div><p class="v3-est__boundary">Интерфейсы proprietary games, игровая графика, PixiJS/WebGL-сцены, brandbook и сложные custom 3D/illustration assets не входят без отдельного согласования.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">03</span><span class="v3-est__name">Пользователи / Auth / RBAC<span class="v3-est__desc">Accounts, sessions, 2FA, permission-based RBAC и контроль доступа на уровнях API и БД.</span></span><span class="v3-est__block-price v3-num">$4,100</span><span class="v3-est__range">195 ч · диапазон 180–210 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Регистрация / авторизация</td><td>20 ч</td></tr><tr><td>Sessions / JWT / rotating refresh tokens</td><td>15 ч</td></tr><tr><td>Account / Profile management</td><td>12 ч</td></tr><tr><td>Password recovery / security flows</td><td>10 ч</td></tr><tr><td>Staff 2FA / TOTP</td><td>12 ч</td></tr><tr><td>Founder FIDO2 security flow</td><td>8 ч</td></tr><tr><td>Permission-based RBAC engine</td><td>25 ч</td></tr><tr><td>Реализация 7 базовых ролей</td><td>20 ч</td></tr><tr><td>Permission Matrix</td><td>15 ч</td></tr><tr><td>Row-level access control</td><td>15 ч</td></tr><tr><td>API-level permission enforcement</td><td>15 ч</td></tr><tr><td>DB-level access restrictions</td><td>10 ч</td></tr><tr><td>Maker–checker permissions</td><td>8 ч</td></tr><tr><td>Security / RBAC integration tests</td><td>10 ч</td></tr><tr><td>Итого</td><td>195 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Базовые роли</p><ul class="v3-est__mini-list"><li>Founder, Admin, Finance, Support</li><li>Affiliate Manager, Partner, Player</li><li>permission-based RBAC вместо проверки только названия роли</li><li>контроль на API, service layer, row-level и DB-level</li></ul></div></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">04</span><span class="v3-est__name">Финансовая система + FX<span class="v3-est__desc">Internal Ledger, balances, deposits, withdrawals, limits, risk, reconciliation и audit trail.</span></span><span class="v3-est__block-price v3-num">$9,900</span><span class="v3-est__range">475 ч · диапазон 450–490 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Internal Double-Entry Ledger</td><td>75 ч</td></tr><tr><td>Accounts / balances / balance cache</td><td>30 ч</td></tr><tr><td>Ledger invariants и atomic transactions</td><td>25 ч</td></tr><tr><td>Idempotency layer</td><td>20 ч</td></tr><tr><td>Deposit lifecycle</td><td>35 ч</td></tr><tr><td>Withdrawal lifecycle</td><td>50 ч</td></tr><tr><td>Funds reservation / locked balances</td><td>25 ч</td></tr><tr><td>Maker–checker approval workflow</td><td>30 ч</td></tr><tr><td>Limits / thresholds / manual adjustments</td><td>25 ч</td></tr><tr><td>Basic Risk rules</td><td>25 ч</td></tr><tr><td>AML workflow integration layer</td><td>20 ч</td></tr><tr><td>Reconciliation / balance verification</td><td>30 ч</td></tr><tr><td>Financial Audit Trail</td><td>25 ч</td></tr><tr><td>Rollback / failed transaction handling</td><td>15 ч</td></tr><tr><td>Multi-currency / FX service и conversion logging</td><td>15 ч</td></tr><tr><td>Financial integration tests</td><td>30 ч</td></tr><tr><td>Итого</td><td>475 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>append-only financial entries, balances и account types</li><li>deposit / withdrawal lifecycle</li><li>reservation, maker–checker, limits и thresholds</li><li>basic rule-based risk checks и AML integration layer</li><li>reconciliation, rollback, audit trail и FX logging</li></ul></div><p class="v3-est__boundary">Финансовая система готовит API/events для будущих bet/win/rollback/settlement, но игровые раунды, game-specific settlement logic и proprietary games не входят.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">05</span><span class="v3-est__name">Crypto / Wallet Infrastructure<span class="v3-est__desc">До 3 blockchain networks, deposits, withdrawals, fees, sweep, Hot/Warm/Cold tiers и HSM-backed signing.</span></span><span class="v3-est__block-price v3-num">$10,200</span><span class="v3-est__range">490 ч · диапазон 460–520 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Blockchain abstraction / Gateway</td><td>45 ч</td></tr><tr><td>Blockchain network №1</td><td>35 ч</td></tr><tr><td>Blockchain network №2</td><td>35 ч</td></tr><tr><td>Blockchain network №3</td><td>35 ч</td></tr><tr><td>Deposit address generation</td><td>25 ч</td></tr><tr><td>Deposit monitoring / Watcher</td><td>35 ч</td></tr><tr><td>Confirmations / chain events</td><td>20 ч</td></tr><tr><td>Withdrawal transaction processing</td><td>35 ч</td></tr><tr><td>Network fee / gas handling</td><td>15 ч</td></tr><tr><td>Deposit sweep automation</td><td>25 ч</td></tr><tr><td>Hot Wallet layer</td><td>30 ч</td></tr><tr><td>Warm Wallet / multisig workflow</td><td>30 ч</td></tr><tr><td>Cold Wallet / HSM integration</td><td>45 ч</td></tr><tr><td>Key access / signing policies</td><td>25 ч</td></tr><tr><td>Wallet monitoring / alerts</td><td>30 ч</td></tr><tr><td>Architecture for additional networks</td><td>10 ч</td></tr><tr><td>Итого</td><td>490 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>до 3 согласованных blockchain networks</li><li>deposit addresses, monitoring, confirmations и withdrawals</li><li>fee/gas handling и sweep automation</li><li>Hot / Warm / Cold wallet tiers</li><li>HSM-backed signing, key policies, monitoring и alerts</li></ul></div><p class="v3-est__boundary">Названия сетей согласуются до реализации. Упоминания BTC / ETH / TRON / TON / BSC в примерах не означают включение пяти сетей одновременно. Переход на external custodian требует ревизии scope.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">06</span><span class="v3-est__name">Back Office + Support<span class="v3-est__desc">Dashboard, players, finance panel, operations, audit, settings, affiliate management и support interface.</span></span><span class="v3-est__block-price v3-num">$6,200</span><span class="v3-est__range">300 ч · диапазон 280–320 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Back Office shell / navigation / permissions</td><td>20 ч</td></tr><tr><td>Dashboard</td><td>20 ч</td></tr><tr><td>Players management</td><td>30 ч</td></tr><tr><td>Player profile / activity</td><td>20 ч</td></tr><tr><td>Transactions / Operations</td><td>25 ч</td></tr><tr><td>Finance Panel</td><td>35 ч</td></tr><tr><td>Withdrawal approval interface</td><td>20 ч</td></tr><tr><td>Employees / Roles management</td><td>20 ч</td></tr><tr><td>Audit interface</td><td>25 ч</td></tr><tr><td>Limits / Platform Settings</td><td>20 ч</td></tr><tr><td>Affiliate management interface</td><td>15 ч</td></tr><tr><td>Support operator interface</td><td>20 ч</td></tr><tr><td>Chatwoot integration</td><td>20 ч</td></tr><tr><td>Support escalation workflows</td><td>10 ч</td></tr><tr><td>Итого</td><td>300 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Dashboard, players, profile и operations</li><li>Finance Panel и withdrawal approval</li><li>employees, roles, audit и platform settings</li><li>affiliate management</li><li>ограниченный Support interface и self-hosted Chatwoot integration</li></ul></div><p class="v3-est__boundary">Support работает через специализированный интерфейс и Chatwoot. Собственный helpdesk/CRM уровня Zendesk/Intercom с нуля не входит.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">07</span><span class="v3-est__name">Bonuses / Affiliate / i18n / Communications<span class="v3-est__desc">Bonus Engine, ranks, RevShare, CPA, Hybrid, Partner Cabinet backend, RU/EN и notifications.</span></span><span class="v3-est__block-price v3-num">$4,500</span><span class="v3-est__range">215 ч · диапазон 200–230 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Base Bonus Engine</td><td>30 ч</td></tr><tr><td>Bonus balance / locked balance integration</td><td>15 ч</td></tr><tr><td>Configurable bonus rules</td><td>15 ч</td></tr><tr><td>Wagering tracking interfaces</td><td>20 ч</td></tr><tr><td>Rank / Status system</td><td>15 ч</td></tr><tr><td>Affiliate attribution</td><td>15 ч</td></tr><tr><td>RevShare</td><td>15 ч</td></tr><tr><td>CPA</td><td>10 ч</td></tr><tr><td>Hybrid</td><td>5 ч</td></tr><tr><td>Partner Cabinet backend</td><td>15 ч</td></tr><tr><td>Affiliate anti-fraud rules</td><td>10 ч</td></tr><tr><td>RU / EN i18n architecture</td><td>10 ч</td></tr><tr><td>Notification backend / orchestration</td><td>15 ч</td></tr><tr><td>Mass communications / segmentation</td><td>15 ч</td></tr><tr><td>Итого</td><td>215 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>configurable Bonus Engine и wagering interfaces</li><li>ranks/statuses</li><li>RevShare, CPA, Hybrid и Partner Cabinet backend</li><li>RU / EN i18n architecture</li><li>notification backend, templates, queues и segmentation</li></ul></div><p class="v3-est__boundary">Wagering integration с каждой конкретной игрой, дополнительные языки с переводом/linguistic QA и продвинутые delivery channels оцениваются отдельно.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">08</span><span class="v3-est__name">Telegram Mini App / Bot / Android<span class="v3-est__desc">Telegram adaptation, bot flows, Android Capacitor shell, push, secure storage, biometrics и APK updates.</span></span><span class="v3-est__block-price v3-num">$4,700</span><span class="v3-est__range">225 ч · диапазон 210–240 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Telegram Mini App adaptation</td><td>45 ч</td></tr><tr><td>Telegram initData / HMAC authentication</td><td>15 ч</td></tr><tr><td>Telegram account linking</td><td>10 ч</td></tr><tr><td>Telegram Bot core</td><td>25 ч</td></tr><tr><td>Bot: balance / withdrawal statuses</td><td>10 ч</td></tr><tr><td>Bot: mirrors / referral / support</td><td>10 ч</td></tr><tr><td>Android Capacitor shell</td><td>35 ч</td></tr><tr><td>FCM Push</td><td>10 ч</td></tr><tr><td>Secure token storage</td><td>10 ч</td></tr><tr><td>Biometric unlock</td><td>10 ч</td></tr><tr><td>Certificate pinning</td><td>8 ч</td></tr><tr><td>Root / emulator detection</td><td>7 ч</td></tr><tr><td>APK update mechanism</td><td>15 ч</td></tr><tr><td>Multi-platform testing / adaptation</td><td>15 ч</td></tr><tr><td>Итого</td><td>225 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Telegram Mini App adaptation и initData validation</li><li>Telegram Bot: balance, withdrawal status, mirrors, referral, support</li><li>Android Capacitor shell</li><li>FCM, secure storage, biometrics и certificate pinning</li><li>basic own APK update mechanism</li></ul></div><p class="v3-est__boundary">Отдельное native Android-приложение с независимой codebase, iOS, Telegram Stars и гарантированное размещение в Google Play не входят.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">09</span><span class="v3-est__name">Infrastructure / Security / QA / Launch<span class="v3-est__desc">Environments, Kubernetes, IaC, CI/CD, monitoring, backup, security checks, QA и handover.</span></span><span class="v3-est__block-price v3-num">$9,200</span><span class="v3-est__range">450 ч · диапазон 420–480 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Dev / Stage / Production environments</td><td>30 ч</td></tr><tr><td>Managed Kubernetes setup</td><td>30 ч</td></tr><tr><td>Terraform / Infrastructure as Code</td><td>25 ч</td></tr><tr><td>ArgoCD / GitOps</td><td>20 ч</td></tr><tr><td>CI/CD pipelines</td><td>25 ч</td></tr><tr><td>Network isolation / NetworkPolicy</td><td>20 ч</td></tr><tr><td>Vault / secrets management</td><td>25 ч</td></tr><tr><td>Bastion / production access</td><td>20 ч</td></tr><tr><td>Cloudflare / WAF / CDN</td><td>15 ч</td></tr><tr><td>Mirror monitoring / rotation automation</td><td>20 ч</td></tr><tr><td>Logging stack</td><td>20 ч</td></tr><tr><td>Metrics / Monitoring / Alerting</td><td>20 ч</td></tr><tr><td>WORM Audit storage</td><td>15 ч</td></tr><tr><td>Backup / PITR / Recovery</td><td>25 ч</td></tr><tr><td>SAST / SCA / secret scanning</td><td>15 ч</td></tr><tr><td>DAST / security hardening</td><td>20 ч</td></tr><tr><td>Automated tests</td><td>25 ч</td></tr><tr><td>Manual QA / Regression</td><td>40 ч</td></tr><tr><td>Load / failure / recovery testing</td><td>25 ч</td></tr><tr><td>Production launch / handover</td><td>15 ч</td></tr><tr><td>Итого</td><td>450 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Dev / Stage / Production, managed Kubernetes, Terraform и GitOps</li><li>CI/CD, NetworkPolicy, Vault, Bastion и Cloudflare integration</li><li>logging, monitoring, alerting, WORM audit storage</li><li>backups / PITR, recovery procedures и testing</li><li>SAST/SCA, базовый DAST, QA, regression и handover</li></ul></div><p class="v3-est__boundary">Внешний независимый penetration test и сторонняя security certification не входят. Платформа подготавливается к внешнему pentest.</p></div></div></details>
+    </div>
+
+    <div class="v3-est__notes">
+      <p class="v3-small">Часы показывают расчётную трудоёмкость. Стоимость согласованного объёма фиксирована — $57,000.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 ROADMAP -->
+<section class="v3-section v3-section--surface v3-road" id="s07" data-title="Этапы реализации">
+  <div class="v3-container">
+    <div class="v3-road__head">
+      <div>
+        <p class="v3-eyebrow">07 · Этапы реализации</p>
+        <h2 class="v3-heading">Как проект проходит путь до запуска</h2>
+        <p class="v3-lead">Проект разбит на четыре этапа. У каждого — свой понятный результат, который можно увидеть и принять.</p>
+      </div>
+      <p class="v3-big-number v3-road__term"><span class="v3-big-number__value">18–21 нед.</span><span class="v3-big-number__label">ориентировочный срок от старта проектирования до запуска</span></p>
+    </div>
+
+    <ol class="v3-timeline">
+      <li class="v3-timeline__step">
+        <span class="v3-timeline__when">Этап 01</span>
+        <h3 class="v3-subheading v3-timeline__title">Основа платформы</h3>
+        <p class="v3-timeline__what">Архитектура · Дизайн · Пользователи · Доступы</p>
+        <p class="v3-timeline__result"><b>Результат</b>Согласованы архитектура и визуальное направление, готова основа для финансовой и клиентской части.</p>
+      </li>
+      <li class="v3-timeline__step">
+        <span class="v3-timeline__when">Этап 02</span>
+        <h3 class="v3-subheading v3-timeline__title">Деньги и управление</h3>
+        <p class="v3-timeline__what">Финансовое ядро · Crypto · Back Office</p>
+        <p class="v3-timeline__result"><b>Результат</b>На тестовом стенде работают балансы, депозиты, выводы и управление операциями через Back Office.</p>
+      </li>
+      <li class="v3-timeline__step">
+        <span class="v3-timeline__when">Этап 03</span>
+        <h3 class="v3-subheading v3-timeline__title">Клиентский продукт</h3>
+        <p class="v3-timeline__what">Web · Telegram · Android · Партнёрская система · Бонусы</p>
+        <p class="v3-timeline__result"><b>Результат</b>Клиентские приложения, партнёрский кабинет и бонусы работают с финансовым ядром и готовы к сквозной проверке.</p>
+      </li>
+      <li class="v3-timeline__step">
+        <span class="v3-timeline__when">Этап 04</span>
+        <h3 class="v3-subheading v3-timeline__title">Проверка и запуск</h3>
+        <p class="v3-timeline__what">Тестирование · Безопасность · Мониторинг · Развёртывание</p>
+        <p class="v3-timeline__result"><b>Результат</b>Платформа проходит финальную проверку, разворачивается в production и передаётся заказчику.</p>
+      </li>
+    </ol>
+
+    <div class="v3-road__notes">
+      <p class="v3-small">Работы частично идут параллельно: тестирование и инфраструктура развиваются вместе с основной разработкой.</p>
+      <p class="v3-small">Срок зависит от своевременного согласования дизайна, blockchain-сетей, wallet-конфигурации и внешних интеграций.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 CONTROL -->
+<section class="v3-section v3-ctl" id="s08" data-title="Деньги, доступы и контроль">
+  <div class="v3-container">
+    <p class="v3-eyebrow">08 · Деньги и контроль</p>
+    <h2 class="v3-heading">Деньги и полномочия не должны зависеть от одного человека</h2>
+    <p class="v3-lead">Каждая роль получает только нужные полномочия. Критические действия разделены и остаются проверяемыми.</p>
+
+    <div class="v3-ctl__roles">
+      <div class="v3-ctl__roles-head">
+        <h3 class="v3-subheading">Кто за что отвечает</h3>
+        <div>
+          <p class="v3-copy">Права проверяются самой системой, а не только интерфейсом.</p>
+          <p class="v3-small v3-mt-2">Вход сотрудников в Back Office и подтверждение критических операций защищены 2FA.</p>
+        </div>
+      </div>
+
+      <div class="v3-ctl__groups">
+        <div class="v3-ctl__group">
+          <p class="v3-ctl__gname">Стратегический контроль</p>
+          <div>
+            <div class="v3-ctl__role v3-ctl__role--key"><b>Founder</b><span>Максимальный управленческий контроль и подтверждение операций со средствами компании.</span></div>
+          </div>
+        </div>
+        <div class="v3-ctl__group">
+          <p class="v3-ctl__gname">Операционное управление</p>
+          <div>
+            <div class="v3-ctl__role"><b>Admin</b><span>Работа платформы, пользователи и доступы сотрудников. Финансовые права разделены с Finance.</span></div>
+            <div class="v3-ctl__role v3-ctl__role--key"><b>Finance</b><span>Финансовые операции, проверки и подтверждение выплат.</span></div>
+            <div class="v3-ctl__role"><b>Support</b><span>Обращения игроков и нужные для поддержки данные, без доступа к финансам компании.</span></div>
+          </div>
+        </div>
+        <div class="v3-ctl__group">
+          <p class="v3-ctl__gname">Партнёрский контур</p>
+          <div>
+            <div class="v3-ctl__role"><b>Affiliate Manager</b><span>Партнёры и условия программ; изменения утверждает руководство.</span></div>
+            <div class="v3-ctl__role"><b>Partner</b><span>Только собственные привлечённые игроки, своя статистика и партнёрский баланс.</span></div>
+          </div>
+        </div>
+        <div class="v3-ctl__group">
+          <p class="v3-ctl__gname">Пользователь</p>
+          <div>
+            <div class="v3-ctl__role"><b>Player</b><span>Только собственный аккаунт, баланс и операции.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="v3-principles v3-principles--3 v3-ctl__principles">
+      <li class="v3-principle">
+        <span class="v3-principle__index">01</span>
+        <h3 class="v3-title">Полномочия ограничены системой</h3>
+        <p class="v3-copy">Сотрудник выполняет только действия, разрешённые его ролью. Если права нет, операция не проходит.</p>
+        <p class="v3-ctl__effect">Ошибочное или намеренное действие блокируется на уровне системы.</p>
+      </li>
+      <li class="v3-principle">
+        <span class="v3-principle__index">02</span>
+        <h3 class="v3-title">Критические операции — не в одни руки</h3>
+        <p class="v3-copy">Крупные выплаты и чувствительные действия подтверждает вторая ответственная роль.</p>
+        <p class="v3-ctl__effect">Один сотрудник не получает единоличный контроль над крупным движением средств.</p>
+        <p class="v3-ctl__meta">Вывод игрока от $500: Admin → Finance. Средства компании: Finance → Founder.</p>
+      </li>
+      <li class="v3-principle">
+        <span class="v3-principle__index">03</span>
+        <h3 class="v3-title">Действия сотрудников сохраняются в истории</h3>
+        <p class="v3-copy">Критические действия фиксируются: кто, когда, что изменил и какое значение было раньше.</p>
+        <p class="v3-ctl__effect">У владельца остаётся понятная история действий внутри системы.</p>
+      </li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- 09 ADD-ONS & BOUNDARIES -->
+<section class="v3-section v3-bounds" id="s09" data-title="Дополнительные возможности и границы">
+  <div class="v3-container">
+    <div class="v3-bounds__head">
+      <div>
+        <p class="v3-eyebrow">09 · Границы и расширения</p>
+        <h2 class="v3-heading">Что входит сейчас — и что можно добавить дальше</h2>
+        <p class="v3-lead">Базовая стоимость включает весь согласованный технический контур платформы. Собственные игры, дополнительные сети и отдельные внешние сервисы подключаются отдельно.</p>
+      </div>
+      <p class="v3-big-number v3-bounds__price"><span class="v3-big-number__value v3-num">$57,000</span><span class="v3-big-number__label">базовая стоимость</span></p>
+    </div>
+
+    <div class="v3-bounds__included v3-keep">
+      <div>
+        <h3 class="v3-subheading">В базовую стоимость входит</h3>
+      </div>
+      <ul class="v3-bounds__strip" aria-label="Краткий состав базового scope">
+        <li><b>Web + Telegram + Android</b><span>клиентские приложения и Telegram Bot</span></li>
+        <li><b>Финансовое ядро</b><span>балансы, депозиты, выводы и история денег</span></li>
+        <li><b>Crypto-инфраструктура</b><span>до 3 blockchain-сетей</span></li>
+        <li><b>Back Office</b><span>игроки, финансы и операции команды</span></li>
+        <li><b>Партнёрская система</b><span>referrals, RevShare, CPA, Hybrid и кабинет партнёра</span></li>
+        <li><b>UI/UX</b><span>3 дизайн-направления и развитие выбранной концепции</span></li>
+        <li><b>Инфраструктура и запуск</b><span>тестирование, мониторинг, резервное копирование и развёртывание</span></li>
+      </ul>
+    </div>
+
+    <div class="v3-bounds__extensions">
+      <div class="v3-bounds__extensions-head">
+        <h3 class="v3-subheading">Можно добавить отдельно</h3>
+      </div>
+
+      <div class="v3-bounds__rows">
+        <div class="v3-bounds__row v3-keep">
+          <span class="v3-bounds__row-index">01</span>
+          <div>
+            <div class="v3-bounds__row-title"><h4>PvP «Дурак»</h4><span class="v3-bounds__tag">отдельно</span></div>
+            <p class="v3-bounds__row-desc">PvP-модуль карточной игры с матчами, балансом платформы, историей партий и управлением в Back Office.</p>
+            <p class="v3-bounds__row-note">Оценка уточняется после согласования механики игры.</p>
+          </div>
+          <div class="v3-bounds__value"><b class="v3-num">$6,000–8,000</b><span>около 3–4 недель разработки</span></div>
+        </div>
+
+        <div class="v3-bounds__row">
+          <span class="v3-bounds__row-index">02</span>
+          <div>
+            <div class="v3-bounds__row-title"><h4>Другие игровые модули</h4><span class="v3-bounds__tag">отдельно</span></div>
+            <p class="v3-bounds__row-desc">Crash, Mines, Roulette, Blackjack, Baccarat, Dragon/Tiger и другие игры оцениваются после постановки задачи.</p>
+            <p class="v3-bounds__row-note">Game engine, RNG, Provably Fair, RTP logic, игровые интерфейсы, графика и certification относятся к модулю игры.</p>
+          </div>
+          <div class="v3-bounds__value">Отдельная оценка</div>
+        </div>
+
+        <div class="v3-bounds__row">
+          <span class="v3-bounds__row-index">03</span>
+          <div>
+            <div class="v3-bounds__row-title"><h4>Дополнительные blockchain-сети</h4><span class="v3-bounds__tag v3-bounds__tag--base">до 3 сетей в базе</span></div>
+            <p class="v3-bounds__row-desc">Четвёртая и последующие сети оцениваются после выбора blockchain-сети и инфраструктуры.</p>
+            <p class="v3-bounds__row-note">Объём зависит от API сети, модели транзакций и выбранного провайдера.</p>
+          </div>
+          <div class="v3-bounds__value">Отдельная оценка</div>
+        </div>
+
+        <div class="v3-bounds__row">
+          <span class="v3-bounds__row-index">04</span>
+          <div>
+            <div class="v3-bounds__row-title"><h4>External custodian</h4><span class="v3-bounds__tag">альтернатива</span></div>
+            <p class="v3-bounds__row-desc">Базовая конфигурация строится на self-custody: Hot / Warm / Cold tiers, HSM-backed signing, key policies и monitoring. External custodian — альтернатива.</p>
+            <p class="v3-bounds__row-note">Если external custodian меняет wallet scope, объём работ пересогласуется.</p>
+          </div>
+          <div class="v3-bounds__value">По выбранной конфигурации</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="v3-bounds__external v3-keep">
+      <div>
+        <h3 class="v3-subheading">Внешние расходы</h3>
+      </div>
+      <div>
+        <p class="v3-copy">Комиссии и тарифы сторонних сервисов не входят в бюджет разработки. Их оплачивают напрямую провайдерам.</p>
+        <ul class="v3-bounds__external-list v3-mt-3">
+          <li>хостинг, облако, CDN и домен</li>
+          <li>blockchain/RPC-провайдер и внешний custody provider</li>
+          <li>тарифы AML/KYC-сервисов и push-уведомлений</li>
+          <li>комиссии blockchain-сетей и транзакционные расходы</li>
+          <li>лицензия и юридическое сопровождение</li>
+          <li>внешний пентест и сертификация RNG</li>
+          <li>аккаунт Google Play для публикации Android-приложения</li>
+        </ul>
+        <p class="v3-small v3-mt-3">Базовые Risk/AML-правила и готовность к интеграции входят в проект. Тариф внешнего AML/KYC-провайдера оплачивается отдельно.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 10 WORK FORMAT -->
+<section class="v3-section v3-format" id="s10" data-title="Как строится работа над проектом">
+  <div class="v3-container">
+    <div class="v3-format__head">
+      <div>
+        <p class="v3-eyebrow">10 · Формат работы</p>
+        <h2 class="v3-heading">Оплата по результатам этапов</h2>
+        <p class="v3-lead">Оплата разбита на пять этапов. Каждый заканчивается демонстрацией, проверкой сценариев и приёмкой результата.</p>
+      </div>
+      <p class="v3-format__summary">$57,000 · фиксированная стоимость · 5 этапов<span>Платёж привязан к приёмке этапа.</span></p>
+    </div>
+
+    <div class="v3-format__paystrip" aria-label="Распределение платежей по этапам">
+      <span data-label="20%"></span>
+      <span data-label="20%"></span>
+      <span class="is-key" data-label="25%"></span>
+      <span data-label="20%"></span>
+      <span data-label="15%"></span>
+    </div>
+
+    <div class="v3-format__milestones">
+      <div class="v3-format__milestone v3-keep">
+        <span class="v3-format__index">01</span>
+        <div>
+          <h3 class="v3-format__title">Проектирование и дизайн</h3>
+          <p class="v3-format__money">20% <span>·</span> $11,400</p>
+          <p class="v3-format__includes">Финальные требования, архитектура, пользовательские сценарии, визуальное направление и основа Design System.</p>
+        </div>
+        <div>
+          <p class="v3-format__result"><b>Результат:</b> заказчик видит согласованную архитектуру, пользовательские сценарии и выбранное визуальное направление.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> согласованы объём работ, архитектура, сценарии, дизайн-направление и ключевые экраны.</p>
+        </div>
+      </div>
+
+      <div class="v3-format__milestone v3-keep">
+        <span class="v3-format__index">02</span>
+        <div>
+          <h3 class="v3-format__title">Основа платформы</h3>
+          <p class="v3-format__money">20% <span>·</span> $11,400</p>
+          <p class="v3-format__includes">Пользователи, авторизация, роли, права доступа и базовый Back Office.</p>
+        </div>
+        <div>
+          <p class="v3-format__result"><b>Результат:</b> на тестовом стенде работают аккаунты, роли и основные разделы Back Office.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> проверены регистрация, авторизация, профиль, вход сотрудников, доступы и основные действия в Back Office.</p>
+        </div>
+      </div>
+
+      <div class="v3-format__milestone v3-format__milestone--key v3-keep">
+        <span class="v3-format__index">03</span>
+        <div>
+          <h3 class="v3-format__title">Финансовое и crypto-ядро</h3>
+          <p class="v3-format__money">25% <span>·</span> $14,250</p>
+          <p class="v3-format__includes">Финансовый журнал, балансы, депозиты, выводы, подтверждение операций, сверка и интеграция до трёх blockchain-сетей.</p>
+        </div>
+        <div>
+          <p class="v3-format__result"><b>Результат:</b> заказчик проверяет путь денег от депозита до баланса, операции и вывода.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> на тестовом стенде проходят депозит, баланс, операция и вывод; доступны история, подтверждения, сверка и blockchain-транзакции.</p>
+        </div>
+      </div>
+
+      <div class="v3-format__milestone v3-keep">
+        <span class="v3-format__index">04</span>
+        <div>
+          <h3 class="v3-format__title">Клиентский и бизнес-контур</h3>
+          <p class="v3-format__money">20% <span>·</span> $11,400</p>
+          <p class="v3-format__includes">Web, Telegram, Android, партнёрский кабинет, уведомления, бонусы и основные сквозные сценарии.</p>
+        </div>
+        <div>
+          <p class="v3-format__result"><b>Результат:</b> игроки, партнёры и команда проходят основные сценарии через свои интерфейсы.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> доступны аккаунт, баланс, финансовый интерфейс, Web, Telegram, Android, партнёрский сценарий и базовые бонусы. Разработка игр сюда не входит.</p>
+        </div>
+      </div>
+
+      <div class="v3-format__milestone v3-keep">
+        <span class="v3-format__index">05</span>
+        <div>
+          <h3 class="v3-format__title">Финальная проверка и сдача</h3>
+          <p class="v3-format__money">15% <span>·</span> $8,550</p>
+          <p class="v3-format__includes">Финальная проверка, безопасность, мониторинг, backup, восстановление, deployment, документация и передача проекта.</p>
+        </div>
+        <div>
+          <p class="v3-format__result"><b>Результат:</b> согласованный объём проверен, развёрнут и передан заказчику.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> пройдены сквозные сценарии, исправлены критические дефекты, настроены production, мониторинг и backup, передана документация.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="v3-format__acceptance v3-keep">
+      <div>
+        <h3 class="v3-subheading">Как проходит приёмка</h3>
+      </div>
+      <div>
+        <ol class="v3-format__process">
+          <li><b>Демонстрация</b><span>команда показывает результат</span></li>
+          <li><b>Проверка</b><span>заказчик получает стенд или материалы этапа</span></li>
+          <li><b>Замечания</b><span>правки по согласованному объёму собираются единым списком</span></li>
+          <li><b>Приёмка</b><span>после устранения согласованных замечаний проект переходит дальше</span></li>
+        </ol>
+        <p class="v3-format__review">Конкретный срок проверки каждого этапа фиксируется в договоре.</p>
+      </div>
+    </div>
+
+    <div class="v3-format__after v3-keep">
+      <div class="v3-format__warranty">
+        <p class="v3-format__warranty-kicker">0–45 дней после сдачи</p>
+        <h3>45 дней гарантийного сопровождения</h3>
+        <p>В течение 45 календарных дней после финальной сдачи команда без доплаты исправляет ошибки, если реализованная функция работает не так, как было согласовано.</p>
+      </div>
+
+      <div class="v3-format__support">
+        <h3>После гарантийного периода</h3>
+        <p>После гарантии новые задачи оцениваются отдельно. Команда согласовывает объём, срок и стоимость, затем берёт задачу в работу.</p>
+        <ol class="v3-format__support-flow" aria-label="Формат поддержки после гарантийного периода">
+          <li>Задача</li>
+          <li>Оценка часов</li>
+          <li>Согласование</li>
+          <li>Выполнение</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="v3-format__tail">
+    <div class="v3-format__bugchange">
+      <p><b>Ошибка</b>Реализованная функция работает не так, как было согласовано. Такая ошибка исправляется во время проекта или гарантийного сопровождения.</p>
+      <p><b>Новая задача</b>Нужна новая функция, интеграция, изменение логики или расширение объёма. Такая задача оценивается отдельно.</p>
+    </div>
+
+    <p class="v3-small v3-format__note">График зависит от референсов, решений по blockchain-сетям и провайдерам, а также обратной связи.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+</div>
+
+<aside class="v3-closing" aria-label="Следующий шаг">
+  <div class="v3-closing__inner">
+    <h2 class="v3-closing__title">Готовы перейти к реализации</h2>
+    <p class="v3-closing__copy">После согласования предложения фиксируем финальный объём работ и подписываем договор. Сразу за этим команда приступает к работе.</p>
+
+    <ol class="v3-closing__flow">
+      <li>Согласование</li>
+      <li>Договор</li>
+      <li>Старт проекта</li>
+      <li>Проектирование</li>
+    </ol>
+
+    <div class="v3-closing__summary">
+      <div><b class="v3-num">$57,000</b><span>фиксированная стоимость</span></div>
+      <div><b>18–21 нед.</b><span>срок реализации</span></div>
+    </div>
+  </div>
+</aside>
+
+
+<script>
+(function(){
+  var bar=document.getElementById('topbar'),cur=document.getElementById('topcur'),cover=document.getElementById('s01');
+  if(!('IntersectionObserver' in window)||!bar||!cover) return;
+  new IntersectionObserver(function(e){bar.classList.toggle('show',!e[0].isIntersecting)},{threshold:0}).observe(cover);
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){cur.innerHTML='<em>'+en.target.id.replace('s','')+'</em>'+(en.target.getAttribute('data-title')||'')}})},{rootMargin:'-10% 0px -75% 0px',threshold:0});
+  document.querySelectorAll('main .v3-section').forEach(function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>
