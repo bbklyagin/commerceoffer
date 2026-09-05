@@ -323,10 +323,6 @@ table .no{color:var(--ink-3)}
 }
 /* обложка стоит на той же вертикальной оси, что и разделы */
 .hero .container{position:relative;z-index:1}
-.hero__top{
-  display:flex;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;
-  font-size:13.5px;color:var(--dark-muted);padding-bottom:var(--s6);
-}
 .hero__main{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:clamp(32px,5vw,72px);align-items:center}
 .hero__main > *{min-width:0}
 .hero .eyebrow{color:var(--accent-light)}
@@ -371,7 +367,6 @@ footer{
 }
 footer p{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--ink-3);max-width:78ch}
 footer p:last-child{margin-bottom:0}
-footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-top:var(--s3)}
 
 /* ---------- utilities (объявлены последними: перебивают margin:0 компонентов) ---------- */
 .mt-2{margin-top:var(--s2)}
@@ -453,7 +448,6 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
   }
   .hero::before{display:none}
   .hero .container{max-width:none;padding:0}
-  .hero__top{padding-bottom:16mm;font-size:10pt}
   .hero__main{grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:14mm;align-items:center}
   .hero .display{font-size:38pt}
   .hero .lead{font-size:12.5pt;margin-top:14px}
@@ -564,11 +558,6 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
 <!-- ============================ HERO ============================ -->
 <header class="hero" id="top">
   <div class="container">
-    <div class="hero__top">
-      <span>Техническое приложение · v1.0</span>
-      <span>05.09.2026</span>
-    </div>
-
     <div class="hero__main">
       <div>
         <p class="eyebrow">Техническое приложение к коммерческому предложению</p>
@@ -1983,7 +1972,6 @@ footer .doc-id{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-
 <footer>
   <p>Техническое приложение описывает целевую архитектуру проекта. Детальные схемы баз данных, API-контракты и инфраструктурные конфигурации уточняются на этапе проектирования в рамках согласованного объёма работ.</p>
   <p>Состав поставки, сроки, этапы и коммерческие условия зафиксированы в основном коммерческом предложении. При расхождении формулировок приоритет имеет коммерческое предложение.</p>
-  <p class="doc-id">Crypto Casino Platform · Техническое приложение · v1.0 · 05.09.2026</p>
 </footer>
 
 <script>
