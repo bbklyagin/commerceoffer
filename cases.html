@@ -209,7 +209,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 <header class="head">
   <div class="wrap head__grid">
     <div>
-      <p class="head__eyebrow">Богдан Клягин и команда · Product Engineering</p>
+      <p class="head__eyebrow">О команде</p>
       <h1 class="head__title">Мы уже строили каждую часть этого продукта</h1>
       <p class="head__lead">Крипто-казино — это gaming, внутренние балансы и выплаты, блокчейн, партнёрская программа и привлечение трафика. В каждой из этих областей у нас есть запущенный продукт — и как у основателей, и как у подрядчиков.</p>
 
@@ -222,29 +222,29 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
     </div>
 
     <figure class="head__visual">
-      <svg viewBox="0 0 430 340" role="img" aria-label="Пять областей — gaming, балансы и выплаты, блокчейн и токен, партнёрская программа, трафик — сходятся в проекте крипто-казино">
-        <line x1="176" y1="46"  x2="262" y2="164" class="hs-line"/>
-        <line x1="176" y1="107" x2="262" y2="166" class="hs-line"/>
-        <line x1="176" y1="168" x2="262" y2="168" class="hs-line"/>
-        <line x1="176" y1="229" x2="262" y2="170" class="hs-line"/>
-        <line x1="176" y1="290" x2="262" y2="172" class="hs-line"/>
+      <svg viewBox="0 0 470 300" role="img" aria-label="Пять направлений — gaming-продукт, балансы и выплаты, блокчейн и токен, партнёрская программа, привлечение трафика — сходятся в проекте крипто-казино">
+        <text x="0" y="35"  class="hs-label">Gaming-продукт</text>
+        <text x="0" y="95"  class="hs-label">Балансы и выплаты</text>
+        <text x="0" y="155" class="hs-label">Блокчейн и токен</text>
+        <text x="0" y="215" class="hs-label">Партнёрская программа</text>
+        <text x="0" y="275" class="hs-label">Привлечение трафика</text>
 
-        <circle cx="170" cy="46"  r="4" class="hs-dot"/>
-        <circle cx="170" cy="107" r="4" class="hs-dot"/>
-        <circle cx="170" cy="168" r="4" class="hs-dot"/>
-        <circle cx="170" cy="229" r="4" class="hs-dot"/>
-        <circle cx="170" cy="290" r="4" class="hs-dot"/>
+        <circle cx="222" cy="30"  r="3.5" class="hs-dot"/>
+        <circle cx="222" cy="90"  r="3.5" class="hs-dot"/>
+        <circle cx="222" cy="150" r="3.5" class="hs-dot"/>
+        <circle cx="222" cy="210" r="3.5" class="hs-dot"/>
+        <circle cx="222" cy="270" r="3.5" class="hs-dot"/>
 
-        <text x="152" y="51"  class="hs-label" text-anchor="end">Gaming-продукт</text>
-        <text x="152" y="112" class="hs-label" text-anchor="end">Балансы и выплаты</text>
-        <text x="152" y="173" class="hs-label" text-anchor="end">Блокчейн и токен</text>
-        <text x="152" y="234" class="hs-label" text-anchor="end">Партнёрская программа</text>
-        <text x="152" y="295" class="hs-label" text-anchor="end">Привлечение трафика</text>
+        <path d="M226 30  H250" class="hs-line"/>
+        <path d="M226 90  H250" class="hs-line"/>
+        <path d="M226 150 H250" class="hs-line"/>
+        <path d="M226 210 H250" class="hs-line"/>
+        <path d="M226 270 H250" class="hs-line"/>
+        <path d="M250 30 V270" class="hs-line"/>
+        <path d="M250 150 H316" class="hs-line"/>
 
-        <circle cx="320" cy="168" r="70" class="hs-core-ring"/>
-        <circle cx="320" cy="168" r="58" class="hs-core"/>
-        <text x="320" y="164" class="hs-core-text">Крипто-</text>
-        <text x="320" y="182" class="hs-core-text">казино</text>
+        <rect x="316" y="120" width="152" height="60" rx="8" class="hs-core"/>
+        <text x="392" y="155" class="hs-core-text">Крипто-казино</text>
       </svg>
     </figure>
   </div>
@@ -358,6 +358,13 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
           </div>
         </div>
 
+        <figure class="case__video">
+          <div class="video-frame">
+            <iframe src="https://www.youtube-nocookie.com/embed/WPxHaA3KVNQ" title="Travis Run — разбор продукта" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p class="video-print">Видео о Travis Run — https://youtu.be/WPxHaA3KVNQ</p>
+        </figure>
+
         <div class="case__tech">
           <p><b>Стек.</b> TypeScript на всех уровнях. Backend — NestJS на Fastify, PostgreSQL и Redis, TypeORM. Клиент — React 19, Vite, Telegram Mini App SDK. Инфраструктура — Docker и Nginx, метрики Prometheus, трассировки OpenTelemetry, аналитика на Metabase.</p>
           <p><b>Что внутри финансового контура.</b> Ключи идемпотентности против повторного проведения операций, transactional outbox для гарантированной доставки событий, журнал действий администраторов, отдельный проектный кошелёк и обработка возвратов. Реферальная система разложена на граф связей и витрины аналитики. Ключевые сервисы кошелька и рефералки покрыты автотестами.</p>
@@ -422,11 +429,62 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
         <p class="case__src">Публичный источник: <a href="https://farmskins.com/" target="_blank" rel="noopener">farmskins.com</a></p>
       </article>
 
-      <!-- PEAKPROMO -->
+      <!-- AZA PAY -->
       <article class="case">
         <div class="case__head">
           <div class="case__id">
             <span class="case__n">04</span>
+            <div>
+              <h3 class="case__name">AZA Pay</h3>
+              <p class="case__type">Мобильное приложение для виртуальных и физических банковских карт</p>
+            </div>
+          </div>
+          <span class="case__status">Коммерческий проект</span>
+        </div>
+
+        <ul class="case__metrics">
+          <li><b>Android · iPhone</b><span>из одной кодовой базы</span></li>
+          <li><b>Nuxt 3 · Capacitor</b><span>веб-приложение в нативной оболочке</span></li>
+          <li><b>RU · EN · DE</b><span>три языка интерфейса</span></li>
+        </ul>
+
+        <div class="case__body">
+          <div>
+            <p class="case__label">Что это было</p>
+            <p class="case__text">Приложение для выпуска и обслуживания виртуальных и физических банковских карт: интерфейс, структура приложения, типизация и управление состоянием.</p>
+            <p class="case__text">Nuxt и Vite собирают веб-приложение, Capacitor упаковывает его в нативные оболочки; финальная сборка — через Android Studio и Xcode.</p>
+          </div>
+          <div>
+            <p class="case__label">Почему такой подход</p>
+            <ul class="case__list">
+              <li><b>Общий код для двух платформ</b> — одна кодовая база вместо двух нативных</li>
+              <li><b>Быстрее разработка и поддержка</b> — правка выходит сразу на обе платформы</li>
+              <li><b>Доступ к функциям телефона</b> — через плагины Capacitor</li>
+            </ul>
+            <p class="case__text" style="margin-top:14px;font-size:14.5px;color:var(--ink-3)">Стек: Vue 3, Nuxt 3, TypeScript, Pinia, Capacitor.</p>
+          </div>
+        </div>
+
+<!-- ВИДЕО AZA PAY: вставить ID ролика вместо VIDEO_ID и раскомментировать
+        <figure class="case__video">
+          <div class="video-frame">
+            <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="AZA Pay — разбор продукта" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p class="video-print">Видео о AZA Pay — https://youtu.be/VIDEO_ID</p>
+        </figure>
+-->
+
+        <div class="case__why">
+          <p class="case__label">Почему это важно для вашего проекта</p>
+          <p>Android-приложение вашей платформы строится ровно на этом подходе — Capacitor поверх общей веб-кодовой базы. Мы уже собирали и выпускали таким способом финансовое приложение, где на кону банковские карты пользователей.</p>
+        </div>
+      </article>
+
+      <!-- PEAKPROMO -->
+      <article class="case">
+        <div class="case__head">
+          <div class="case__id">
+            <span class="case__n">05</span>
             <div>
               <h3 class="case__name">PeakPromo</h3>
               <p class="case__type">Маркетплейс creator economy с оплатой за результат</p>
@@ -465,7 +523,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
       <article class="case">
         <div class="case__head">
           <div class="case__id">
-            <span class="case__n">05</span>
+            <span class="case__n">06</span>
             <div>
               <h3 class="case__name">Axiome Trading Bot</h3>
               <p class="case__type">Автоматизация торговли на децентрализованных биржах</p>
@@ -506,6 +564,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
         <tr><td>Атрибуция и расчёт выплат</td><td>PeakPromo · Farmskins</td></tr>
         <tr><td>Back Office и операции команды</td><td>Unitourn · Travis Run</td></tr>
         <tr><td>Telegram Mini App и бот</td><td>Travis Run · Unitourn</td></tr>
+        <tr><td>Android-приложение на Capacitor</td><td>AZA Pay</td></tr>
         <tr><td>Привлечение трафика</td><td>Богдан — 10 лет в performance</td></tr>
       </tbody>
     </table>
