@@ -129,6 +129,15 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 .team{display:grid;gap:var(--s5);margin-top:var(--s5)}
 .member{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(24px,4vw,52px);padding-top:var(--s5);border-top:1px solid var(--line)}
 .member:first-child{padding-top:0;border-top:0}
+.member__photo{width:100%;max-width:180px;aspect-ratio:1;background:var(--paper);border:1px solid var(--line-strong);border-radius:var(--radius);margin-bottom:var(--s3);display:flex;align-items:center;justify-content:center}
+.member__photo span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--line-strong)}
+.member__link{margin-top:10px;font-size:14.5px}
+.member__cases{list-style:none;margin:var(--s4) 0;padding:0}
+.member__cases li{padding-top:var(--s3);margin-top:var(--s3);border-top:1px solid var(--line)}
+.member__cases li:first-child{margin-top:0}
+.member__cases b{font-size:16.5px;color:var(--ink)}
+.member__cases span{font-size:14px;color:var(--ink-3);margin-left:8px}
+.member__cases p{margin-top:7px;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
 .member__name{font-weight:600;font-size:clamp(20px,2.2vw,23px);line-height:1.2;letter-spacing:-.02em}
 .member__role{margin-top:7px;font-size:16px;color:var(--accent)}
 .member__years{margin-top:var(--s2);font-family:var(--mono);font-size:13px;line-height:1.7;color:var(--ink-3)}
@@ -262,8 +271,6 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
   <div class="wrap">
     <p class="eyebrow">02 · Кейсы</p>
     <h2 class="heading">Что мы построили и запустили</h2>
-    <p class="lead">По каждому проекту: что это было, какого масштаба достигло, что мы построили и почему этот опыт применим к вашей платформе.</p>
-
     <div class="cases">
 
       <!-- UNITOURN -->
@@ -306,7 +313,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 
         <div class="case__why">
           <p class="case__label">Почему это важно для вашего проекта</p>
-          <p>Цепочка «аккаунт → баланс → пополнение → участие → выигрыш → вывод» — тот же контур, вокруг которого строится казино. Мы уже проводили через него сто тысяч пользователей и реальные деньги. Отличие вашего проекта — деньги приходят в криптовалюте.</p>
+          <p>«Аккаунт → баланс → пополнение → участие → выигрыш → вывод» — тот же контур, что и в казино. Мы провели через него сто тысяч пользователей и реальные деньги.</p>
         </div>
 
         <p class="case__src">Публичные источники: <a href="https://www.comnews.ru/content/213871/2021-03-31/2021-w13/frii-investiruet-platformu-dlya-provedeniya-turnirov-mobilnykh-igrakh" target="_blank" rel="noopener">ComNews</a> · <a href="https://www.cnews.ru/news/line/2021-03-31_frii_investiruet_v_platformu" target="_blank" rel="noopener">CNews</a> · <a href="https://iidf.ru/media/articles/money/" target="_blank" rel="noopener">ФРИИ</a></p>
@@ -320,7 +327,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
             <div>
               <h3 class="case__name">Travis Run</h3>
               <p class="case__type">GameFi в Telegram: игра, токен, фарминг и реферальная система</p>
-              <p class="case__link"><a href="https://t.me/trvsrunbot" target="_blank" rel="noopener">t.me/trvsrunbot</a> — работающий продукт, можно открыть</p>
+              <p class="case__link"><a href="https://t.me/trvsrunbot" target="_blank" rel="noopener">t.me/trvsrunbot</a></p>
             </div>
           </div>
           <span class="case__status">Собственный продукт · 2025–2026</span>
@@ -358,7 +365,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 
         <div class="case__why">
           <p class="case__label">Почему это важно для вашего проекта</p>
-          <p>Здесь блокчейн — не способ оплаты, а часть экономики продукта: игра, внутренняя валюта, токен, кошелёк, фарминг, ликвидность и многоуровневая реферальная программа работают как одна система. Идемпотентность, outbox и аудит действий — ровно те механизмы, которые заложены в финансовое ядро вашей платформы. Мы уже применяем их в продакшене.</p>
+          <p>Блокчейн здесь — не способ оплаты, а часть экономики продукта: игра, внутренняя валюта, токен, кошелёк, фарминг и многоуровневая рефералка работают как одна система. Идемпотентность, outbox и аудит операций — те же механизмы, что заложены в финансовое ядро вашей платформы.</p>
         </div>
 
         <p class="case__src">Публичные источники: <a href="https://travisrun.fun/" target="_blank" rel="noopener">travisrun.fun</a> · <a href="https://axiome.pro/" target="_blank" rel="noopener">axiome.pro</a> · <a href="https://t.me/trvsrunbot" target="_blank" rel="noopener">игра в Telegram</a></p>
@@ -405,15 +412,14 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
             <iframe src="https://www.youtube-nocookie.com/embed/-teX2M-UlRo" title="Богдан Клягин о CPA-модели и партнёрской инфраструктуре" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <p class="video-print">Видео о CPA-модели и партнёрской инфраструктуре — https://youtu.be/-teX2M-UlRo</p>
-          <figcaption>Богдан разбирает, как устроена CPA-модель и партнёрская инфраструктура — та же логика, что закладывается в партнёрский модуль вашей платформы.</figcaption>
         </figure>
 
         <div class="case__why">
           <p class="case__label">Почему это важно для вашего проекта</p>
-          <p>В вашем проекте партнёрская программа — отдельный модуль с RevShare, CPA и комбинированной моделью, кабинетом партнёра, атрибуцией и выплатами через общий финансовый контур. Мы уже проектировали и запускали такую систему для клиента из gaming-индустрии, где партнёрский трафик — основной канал привлечения.</p>
+          <p>Партнёрский модуль вашей платформы — это RevShare, CPA, кабинет партнёра, атрибуция и выплаты. Мы уже строили такую систему для gaming-клиента, где партнёрский трафик — основной канал привлечения.</p>
         </div>
 
-        <p class="case__src">Публичные источники: <a href="https://farmskins.com/" target="_blank" rel="noopener">farmskins.com</a> · <a href="https://farmskins-aff.com/" target="_blank" rel="noopener">farmskins-aff.com</a></p>
+        <p class="case__src">Публичный источник: <a href="https://farmskins.com/" target="_blank" rel="noopener">farmskins.com</a></p>
       </article>
 
       <!-- PEAKPROMO -->
@@ -453,10 +459,6 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
           </div>
         </div>
 
-        <div class="case__why">
-          <p class="case__label">Почему это важно для вашего проекта</p>
-          <p>Цепочка «кампания → атрибуция → измеримый результат → расчёт → выплата» — это и есть механика партнёрской программы, только в другой отрасли. Маркетплейс, где деньги распределяются между тысячами участников по измеряемым метрикам, ближе к affiliate-модулю казино, чем обычная веб-разработка.</p>
-        </div>
       </article>
 
       <!-- AXIOME BOT -->
@@ -475,11 +477,11 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
         <div class="case__body">
           <div>
             <p class="case__label">Что это было</p>
-            <p class="case__text">Собственный продукт для автоматизации торговли на DEX, доведённый до предпродакшн-стадии. Коммерческого запуска не было — указываем прямо: у продукта нет ни пользователей, ни оборота.</p>
+            <p class="case__text">Собственный продукт для автоматизации торговли на DEX, доведённый до предпродакшн-стадии. Коммерческого запуска не было: у продукта нет ни пользователей, ни оборота.</p>
           </div>
           <div>
             <p class="case__label">Почему кейс здесь</p>
-            <p class="case__text">Работа дала практический опыт с механикой децентрализованной торговли: жизненный цикл транзакции, взаимодействие с сетью, подпись операций и обработка сбоев. Тот же класс задач, что и вывод средств из кошелька платформы.</p>
+            <p class="case__text">Практический опыт с механикой децентрализованной торговли: жизненный цикл транзакции, взаимодействие с сетью, подпись операций и обработка сбоев. Тот же класс задач, что вывод средств из кошелька платформы.</p>
           </div>
         </div>
       </article>
@@ -492,26 +494,19 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 <section class="section">
   <div class="wrap">
     <p class="eyebrow">03 · Соответствие проекту</p>
-    <h2 class="heading">Что требует ваш проект — и где мы это уже делали</h2>
-    <p class="lead">Каждый элемент вашей платформы уже был частью одного из наших продуктов. Отличие проекта — все они впервые собираются в одной системе.</p>
+    <h2 class="heading">Что требует проект — и где это у нас было</h2>
 
     <table class="map">
-      <thead><tr><th>Требование вашего проекта</th><th>Где у нас это уже было</th></tr></thead>
       <tbody>
-        <tr><td>Игровой продукт с большой аудиторией</td><td>Unitourn · Travis Run</td></tr>
-        <tr><td>Аккаунты игроков и внутренние балансы</td><td>Unitourn · Travis Run</td></tr>
-        <tr><td>Пополнения и выводы реальных денег</td><td>Unitourn</td></tr>
-        <tr><td>Блокчейн и работа с криптоактивами</td><td>Travis Run · Axiome Trading Bot</td></tr>
-        <tr><td>Внутренняя экономика и токен</td><td>Travis Run</td></tr>
-        <tr><td>Смарт-контракты и фарминг</td><td>Travis Run</td></tr>
-        <tr><td>Идемпотентность и аудит финансовых операций</td><td>Travis Run</td></tr>
-        <tr><td>Партнёрская программа: CPA и Revenue Share</td><td>Farmskins</td></tr>
-        <tr><td>Многоуровневая реферальная механика</td><td>Travis Run</td></tr>
-        <tr><td>Атрибуция и расчёт вознаграждений</td><td>PeakPromo · Farmskins</td></tr>
-        <tr><td>Back Office и операции команды</td><td>Unitourn · Travis Run · Farmskins</td></tr>
+        <tr><td>Аккаунты, балансы, пополнения и выводы</td><td>Unitourn · Travis Run</td></tr>
+        <tr><td>Блокчейн, токен и криптокошелёк</td><td>Travis Run</td></tr>
+        <tr><td>Идемпотентность и аудит операций</td><td>Travis Run</td></tr>
+        <tr><td>Партнёрская программа: CPA и RevShare</td><td>Farmskins</td></tr>
+        <tr><td>Многоуровневые реферальные начисления</td><td>Travis Run</td></tr>
+        <tr><td>Атрибуция и расчёт выплат</td><td>PeakPromo · Farmskins</td></tr>
+        <tr><td>Back Office и операции команды</td><td>Unitourn · Travis Run</td></tr>
         <tr><td>Telegram Mini App и бот</td><td>Travis Run · Unitourn</td></tr>
-        <tr><td>Привлечение трафика и performance-маркетинг</td><td>10 лет опыта Богдана</td></tr>
-        <tr><td>Запуск продукта и выход на рынок</td><td>Unitourn · PeakPromo · Travis Run</td></tr>
+        <tr><td>Привлечение трафика</td><td>Богдан — 10 лет в performance</td></tr>
       </tbody>
     </table>
   </div>
@@ -527,6 +522,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 
       <div class="member">
         <div>
+          <div class="member__photo" aria-hidden="true"><span>фото</span></div>
           <p class="member__name">Богдан Клягин</p>
           <p class="member__role">Product &amp; Project Lead</p>
           <p class="member__years">8 лет — предпринимательство<br>8 лет — IT и технологические продукты<br>10 лет — digital и performance-маркетинг</p>
@@ -547,12 +543,41 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 
       <div class="member">
         <div>
+          <div class="member__photo" aria-hidden="true"><span>фото</span></div>
           <p class="member__name">Алексей Мирошниченко</p>
           <p class="member__role">Technical Lead / Solution Architect</p>
-          <p class="member__years">7 лет коммерческой разработки</p>
+          <p class="member__years">7 лет коммерческой разработки<br>из них 2 года — ведущим разработчиком</p>
+          <p class="member__link"><a href="https://github.com/q133ss" target="_blank" rel="noopener">github.com/q133ss</a></p>
+          <ul class="member__tags">
+            <li>PHP / Laravel</li>
+            <li>Python / FastAPI</li>
+            <li>PostgreSQL</li>
+            <li>Redis</li>
+            <li>RabbitMQ</li>
+            <li>Docker</li>
+            <li>Nginx</li>
+            <li>TypeScript</li>
+            <li>Vue · Angular</li>
+          </ul>
         </div>
         <div>
-          <p class="copy">Технический руководитель команды. Отвечает за архитектуру решения и ключевые технические решения — изоляцию финансового ядра, модель хранения криптоактивов, разграничение доступа.</p>
+          <p class="copy"><b>Компетенции:</b> backend-архитектура и проектирование БД с нуля, дизайн API; high-load — очереди, фоновые задачи, кеширование, отказоустойчивость; безопасность и аудит — ЭЦП, RBAC, журналирование действий пользователей; DevOps — CI/CD, мониторинг, бэкапы.</p>
+
+          <ul class="member__cases">
+            <li>
+              <b>Travis Run</b> <span>ведущий разработчик</span>
+              <p>Ускорил реферальный воркер с 5 300 до 25 000 начислений в час, поиск в админ-лидерборде — с 30 секунд до 200 мс на базе 100+ ГБ. В аудите безопасности нашёл и закрыл риск двойной выплаты при выводе TRVS и разобрал бэклог из 2 млн зависших начислений. Спроектировал 15-уровневую реферальную систему, анти-чит на анализе забегов и партнёрское API для встраивания игры на внешние сайты.</p>
+            </li>
+            <li>
+              <b>ГИС «ТР Архив»</b> <span>backend-разработчик</span>
+              <p>Государственная система хранения архивных данных: Laravel и PostgreSQL, 100+ таблиц. Электронная подпись документов на КриптоПро, RBAC-модель доступа под регламенты, журналирование и аудит действий пользователей, интеграции с госсервисами через защищённые каналы.</p>
+            </li>
+            <li>
+              <b>Автобронирование поставок WB / Ozon</b> <span>архитектор и ведущий разработчик</span>
+              <p>Распределённая система браузерной автоматизации на Playwright: на пике 500 кабинетов селлеров и 4 млн запросов в сутки без участия человека — с ротацией прокси, ретраями и ограничением частоты запросов.</p>
+            </li>
+          </ul>
+
           <p class="copy"><b>На проекте:</b> архитектура сервисов, backend, решения по безопасности и надёжности, код-ревью, инженерные стандарты и техническая координация.</p>
         </div>
       </div>
