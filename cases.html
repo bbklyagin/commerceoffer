@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Богдан Клягин и команда — кейсы и экспертиза</title>
+<meta name="description" content="Продуктовая инженерная команда: gaming-платформа с балансами и выплатами, GameFi с собственным токеном, партнёрская CPA-инфраструктура, creator-маркетплейс с атрибуцией и выплатами.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ===== единая дизайн-система документов проекта ===== */
+:root{
+  --paper:#F5F4EF;
+  --paper-2:#ECEBE4;
+  --surface:#FFFFFF;
+  --ink:#12171B;
+  --ink-2:#3B454D;
+  --ink-3:#6B757E;
+  --line:#E1E0D8;
+  --line-strong:#C4C6BD;
+  --accent:#14505F;
+  --accent-ink:#0B3B47;
+  --accent-soft:#E3EDF0;
+  --dark:#080A0C;
+  --dark-2:#101417;
+  --dark-line:#20262A;
+  --dark-ink:#F3F2ED;
+  --dark-muted:#A6AFB6;
+  --accent-light:#7FB6C4;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px;
+  --container:1080px;
+  --gutter:32px;
+  --radius:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-soft)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.num{font-variant-numeric:tabular-nums}
+
+.section{padding-block:clamp(64px,8vw,104px)}
+.section--surface{background:var(--paper-2)}
+.section--dark{background:var(--dark);color:var(--dark-ink)}
+.eyebrow{font-size:13.5px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
+.heading{font-weight:600;font-size:clamp(28px,3.6vw,40px);line-height:1.1;letter-spacing:-.025em;max-width:22ch}
+.lead{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:56ch}
+.copy{font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:64ch}
+.copy + .copy{margin-top:.9em}
+.heading + .lead{margin-top:var(--s3)}
+.heading + .copy,.lead + .copy{margin-top:var(--s3)}
+
+/* ---------- обложка ---------- */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(56px,8vw,92px)}
+.head__grid{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:clamp(32px,5vw,64px);align-items:center}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);margin-bottom:20px}
+.head__title{font-weight:700;font-size:clamp(34px,5.2vw,58px);line-height:1.02;letter-spacing:-.035em}
+.head__lead{font-family:var(--serif);font-size:clamp(17px,1.9vw,20px);line-height:1.5;color:#C9D0D5;max-width:48ch;margin-top:clamp(20px,2.6vw,28px)}
+.head__kpis{display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,30px) clamp(32px,4.5vw,54px);margin-top:clamp(30px,4vw,42px);padding-top:var(--s3);border-top:1px solid var(--dark-line)}
+.head__kpis b{display:block;font-weight:600;font-size:clamp(24px,2.9vw,34px);letter-spacing:-.03em;line-height:1;color:var(--dark-ink);font-variant-numeric:tabular-nums}
+.head__kpis span{display:block;margin-top:8px;font-size:14px;line-height:1.4;color:var(--dark-muted);max-width:22ch}
+.head__visual{margin:0}
+.head__visual svg{width:100%;height:auto;display:block}
+.hs-line{fill:none;stroke:var(--accent-light);stroke-opacity:.4;stroke-width:1}
+.hs-dot{fill:var(--accent-light)}
+.hs-core{fill:#14505F}
+.hs-core-ring{fill:none;stroke:var(--accent-light);stroke-opacity:.45;stroke-width:1}
+.hs-label{font-family:var(--sans);font-size:13px;font-weight:500;fill:#D4D9DC}
+.hs-core-text{font-family:var(--sans);font-size:14px;font-weight:600;fill:#F3F2ED;text-anchor:middle}
+
+/* ---------- позиция ---------- */
+.pos{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(32px,5vw,64px);align-items:start}
+.pos__points{display:grid;gap:var(--s4);margin-top:var(--s5)}
+.pos__point{display:grid;grid-template-columns:36px 1fr;gap:var(--s3)}
+.pos__point i{font-style:normal;font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:5px}
+.pos__point h3{font-weight:600;font-size:18px;line-height:1.3;letter-spacing:-.01em;margin-bottom:6px}
+.pos__point p{font-size:16px;line-height:1.55;color:var(--ink-2);max-width:56ch}
+
+/* ---------- кейсы ---------- */
+.cases{display:grid;gap:0}
+.case{padding-block:clamp(44px,5.5vw,64px);border-top:1px solid var(--line-strong)}
+.case:first-child{border-top:0;padding-top:var(--s5)}
+.case__head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
+.case__id{display:flex;align-items:baseline;gap:var(--s3)}
+.case__n{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.04em}
+.case__name{font-weight:600;font-size:clamp(24px,2.9vw,32px);line-height:1.1;letter-spacing:-.028em}
+.case__type{font-size:16px;color:var(--ink-3);margin-top:6px}
+.case__status{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line-strong);border-radius:4px;padding:5px 10px;white-space:nowrap}
+.case__metrics{list-style:none;margin:var(--s4) 0 0;padding:var(--s3) 0;display:flex;flex-wrap:wrap;gap:var(--s3) clamp(28px,4vw,52px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.case__metrics b{display:block;font-weight:600;font-size:clamp(20px,2.3vw,26px);letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
+.case__metrics span{display:block;margin-top:7px;font-size:13.5px;line-height:1.4;color:var(--ink-3);max-width:24ch}
+.case__body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,56px);margin-top:var(--s5)}
+.case__label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:var(--s2)}
+.case__text{font-size:16.5px;line-height:1.6;color:var(--ink-2)}
+.case__text + .case__text{margin-top:.9em}
+.case__list{list-style:none;margin:0;padding:0}
+.case__list li{position:relative;padding-left:20px;margin-bottom:10px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.case__list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--accent)}
+.case__list b{color:var(--ink)}
+.case__stack{margin-top:var(--s3);font-size:14.5px;line-height:1.5;color:var(--ink-3)}
+.case__stack b{color:var(--ink-2);font-weight:500}
+.case__why{margin-top:var(--s5);background:var(--surface);border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:var(--radius);padding:clamp(20px,2.4vw,28px) clamp(22px,2.8vw,32px)}
+.case__why .case__label{color:var(--accent)}
+.case__why p{font-size:16.5px;line-height:1.6;color:var(--ink);max-width:80ch}
+.case__src{margin-top:var(--s3);font-size:13.5px;line-height:1.6;color:var(--ink-3)}
+.case__src a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.case__src a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+
+/* видео */
+.case__video{margin:var(--s5) 0 0}
+.video-frame{position:relative;aspect-ratio:16/9;background:var(--dark-2);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line-strong)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.case__video figcaption{margin-top:var(--s2);font-size:14.5px;line-height:1.5;color:var(--ink-3);max-width:64ch}
+.video-print{display:none}
+
+/* ---------- карта соответствия ---------- */
+.map{width:100%;border-collapse:collapse;margin-top:var(--s5);font-size:16px}
+.map th{text-align:left;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.map td{padding:13px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.45}
+.map td:first-child{width:46%;padding-right:28px;color:var(--ink);font-weight:500}
+.map td:last-child{color:var(--accent-ink)}
+
+/* ---------- команда ---------- */
+.team{display:grid;gap:var(--s5);margin-top:var(--s5)}
+.member{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);padding-top:var(--s5);border-top:1px solid var(--line)}
+.member:first-child{padding-top:0;border-top:0}
+.member__name{font-weight:600;font-size:clamp(20px,2.2vw,24px);line-height:1.2;letter-spacing:-.02em}
+.member__role{margin-top:8px;font-size:16px;color:var(--accent)}
+.member__years{margin-top:var(--s2);font-family:var(--mono);font-size:13px;line-height:1.7;color:var(--ink-3)}
+.member__tags{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:var(--s3) 0 0;padding:0}
+.member__tags li{padding:5px 11px;border:1px solid var(--line-strong);border-radius:999px;font-size:13.5px;color:var(--ink-2)}
+.is-tbd{color:var(--ink-3)}
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4) var(--s5);margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--line)}
+.roles h4{font-weight:600;font-size:17px;line-height:1.3}
+.roles .who{font-size:14px;color:var(--ink-3);margin-top:4px}
+.roles p{margin-top:var(--s2);font-size:15px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- как работаем ---------- */
+.how{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5) var(--s6);margin-top:var(--s5)}
+.how h3{font-weight:600;font-size:18px;line-height:1.3;margin-bottom:8px}
+.how p{font-size:16px;line-height:1.55;color:var(--ink-2);max-width:44ch}
+
+/* ---------- финал ---------- */
+.end__lead{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);line-height:1.28;letter-spacing:-.01em;color:var(--dark-ink);max-width:22ch}
+.end__list{list-style:none;margin:var(--s5) 0 0;padding:0;max-width:52ch}
+.end__list li{padding:11px 0;border-top:1px solid var(--dark-line);font-size:16.5px;color:var(--dark-muted)}
+.end__final{margin-top:var(--s5);font-size:19px;font-weight:500;color:var(--dark-ink)}
+.end__back{margin-top:var(--s6);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:15px}
+.end__back a{color:var(--accent-light)}
+
+@media (max-width:900px){
+  .head__grid,.pos,.case__body,.member{grid-template-columns:1fr;gap:var(--s4)}
+  .head__visual{display:none}
+  .roles,.how{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  :root{--gutter:20px}
+  .roles,.how{grid-template-columns:1fr}
+  .case__head{flex-direction:column;align-items:flex-start;gap:var(--s2)}
+  .map td:first-child{width:auto}
+  .map,.map tbody,.map tr,.map td{display:block;width:auto}
+  .map thead{display:none}
+  .map tr{border-top:1px solid var(--line);padding:14px 0}
+  .map td{border:0;padding:2px 0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@page{size:A4;margin:15mm 14mm}
+@page :first{margin:0}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;font-size:10pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding-inline:0}
+  .section{padding-block:20px}
+  .head{padding:26mm 18mm 22mm;break-after:page;page-break-after:always}
+  .head__visual{display:block}
+  .head__title{font-size:30pt}
+  .head__lead{font-size:12pt}
+  .case{break-inside:avoid;page-break-inside:avoid;padding-block:16px}
+  .case__name{font-size:15pt}
+  .case__text,.case__list li,.case__why p{font-size:9.5pt}
+  .video-frame{display:none}
+  .video-print{display:block;font-size:9.5pt;color:var(--ink-2)}
+  .map{font-size:9pt}
+  .map tr{break-inside:avoid;page-break-inside:avoid}
+  .member,.roles,.how,.end__list{break-inside:avoid;page-break-inside:avoid}
+  .end__back{display:none}
+  a{color:inherit}
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap head__grid">
+    <div>
+      <p class="head__eyebrow">Богдан Клягин и команда · Product Engineering</p>
+      <h1 class="head__title">Мы уже строили каждую часть этого продукта</h1>
+      <p class="head__lead">Крипто-казино — это gaming, внутренние балансы и выплаты, блокчейн, партнёрская программа и привлечение трафика. В каждой из этих областей у нас есть запущенный продукт — сделанный как основателями, а не как подрядчиками.</p>
+
+      <div class="head__kpis">
+        <div><b class="num">120K</b><span>пользователей в gaming-платформе с балансами и выплатами</span></div>
+        <div><b class="num">35K+</b><span>игроков в GameFi-продукте с собственным токеном</span></div>
+        <div><b>CPA · RevShare</b><span>партнёрская инфраструктура для gaming-клиента</span></div>
+        <div><b class="num">10 лет</b><span>в performance-маркетинге и привлечении трафика</span></div>
+      </div>
+    </div>
+
+    <figure class="head__visual">
+      <svg viewBox="0 0 430 340" role="img" aria-label="Пять областей — gaming, балансы и выплаты, блокчейн и токен, партнёрская программа, трафик — сходятся в проекте крипто-казино">
+        <line x1="176" y1="46"  x2="262" y2="164" class="hs-line"/>
+        <line x1="176" y1="107" x2="262" y2="166" class="hs-line"/>
+        <line x1="176" y1="168" x2="262" y2="168" class="hs-line"/>
+        <line x1="176" y1="229" x2="262" y2="170" class="hs-line"/>
+        <line x1="176" y1="290" x2="262" y2="172" class="hs-line"/>
+
+        <circle cx="170" cy="46"  r="4" class="hs-dot"/>
+        <circle cx="170" cy="107" r="4" class="hs-dot"/>
+        <circle cx="170" cy="168" r="4" class="hs-dot"/>
+        <circle cx="170" cy="229" r="4" class="hs-dot"/>
+        <circle cx="170" cy="290" r="4" class="hs-dot"/>
+
+        <text x="152" y="51"  class="hs-label" text-anchor="end">Gaming-продукт</text>
+        <text x="152" y="112" class="hs-label" text-anchor="end">Балансы и выплаты</text>
+        <text x="152" y="173" class="hs-label" text-anchor="end">Блокчейн и токен</text>
+        <text x="152" y="234" class="hs-label" text-anchor="end">Партнёрская программа</text>
+        <text x="152" y="295" class="hs-label" text-anchor="end">Привлечение трафика</text>
+
+        <circle cx="320" cy="168" r="70" class="hs-core-ring"/>
+        <circle cx="320" cy="168" r="58" class="hs-core"/>
+        <text x="320" y="164" class="hs-core-text">Крипто-</text>
+        <text x="320" y="182" class="hs-core-text">казино</text>
+      </svg>
+    </figure>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== 01 · КТО МЫ ===== -->
+<section class="section">
+  <div class="wrap pos">
+    <div>
+      <p class="eyebrow">01 · Кто мы</p>
+      <h2 class="heading">Продуктовая команда, а не студия разработки</h2>
+    </div>
+    <div>
+      <p class="copy">Команда выросла вокруг собственных технологических продуктов. Основной фокус — свои проекты и ограниченное число внешних, которые совпадают с нашей экспертизой. Мы не берём поток заказов и не масштабируем разработку количеством случайных специалистов.</p>
+      <p class="copy">Для вас это означает три конкретные вещи.</p>
+
+      <div class="pos__points">
+        <div class="pos__point">
+          <i>01</i>
+          <div>
+            <h3>Мы уже проходили путь после релиза</h3>
+            <p>Мы запускали продукты, в которых были реальные пользователи, реальные деньги и реальные партнёры. Поэтому смотрим на разработку с двух сторон одновременно: как построить надёжную систему и как она потом привлекает аудиторию, монетизируется и масштабируется.</p>
+          </div>
+        </div>
+        <div class="pos__point">
+          <i>02</i>
+          <div>
+            <h3>Проект не передаётся другой команде</h3>
+            <p>Люди, с которыми вы знакомитесь до старта, остаются на проекте до запуска. Между вами и теми, кто принимает технические решения, нет слоя аккаунт-менеджеров.</p>
+          </div>
+        </div>
+        <div class="pos__point">
+          <i>03</i>
+          <div>
+            <h3>Это не первый заход в незнакомую отрасль</h3>
+            <p>Мы не заявляем, что сделали десятки одинаковых казино. Наше преимущество в другом: мы строили продукты в каждой предметной области, из которых состоит этот проект.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 · КЕЙСЫ ===== -->
+<section class="section section--surface">
+  <div class="wrap">
+    <p class="eyebrow">02 · Кейсы</p>
+    <h2 class="heading">Что мы построили и запустили</h2>
+    <p class="lead">По каждому проекту: что это было, какого масштаба достигло, какие системы мы спроектировали и почему этот опыт применим к вашей платформе.</p>
+
+    <div class="cases">
+
+      <!-- UNITOURN -->
+      <article class="case">
+        <div class="case__head">
+          <div class="case__id">
+            <span class="case__n">01</span>
+            <div>
+              <h3 class="case__name">Unitourn</h3>
+              <p class="case__type">Платформа киберспортивных турниров с денежными призами</p>
+            </div>
+          </div>
+          <span class="case__status">Собственный продукт · 2020–2022</span>
+        </div>
+
+        <ul class="case__metrics">
+          <li><b class="num">120K</b><span>пользователей на пике</span></li>
+          <li><b>ФРИИ</b><span>инвестиция фонда, март 2021</span></li>
+          <li><b class="num">~$2M</b><span>оценка на инвестиционном раунде</span></li>
+          <li><b>СНГ → Европа</b><span>подготовка международного запуска</span></li>
+        </ul>
+
+        <div class="case__body">
+          <div>
+            <p class="case__label">Что это было</p>
+            <p class="case__text">Платформа онлайн-турниров по мобильным киберспортивным играм — PUBG Mobile, Call of Duty Mobile, Free Fire. Игрок регистрировался, пополнял внутренний баланс, участвовал в турнирах и получал денежные призы.</p>
+            <p class="case__text">ФРИИ описывал Unitourn как одну из первых платформ на российском рынке мобильного гейминга с возможностью денежного выигрыша. Инвестиция предназначалась для развития продукта и продвижения в Европе.</p>
+            <p class="case__text">120 000 пользователей на пике — данные команды. В публичных материалах более раннего этапа, когда продукт ещё активно рос, задокументировано 110 000 зарегистрированных пользователей.</p>
+          </div>
+          <div>
+            <p class="case__label">Что мы построили</p>
+            <ul class="case__list">
+              <li><b>Пользовательский сайт</b> — регистрация, автоматическое пополнение баланса, вывод средств, участие в турнирах и результаты</li>
+              <li><b>Собственный Back Office</b> — создание турниров, управление результатами, администрирование платформы</li>
+              <li><b>Telegram-бот</b> — уведомления и данные об участии для зарегистрированных игроков</li>
+              <li><b>Финансовый контур</b> — внутренние балансы, пополнения, призовые начисления и выводы реальных денег</li>
+            </ul>
+            <p class="case__stack"><b>Стек на том этапе:</b> Vue 2, Laravel 5.8, MySQL, Redis, laravel-echo для realtime-событий.</p>
+          </div>
+        </div>
+
+        <div class="case__why">
+          <p class="case__label">Почему это важно для вашего проекта</p>
+          <p>Цепочка «аккаунт → баланс → пополнение → участие → выигрыш → вывод» — это ровно тот контур, вокруг которого строится казино. Мы уже проводили через него сто тысяч пользователей и реальные деньги, вместе с админкой для операций команды и Telegram-каналом для игроков. Отличие вашего проекта — в том, что деньги приходят в криптовалюте, а не в фиате.</p>
+        </div>
+
+        <p class="case__src">Публичные источники: <a href="https://www.comnews.ru/content/213871/2021-03-31/2021-w13/frii-investiruet-platformu-dlya-provedeniya-turnirov-mobilnykh-igrakh" target="_blank" rel="noopener">ComNews</a> · <a href="https://www.cnews.ru/news/line/2021-03-31_frii_investiruet_v_platformu" target="_blank" rel="noopener">CNews</a> · <a href="https://iidf.ru/media/articles/money/" target="_blank" rel="noopener">ФРИИ</a> — сообщения об инвестиции; архивная страница компании с описанием архитектуры, стека и 110K пользователей.</p>
+      </article>
+
+      <!-- TRAVIS RUN -->
+      <article class="case">
+        <div class="case__head">
+          <div class="case__id">
+            <span class="case__n">02</span>
+            <div>
+              <h3 class="case__name">Travis Run</h3>
+              <p class="case__type">GameFi в Telegram: игра, токен, фарминг и реферальная система</p>
+            </div>
+          </div>
+          <span class="case__status">Собственный продукт · 2025–2026</span>
+        </div>
+
+        <ul class="case__metrics">
+          <li><b class="num">35K+</b><span>игроков</span></li>
+          <li><b class="num">3 000</b><span>игроков за первые три дня</span></li>
+          <li><b class="num">15</b><span>уровней в реферальной системе</span></li>
+          <li><b class="num">100M</b><span>эмиссия токена TRVS</span></li>
+        </ul>
+
+        <div class="case__body">
+          <div>
+            <p class="case__label">Что это было</p>
+            <p class="case__text">Аркадная игра внутри Telegram Mini App, интегрированная с экосистемой Axiome, — первый GameFi-проект этой экосистемы. Игрок проходит забеги, собирает внутреннюю валюту GEM, выполняет миссии, участвует в глобальном рейтинге и получает вознаграждение в токене TRVS.</p>
+            <p class="case__text">Публичные вехи из официальных каналов Axiome: 1 000+ игроков вскоре после запуска, 3 000 за первые три дня, позже 35 000+. Axiome сообщал, что 3 000+ пользователей пришли в экосистему именно через Travis Run.</p>
+          </div>
+          <div>
+            <p class="case__label">Что мы построили</p>
+            <ul class="case__list">
+              <li><b>Игровой продукт в Telegram Mini App</b> — игровая логика, система GEM, миссии, ежедневные награды, глобальный лидерборд</li>
+              <li><b>Токен TRVS</b> — эмиссия 100 000 000 с распределением между игровыми наградами, фармингом, командой, маркетингом и ликвидностью</li>
+              <li><b>Фарминг</b> — стейкинг TRVS с гибкой суммой и сроком; первый проект с фармингом токена экосистемы прямо в Axiome Wallet</li>
+              <li><b>Ликвидность и торговля</b> — листинг пары TRVS/AXM со стартовым пулом 2 000 000 TRVS и 2 000 000 AXM</li>
+              <li><b>15-уровневая реферальная система</b> — начисления привязаны к активности приглашённых игроков</li>
+              <li><b>Интеграции</b> — Axiome Wallet и Axiome Swap</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case__why">
+          <p class="case__label">Почему это важно для вашего проекта</p>
+          <p>Здесь блокчейн — не способ оплаты, а часть экономики продукта: игра, внутренняя валюта, токен, кошелёк, фарминг, ликвидность и многоуровневая реферальная программа работают как одна система. Ваша платформа требует того же сочетания — криптодепозиты и выводы, внутренние балансы, Telegram Mini App и партнёрские начисления в едином финансовом контуре. Пятнадцатиуровневая реферальная механика по сложности расчётов сопоставима с affiliate-модулем казино.</p>
+        </div>
+
+        <p class="case__src">Публичные источники: <a href="https://travisrun.fun/" target="_blank" rel="noopener">travisrun.fun</a> · <a href="https://axiome.pro/" target="_blank" rel="noopener">axiome.pro</a> · официальные каналы Axiome с анонсами запуска, токеномики, листинга, фарминга и вех по числу игроков · <a href="https://t.me/trvsrunbot" target="_blank" rel="noopener">игра в Telegram</a>.</p>
+      </article>
+
+      <!-- FARMSKINS -->
+      <article class="case">
+        <div class="case__head">
+          <div class="case__id">
+            <span class="case__n">03</span>
+            <div>
+              <h3 class="case__name">Farmskins</h3>
+              <p class="case__type">Партнёрская CPA-инфраструктура для gaming-платформы</p>
+            </div>
+          </div>
+          <span class="case__status">Коммерческий проект</span>
+        </div>
+
+        <ul class="case__metrics">
+          <li><b>CPA</b><span>фиксированная выплата за приведённого игрока</span></li>
+          <li><b>Revenue Share</b><span>процент от дохода с приведённых игроков</span></li>
+          <li><b>CS2 / CS:GO</b><span>gaming-платформа, работает с 2016 года</span></li>
+        </ul>
+
+        <div class="case__body">
+          <div>
+            <p class="case__label">Что это было</p>
+            <p class="case__text">Farmskins — платформа открытия кейсов CS2 / CS:GO с большой игровой аудиторией. Мы спроектировали и разработали для неё партнёрскую инфраструктуру — систему, через которую платформа привлекает партнёров и монетизирует приводимый ими трафик.</p>
+            <p class="case__text">Публичная партнёрская программа Farmskins работает по двум моделям: Revenue Share и CPA. Это те же модели, которые заложены в ваш проект.</p>
+          </div>
+          <div>
+            <p class="case__label">Что мы построили</p>
+            <ul class="case__list">
+              <li><b>Управление партнёрами</b> — регистрация, кабинеты, условия работы</li>
+              <li><b>Трекинг и атрибуция</b> — реферальные ссылки и закрепление приведённого игрока за партнёром</li>
+              <li><b>Аналитика эффективности</b> — статистика по трафику, конверсиям и результату</li>
+              <li><b>Партнёрская экономика</b> — расчёт вознаграждения по моделям CPA и Revenue Share, балансы и выплаты</li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="case__video">
+          <div class="video-frame">
+            <iframe src="https://www.youtube-nocookie.com/embed/-teX2M-UlRo" title="Богдан Клягин о CPA-модели и партнёрской инфраструктуре" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p class="video-print">Видео: разбор CPA-модели и партнёрской инфраструктуры — https://youtu.be/-teX2M-UlRo</p>
+          <figcaption>Богдан показывает и разбирает, как устроена CPA-модель и партнёрская инфраструктура — та же логика, что закладывается в партнёрский модуль вашей платформы.</figcaption>
+        </figure>
+
+        <div class="case__why">
+          <p class="case__label">Почему это важно для вашего проекта</p>
+          <p>В вашем проекте партнёрская программа — отдельный модуль с RevShare, CPA и комбинированной моделью, кабинетом партнёра, атрибуцией и выплатами через общий финансовый контур. Для нас это не теория: мы уже проектировали и запускали такую систему для клиента из gaming-индустрии, где партнёрский трафик — основной канал привлечения.</p>
+        </div>
+
+        <p class="case__src">Публичные источники: <a href="https://farmskins.com/" target="_blank" rel="noopener">farmskins.com</a> · <a href="https://farmskins-aff.com/" target="_blank" rel="noopener">farmskins-aff.com</a> — действующая партнёрская программа с моделями RS и CPA.</p>
+      </article>
+
+      <!-- PEAKPROMO -->
+      <article class="case">
+        <div class="case__head">
+          <div class="case__id">
+            <span class="case__n">04</span>
+            <div>
+              <h3 class="case__name">PeakPromo</h3>
+              <p class="case__type">Маркетплейс creator economy с оплатой за результат</p>
+            </div>
+          </div>
+          <span class="case__status">Собственный продукт · 2021–2022</span>
+        </div>
+
+        <ul class="case__metrics">
+          <li><b class="num">15 000</b><span>активных креаторов</span></li>
+          <li><b>CPM</b><span>оплата за тысячу просмотров</span></li>
+          <li><b>NILETTO</b><span>среди артистов, работавших с платформой</span></li>
+          <li><b>МТС</b><span>инвестиционный процесс на продвинутой стадии</span></li>
+        </ul>
+
+        <div class="case__body">
+          <div>
+            <p class="case__label">Что это было</p>
+            <p class="case__text">Платформа, соединявшая музыкальные кампании с TikTok-креаторами — задолго до того, как UGC-модель стала массовой. Артист запускал кампанию, креатор выбирал трек и публиковал нативный контент, платформа считала просмотры и рассчитывала вознаграждение по модели CPM.</p>
+            <p class="case__text">Продукт закрыт в 2022 году: ограничения работы TikTok в России изменили рынок, на котором держалась модель дистрибуции.</p>
+          </div>
+          <div>
+            <p class="case__label">Что мы построили</p>
+            <ul class="case__list">
+              <li><b>Двусторонний маркетплейс</b> — кабинеты креаторов и кабинеты рекламодателей</li>
+              <li><b>Кампании</b> — запуск, условия участия, подбор треков</li>
+              <li><b>Трекинг и атрибуция</b> — учёт публикаций и просмотров, привязка результата к конкретному креатору</li>
+              <li><b>Расчёт вознаграждения</b> — модель CPM, балансы участников и выплаты</li>
+              <li><b>Аналитика кампаний</b> — эффективность на стороне артиста и на стороне креатора</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="case__why">
+          <p class="case__label">Почему это важно для вашего проекта</p>
+          <p>Цепочка «кампания → атрибуция → измеримый результат → расчёт → выплата участнику» — это и есть механика партнёрской программы, только в другой отрасли. Двусторонний маркетплейс, где деньги распределяются между тысячами участников по измеряемым метрикам, ближе к affiliate-модулю казино, чем обычная веб-разработка.</p>
+        </div>
+      </article>
+
+      <!-- AXIOME BOT -->
+      <article class="case">
+        <div class="case__head">
+          <div class="case__id">
+            <span class="case__n">05</span>
+            <div>
+              <h3 class="case__name">Axiome Trading Bot</h3>
+              <p class="case__type">Автоматизация торговли на децентрализованных биржах</p>
+            </div>
+          </div>
+          <span class="case__status">Разработан · коммерчески не запускался</span>
+        </div>
+
+        <div class="case__body">
+          <div>
+            <p class="case__label">Что это было</p>
+            <p class="case__text">Собственный продукт для автоматизации торговли на DEX, доведённый до предпродакшн-стадии. Коммерческого запуска не было — мы указываем это прямо, поскольку у продукта нет ни пользователей, ни торгового оборота.</p>
+          </div>
+          <div>
+            <p class="case__label">Почему кейс здесь</p>
+            <p class="case__text">Работа дала команде практический опыт с механикой децентрализованной торговли и блокчейн-интеграциями: жизненный цикл транзакции, взаимодействие с сетью, подпись операций и обработка сбоев. Это тот же класс задач, что и вывод средств из криптокошелька платформы.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 · КАРТА СООТВЕТСТВИЯ ===== -->
+<section class="section">
+  <div class="wrap">
+    <p class="eyebrow">03 · Соответствие проекту</p>
+    <h2 class="heading">Что требует ваш проект — и где мы это уже делали</h2>
+    <p class="lead">Каждый элемент вашей платформы уже был частью одного из наших продуктов. Отличие проекта — в том, что все они впервые собираются в одной системе.</p>
+
+    <table class="map">
+      <thead><tr><th>Требование вашего проекта</th><th>Где у нас это уже было</th></tr></thead>
+      <tbody>
+        <tr><td>Игровой продукт с большой аудиторией</td><td>Unitourn · Travis Run</td></tr>
+        <tr><td>Аккаунты игроков и внутренние балансы</td><td>Unitourn · Travis Run</td></tr>
+        <tr><td>Пополнения и выводы реальных денег</td><td>Unitourn</td></tr>
+        <tr><td>Блокчейн и работа с криптоактивами</td><td>Travis Run · Axiome Trading Bot</td></tr>
+        <tr><td>Внутренняя экономика и токен</td><td>Travis Run</td></tr>
+        <tr><td>Смарт-контракты и фарминг</td><td>Travis Run</td></tr>
+        <tr><td>Интеграция с криптокошельком</td><td>Travis Run</td></tr>
+        <tr><td>Партнёрская программа: CPA и Revenue Share</td><td>Farmskins</td></tr>
+        <tr><td>Многоуровневая реферальная механика</td><td>Travis Run</td></tr>
+        <tr><td>Атрибуция и расчёт вознаграждений</td><td>PeakPromo · Farmskins</td></tr>
+        <tr><td>Back Office и операции команды</td><td>Unitourn · Farmskins</td></tr>
+        <tr><td>Telegram Mini App и бот</td><td>Travis Run · Unitourn</td></tr>
+        <tr><td>Привлечение трафика и performance-маркетинг</td><td>10 лет опыта Богдана</td></tr>
+        <tr><td>Запуск продукта и выход на рынок</td><td>Unitourn · PeakPromo · Travis Run</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 04 · КОМАНДА ===== -->
+<section class="section section--surface">
+  <div class="wrap">
+    <p class="eyebrow">04 · Команда</p>
+    <h2 class="heading">Люди, которые будут делать ваш продукт</h2>
+    <p class="lead">Продуктовая и техническая ответственность остаётся у Product Lead и Technical Lead на всём цикле проекта — от архитектуры до передачи.</p>
+
+    <div class="team">
+
+      <div class="member">
+        <div>
+          <p class="member__name">Богдан Клягин</p>
+          <p class="member__role">Product &amp; Project Lead</p>
+          <p class="member__years">8 лет — предпринимательство<br>8 лет — IT и технологические продукты<br>10 лет — digital и performance-маркетинг</p>
+          <ul class="member__tags">
+            <li>Product Strategy</li>
+            <li>Gaming</li>
+            <li>GameFi / Web3</li>
+            <li>Affiliate / CPA</li>
+            <li>Performance Marketing</li>
+            <li>Монетизация</li>
+            <li>Go-to-Market</li>
+          </ul>
+        </div>
+        <div>
+          <p class="copy">Профессиональный путь начался с digital и performance-маркетинга и постепенно перешёл в проектирование, разработку и запуск собственных IT-продуктов. Благодаря этому Богдан смотрит на разработку одновременно с двух сторон: как построить технологически надёжный продукт и как этот продукт затем должен привлекать пользователей, монетизироваться и масштабироваться.</p>
+          <p class="copy">За последние годы вместе с командой запускал gaming-платформу более чем со ста тысячами пользователей, creator-платформу с пятнадцатью тысячами активных блогеров, GameFi-продукт в экосистеме Axiome и партнёрскую CPA-инфраструктуру для gaming-клиента. Есть практический опыт в привлечении трафика для гемблинг-проектов — приложения, воронки, закупка трафика и связанная маркетинговая инфраструктура.</p>
+          <p class="copy"><b>На проекте отвечает за:</b> продуктовую концепцию, бизнес-логику, коммуникацию с заказчиком, приоритизацию, управление проектом и соответствие технической реализации бизнес-задаче.</p>
+        </div>
+      </div>
+
+      <div class="member">
+        <div>
+          <p class="member__name">Алексей Мирошниченко</p>
+          <p class="member__role">Technical Lead / Solution Architect</p>
+          <p class="member__years">7 лет коммерческой разработки</p>
+        </div>
+        <div>
+          <p class="copy">Технический руководитель команды. Отвечает за архитектуру решения и ключевые технические решения, включая изоляцию финансового ядра, модель хранения криптоактивов и разграничение доступа.</p>
+          <p class="copy"><b>На проекте отвечает за:</b> архитектуру сервисов, backend-разработку, решения по безопасности и надёжности, код-ревью, инженерные стандарты и техническую координацию команды.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="roles">
+      <div>
+        <h4>Backend / Blockchain Engineer</h4>
+        <p class="who is-tbd">Имя и опыт — уточняются</p>
+        <p>Сервисы финансового контура, API, интеграции с блокчейн-сетями, кошельковая инфраструктура и внешние интеграции.</p>
+      </div>
+      <div>
+        <h4>Full-Stack / Frontend Engineer</h4>
+        <p class="who is-tbd">Имя и опыт — уточняются</p>
+        <p>Веб-приложение для игроков, Back Office, Telegram Mini App и интеграция клиентской части с API.</p>
+      </div>
+      <div>
+        <h4>Product Designer</h4>
+        <p class="who is-tbd">Имя и опыт — уточняются</p>
+        <p>UX-архитектура, пользовательские сценарии, интерфейсы игрока и Back Office, дизайн-система.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 · КАК МЫ РАБОТАЕМ ===== -->
+<section class="section">
+  <div class="wrap">
+    <p class="eyebrow">05 · Как мы работаем</p>
+    <h2 class="heading">Сначала бизнес-логика, потом код</h2>
+
+    <div class="how">
+      <div>
+        <h3>Product-first</h3>
+        <p>Сначала фиксируем бизнес-логику, финансовые сценарии и архитектурные границы. Интерфейсы и код — следствие этих решений, а не наоборот.</p>
+      </div>
+      <div>
+        <h3>Прямая коммуникация</h3>
+        <p>Вы общаетесь напрямую с Product Lead и Technical Lead. Между бизнесом и людьми, принимающими ключевые решения, нет промежуточного слоя.</p>
+      </div>
+      <div>
+        <h3>Ответственность ядра команды</h3>
+        <p>Проект не передаётся после подписания договора другой производственной команде. Product Lead и Technical Lead вовлечены весь цикл.</p>
+      </div>
+      <div>
+        <h3>Сдача по этапам</h3>
+        <p>Архитектура → разработка → демонстрация → приёмка → следующий этап. На каждом этапе есть результат, который можно проверить.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ФИНАЛ ===== -->
+<section class="section section--dark">
+  <div class="wrap">
+    <p class="end__lead">Мы знаем, что происходит после релиза</p>
+    <ul class="end__list">
+      <li>Когда приходят реальные пользователи</li>
+      <li>Когда через систему начинают проходить реальные деньги</li>
+      <li>Когда маркетинг приводит трафик</li>
+      <li>Когда партнёры требуют прозрачной статистики</li>
+      <li>Когда продукт нужно масштабировать</li>
+    </ul>
+    <p class="end__final">Потому что мы сами проходили этот путь.</p>
+
+    <p class="end__back"><a href="index.html">← Все документы проекта</a></p>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

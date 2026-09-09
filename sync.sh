@@ -18,6 +18,7 @@ copy() {
 copy "Коммерческое предложение.html"        offer.html
 copy "index (2).html"                       technical.html
 copy "Ключевые решения перед стартом.html"  questions.html
+copy "Кейсы и команда.html"                 cases.html
 
 echo
 echo "Готово. Опубликовать:  git add -A && git commit -m 'sync docs' && git push"
