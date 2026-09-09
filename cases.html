@@ -115,6 +115,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 .case__video{margin:var(--s4) 0 0}
 .video-frame{position:relative;aspect-ratio:16/9;background:var(--dark-2);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line-strong)}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-frame--vertical{aspect-ratio:9/16;max-width:300px}
 .case__video figcaption{margin-top:var(--s2);font-size:14.5px;line-height:1.5;color:var(--ink-3);max-width:62ch}
 .video-print{display:none}
 
@@ -129,8 +130,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 .team{display:grid;gap:var(--s5);margin-top:var(--s5)}
 .member{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(24px,4vw,52px);padding-top:var(--s5);border-top:1px solid var(--line)}
 .member:first-child{padding-top:0;border-top:0}
-.member__photo{width:100%;max-width:180px;aspect-ratio:1;background:var(--paper);border:1px solid var(--line-strong);border-radius:var(--radius);margin-bottom:var(--s3);display:flex;align-items:center;justify-content:center}
-.member__photo span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--line-strong)}
+.member__photo{display:block;width:100%;height:auto;max-width:180px;aspect-ratio:1;object-fit:cover;object-position:50% 18%;background:var(--paper);border-radius:var(--radius);margin-bottom:var(--s3);filter:grayscale(1) contrast(1.02)}
 .member__link{margin-top:10px;font-size:14.5px}
 .member__cases{list-style:none;margin:var(--s4) 0;padding:0}
 .member__cases li{padding-top:var(--s3);margin-top:var(--s3);border-top:1px solid var(--line)}
@@ -148,6 +148,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 .roles h4{font-weight:600;font-size:17px;line-height:1.3}
 .roles .who{font-size:14px;color:var(--ink-3);margin-top:4px}
 .roles p{margin-top:var(--s2);font-size:15px;line-height:1.5;color:var(--ink-2)}
+.team-note{margin-top:var(--s4);padding-left:var(--s3);border-left:2px solid var(--accent);font-size:16px;line-height:1.55;color:var(--ink-2);max-width:76ch}
 
 /* ---------- как работаем ---------- */
 .how{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);margin-top:var(--s4)}
@@ -465,14 +466,12 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
           </div>
         </div>
 
-<!-- ВИДЕО AZA PAY: вставить ID ролика вместо VIDEO_ID и раскомментировать
-        <figure class="case__video">
-          <div class="video-frame">
-            <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="AZA Pay — разбор продукта" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <figure class="case__video case__video--vertical">
+          <div class="video-frame video-frame--vertical">
+            <iframe src="https://www.youtube-nocookie.com/embed/oD2hUJcueaU" title="AZA Pay — разбор приложения" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
-          <p class="video-print">Видео о AZA Pay — https://youtu.be/VIDEO_ID</p>
+          <p class="video-print">Видео о AZA Pay — https://youtube.com/shorts/oD2hUJcueaU</p>
         </figure>
--->
 
         <div class="case__why">
           <p class="case__label">Почему это важно для вашего проекта</p>
@@ -480,11 +479,60 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
         </div>
       </article>
 
-      <!-- PEAKPROMO -->
+      <!-- SELFIEDOC -->
       <article class="case">
         <div class="case__head">
           <div class="case__id">
             <span class="case__n">05</span>
+            <div>
+              <h3 class="case__name">SelfieDoc</h3>
+              <p class="case__type">Сервис подготовки фотографий на документы</p>
+            </div>
+          </div>
+          <span class="case__status">Собственный продукт</span>
+        </div>
+
+        <ul class="case__metrics">
+          <li><b class="num">18 000</b><span>зарегистрированных пользователей</span></li>
+          <li><b>ML-обработка</b><span>отдельный вычислительный сервис</span></li>
+          <li><b>Оплата и кредиты</b><span>внутренний баланс пользователя</span></li>
+        </ul>
+
+        <div class="case__body">
+          <div>
+            <p class="case__label">Что это было</p>
+            <p class="case__text">Сервис превращает обычное фото в снимок под требования к документам: кадрирование в нужный формат, замена фона, готовый макет для печати. Продукт с оплатой, личным кабинетом и админкой.</p>
+          </div>
+          <div>
+            <p class="case__label">Что мы построили</p>
+            <ul class="case__list">
+              <li><b>Backend</b> — NestJS на Fastify, PostgreSQL, очереди фоновых задач на BullMQ и Redis</li>
+              <li><b>ML-сервис</b> — отдельный сервис на Python и FastAPI для удаления фона, инференс модели через ONNX Runtime</li>
+              <li><b>Обработка изображений</b> — Sharp, генерация макетов и PDF, каталог форматов и шаблонов</li>
+              <li><b>Деньги</b> — оплата и внутренний баланс кредитов на обработку</li>
+              <li><b>Аналитика</b> — воронка, атрибуция источников трафика, админка на React и Vite</li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="case__video">
+          <div class="video-frame">
+            <iframe src="https://www.youtube-nocookie.com/embed/_ylZMWJoseE" title="SelfieDoc — разбор продукта" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <p class="video-print">Видео о SelfieDoc — https://youtu.be/_ylZMWJoseE</p>
+        </figure>
+
+        <div class="case__why">
+          <p class="case__label">Почему это важно для вашего проекта</p>
+          <p>Та же инженерная схема, что и в казино: деньги и внутренний баланс в одном контуре, тяжёлые операции вынесены в очереди и отдельный сервис, поверх — админка и аналитика с атрибуцией источников трафика.</p>
+        </div>
+      </article>
+
+      <!-- PEAKPROMO -->
+      <article class="case">
+        <div class="case__head">
+          <div class="case__id">
+            <span class="case__n">06</span>
             <div>
               <h3 class="case__name">PeakPromo</h3>
               <p class="case__type">Маркетплейс creator economy с оплатой за результат</p>
@@ -519,30 +567,6 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 
       </article>
 
-      <!-- AXIOME BOT -->
-      <article class="case">
-        <div class="case__head">
-          <div class="case__id">
-            <span class="case__n">06</span>
-            <div>
-              <h3 class="case__name">Axiome Trading Bot</h3>
-              <p class="case__type">Автоматизация торговли на децентрализованных биржах</p>
-            </div>
-          </div>
-          <span class="case__status">Разработан · коммерчески не запускался</span>
-        </div>
-
-        <div class="case__body">
-          <div>
-            <p class="case__label">Что это было</p>
-            <p class="case__text">Собственный продукт для автоматизации торговли на DEX, доведённый до предпродакшн-стадии. Коммерческого запуска не было: у продукта нет ни пользователей, ни оборота.</p>
-          </div>
-          <div>
-            <p class="case__label">Почему кейс здесь</p>
-            <p class="case__text">Практический опыт с механикой децентрализованной торговли: жизненный цикл транзакции, взаимодействие с сетью, подпись операций и обработка сбоев. Тот же класс задач, что вывод средств из кошелька платформы.</p>
-          </div>
-        </div>
-      </article>
 
     </div>
   </div>
@@ -558,6 +582,7 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
       <tbody>
         <tr><td>Аккаунты, балансы, пополнения и выводы</td><td>Unitourn · Travis Run</td></tr>
         <tr><td>Блокчейн, токен и криптокошелёк</td><td>Travis Run</td></tr>
+        <tr><td>Очереди, фоновые задачи и отдельные сервисы</td><td>SelfieDoc · Travis Run</td></tr>
         <tr><td>Идемпотентность и аудит операций</td><td>Travis Run</td></tr>
         <tr><td>Партнёрская программа: CPA и RevShare</td><td>Farmskins</td></tr>
         <tr><td>Многоуровневые реферальные начисления</td><td>Travis Run</td></tr>
@@ -576,12 +601,13 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
   <div class="wrap">
     <p class="eyebrow">04 · Команда</p>
     <h2 class="heading">Люди, которые будут делать ваш продукт</h2>
+    <p class="lead">Над проектом работают четыре инженера на фултайме и продуктовый дизайнер.</p>
 
     <div class="team">
 
       <div class="member">
         <div>
-          <div class="member__photo" aria-hidden="true"><span>фото</span></div>
+          <img class="member__photo" src="img/bogdan.jpg" alt="Богдан Клягин" width="760" height="760" loading="lazy">
           <p class="member__name">Богдан Клягин</p>
           <p class="member__role">Product &amp; Project Lead</p>
           <p class="member__years">8 лет — предпринимательство<br>8 лет — IT и технологические продукты<br>10 лет — digital и performance-маркетинг</p>
@@ -602,10 +628,10 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 
       <div class="member">
         <div>
-          <div class="member__photo" aria-hidden="true"><span>фото</span></div>
+          <img class="member__photo" src="img/alexey.jpg" alt="Алексей Мирошниченко" width="760" height="760" loading="lazy">
           <p class="member__name">Алексей Мирошниченко</p>
           <p class="member__role">Technical Lead / Solution Architect</p>
-          <p class="member__years">7 лет коммерческой разработки<br>из них 2 года — ведущим разработчиком</p>
+          <p class="member__years">7 лет коммерческой разработки</p>
           <p class="member__link"><a href="https://github.com/q133ss" target="_blank" rel="noopener">github.com/q133ss</a></p>
           <ul class="member__tags">
             <li>PHP / Laravel</li>
@@ -631,12 +657,9 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
               <b>ГИС «ТР Архив»</b> <span>backend-разработчик</span>
               <p>Государственная система хранения архивных данных: Laravel и PostgreSQL, 100+ таблиц. Электронная подпись документов на КриптоПро, RBAC-модель доступа под регламенты, журналирование и аудит действий пользователей, интеграции с госсервисами через защищённые каналы.</p>
             </li>
-            <li>
-              <b>Автобронирование поставок WB / Ozon</b> <span>архитектор и ведущий разработчик</span>
-              <p>Распределённая система браузерной автоматизации на Playwright: на пике 500 кабинетов селлеров и 4 млн запросов в сутки без участия человека — с ротацией прокси, ретраями и ограничением частоты запросов.</p>
-            </li>
           </ul>
 
+          <p class="copy">Внутри команды ведёт техническую часть Travis Run, Farmskins, AZA Pay и SelfieDoc.</p>
           <p class="copy"><b>На проекте:</b> архитектура сервисов, backend, решения по безопасности и надёжности, код-ревью, инженерные стандарты и техническая координация.</p>
         </div>
       </div>
@@ -646,20 +669,20 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
     <div class="roles">
       <div>
         <h4>Backend / Blockchain Engineer</h4>
-        <p class="who is-tbd">Имя и опыт — уточняются</p>
         <p>Сервисы финансового контура, API, интеграции с блокчейн-сетями и кошельковая инфраструктура.</p>
       </div>
       <div>
         <h4>Full-Stack / Frontend Engineer</h4>
-        <p class="who is-tbd">Имя и опыт — уточняются</p>
         <p>Веб-приложение для игроков, Back Office, Telegram Mini App и интеграция с API.</p>
       </div>
       <div>
         <h4>Product Designer</h4>
-        <p class="who is-tbd">Имя и опыт — уточняются</p>
         <p>UX-архитектура, сценарии, интерфейсы игрока и Back Office, дизайн-система.</p>
       </div>
     </div>
+
+    <p class="team-note">Продуктовую и техническую ответственность за проект несут Богдан и Алексей — от архитектуры до передачи. Инженеров на остальные роли мы подбираем из своего пула разработчиков, с которыми работаем не первый год; персональный состав закрепляем на этапе планирования, до старта работ.</p>
+</div>
   </div>
 </section>
 
