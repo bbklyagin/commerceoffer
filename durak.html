@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дурак: какую игру предлагаем и на что опираемся — приложение к КП</title>
+<meta name="description" content="Концепция игрового модуля «Дурак» на реальные деньги: предлагаемая игра, проверенные решения других продуктов, что адаптируем, что рекомендуем для первой версии и что нужно согласовать.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ===== единая дизайн-система документов проекта ===== */
+:root{
+  --paper:#F5F4EF;--paper-2:#ECEBE4;--surface:#FFFFFF;
+  --ink:#12171B;--ink-2:#3B454D;--ink-3:#6B757E;
+  --line:#E1E0D8;--line-strong:#C4C6BD;
+  --accent:#14505F;--accent-ink:#0B3B47;--accent-soft:#E3EDF0;--accent-light:#7FB6C4;
+  --neg:#8C4A3C;--neg-soft:#F0E3DF;--warn:#8A6A1F;--warn-soft:#F3EBD6;
+  --dark:#080A0C;--dark-2:#101417;--dark-3:#182028;--dark-line:#20262A;--dark-ink:#F3F2ED;--dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;
+  --container:1080px;--gutter:32px;--radius:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body.lb-open{overflow:hidden}
+::selection{background:var(--accent-soft)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+img{max-width:100%}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.num{font-variant-numeric:tabular-nums}
+.section{padding-block:clamp(56px,7vw,88px);scroll-margin-top:64px}
+.section--surface{background:var(--paper-2)}
+.section--dark{background:var(--dark);color:var(--dark-ink)}
+.eyebrow{font-size:13.5px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
+.heading{font-weight:600;font-size:clamp(27px,3.4vw,38px);line-height:1.1;letter-spacing:-.025em;max-width:24ch}
+.lead{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:56ch}
+.copy{font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:64ch}
+.copy + .copy{margin-top:.85em}
+.heading + .lead,.heading + .copy,.lead + .copy{margin-top:var(--s3)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.note{font-size:14px;line-height:1.5;color:var(--ink-3);max-width:72ch}
+.note a,.src a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.note a:hover,.src a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.src{margin-top:var(--s3);font-size:13.5px;line-height:1.7;color:var(--ink-3)}
+.list{list-style:none;margin:0;padding:0}
+.list li{position:relative;padding-left:20px;margin-bottom:8px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.list li:last-child{margin-bottom:0}
+.list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--accent)}
+.list li b{color:var(--ink)}
+.list--neg li::before{background:var(--neg)}
+.h3{font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+.intro{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(28px,5vw,64px);align-items:start}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(26px,3.6vw,48px)}
+.callout{margin-top:var(--s4);background:var(--surface);border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:var(--radius);padding:clamp(18px,2.2vw,24px) clamp(20px,2.6vw,30px)}
+.callout .label{color:var(--accent);display:block;margin-bottom:8px}
+.callout p{font-size:15.5px;line-height:1.55;color:var(--ink)}
+.callout p + p{margin-top:8px}
+
+/* ---------- верхняя панель ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:40;height:46px;background:rgba(245,244,239,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .25s ease}
+.topbar.show{transform:none}
+.topbar .in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter);height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13.5px}
+.topbar .doc{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .doc a{color:var(--ink-3);margin-right:10px}
+.topbar nav{display:flex;gap:18px}
+.topbar nav a{color:var(--ink-2);white-space:nowrap}
+.topbar nav a:hover{color:var(--accent);text-decoration:none}
+.topbar details{position:relative}
+.topbar summary{list-style:none;cursor:pointer;color:var(--accent);white-space:nowrap;padding:6px 0}
+.topbar summary::-webkit-details-marker{display:none}
+.topbar details[open] summary{color:var(--ink)}
+.topbar .menu{position:absolute;right:0;top:100%;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.12);padding:8px 0;min-width:280px;display:grid}
+.topbar .menu a{padding:8px 16px;color:var(--ink);font-size:14px;display:flex;gap:10px}
+.topbar .menu a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent);padding-top:3px}
+.topbar .menu a:hover{background:var(--paper-2);text-decoration:none}
+
+/* ---------- обложка ---------- */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(52px,7vw,84px)}
+.head__grid{display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:clamp(32px,5vw,64px);align-items:start}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);margin-bottom:18px}
+.head__eyebrow a{color:var(--dark-muted);border-bottom:1px solid var(--dark-line)}
+.head__eyebrow a:hover{color:var(--dark-ink);text-decoration:none}
+.head__title{font-weight:700;font-size:clamp(33px,5vw,56px);line-height:1.02;letter-spacing:-.035em}
+.head__lead{font-family:var(--serif);font-size:clamp(17px,1.9vw,20px);line-height:1.5;color:#C9D0D5;max-width:48ch;margin-top:clamp(18px,2.4vw,26px)}
+.head__scope{margin-top:clamp(24px,3vw,32px);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:14px;line-height:1.5;color:var(--dark-muted);max-width:60ch}
+.head__scope a{color:var(--accent-light)}
+.props{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.props li{padding:16px 18px;border:1px solid var(--dark-line);border-radius:var(--radius);background:var(--dark-2)}
+.props li i{font-style:normal;display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--accent-light);margin-bottom:6px}
+.props li b{display:block;font-size:16px;font-weight:600;color:var(--dark-ink);line-height:1.3}
+.props li p{margin-top:5px;font-size:14px;line-height:1.45;color:var(--dark-muted)}
+
+/* ---------- содержание ---------- */
+.toc{padding-block:var(--s4);border-bottom:1px solid var(--line)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 var(--s5)}
+.toc a{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line);color:var(--ink);font-size:14.5px}
+.toc li:nth-child(-n+3) a{border-top:0}
+.toc li:nth-child(7){grid-column:1}
+.toc a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent)}
+.toc a:hover{text-decoration:none;color:var(--accent)}
+
+/* ---------- 01 предложение ---------- */
+.format{margin-top:var(--s4);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
+.format div{padding-top:var(--s2);border-top:2px solid var(--ink)}
+.format b{display:block;font-size:17px;font-weight:600;line-height:1.3}
+.format p{margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- 02 группы ---------- */
+.groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);margin-top:var(--s5)}
+.group{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;display:flex;flex-direction:column;min-width:0}
+.group .label{display:block;margin-bottom:8px}
+.group h3{font-size:18px;font-weight:600;line-height:1.3}
+.group .who{margin-top:8px;font-size:14px;line-height:1.5;color:var(--accent-ink)}
+.group p{margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.group .take{margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink)}
+.group .take b{color:var(--accent)}
+.findings{margin-top:var(--s5);display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3) var(--s5)}
+.findings > div{display:grid;grid-template-columns:28px 1fr;gap:10px;padding-top:var(--s2);border-top:1px solid var(--line-strong)}
+.findings i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:4px}
+.findings b{display:block;font-size:16.5px;font-weight:600;line-height:1.3;margin-bottom:5px}
+.findings p{font-size:15px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- 03 решения ---------- */
+.sol{padding-block:clamp(40px,4.8vw,60px);border-top:1px solid var(--line-strong)}
+.sol:first-of-type{border-top:0;padding-top:var(--s5)}
+.sol__head{display:grid;grid-template-columns:56px 1fr;gap:var(--s2);align-items:start}
+.sol__n{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:10px}
+.sol__title{font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.15;letter-spacing:-.02em}
+.sol__claim{margin-top:10px;font-family:var(--serif);font-size:clamp(17px,1.8vw,19px);line-height:1.45;color:var(--ink-2);max-width:60ch}
+.sol__body{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s4) clamp(28px,4vw,56px);margin-top:var(--s4);align-items:start}
+.sol__text > div + div{margin-top:var(--s3)}
+.sol__text .label{display:block;margin-bottom:6px}
+.sol__text p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.sol__text .adapt p{color:var(--ink)}
+.sol__text .limit{padding:12px 14px;background:var(--paper-2);border-radius:var(--radius);font-size:14px;line-height:1.5;color:var(--ink-2)}
+.sol__text .limit b{color:var(--ink)}
+.sol__media{display:grid;gap:var(--s3)}
+.sol__media--2{grid-template-columns:1fr 1fr}
+.sol__media--2 .shot--wide{grid-column:1/-1}
+
+/* ---------- скриншоты ---------- */
+.shot{margin:0;min-width:0}
+.shot__frame{display:block;width:100%;padding:0;border:1px solid var(--line-strong);border-radius:var(--radius);overflow:hidden;background:var(--dark-2);cursor:zoom-in;text-align:left;font:inherit;color:inherit}
+.shot__frame:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.shot__bar{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.shot__bar i{width:7px;height:7px;border-radius:50%;background:var(--line-strong);display:block;flex:0 0 auto}
+.shot__bar span{margin-left:6px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot__img{display:block;width:100%}
+.shot__img img{display:block;width:100%;height:auto}
+.shot--portrait{max-width:300px}
+.shot--portrait.center{margin-inline:auto}
+.shot figcaption{margin-top:10px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.shot figcaption b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.shot figcaption small{display:block;margin-top:4px;font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink-3)}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid var(--line-strong);color:var(--ink-3);vertical-align:middle}
+.tag--real{border-color:var(--accent);color:var(--accent)}
+.tag--promo{border-color:var(--warn);color:var(--warn)}
+.tag--doc{border-color:var(--line-strong)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+
+/* ---------- 04 макеты ---------- */
+.concepts{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(28px,4vw,56px);margin-top:var(--s5);align-items:start}
+.concept{border:1px dashed var(--accent);border-radius:8px;padding:clamp(18px,2.4vw,28px);background:var(--surface)}
+.concept__tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:#fff;padding:5px 10px;border-radius:3px}
+.concept h3{margin-top:14px;font-size:19px;font-weight:600;line-height:1.3}
+.concept__note{margin-top:8px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.concept ul{list-style:none;margin:var(--s3) 0 0;padding:0}
+.concept li{position:relative;padding-left:18px;margin-bottom:8px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.concept li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--accent)}
+.mock{margin:var(--s3) auto 0;max-width:340px;background:var(--dark-3);color:var(--dark-ink);border-radius:18px;padding:16px 14px 18px;font-size:13.5px;line-height:1.35;box-shadow:inset 0 0 0 1px #2A343C}
+.mk-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--dark-muted)}
+.mk-top b{color:var(--dark-ink);font-weight:600}
+.mk-h{margin-top:14px;font-size:16px;font-weight:600;color:var(--dark-ink)}
+.mk-sub{font-size:12px;color:var(--dark-muted);margin-top:2px}
+.mk-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.mk-level{border:1px solid #33404A;border-radius:8px;padding:10px 6px;text-align:center;color:var(--dark-muted)}
+.mk-level b{display:block;font-size:17px;color:var(--dark-ink);font-weight:600}
+.mk-level small{display:block;font-size:11px;margin-top:2px}
+.mk-level.on{border-color:var(--accent-light);background:#0F2B33;color:#B9D3DA}
+.mk-level.on b{color:#fff}
+.mk-money{margin-top:12px;background:#0B1418;border:1px solid #23303A;border-radius:8px;padding:10px 12px}
+.mk-money div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:13px;color:var(--dark-muted)}
+.mk-money div b{color:var(--dark-ink);font-weight:500;font-variant-numeric:tabular-nums}
+.mk-money div.tot{border-top:1px solid #23303A;margin-top:4px;padding-top:8px;color:var(--dark-ink)}
+.mk-money div.tot b{color:#fff;font-weight:600}
+.mk-btn{margin-top:12px;background:var(--accent);color:#fff;border-radius:9px;padding:12px;text-align:center;font-weight:600;font-size:14px}
+.mk-btn.ghost{background:transparent;border:1px solid #3A4852;color:var(--dark-muted);font-weight:500}
+.mk-foot{margin-top:10px;font-size:11.5px;line-height:1.4;color:var(--dark-muted);text-align:center}
+.mk-opp{display:flex;align-items:center;gap:10px}
+.mk-opp .av{width:30px;height:30px;border-radius:50%;background:#2A3A44;flex:0 0 auto}
+.mk-opp b{display:block;font-size:13px;color:var(--dark-ink)}
+.mk-opp small{display:block;font-size:11.5px;color:var(--dark-muted)}
+.mk-opp .on{margin-left:auto;font-size:11px;color:var(--accent-light)}
+.mk-table{margin-top:12px;background:#0E2A22;border-radius:12px;padding:14px 12px 12px;position:relative;min-height:150px;box-shadow:inset 0 0 0 1px #1E4237}
+.mk-card{display:inline-flex;flex-direction:column;justify-content:space-between;width:38px;height:54px;background:#FBF8EE;color:#12171B;border-radius:4px;padding:3px 4px;font-weight:600;font-size:12px;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.mk-card.red{color:#B3261E}
+.mk-card.back{background:repeating-linear-gradient(45deg,#3B6E82 0 3px,#2C5766 3px 6px);border:2px solid #E8E4D8}
+.mk-card.dim{opacity:.4}
+.mk-card small{font-size:10px;font-weight:500;align-self:flex-end}
+.mk-center{display:flex;justify-content:center;gap:10px;align-items:flex-end;margin-top:6px}
+.mk-corner{position:absolute;top:12px;left:12px;font-size:11px;color:#9FC2B4;line-height:1.5}
+.mk-corner b{color:#fff;font-weight:600}
+.mk-timer{position:absolute;top:12px;right:12px;text-align:center}
+.mk-timer i{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:3px solid var(--accent-light);font-style:normal;font-weight:600;font-size:15px;color:#fff;margin-left:auto}
+.mk-timer small{display:block;font-size:10.5px;color:#9FC2B4;margin-top:4px;line-height:1.3}
+.mk-hint{margin-top:14px;text-align:center;font-size:12.5px;color:#D5E6DE}
+.mk-warn{margin-top:10px;font-size:11.5px;color:#E8C77A;text-align:center;line-height:1.35}
+.mk-hand{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.mk-hand .mk-card{width:40px;height:56px}
+.mk-hand .mk-card.ok{outline:2px solid var(--accent-light);outline-offset:1px}
+.mk-legend{margin-top:8px;font-size:11px;color:var(--dark-muted);text-align:center}
+.money{margin-top:var(--s5);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--s4) clamp(28px,4vw,56px);align-items:start}
+.money table{width:100%;border-collapse:collapse;font-size:15px}
+.money td{padding:9px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+.money td:last-child{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;white-space:nowrap}
+.money tr.tot td{border-top:2px solid var(--ink);color:var(--ink);font-weight:600}
+.money tr.sub td{border-top:0;padding-top:0;font-size:13.5px;color:var(--ink-3)}
+.money caption{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding-bottom:8px}
+
+/* ---------- 05 план ---------- */
+.plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);margin-top:var(--s5)}
+.plan > div{padding-top:var(--s2);border-top:2px solid var(--ink)}
+.plan > div:nth-child(2){border-color:var(--accent)}
+.plan > div:nth-child(3){border-color:var(--warn)}
+.plan .label{display:block;margin-bottom:8px}
+.plan h3{font-size:18px;font-weight:600;line-height:1.3;margin-bottom:var(--s2)}
+.plan .list li{font-size:15px}
+.plan ol{list-style:none;margin:0;padding:0;counter-reset:q}
+.plan ol li{position:relative;padding-left:26px;margin-bottom:10px;font-size:15px;line-height:1.5;color:var(--ink-2);counter-increment:q}
+.plan ol li::before{content:counter(q);position:absolute;left:0;top:2px;font-family:var(--mono);font-size:12px;color:var(--warn)}
+.plan ol li b{color:var(--ink)}
+.deps{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line-strong);display:grid;grid-template-columns:1fr 1fr;gap:var(--s3) var(--s5)}
+.deps b{display:block;font-size:15.5px;font-weight:600;margin-bottom:6px}
+.deps p{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- 06 приложение ---------- */
+.appx{margin-top:var(--s3);border-top:1px solid var(--line-strong)}
+.appx:last-of-type{border-bottom:1px solid var(--line-strong)}
+.appx summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:32px 1fr 24px;gap:12px;align-items:baseline;padding:18px 0}
+.appx summary::-webkit-details-marker{display:none}
+.appx summary em{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--accent)}
+.appx summary h3{font-size:19px;font-weight:600;line-height:1.3}
+.appx summary p{margin-top:4px;font-size:14px;color:var(--ink-3);line-height:1.5}
+.appx summary .pm{font-family:var(--mono);font-size:18px;color:var(--accent);text-align:right;line-height:1}
+.appx[open] summary .pm::before{content:"−"}
+.appx:not([open]) summary .pm::before{content:"+"}
+.appx__body{padding:4px 0 var(--s4) 44px}
+.appx__body .copy{font-size:15.5px}
+.appx__body .copy + .copy{margin-top:.8em}
+.appx__body .h3{font-size:16.5px;margin-top:var(--s4)}
+.appx__body .h3:first-child{margin-top:0}
+.tablewrap{overflow-x:auto;margin-top:var(--s3);-webkit-overflow-scrolling:touch}
+.tbl{border-collapse:collapse;width:100%;font-size:14px;line-height:1.45;min-width:720px}
+.tbl th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 14px 10px 0;border-bottom:2px solid var(--ink);vertical-align:bottom}
+.tbl td{padding:10px 14px 10px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+.tbl th:last-child,.tbl td:last-child{padding-right:0}
+.tbl td:first-child{color:var(--ink);font-weight:600}
+.tbl td small{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:400;margin-top:2px}
+.tbl .pos{color:var(--accent)}
+.tbl .neg{color:var(--neg)}
+.tbl .dim{color:var(--ink-3)}
+.tbl td a{color:inherit;border-bottom:1px solid var(--line-strong)}
+.tbl td a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.tbl--cards td[data-k]::before{display:none}
+.archive{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3) var(--s2);margin-top:var(--s3)}
+.archive .shot figcaption{font-size:13px}
+.archive .shot figcaption b{font-size:13.5px}
+.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2) var(--s3);margin-top:var(--s3)}
+.legend div{font-size:13.5px;line-height:1.5;color:var(--ink-2);padding-top:10px;border-top:1px solid var(--line)}
+.legend b{display:block;color:var(--ink);margin-bottom:2px}
+.sources{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3) var(--s4);margin-top:var(--s3)}
+.sources h4{font-size:14px;font-weight:600;margin-bottom:6px}
+.sources p{font-size:13px;line-height:1.7;color:var(--ink-3)}
+.sources a{color:var(--ink-2);border-bottom:1px solid var(--line)}
+.sources a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+
+/* ---------- финал ---------- */
+.end__lead{font-family:var(--serif);font-size:clamp(22px,3vw,32px);line-height:1.3;letter-spacing:-.01em;color:var(--dark-ink);max-width:30ch}
+.end__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) var(--s6);margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--dark-line)}
+.end__grid h3{font-size:17px;font-weight:600;color:var(--dark-ink)}
+.end__grid p{margin-top:8px;font-size:15px;line-height:1.55;color:var(--dark-muted)}
+.end__grid a{color:var(--accent-light)}
+.end__back{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:15px;display:flex;gap:24px;flex-wrap:wrap}
+.end__back a{color:var(--accent-light)}
+
+
+/* ---------- 07 итог ---------- */
+.take4{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3) var(--s5);margin-top:var(--s5)}
+.take4 > div{display:grid;grid-template-columns:32px 1fr;gap:12px;padding-top:var(--s2);border-top:2px solid var(--ink)}
+.take4 i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:6px}
+.take4 h3{font-size:18px;font-weight:600;line-height:1.3}
+.take4 p{margin-top:8px;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.take4 a{display:inline-block;margin-top:10px;font-size:14px}
+.first{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3) var(--s5);margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--line-strong)}
+.first .label{display:block;margin-bottom:8px}
+.first h3{font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+.first p{margin-top:10px;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.first p a{border-bottom:1px solid var(--line-strong)}
+.first p a:hover{text-decoration:none;border-color:var(--accent)}
+.next{margin-top:var(--s5);background:var(--dark);color:var(--dark-ink);border-radius:8px;padding:clamp(24px,3.4vw,40px) clamp(22px,3.4vw,44px)}
+.next .label{color:var(--accent-light);display:block;margin-bottom:12px}
+.next__lead{font-family:var(--serif);font-size:clamp(21px,2.6vw,29px);line-height:1.3;letter-spacing:-.01em;color:var(--dark-ink);max-width:34ch}
+.next p:not(.next__lead){margin-top:var(--s2);font-size:15.5px;line-height:1.55;color:var(--dark-muted);max-width:70ch}
+.next .next__note{font-size:14px;color:var(--dark-muted)}
+.next a{color:var(--accent-light)}
+.next .end__back{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:14.5px}
+
+/* ---------- лайтбокс ---------- */
+.lb{position:fixed;inset:0;z-index:100;background:#080A0C;display:none;flex-direction:column;color:var(--dark-ink)}
+.lb.open{display:flex}
+.lb__top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;font-family:var(--mono);font-size:12px;color:var(--dark-muted);flex:0 0 auto}
+.lb__top .cnt{min-width:60px}
+.lb__tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.lb__btn{background:transparent;border:1px solid var(--dark-line);color:var(--dark-ink);border-radius:4px;padding:7px 12px;font:inherit;font-size:12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.lb__btn:hover{border-color:var(--accent-light)}
+.lb__btn:focus-visible{outline:2px solid var(--accent-light);outline-offset:2px}
+.lb__btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.lb__stage{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;padding:0 12px;position:relative;overflow:hidden}
+.lb__stage.zoom{overflow:auto;align-items:flex-start;justify-content:flex-start;cursor:zoom-out}
+.lb__stage img{max-width:100%;max-height:100%;object-fit:contain;display:block;border-radius:4px;cursor:zoom-in}
+.lb__stage.zoom img{max-width:none;max-height:none;width:auto;height:auto;margin:auto}
+.lb__nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;background:rgba(16,20,23,.7);color:#fff;font-size:28px;cursor:pointer;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--sans)}
+.lb__nav:hover{background:rgba(20,80,95,.85)}
+.lb__nav:focus-visible{outline:2px solid var(--accent-light)}
+.lb__nav:disabled{opacity:.25;cursor:default}
+.lb__nav.prev{left:12px}.lb__nav.next{right:12px}
+.lb__cap{flex:0 0 auto;padding:12px 16px 16px;font-size:14px;line-height:1.5;color:#D4D9DC;max-height:26vh;overflow:auto}
+.lb__cap b{display:block;color:#fff;font-weight:600}
+.lb__cap small{display:block;margin-top:4px;font-family:var(--mono);font-size:11px;color:var(--dark-muted)}
+.lb__cap .lb__mob{display:none;gap:10px;margin-top:12px}
+.lb__cap .lb__mob .lb__btn{flex:1 1 auto;justify-content:center;font-size:14px;padding:10px}
+
+/* ---------- адаптив ---------- */
+@media (max-width:960px){
+  .head__grid,.intro,.grid2,.money,.concepts,.findings,.deps,.end__grid,.take4,.first{grid-template-columns:1fr}
+  .groups,.plan,.format{grid-template-columns:1fr}
+  .sol__body{grid-template-columns:1fr}
+  .sol__media--2{grid-template-columns:1fr 1fr}
+  .archive{grid-template-columns:repeat(3,1fr)}
+  .legend{grid-template-columns:1fr 1fr}
+  .sources{grid-template-columns:1fr 1fr}
+  .topbar nav{display:none}
+  .tablewrap--cards{overflow:visible}
+  .tbl--cards{min-width:0}
+  .tbl--cards thead{display:none}
+  .tbl--cards,.tbl--cards tbody,.tbl--cards tr,.tbl--cards td{display:block;width:auto}
+  .tbl--cards tr{border-top:2px solid var(--ink);padding:12px 0 6px;margin-top:8px}
+  .tbl--cards td,.tbl--cards td:first-child{border:0;padding:4px 0;white-space:normal}
+  .tbl--cards td:first-child{font-size:16px;padding-bottom:6px}
+  .tbl--cards td[data-k]::before{display:block;content:attr(data-k);font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:1px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  :root{--gutter:20px}
+  .section{scroll-margin-top:56px}
+  .toc ol{grid-template-columns:1fr}
+  .toc li:nth-child(-n+3) a{border-top:1px solid var(--line)}
+  .toc li:first-child a{border-top:0}
+  .sol__head{grid-template-columns:1fr;gap:6px}
+  .sol__n{padding-top:0}
+  .sol__media--2{grid-template-columns:1fr}
+  .pair{grid-template-columns:1fr}
+  .shot--portrait{max-width:none}
+  .archive{grid-template-columns:1fr 1fr}
+  .legend{grid-template-columns:1fr}
+  .sources{grid-template-columns:1fr}
+  .appx summary{grid-template-columns:26px 1fr 20px}
+  .appx__body{padding-left:0}
+  .mock{max-width:none}
+  .lb__nav{display:none}
+  .lb__cap .lb__mob{display:flex}
+  .lb__top .cnt{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar{transition:none}}
+
+@page{size:A4;margin:15mm 14mm}
+@page :first{margin:0}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;font-size:10pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding-inline:0}
+  .section{padding-block:18px}
+  .head{padding:24mm 18mm 20mm;break-after:page;page-break-after:always}
+  .topbar,.toc,.lb,.end__back{display:none}
+  .shot,.concept,.group,.findings > div,.plan > div,.take4 > div,.next{break-inside:avoid;page-break-inside:avoid}
+  .shot__frame{cursor:default;border-color:#bbb}
+  .appx{border-color:#bbb}
+  .appx summary .pm{display:none}
+  .appx:not([open]) .appx__body{display:block}
+  .tbl{min-width:0;font-size:8.5pt}
+  .tbl--cards thead{display:table-header-group}
+  .tbl--cards,.tbl--cards tbody{display:table}
+  .tbl--cards tr{display:table-row}
+  .tbl--cards td{display:table-cell}
+  .mock{box-shadow:none;border:1px solid #333}
+  a{color:inherit}
+}
+</style>
+</head>
+<body>
+<div class="topbar" id="topbar">
+  <div class="in">
+    <div class="doc"><a href="index.html" title="Все документы проекта">← Документы</a>Приложение 06 · Игровой модуль «Дурак»</div>
+    <nav aria-label="Разделы">
+      <a href="#s01">Предложение</a><a href="#s02">Референсы</a><a href="#s03">Решения</a><a href="#s04">Макеты</a><a href="#s05">Согласовать</a><a href="#s06">Подробности</a><a href="#s07">Итог</a>
+    </nav>
+    <details id="tocmenu">
+      <summary>Содержание</summary>
+      <div class="menu">
+        <a href="#s01"><em>01</em>Какой «Дурак» предлагаем</a>
+        <a href="#s02"><em>02</em>На какие продукты опираемся</a>
+        <a href="#s03"><em>03</em>Шесть решений для нашей игры</a>
+        <a href="#s04"><em>04</em>Как это может выглядеть у нас</a>
+        <a href="#s05"><em>05</em>Что рекомендуем и что согласовать</a>
+        <a href="#s06"><em>06</em>Подробности и источники</a>
+        <a href="#s07"><em>07</em>Какой «Дурак» предлагаем создать</a>
+        <a href="offer.html"><em>КП</em>Коммерческое предложение</a>
+        <a href="index.html"><em>↑</em>Все документы проекта</a>
+      </div>
+    </details>
+  </div>
+</div>
+<header class="head">
+  <div class="wrap head__grid">
+    <div>
+      <p class="head__eyebrow"><a href="index.html">Документы проекта</a> · Приложение 06 · Игровой модуль</p>
+      <h1 class="head__title">Дурак: какую игру предлагаем и на что опираемся</h1>
+      <p class="head__lead">Концепция классического «Дурака», в который два игрока играют друг против друга на реальные деньги. Что увидит игрок, из каких проверенных решений других продуктов мы это собираем и что нужно согласовать до оценки игрового модуля.</p>
+      <p class="head__scope">Разработка игровых модулей, включая PvP «Дурак», в <a href="technical.html">техническом документе</a> обозначена отдельной работой за рамками основной платформы. Здесь описана рекомендуемая концепция, а не согласованный состав работ. Все конкретные числа в примерах условные.</p>
+    </div>
+    <ul class="props" aria-label="Четыре свойства предлагаемой игры">
+      <li><i>Деньги</i><b>Взнос, комиссия и выплата видны до входа</b><p>На экране выбора стола и в итоге партии один и тот же расчёт.</p></li>
+      <li><i>Стол</i><b>Ничего лишнего и только допустимые действия</b><p>Козырь, колода, отбой и таймер на постоянных местах; подходящие карты подсвечены.</p></li>
+      <li><i>Время</i><b>Предсказуемый таймер</b><p>Игрок заранее видит, что произойдёт, если время выйдет, и сколько есть на возвращение после обрыва связи.</p></li>
+      <li><i>Итог</i><b>Проверяемый результат</b><p>Запись ходов, итог с раскрытием карт и проверка раздачи по номеру партии.</p></li>
+    </ul>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Содержание">
+  <div class="wrap">
+    <ol>
+      <li><a href="#s01"><em>01</em>Какой «Дурак» предлагаем</a></li>
+      <li><a href="#s02"><em>02</em>На какие продукты опираемся</a></li>
+      <li><a href="#s03"><em>03</em>Шесть решений для нашей игры</a></li>
+      <li><a href="#s04"><em>04</em>Как это может выглядеть у нас</a></li>
+      <li><a href="#s05"><em>05</em>Что рекомендуем и что согласовать</a></li>
+      <li><a href="#s06"><em>06</em>Подробности и источники</a></li>
+      <li><a href="#s07"><em>07</em>Какой «Дурак» предлагаем создать</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main id="main">
+<section class="section" id="s01">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">01 · Какой «Дурак» предлагаем</p>
+        <h2 class="heading">Классическая партия на двоих, где деньги понятны заранее</h2>
+      </div>
+      <div>
+        <p class="lead">Игрок выбирает уровень взноса, платформа находит соперника, оба играют одну партию подкидного «Дурака». Победитель получает банк за вычетом комиссии платформы, проигравший теряет взнос. Всё, что влияет на деньги, игрок видит до входа за стол.</p>
+        <p class="copy">Стартовая гипотеза формата: <b>стол на двоих, 36 карт, подкидной, одна партия</b>. Формат нужно согласовать, но его преимущества понятны: победитель определяется без спорных мест, стол собирается из двух человек, правил до приёма денег заметно меньше. Ограничение: столы на 3–6 игроков с выплатами по местам остаются развитием и требуют отдельных правил и экономики.</p>
+      </div>
+    </div>
+
+    <div class="format">
+      <div><b>Игра</b><p>Подкидной «Дурак», 36 карт, по шесть на руках. Правила завершения розыгрыша и партии фиксируются в спецификации модуля до приёма денег.</p></div>
+      <div><b>Деньги</b><p>Одинаковый взнос с баланса платформы, банк из двух взносов, комиссия с банка, выплата победителю. Проводки делает финансовое ядро платформы.</p></div>
+      <div><b>Платформы</b><p>Веб-приложение и Telegram Mini App как основные точки входа платформы; состав первой версии модуля обсуждается отдельно.</p></div>
+    </div>
+
+    <div class="callout">
+      <span class="label">Откуда взяты решения</span>
+      <p>Убедительного прямого образца, который сочетал бы качественный игровой стол и понятную денежную модель, в изученной выборке не нашлось. Поэтому решения ниже собраны из разных продуктов: стол и итог партии — из игр на фишки, показ взноса и расчёт — из денежных дуэлей, требования к условиям — из единственного найденного «Дурака» на реальные деньги. Это основание для выбора решений, а не прогноз спроса.</p>
+    </div>
+  </div>
+</section>
+<section class="section section--surface" id="s02">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">02 · На какие продукты опираемся</p>
+        <h2 class="heading">Три группы источников решений</h2>
+      </div>
+      <div>
+        <p class="lead">Мы проверили сайты, приложения, Telegram-боты и правила букмекеров, где встречается «Дурак» или похожая денежная дуэль. Без депозитов и ставок с нашей стороны. Полный реестр и границы проверки — в <a href="#s06">разделе 06</a>.</p>
+      </div>
+    </div>
+
+    <div class="groups">
+      <div class="group">
+        <span class="label">Группа А</span>
+        <h3>Прямые реализации «Дурака» на реальные деньги</h3>
+        <p class="who">Durak Crypto · Telegram-боты</p>
+        <p>Durak Crypto — единственный найденный проект с опубликованными условиями: взнос 1–200 USDT, 5% с банка, вывод с ручным одобрением, описанная проверка раздачи. На главной странице при этом заявлено «no house edge». Из десяти найденных Telegram-ботов ни один не подтвердил игру на деньги: три бота с заявленным TON или USDT при ручной проверке не отвечают или не существуют, остальные работают на монеты или Telegram Stars.</p>
+        <p class="take"><b>Что берём:</b> требование, чтобы условия о деньгах совпадали на всех экранах и в договоре, и идею проверки раздачи по номеру партии.</p>
+      </div>
+      <div class="group">
+        <span class="label">Группа Б</span>
+        <h3>Игровые референсы «Дурака» без вывода денег</h3>
+        <p class="who">DRK.gg · Pokerist (KamaGames) · Crazy Panda · Durak.cloud · Durak-play.ru · DurakOnline.ru</p>
+        <p>Игры на фишки или бесплатные. У них отработаны сам стол, подсказка о ходе, подписи действий соперников, экран результата, уровни столов вместо настроек, правила мест и время на возвращение после обрыва связи.</p>
+        <p class="take"><b>Что берём:</b> стол, выбор стола по уровням, поведение таймера, экран результата. Экономику фишек не переносим.</p>
+      </div>
+      <div class="group">
+        <span class="label">Группа В</span>
+        <h3>Денежные дуэли с другими правилами</h3>
+        <p class="who">Dice Duels (Duelbits) · Rock Paper Scissors (Duel) · Bonus Battles (Rollbit)</p>
+        <p>Игроки играют друг против друга на деньги, но механика простая: бросок, жест, запуск бонуса в слоте. Здесь решено то, чего нет у игр на фишки: взнос, выигрыш и комиссия площадки показаны рядом с кнопкой, партия стартует при заполнении мест, результат рассчитывается без участия игрока.</p>
+        <p class="take"><b>Что берём:</b> строку «взнос → выигрыш» до входа, порядок старта и расчёт без участия игрока. Механику матча не берём.</p>
+      </div>
+    </div>
+
+    <div class="findings">
+      <div><i>1</i><div><b>Сильный стол и понятные деньги живут в разных продуктах</b><p>У игр на фишки хороший стол, но нет денег. У денежных дуэлей понятные деньги, но нет карт. Поэтому решения ниже собраны по задачам игрока, а не по одному образцу.</p></div></div>
+      <div><i>2</i><div><b>Зрелые игры предлагают уровни столов, а не настройки</b><p>Pokerist и Durak.cloud задают колоду и режим заранее, игрок выбирает только уровень. Настройка комнаты вручную осталась у небольших бесплатных сервисов.</p></div></div>
+      <div><i>3</i><div><b>Telegram — платформа, а не отдельная экономика</b><p>В Telegram есть боты на монеты, на Telegram Stars, с очками и с заявленным TON. Слово TON или присутствие в Telegram не подтверждает вывод денег: это проверяется по условиям, выплатам и тем, отвечает ли бот вообще.</p></div></div>
+      <div><i>4</i><div><b>Ставки на «Дурака» у букмекеров — другой продукт</b><p>В линии «Card Game DURAK» у 1xBet, BetWinner, Linebet, Melbet, SapphireBet и 1xBit клиент ставит на исход партии «Игрок 1 — Игрок 2», а не управляет рукой. За внимание игрока такие продукты могут конкурировать с нашим. Поставщик линии не установлен; подробности — в разделе 06.</p></div></div>
+    </div>
+  </div>
+</section>
+<section class="section" id="s03">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">03 · Шесть решений для нашей игры</p>
+        <h2 class="heading">Что игрок увидит и откуда это взято</h2>
+      </div>
+      <div>
+        <p class="lead">Разбор построен по задачам игрока. У каждой: вывод, один-два экрана как доказательство, наша адаптация, польза и ограничение. Тип экрана подписан: снято нами при проверке, официальный скриншот или промоматериал магазина. Нажмите на экран, чтобы открыть оригинал.</p>
+      </div>
+    </div>
+    <article class="sol" id="sol-table">
+      <div class="sol__head"><span class="sol__n">01</span>
+        <div><h3 class="sol__title">Читаемый стол и понятное действие</h3>
+        <p class="sol__claim">Козырь, колода, отбой и таймер стоят на постоянных местах, а игроку доступна одна кнопка для текущего состояния. Так устроены лучшие из найденных столов.</p></div>
+      </div>
+      <div class="sol__body">
+        <div class="sol__text">
+          <div><span class="label">Что видно на экранах</span><p>У DRK.gg во время защиты карта атаки лежит в центре, подсказка называет оба допустимых действия — «Defend or take», кнопка «Take» одна, козырь показан отдельно, таймер рядом с рукой. У Crazy Panda рядом с каждым соперником подписано его действие — «Бито», «Пас», «Беру» — и число карт.</p></div>
+          <div class="adapt"><span class="label">Как адаптируем</span><p>Постоянные зоны для козыря, колоды с числом карт и отбоя. Подсвечиваем карты, которыми сейчас можно ходить. Одна кнопка для текущего состояния: подкинуть, завершить розыгрыш или взять. У соперника видны число карт и последнее действие.</p></div>
+          <div><span class="label">Польза</span><p>Игроку не нужно искать, чей ход и что разрешено. Меньше ошибочных ходов и споров о том, что произошло.</p></div>
+          <div class="limit"><b>Ограничение.</b> Промоматериалы показывают удачную композицию, а не все состояния партии. Раскладку проверяем на прототипе с новичками.</div>
+        </div>
+        <div class="sol__media sol__media--2">
+<figure class="shot shot--wide">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-table-defend.jpg" data-title="DRK.gg · защита" data-cap="Карта атаки в центре, подсказка «Defend or take», единственная кнопка «Take». Козырь слева, таймер 29 с у руки, соперник — обозначенный бот." data-meta="play.drk.gg · гостевая партия · снято при проверке" aria-label="Увеличить: DRK.gg · защита">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · защита</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-table-defend.jpg" alt="DRK.gg · защита. Карта атаки в центре, подсказка «Defend or take», единственная кнопка «Take». Козырь слева, таймер 29 с у руки, соперник — обозначенный бот." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · защита</b>Карта атаки в центре, подсказка «Defend or take», единственная кнопка «Take». Козырь слева, таймер 29 с у руки, соперник — обозначенный бот.<small>play.drk.gg · гостевая партия · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot shot--wide">
+  <button class="shot__frame" type="button" data-full="img/durak/f/crazypanda-statuses.jpg" data-title="Crazy Panda · подписи действий" data-cap="Фрагмент промокомпозиции: у каждого соперника число карт и действие в розыгрыше — «Бито», «Беру». Композицию показываем как расположение элементов, а не как запись партии." data-meta="App Store · фрагмент промоматериала · промоматериал" aria-label="Увеличить: Crazy Panda · подписи действий">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Crazy Panda · подписи действий</span></div>
+    <div class="shot__img"><img src="img/durak/f/crazypanda-statuses-t.jpg" alt="Crazy Panda · подписи действий. Фрагмент промокомпозиции: у каждого соперника число карт и действие в розыгрыше — «Бито», «Беру». Композицию показываем как расположение элементов, а не как запись партии." width="700" height="524" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Crazy Panda · подписи действий</b>Фрагмент промокомпозиции: у каждого соперника число карт и действие в розыгрыше — «Бито», «Беру». Композицию показываем как расположение элементов, а не как запись партии.<small>App Store · фрагмент промоматериала · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure>        </div>
+      </div>
+    </article>
+    <article class="sol" id="sol-lobby">
+      <div class="sol__head"><span class="sol__n">02</span>
+        <div><h3 class="sol__title">Выбор суммы и поиск соперника</h3>
+        <p class="sol__claim">Игрок выбирает уровень взноса, а не настраивает комнату. Пока идёт поиск соперника, взнос зарезервирован и его можно снять; после подтверждения старта отмена закрыта.</p></div>
+      </div>
+      <div class="sol__body">
+        <div class="sol__text">
+          <div><span class="label">Что видно на экранах</span><p>Durak.cloud предлагает четыре уровня входа, сумма написана на кнопке «Play for 100», колода и режим заданы заранее. На Duel игроки создают комнаты с произвольными суммами: рядом висят комнаты на $1,13, $1,50 и $2,02, и каждая ждёт соперника отдельно. У Dice Duels взнос фиксируется при входе, партия стартует при заполнении мест.</p></div>
+          <div class="adapt"><span class="label">Как адаптируем</span><p>Несколько фиксированных уровней взноса, одна очередь на уровень, старт при двух игроках. Одна модель отмены на всех экранах: резерв можно снять, пока идёт поиск, и нельзя после подтверждения старта. Число уровней и момент фиксации — к согласованию.</p></div>
+          <div><span class="label">Польза</span><p>Игроки собираются в одной очереди, а не в десятках комнат. Игрок понимает, с какого момента деньги в игре.</p></div>
+          <div class="limit"><b>Ограничение.</b> При малом числе игроков даже одна очередь может ждать долго. Нужен план заполнения — уведомления, приглашения, расписание — без скрытых ботов в денежных партиях.</div>
+        </div>
+        <div class="sol__media sol__media--2">
+<figure class="shot shot--wide">
+  <button class="shot__frame" type="button" data-full="img/durak/f/durakcloud-levels.jpg" data-title="Durak.cloud · уровни входа" data-cap="Фрагмент промокомпозиции: уровни 100, 500, 2,5K и 10K в игровой валюте, два верхних закрыты до нужной лиги, сумма на кнопке «Play for 100», режимы отдельно." data-meta="App Store · фрагмент промоматериала · промоматериал" aria-label="Увеличить: Durak.cloud · уровни входа">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak.cloud · уровни входа</span></div>
+    <div class="shot__img"><img src="img/durak/f/durakcloud-levels-t.jpg" alt="Durak.cloud · уровни входа. Фрагмент промокомпозиции: уровни 100, 500, 2,5K и 10K в игровой валюте, два верхних закрыты до нужной лиги, сумма на кнопке «Play for 100», режимы отдельно." width="700" height="462" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak.cloud · уровни входа</b>Фрагмент промокомпозиции: уровни 100, 500, 2,5K и 10K в игровой валюте, два верхних закрыты до нужной лиги, сумма на кнопке «Play for 100», режимы отдельно.<small>App Store · фрагмент промоматериала · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot shot--wide">
+  <button class="shot__frame" type="button" data-full="img/durak/duel-lobby.jpg" data-title="Duel · открытые комнаты" data-cap="Комнаты с произвольными суммами и форматом серии, свободное место «Waiting…», кнопка Join. Ники создателей скрыты нами." data-meta="duel.com/rock-paper-scissors · снято при проверке" aria-label="Увеличить: Duel · открытые комнаты">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Duel · открытые комнаты</span></div>
+    <div class="shot__img"><img src="img/durak/t/duel-lobby.jpg" alt="Duel · открытые комнаты. Комнаты с произвольными суммами и форматом серии, свободное место «Waiting…», кнопка Join. Ники создателей скрыты нами." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Duel · открытые комнаты</b>Комнаты с произвольными суммами и форматом серии, свободное место «Waiting…», кнопка Join. Ники создателей скрыты нами.<small>duel.com/rock-paper-scissors · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure>        </div>
+      </div>
+    </article>
+    <article class="sol" id="sol-money">
+      <div class="sol__head"><span class="sol__n">03</span>
+        <div><h3 class="sol__title">Взнос, комиссия и выплата до входа</h3>
+        <p class="sol__claim">Игрок видит взнос, банк, комиссию с банка и сумму выплаты победителю до нажатия кнопки. В итоге партии показаны те же суммы и отдельно чистый результат.</p></div>
+      </div>
+      <div class="sol__body">
+        <div class="sol__text">
+          <div><span class="label">Что видно на экранах</span><p>На публичном экране Dice Duels рядом с кнопкой создания дуэли стоят Buy In, Winnings и House Edge 5%: игрок решает по этим числам, не открывая условия. В справке от 20.07.2026 размер комиссии не назван — расхождение по версии или региону. У Durak Crypto наоборот: в условиях 5% с банка и ручное одобрение вывода, а на главной — «no house edge» и вывод «около минуты».</p></div>
+          <div class="adapt"><span class="label">Как адаптируем</span><p>На выборе стола: взнос, банк, комиссия с банка, выплата победителю. В итоге партии: те же суммы, изменение баланса и чистый результат отдельно от выплаты. Размер комиссии и округление — к согласованию; они совпадают в условиях, на экране и в квитанции.</p></div>
+          <div><span class="label">Польза</span><p>Игрок отличает выплату от прибыли и не встречает разных цифр в разных местах.</p></div>
+          <div class="limit"><b>Ограничение.</b> Показ комиссии — базовое требование, а не преимущество. Ценность появляется, когда игрок правильно предсказывает свой результат до партии; это проверяем на прототипе.</div>
+        </div>
+        <div class="sol__media">
+<figure class="shot shot--portrait center">
+  <button class="shot__frame" type="button" data-full="img/durak/duelbits-m.jpg" data-title="Dice Duels · экран без входа" data-cap="Мобильная версия: сумма, число игроков, кнопка Create Duel и строка Buy In / Winnings / House Edge 5% рядом с ней." data-meta="duelbits.com · снято при проверке" aria-label="Увеличить: Dice Duels · экран без входа">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Dice Duels · экран без входа</span></div>
+    <div class="shot__img"><img src="img/durak/t/duelbits-m.jpg" alt="Dice Duels · экран без входа. Мобильная версия: сумма, число игроков, кнопка Create Duel и строка Buy In / Winnings / House Edge 5% рядом с ней." width="600" height="1022" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Dice Duels · экран без входа</b>Мобильная версия: сумма, число игроков, кнопка Create Duel и строка Buy In / Winnings / House Edge 5% рядом с ней.<small>duelbits.com · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure>        </div>
+      </div>
+    </article>
+    <article class="sol" id="sol-timer">
+      <div class="sol__head"><span class="sol__n">04</span>
+        <div><h3 class="sol__title">Таймер и возвращение после обрыва связи</h3>
+        <p class="sol__claim">Игрок заранее видит, что произойдёт, если время хода выйдет, и сколько времени есть на возвращение после обрыва связи. Последствие зависит от состояния партии и описано в правилах.</p></div>
+      </div>
+      <div class="sol__body">
+        <div class="sol__text">
+          <div><span class="label">Что видно и что написано</span><p>На столе Durak.cloud у таймера стоит подпись «DEFEND · Auto-take in 9s»: защищающийся знает, что через девять секунд карты будут взяты. Справка Durak-play.ru называет число: 45 секунд на возвращение после обрыва связи, затем поражение. Durak Crypto по таймеру делает за игрока «лучший доступный ход» — этого мы не предлагаем повторять.</p></div>
+          <div class="adapt"><span class="label">Как адаптируем</span><p>Предупреждение до окончания времени с названием последствия. Последствие зависит от состояния: защищающийся берёт карты; атакующий завершает розыгрыш, где это допустимо; иначе действует согласованное правило паузы или технического поражения. Время на ход, запас на партию и время на возвращение видят оба игрока. Ход за игрока не делаем — это продуктовый выбор, а не техническое ограничение.</p></div>
+          <div><span class="label">Польза</span><p>Обрыв связи не превращается в необъяснимое поражение, а исход тайм-аута не становится сюрпризом.</p></div>
+          <div class="limit"><b>Ограничение.</b> Таблица состояний и сами секунды — часть спецификации модуля и предмет согласования. Здесь зафиксирован только принцип.</div>
+        </div>
+        <div class="sol__media">
+<figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/f/durakcloud-timer.jpg" data-title="Durak.cloud · подсказка у таймера" data-cap="Фрагмент промокомпозиции стола: «DEFEND · Auto-take in 9s» — последствие тайм-аута названо заранее. Рядом число карт у соперника и колода." data-meta="App Store · фрагмент промоматериала · промоматериал" aria-label="Увеличить: Durak.cloud · подсказка у таймера">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak.cloud · подсказка у таймера</span></div>
+    <div class="shot__img"><img src="img/durak/f/durakcloud-timer-t.jpg" alt="Durak.cloud · подсказка у таймера. Фрагмент промокомпозиции стола: «DEFEND · Auto-take in 9s» — последствие тайм-аута названо заранее. Рядом число карт у соперника и колода." width="700" height="554" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak.cloud · подсказка у таймера</b>Фрагмент промокомпозиции стола: «DEFEND · Auto-take in 9s» — последствие тайм-аута названо заранее. Рядом число карт у соперника и колода.<small>App Store · фрагмент промоматериала · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure>        </div>
+      </div>
+    </article>
+    <article class="sol" id="sol-result">
+      <div class="sol__head"><span class="sol__n">05</span>
+        <div><h3 class="sol__title">Результат, история и разбор партии</h3>
+        <p class="sol__claim">Итог называет исход и суммы прямо, сохраняется в истории и объясним по записи ходов. Разбор с подсказкой лучшего хода — возможное развитие.</p></div>
+      </div>
+      <div class="sol__body">
+        <div class="sol__text">
+          <div><span class="label">Что видно на экранах</span><p>DRK.gg на экране победы пишет, кто остался дураком и сколько ходов длилась партия, и предлагает разбор и запись. Crazy Panda привязывает награду к месту и даёт два действия: остаться или сменить стол. Rollbit показывает общую таблицу участников с одним призом, без давления «сыграть ещё».</p></div>
+          <div class="adapt"><span class="label">Как адаптируем</span><p>Итог с раскрытием последних карт, номером партии и суммами: взнос, комиссия, выплата, чистый результат. История партий в профиле. Запись ходов хранится на сервере и доступна участникам для разбора спора. Разбор с лучшим ходом — этап развития.</p></div>
+          <div><span class="label">Польза</span><p>Игрок видит, за что заплатил и почему проиграл. Спор разбирается по записи, а не по словам.</p></div>
+          <div class="limit"><b>Ограничение.</b> Что раскрывать после партии — только ходы или и карты соперника — согласуем вместе с проверкой раздачи. Публичная ссылка на запись, как у DRK.gg, для игры на деньги не подходит.</div>
+        </div>
+        <div class="sol__media sol__media--2">
+<figure class="shot shot--wide">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-victory.jpg" data-title="DRK.gg · экран победы" data-cap="«The table is yours», «Tolya is the durak this time», число ходов; кнопки поделиться, сыграть ещё, разбор, запись партии." data-meta="play.drk.gg · гостевая партия · снято при проверке" aria-label="Увеличить: DRK.gg · экран победы">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · экран победы</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-victory.jpg" alt="DRK.gg · экран победы. «The table is yours», «Tolya is the durak this time», число ходов; кнопки поделиться, сыграть ещё, разбор, запись партии." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · экран победы</b>«The table is yours», «Tolya is the durak this time», число ходов; кнопки поделиться, сыграть ещё, разбор, запись партии.<small>play.drk.gg · гостевая партия · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/f/crazypanda-place.jpg" data-title="Crazy Panda · награда за место" data-cap="Фрагмент промокомпозиции: «Награда за 1 место», место подписано у игрока, две кнопки — остаться или сменить стол. Суммы на композиции не считаем подтверждённой экономикой." data-meta="App Store · фрагмент промоматериала · промоматериал" aria-label="Увеличить: Crazy Panda · награда за место">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Crazy Panda · награда за место</span></div>
+    <div class="shot__img"><img src="img/durak/f/crazypanda-place-t.jpg" alt="Crazy Panda · награда за место. Фрагмент промокомпозиции: «Награда за 1 место», место подписано у игрока, две кнопки — остаться или сменить стол. Суммы на композиции не считаем подтверждённой экономикой." width="700" height="333" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Crazy Panda · награда за место</b>Фрагмент промокомпозиции: «Награда за 1 место», место подписано у игрока, две кнопки — остаться или сменить стол. Суммы на композиции не считаем подтверждённой экономикой.<small>App Store · фрагмент промоматериала · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/rollbit-result.jpg" data-title="Rollbit · итог баттла" data-cap="Таблица всех участников по результату, приз только у первого, прямое сообщение о проигрыше. Банк здесь складывается из результатов слотов, а не из взносов. Ники скрыты нами." data-meta="blog.rollbit.com · кадр официального видео · официальный скриншот" aria-label="Увеличить: Rollbit · итог баттла">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Rollbit · итог баттла</span></div>
+    <div class="shot__img"><img src="img/durak/t/rollbit-result.jpg" alt="Rollbit · итог баттла. Таблица всех участников по результату, приз только у первого, прямое сообщение о проигрыше. Банк здесь складывается из результатов слотов, а не из взносов. Ники скрыты нами." width="960" height="497" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Rollbit · итог баттла</b>Таблица всех участников по результату, приз только у первого, прямое сообщение о проигрыше. Банк здесь складывается из результатов слотов, а не из взносов. Ники скрыты нами.<small>blog.rollbit.com · кадр официального видео · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure>        </div>
+      </div>
+    </article>
+    <article class="sol" id="sol-social">
+      <div class="sol__head"><span class="sol__n">06</span>
+        <div><h3 class="sol__title">Приглашения, оформление и развитие</h3>
+        <p class="sol__claim">Сначала — ссылка в приложение и тренировочный стол. Приглашение в денежную партию с конкретным человеком — только вместе с контролем сговора, и это отдельное решение.</p></div>
+      </div>
+      <div class="sol__body">
+        <div class="sol__text">
+          <div><span class="label">Что видно на экранах</span><p>На главном экране DRK.gg рядом стоят быстрый матч, свой стол, вход по коду и рейтинговые сезоны — без регистрации. У Pokerist один профиль на семь игр издателя, у Durak.cloud пять лиг и сезонные награды. Всё это работает в экономике фишек.</p></div>
+          <div class="adapt"><span class="label">Как адаптируем</span><p>Три сценария приглашения не смешиваем. Ссылка в приложение и на тренировочный стол с обозначенными ботами — база. Приглашение друга в общую очередь — развитие. Адресный денежный матч создаёт закрытый стол и появляется только вместе с контролем сговора. Украшения не влияют на правила и шансы; рейтинг считается по результатам партий, а не по объёму ставок.</p></div>
+          <div><span class="label">Польза</span><p>Новичок учится без риска, а приглашение приводит в нужный сценарий, а не на главную страницу.</p></div>
+          <div class="limit"><b>Ограничение.</b> Награды за объём ставок, платные преимущества и публичные записи с чужими картами не переносим. Турниры и клубы — после устойчивого заполнения очереди.</div>
+        </div>
+        <div class="sol__media">
+<figure class="shot shot--portrait center">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-lobby-m.jpg" data-title="DRK.gg · главный экран" data-cap="Игра с ботами без сети, быстрый матч, создать стол, войти по коду, рейтинговая игра и 2 на 2 — без регистрации. Рейтинг привязан к устройству." data-meta="play.drk.gg · снято при проверке" aria-label="Увеличить: DRK.gg · главный экран">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · главный экран</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-lobby-m.jpg" alt="DRK.gg · главный экран. Игра с ботами без сети, быстрый матч, создать стол, войти по коду, рейтинговая игра и 2 на 2 — без регистрации. Рейтинг привязан к устройству." width="600" height="1022" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · главный экран</b>Игра с ботами без сети, быстрый матч, создать стол, войти по коду, рейтинговая игра и 2 на 2 — без регистрации. Рейтинг привязан к устройству.<small>play.drk.gg · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure>        </div>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="section section--surface" id="s04">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">04 · Как это может выглядеть у нас</p>
+        <h2 class="heading">Два экрана и один денежный пример</h2>
+      </div>
+      <div>
+        <p class="lead">Ниже наша концепция для обсуждения, а не утверждённый дизайн и не скриншоты чужих продуктов. Суммы, уровни и секунды условные. Оба экрана показывают решения из раздела 03 в одном месте.</p>
+      </div>
+    </div>
+
+    <div class="concepts">
+      <div class="concept">
+        <span class="concept__tag">Наша концепция · не скриншот</span>
+        <h3>Выбор взноса и место в очереди</h3>
+        <p class="concept__note">Уровни вместо настроек, расчёт до входа, понятный момент отмены.</p>
+        <div class="mock" role="img" aria-label="Концепция экрана выбора взноса: уровни 5, 10 и 25, расчёт банка, комиссии и выплаты, кнопка занять место, подпись о снятии резерва">
+          <div class="mk-top"><b>Дурак · 1 на 1</b><span>36 карт · подкидной</span></div>
+          <div class="mk-h">Уровень взноса</div>
+          <div class="mk-sub">Колода, режим и время на ход одинаковы для всех уровней</div>
+          <div class="mk-levels">
+            <div class="mk-level"><b>5</b><small>ждут: 0</small></div>
+            <div class="mk-level on"><b>10</b><small>ждёт: 1</small></div>
+            <div class="mk-level"><b>25</b><small>ждут: 0</small></div>
+          </div>
+          <div class="mk-money">
+            <div><span>Ваш взнос</span><b>10</b></div>
+            <div><span>Банк партии (2 × 10)</span><b>20</b></div>
+            <div><span>Комиссия с банка (условно 5%)</span><b>−1</b></div>
+            <div class="tot"><span>Выплата победителю</span><b>19</b></div>
+            <div><span>Чистый результат победителя</span><b>+9</b></div>
+          </div>
+          <div class="mk-btn">Занять место · 10</div>
+          <div class="mk-foot">Резерв можно снять, пока идёт поиск соперника. После подтверждения старта отмена закрыта.</div>
+        </div>
+        <ul>
+          <li>Три уровня показаны для примера; их число и суммы согласуем по времени ожидания.</li>
+          <li>Выплата и чистый результат показаны отдельно: 19 — сумма на счёт, +9 — прибыль.</li>
+          <li>«Ждёт: 1» показывает живую очередь; без соперника взнос возвращается.</li>
+        </ul>
+      </div>
+
+      <div class="concept">
+        <span class="concept__tag">Наша концепция · не скриншот</span>
+        <h3>Стол на двоих: момент защиты</h3>
+        <p class="concept__note">Одна фаза партии: соперник атаковал восьмёркой пик, наш игрок защищается.</p>
+        <div class="mock" role="img" aria-label="Концепция игрового стола в момент защиты: соперник с числом карт, банк партии, карта атаки, подсвеченные карты защиты, таймер с предупреждением и кнопка взять">
+          <div class="mk-opp"><span class="av"></span><div><b>Соперник</b><small>5 карт · последнее: подкинул</small></div><span class="on">● онлайн</span></div>
+          <div class="mk-money" style="margin-top:10px"><div><span>Банк 20 · комиссия 1</span><b>победителю 19</b></div></div>
+          <div class="mk-table">
+            <div class="mk-corner">Колода <b>12</b><br>Козырь <b>♥</b></div>
+            <div class="mk-timer"><i>14</i><small>на ход</small></div>
+            <div class="mk-center" style="margin-top:34px">
+              <span class="mk-card">8<small>♠</small></span>
+              <span class="mk-card back" aria-hidden="true"></span>
+            </div>
+            <div class="mk-hint">Отбейте 8♠ или возьмите карты</div>
+            <div class="mk-warn">Если время выйдет: карты будут взяты. Запас на партию: 0:48</div>
+          </div>
+          <div class="mk-hand">
+            <span class="mk-card dim">7<small>♣</small></span>
+            <span class="mk-card ok">9<small>♠</small></span>
+            <span class="mk-card ok">K<small>♠</small></span>
+            <span class="mk-card red ok">6<small>♥</small></span>
+            <span class="mk-card red dim">10<small>♦</small></span>
+            <span class="mk-card dim">Q<small>♣</small></span>
+          </div>
+          <div class="mk-legend">Подсвечены карты, которыми можно отбиться</div>
+          <div class="mk-btn ghost">Взять карты</div>
+        </div>
+        <ul>
+          <li>Показана только защита: у атакующего в этот момент другой экран со своими действиями.</li>
+          <li>Предупреждение у таймера называет последствие для этого состояния.</li>
+          <li>Строка денег совпадает с экраном выбора взноса; технических надписей на столе нет.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="money">
+      <div>
+        <p class="h3">Условный расчёт одной партии</p>
+        <p class="copy" style="margin-top:10px">Модель одна для всех экранов, но детализация разная: на выборе стола — выплата, в итоге — ещё и чистый результат. Размер комиссии здесь взят для примера и не является предложением тарифа.</p>
+      </div>
+      <table>
+        <caption>Взнос 10 с каждого, комиссия условно 5% с банка</caption>
+        <tr><td>Взносы двух игроков</td><td>10 + 10 = 20</td></tr>
+        <tr><td>Комиссия платформы с банка</td><td>1</td></tr>
+        <tr class="tot"><td>Выплата победителю на счёт</td><td>19</td></tr>
+        <tr class="sub"><td>Чистый результат победителя</td><td>+9</td></tr>
+        <tr class="sub"><td>Чистый результат проигравшего</td><td>−10</td></tr>
+        <tr><td>Ничья по согласованным правилам</td><td>возврат взносов</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+<section class="section" id="s05">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">05 · Что рекомендуем и что согласовать</p>
+        <h2 class="heading">Основа, развитие и решения заказчика</h2>
+      </div>
+      <div>
+        <p class="lead">Состав первой версии модуля — предложение к отдельной оценке, а не согласованный объём. Общеплатформенные вопросы — юрисдикция, проверка личности, сети, лимиты кассы — разобраны в документе <a href="questions.html">«Вопросы до начала работ»</a> и здесь не повторяются.</p>
+      </div>
+    </div>
+
+    <div class="plan">
+      <div>
+        <span class="label">Рекомендуемая основа</span>
+        <h3>Предлагаемый состав первой версии модуля</h3>
+        <ul class="list">
+          <li>Стол на двоих, 36 карт, подкидной, одна партия</li>
+          <li>Несколько фиксированных уровней взноса, одна очередь на уровень, автоматический старт</li>
+          <li>Расчёт «взнос → банк → комиссия → выплата» на выборе стола и в итоге партии</li>
+          <li>Таймер с предупреждением о последствии, запас времени, возвращение после обрыва связи</li>
+          <li>Итог с раскрытием карт, история партий, запись ходов для разбора споров</li>
+          <li>Проверка раздачи по номеру партии; закрытые карты не передаются игроку во время партии</li>
+          <li>Тренировочный стол с обозначенными ботами, ссылка в приложение</li>
+          <li>Базовый контроль злоупотреблений в денежных партиях — уровень согласуем до запуска</li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Возможное развитие</span>
+        <h3>После устойчивого заполнения очереди</h3>
+        <ul class="list">
+          <li>Разбор партии с подсказкой лучшего хода</li>
+          <li>Украшения стола и профиля без влияния на игру</li>
+          <li>Рейтинг по результатам партий, сезоны, ежедневные задания</li>
+          <li>Приглашение друга в общую очередь; адресный денежный матч — вместе с контролем сговора</li>
+          <li>Столы на 3–6 игроков и модель выплат по местам</li>
+          <li>Переводной режим, серии из нескольких партий</li>
+          <li>Турниры, клубы, календарь событий</li>
+          <li>Отдельная гипотеза: поток наших партий как события для внешних букмекерских линий — не входит в базовое предложение</li>
+        </ul>
+      </div>
+      <div>
+        <span class="label">Требует решения заказчика</span>
+        <h3>Что согласовать до оценки модуля</h3>
+        <ol>
+          <li><b>Формат игры.</b> Подтвердить стол на двоих и 36 карт как первую версию или сразу закладывать столы на 3–6.</li>
+          <li><b>Правила завершения.</b> Ничья, одновременный выход, выход из партии, последняя атака при пустой колоде — согласованная спецификация до приёма денег.</li>
+          <li><b>Модель выплат и комиссия.</b> Размер комиссии с банка, округление, возврат при ничьей и отмене.</li>
+          <li><b>Время.</b> Время на ход, запас на партию, время на возвращение, таблица последствий по состояниям.</li>
+          <li><b>Платформы первой версии.</b> Веб, Telegram Mini App, Android — какие входят в первую версию модуля.</li>
+          <li><b>Денежные приглашения.</b> Разрешать ли закрытые столы с другом и какой контроль сговора для этого нужен.</li>
+          <li><b>Раскрытие после партии.</b> Что показывается для проверки раздачи и разбора: только ходы или также карты соперника.</li>
+          <li><b>Объём и оценка модуля.</b> Состав первой версии, движок правил, проверка раздачи, интерфейсы и графика — отдельная оценка вне текущего КП.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="deps">
+      <div><b>Что модуль берёт у платформы</b><p>Балансы, резервирование и списание взносов, выплаты и вывод денег, историю операций, аккаунты и Back Office проводятся финансовым ядром и платформой из основного КП. Игровой модуль обращается к ним через слой интеграции и сам деньгами не управляет.</p></div>
+      <div><b>Что относится к самому модулю</b><p>Правила и движок партии, очередь и старт, таймеры и возвращение, проверка раздачи, игровые экраны и графика, запись ходов и разбор споров, контроль злоупотреблений внутри партий.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section section--surface" id="s06">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">06 · Подробности и источники</p>
+        <h2 class="heading">Второй уровень: проекты, доказательства, ограничения</h2>
+      </div>
+      <div>
+        <p class="lead">Всё, что не нужно для понимания предложения, но нужно для проверки: реестр проектов, условия Durak Crypto, Telegram-боты, ставки у букмекеров, модели выплат для больших столов, архив экранов, границы проверки и источники. Каждый блок раскрывается отдельно.</p>
+      </div>
+    </div>
+    <details class="appx" id="ax-registry">
+      <summary><em>A</em><div><h3>Реестр изученных проектов</h3><p>Кто это, есть ли реальные деньги, что подтверждено и что берём. Без баллов и рейтингов.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <div class="tablewrap tablewrap--cards">
+          <table class="tbl tbl--cards">
+            <thead><tr><th>Продукт</th><th>Тип</th><th>Реальные деньги</th><th>Что подтверждено</th><th>Что берём</th></tr></thead>
+            <tbody>
+              <tr><td>Durak Crypto<small>durakcrypto.com · @DurakCryptoBot</small></td><td data-k="Тип">«Дурак» на деньги, сайт и мини-приложение Telegram</td><td data-k="Реальные деньги" class="pos">USDT по условиям; выплаты не проверены</td><td data-k="Что подтверждено">Условия от 17.06.2026: 1–200 USDT, 2–6 игроков, 5% с банка, ручное одобрение вывода, проверка раздачи с drand. На главной — «no house edge»</td><td data-k="Что берём">Согласованные условия, проверка раздачи</td></tr>
+              <tr><td>Telegram-боты<small>10 адресов, см. блок C</small></td><td data-k="Тип">Боты и мини-приложения Telegram</td><td data-k="Реальные деньги" class="neg">Не подтверждены ни у одного</td><td data-k="Что подтверждено">Ручная проверка в Telegram: из четырёх ботов с заявленным TON или USDT отвечает только Durak on TON с очками; @TonDurakGame_bot не существует; TON Durak закрыт. Шесть других ботов работают на монеты или Telegram Stars</td><td data-k="Что берём">Вход через мини-приложение, приглашение по ссылке; экономику не берём</td></tr>
+              <tr><td>DRK.gg</td><td data-k="Тип">Браузер, бесплатно</td><td data-k="Реальные деньги" class="neg">Нет</td><td data-k="Что подтверждено">Гостевые партии сняты нами: стол, экран победы, разбор, запись; условия от 28.07.2026; профиль хранится на устройстве</td><td data-k="Что берём">Стол, итог, разбор, вход по коду</td></tr>
+              <tr><td>Pokerist<small>KamaGames</small></td><td data-k="Тип">iOS, Android, веб</td><td data-k="Реальные деньги" class="neg">Нет, фишки</td><td data-k="Что подтверждено">Промоматериалы магазинов: уровни столов Novice–Legend, стол на четверых, общий профиль; сертификат генератора случайных чисел iTech Labs без упоминания «Дурака»</td><td data-k="Что берём">Уровни столов, общий профиль</td></tr>
+              <tr><td>Crazy Panda<small>Дурак: Игровой клуб</small></td><td data-k="Тип">iOS, Android, VK, OK</td><td data-k="Реальные деньги" class="neg">Нет, фишки</td><td data-k="Что подтверждено">Справка: 2–4 игрока, 24/36 карт, правила мест, ничьей и ухода из партии; промоматериалы стола и результата</td><td data-k="Что берём">Подписи действий, правила исходов, награда за место</td></tr>
+              <tr><td>Durak.cloud</td><td data-k="Тип">iOS</td><td data-k="Реальные деньги" class="neg">Нет, игровая валюта</td><td data-k="Что подтверждено">Оператор AC Beauty to Customer UG, Берлин; политика данных от 29.08.2026; промо с уровнями входа и подсказкой у таймера. Правила говорят о 2–4 игроках, промо — «up to 6»: расхождение версий</td><td data-k="Что берём">Уровни входа, подсказка у таймера, защита закрытых данных</td></tr>
+              <tr><td>Durak-play.ru</td><td data-k="Тип">Браузер</td><td data-k="Реальные деньги" class="neg">Монеты без вывода</td><td data-k="Что подтверждено">Справка: 2–6 игроков, 45 с на возвращение, возврат при ничьей; гостевая партия снята нами</td><td data-k="Что берём">Числа вместо обещаний в правилах</td></tr>
+              <tr><td>DurakOnline.ru</td><td data-k="Тип">Браузер, приложение</td><td data-k="Реальные деньги" class="neg">Монеты без вывода</td><td data-k="Что подтверждено">Описание сайта: 2–5 игроков, кланы, турниры; сайт открывался нестабильно</td><td data-k="Что берём">Календарь событий — на этапе развития</td></tr>
+              <tr><td>FunFiesta</td><td data-k="Тип">Браузер, Telegram</td><td data-k="Реальные деньги" class="neg">Монеты без вывода</td><td data-k="Что подтверждено">Условия от 01.01.2026: 5% с виртуального банка; платные усиления описаны на сайте и в вопросах по-разному</td><td data-k="Что берём">Стадии готовности комнаты; усиления — не переносим</td></tr>
+              <tr><td>Dice Duels<small>Duelbits</small></td><td data-k="Тип">Денежная дуэль, кубик</td><td data-k="Реальные деньги" class="pos">Да</td><td data-k="Что подтверждено">Справка от 20.07.2026: 2–10 участников, одинаковый взнос, расчёт при отключении; на экране без входа — House Edge 5%; проверка результата из пяти входов</td><td data-k="Что берём">Порядок старта, строка денег, расчёт без игрока</td></tr>
+              <tr><td>Rock Paper Scissors<small>Duel</small></td><td data-k="Тип">Денежная дуэль, жест</td><td data-k="Реальные деньги" class="pos">Да</td><td data-k="Что подтверждено">Публичный список комнат открывался без входа; оператор Immortal Snail LLC по условиям; комиссия дуэли не раскрыта</td><td data-k="Что берём">Компактная строка комнаты; произвольные суммы — не переносим</td></tr>
+              <tr><td>Bonus Battles<small>Rollbit</small></td><td data-k="Тип">Денежная дуэль, слоты</td><td data-k="Реальные деньги" class="pos">Да; банк из результатов слотов</td><td data-k="Что подтверждено">Блог 2021 и 2023: 5 минут набора, 90 секунд запуска, случайный победитель при равенстве, house-аккаунт Rollbot; сайт закрыт для нашего региона</td><td data-k="Что берём">Итоговая таблица; формулу банка — не переносим</td></tr>
+              <tr><td>Card Game DURAK<small>линия букмекеров</small></td><td data-k="Тип">Ставки на партию</td><td data-k="Реальные деньги" class="pos">Да, счёт у букмекера</td><td data-k="Что подтверждено">Правила 1xBet, раздел 10.103; страницы линии у шести брендов; поставщик не установлен</td><td data-k="Что берём">Понимание соседнего продукта; отдельная гипотеза дистрибуции</td></tr>
+              <tr><td>Прототипы<small>Ethereum Durak, RACE Durak</small></td><td data-k="Тип">Открытый код</td><td data-k="Реальные деньги" class="dim">Тестовые сети</td><td data-k="Что подтверждено">Репозитории на GitHub; смарт-контракт учитывает результат, полученный от сервера</td><td data-k="Что берём">Урок: контракт не доказывает честность партии</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+    <details class="appx" id="ax-durakcrypto">
+      <summary><em>B</em><div><h3>Durak Crypto: условия и расхождения</h3><p>Единственный найденный «Дурак» на реальные деньги. Что написано в договоре и что обещано на страницах.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <div class="grid2">
+          <div>
+            <p class="h3">По условиям от 17.06.2026</p>
+            <ul class="list" style="margin-top:12px">
+              <li>Взнос 1–200 USDT, столы на 2–6 игроков, 36 карт, подкидной и переводной.</li>
+              <li>5% от банка завершённой партии; остальные 95% делят игроки, вышедшие до определения «дурака».</li>
+              <li>30 секунд на ход; по таймеру сервер делает «лучший доступный ход»; три пропуска подряд — исключение с потерей взноса.</li>
+              <li>Вывод одобряет администратор, обычно до 15 минут; минимум 10 USDT; комиссия сети 0,50–1,50 USDT в одном месте условий и 0,50 — в другом.</li>
+              <li>Проверка раздачи: хеш секретного числа сервера показан до раздачи; колода собирается из него, чисел игроков и публичного значения сети drand; проверка по номеру комнаты.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="h3">Что расходится с условиями</p>
+            <ul class="list list--neg" style="margin-top:12px">
+              <li>На странице «как это работает»: «No bots, no house edge — pure skill». House edge — это встроенное преимущество казино в правилах игры; комиссия с банка — другой механизм. Но игрок читает обе фразы как «сколько я теряю площадке», и разные ответы на этот вопрос мешают доверию.</li>
+              <li>Там же — вывод «около минуты без одобрения» против ручного одобрения до 15 минут в условиях.</li>
+              <li>Два разных описания победы: «победитель — вышедший первым» и «банк делят все вышедшие до дурака».</li>
+              <li>Макет пустого списка комнат на сайте мы не считаем доказательством отсутствия игроков; глубина очередей не измерена.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="pair" style="margin-top:var(--s4)">
+<figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcrypto-terms.jpg" data-title="Условия · §5–§7" data-cap="Комиссия 5% с банка и распределение остатка, запрет ботов и сговора, таймер 30 секунд и исключение после трёх пропусков." data-meta="durakcrypto.com/en/terms · снято при проверке" aria-label="Увеличить: Условия · §5–§7">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Условия · §5–§7</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcrypto-terms.jpg" alt="Условия · §5–§7. Комиссия 5% с банка и распределение остатка, запрет ботов и сговора, таймер 30 секунд и исключение после трёх пропусков." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Условия · §5–§7</b>Комиссия 5% с банка и распределение остатка, запрет ботов и сговора, таймер 30 секунд и исключение после трёх пропусков.<small>durakcrypto.com/en/terms · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcrypto-fair.jpg" data-title="Страница проверки раздачи" data-cap="Поле номера комнаты и кнопка Verify; описание трёх входов: секрет сервера, числа игроков, значение drand. Работу проверки на реальной партии мы не тестировали." data-meta="durakcrypto.com/en/fairness · снято при проверке" aria-label="Увеличить: Страница проверки раздачи">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Страница проверки раздачи</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcrypto-fair.jpg" alt="Страница проверки раздачи. Поле номера комнаты и кнопка Verify; описание трёх входов: секрет сервера, числа игроков, значение drand. Работу проверки на реальной партии мы не тестировали." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Страница проверки раздачи</b>Поле номера комнаты и кнопка Verify; описание трёх входов: секрет сервера, числа игроков, значение drand. Работу проверки на реальной партии мы не тестировали.<small>durakcrypto.com/en/fairness · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure>        </div>
+        <p class="src">Источники: <a href="https://durakcrypto.com/en" target="_blank" rel="noopener">главная</a> · <a href="https://durakcrypto.com/en/how-it-works" target="_blank" rel="noopener">как это работает</a> · <a href="https://durakcrypto.com/en/terms" target="_blank" rel="noopener">условия</a> · <a href="https://durakcrypto.com/en/fairness" target="_blank" rel="noopener">проверка честности</a> · <a href="https://t.me/DurakCryptoNews" target="_blank" rel="noopener">канал новостей</a></p>
+      </div>
+    </details>
+    <details class="appx" id="ax-telegram">
+      <summary><em>C</em><div><h3>Telegram-боты: адреса и статус</h3><p>Десять адресов после повторного поиска. Игра на деньги не подтверждена ни у одного; часть ботов с заявленным TON не работает.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <p class="copy">Четыре бота из первой волны поиска проверены вручную в Telegram. Остальные найдены при повторном поиске по каталогам мини-приложений и страницам t.me; у них есть публичная страница и описание, работу самих ботов мы вручную не проверяли. Ни один адрес не публикует условия о взносах, комиссии и выводе денег.</p>
+        <div class="tablewrap tablewrap--cards">
+          <table class="tbl tbl--cards">
+            <thead><tr><th>Адрес</th><th>Что заявлено публично</th><th>Деньги</th><th>Статус</th><th>Источник</th></tr></thead>
+            <tbody>
+              <tr><td>@durakton_playbot<small>Durak on TON</small></td><td data-k="Заявлено">«Play with friends, earn points, get airdrop». Каталог обещает турниры с денежными призами в будущем</td><td data-k="Деньги" class="neg">Очки, не деньги</td><td data-k="Статус" class="pos">Отвечает; единственный рабочий из четырёх ботов первой волны</td><td data-k="Источник"><a href="https://t.me/durakton_playbot" target="_blank" rel="noopener">t.me</a> · <a href="https://ton.app/games/Durak-on-TON?id=3563" target="_blank" rel="noopener">TON App</a> · <a href="https://www.findmini.app/durakton_playbot/" target="_blank" rel="noopener">FindMini</a></td></tr>
+              <tr><td>@FoolTGBot<small>Durak</small></td><td data-k="Заявлено">Описание бота: «Играй в Дурака!». Связанный канал называет его ботом для игры на USDT; сторонний каталог пишет о пополнении в TON и выводе USDT</td><td data-k="Деньги" class="dim">USDT заявлен вторичными источниками</td><td data-k="Статус" class="neg">При ручной проверке не отвечает</td><td data-k="Источник"><a href="https://t.me/FoolTGBot" target="_blank" rel="noopener">t.me</a> · <a href="https://www.findmini.app/fooltgbot/" target="_blank" rel="noopener">FindMini</a></td></tr>
+              <tr><td>@TonDurakGame_bot<small>Durak Online по карточке TON App</small></td><td data-k="Заявлено">Карточка TON App: игра с друзьями, приглашение по ссылке и QR-коду, монеты «для удовольствия» и TON</td><td data-k="Деньги" class="dim">TON заявлен только каталогом</td><td data-k="Статус" class="neg">Бот не существует: по адресу нет профиля и ответа</td><td data-k="Источник"><a href="https://ton.app/games/durak-online?id=5411" target="_blank" rel="noopener">TON App</a></td></tr>
+              <tr><td>@tondurakgamebot<small>TON DURAK</small></td><td data-k="Заявлено">«Welcome to TON DURAK! Press PLAY to start the app». Официальный канал объявил о закрытии проекта 01.08.2025</td><td data-k="Деньги" class="dim">Не установлено</td><td data-k="Статус" class="neg">Проект закрыт, бот не работает</td><td data-k="Источник"><a href="https://t.me/tondurakgamebot" target="_blank" rel="noopener">t.me</a> · <a href="https://t.me/TonDurakGame/69" target="_blank" rel="noopener">пост о закрытии</a></td></tr>
+              <tr><td>@DurakCryptoBot<small>Durak Crypto</small></td><td data-k="Заявлено">Мини-приложение Durak Crypto: та же игра, что на сайте, взнос 1–200 USDT по условиям сайта</td><td data-k="Деньги" class="pos">USDT по условиям сайта; выплаты не проверены</td><td data-k="Статус" class="dim">Страница t.me есть; вручную не проверяли. Разобран в блоке B</td><td data-k="Источник"><a href="https://t.me/DurakCryptoBot" target="_blank" rel="noopener">t.me</a> · <a href="https://durakcrypto.com/en" target="_blank" rel="noopener">сайт</a></td></tr>
+              <tr><td>@Durak_Bot<small>Дурак</small></td><td data-k="Заявлено">«Играй в Дурака Онлайн, обыгрывай соперников и получай Telegram Stars»</td><td data-k="Деньги" class="dim">Telegram Stars, не вывод денег</td><td data-k="Статус" class="dim">Страница t.me есть; вручную не проверяли</td><td data-k="Источник"><a href="https://t.me/Durak_Bot" target="_blank" rel="noopener">t.me</a></td></tr>
+              <tr><td>@DurakCardGameBot<small>Durak</small></td><td data-k="Заявлено">«Подкидной и переводной, 2–6 игроков, игра с друзьями. 5000 монет на старте»</td><td data-k="Деньги" class="neg">Монеты</td><td data-k="Статус" class="dim">Страница t.me есть; вручную не проверяли</td><td data-k="Источник"><a href="https://t.me/DurakCardGameBot" target="_blank" rel="noopener">t.me</a></td></tr>
+              <tr><td>@durakru_bot<small>Дурак Онлайн 3D</small></td><td data-k="Заявлено">«Новая версия Дурак Онлайн 3D уже в Telegram! Приглашайте друзей и играйте бесплатно». Каталог показывает около 14 тыс. пользователей в месяц</td><td data-k="Деньги" class="neg">Бесплатно</td><td data-k="Статус" class="dim">Страница t.me есть; вручную не проверяли</td><td data-k="Источник"><a href="https://t.me/durakru_bot" target="_blank" rel="noopener">t.me</a> · <a href="https://www.findmini.app/durakru_bot/" target="_blank" rel="noopener">FindMini</a></td></tr>
+              <tr><td>@durakonlineru_bot<small>Дурак [онлайн]</small></td><td data-k="Заявлено">«Игра в карты с друзьями онлайн: Буркозёл, Дурак, Очко». Название и набор игр совпадают с DurakOnline.ru</td><td data-k="Деньги" class="neg">Монеты</td><td data-k="Статус" class="dim">Страница t.me есть; вручную не проверяли</td><td data-k="Источник"><a href="https://t.me/durakonlineru_bot" target="_blank" rel="noopener">t.me</a> · <a href="https://www.findmini.app/durakonlineru_bot/" target="_blank" rel="noopener">FindMini</a></td></tr>
+              <tr><td>@durakbot<small>Throw-in Durak game</small></td><td data-k="Заявлено">«Play cards for fun and test your luck against other players or even computer». Старый адрес @durakgamebot перенаправляет сюда</td><td data-k="Деньги" class="neg">Бесплатно</td><td data-k="Статус" class="dim">Страница t.me есть; вручную не проверяли</td><td data-k="Источник"><a href="https://t.me/durakbot" target="_blank" rel="noopener">t.me</a></td></tr>
+              <tr><td>@DurakGoBot<small>Дурак Го</small></td><td data-k="Заявлено">«Выбирай правила, играй, фиксируй статистику и делись результатами»</td><td data-k="Деньги" class="neg">Без денег</td><td data-k="Статус" class="dim">Страница t.me есть; вручную не проверяли</td><td data-k="Источник"><a href="https://t.me/DurakGoBot" target="_blank" rel="noopener">t.me</a> · <a href="https://minitelegram.com/en/apps/DurakGoBot" target="_blank" rel="noopener">каталог</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="h3">Официальные скриншоты из карточки TON App «Durak Online»</p>
+        <p class="copy" style="margin-top:8px">Карточка ссылается на несуществующий бот @TonDurakGame_bot, поэтому экраны показывают, как задумано мини-приложение, а не работающий продукт.</p>
+        <div class="archive" style="grid-template-columns:repeat(3,1fr)">
+<figure class="shot shot--portrait">
+  <button class="shot__frame" type="button" data-full="img/durak/tonapp-lobby.jpg" data-title="Стол на двоих" data-cap="Соперник с числом карт, колода с козырем, отбитые пары, рука и ставка 200 монет внизу. Ник скрыт нами." data-meta="TON App · карточка приложения · официальный скриншот" aria-label="Увеличить: Стол на двоих">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Стол на двоих</span></div>
+    <div class="shot__img"><img src="img/durak/t/tonapp-lobby.jpg" alt="Стол на двоих. Соперник с числом карт, колода с козырем, отбитые пары, рука и ставка 200 монет внизу. Ник скрыт нами." width="960" height="1661" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Стол на двоих</b>Соперник с числом карт, колода с козырем, отбитые пары, рука и ставка 200 монет внизу. Ник скрыт нами.<small>TON App · карточка приложения · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure><figure class="shot shot--portrait">
+  <button class="shot__frame" type="button" data-full="img/durak/tonapp-table.jpg" data-title="Главный экран" data-cap="Два баланса — монеты и TON, награда за просмотр видео, кнопка Play, бегущая строка чужих выигрышей. Ники скрыты нами." data-meta="TON App · карточка приложения · официальный скриншот" aria-label="Увеличить: Главный экран">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Главный экран</span></div>
+    <div class="shot__img"><img src="img/durak/t/tonapp-table.jpg" alt="Главный экран. Два баланса — монеты и TON, награда за просмотр видео, кнопка Play, бегущая строка чужих выигрышей. Ники скрыты нами." width="960" height="1661" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Главный экран</b>Два баланса — монеты и TON, награда за просмотр видео, кнопка Play, бегущая строка чужих выигрышей. Ники скрыты нами.<small>TON App · карточка приложения · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure><figure class="shot shot--portrait">
+  <button class="shot__frame" type="button" data-full="img/durak/tonapp-result.jpg" data-title="Экран победы" data-cap="«Поздравляю! Ты выиграл! +0,095 TON». Смысл числа 0,2 внизу экрана по одному кадру не установлен, поэтому комиссию и ставку из него не выводим. Ник скрыт нами." data-meta="TON App · карточка приложения · официальный скриншот" aria-label="Увеличить: Экран победы">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Экран победы</span></div>
+    <div class="shot__img"><img src="img/durak/t/tonapp-result.jpg" alt="Экран победы. «Поздравляю! Ты выиграл! +0,095 TON». Смысл числа 0,2 внизу экрана по одному кадру не установлен, поэтому комиссию и ставку из него не выводим. Ник скрыт нами." width="960" height="1661" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Экран победы</b>«Поздравляю! Ты выиграл! +0,095 TON». Смысл числа 0,2 внизу экрана по одному кадру не установлен, поэтому комиссию и ставку из него не выводим. Ник скрыт нами.<small>TON App · карточка приложения · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure>        </div>
+        <p class="note" style="margin-top:var(--s3)">Подписчики каналов и цифры каталогов не равны числу игроков и не суммируются. Страницы t.me ботов не показываем: это заглушки без содержательного интерфейса.</p>
+      </div>
+    </details>
+    <details class="appx" id="ax-virtual">
+      <summary><em>D</em><div><h3>Ставки на «Дурака» у букмекеров</h3><p>Что документировано, что только косвенно, и почему поставщик линии не назван.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <div class="grid2">
+          <div>
+            <p class="copy">Официальные правила 1xBet содержат раздел 10.103 «Card Game “Durak”»: два игрока, 36 карт, исход — победа одного из них или ничья, двенадцать видов ставок: победитель, число раундов, кто ходит первым, козырная масть, четыре карты одного ранга, кто возьмёт последнюю карту и другие. Клиент букмекера ставит на исход и не управляет рукой; видит ли он трансляцию партии, из правил не следует.</p>
+            <p class="copy">Страницы линии найдены у 1xBet, 1xBit, BetWinner, Linebet, Melbet и SapphireBet. У BetWinner и Linebet адреса содержат один номер чемпионата — 1672828, у остальных совпадает структура событий «Игрок 1 — Игрок 2». Это говорит об общей линии или каталоге, но не о едином владельце и не о том, кто написал саму игру. Синхронного снимка одних и тех же номеров событий у всех операторов в этом отчёте нет, поэтому мы не утверждаем полную идентичность потока.</p>
+            <p class="copy">У BetAndYou и 22Bet раздел «Дурак» есть в правилах, живая линия не проверена. Megapari, BizBet и 888starz — только упоминания в региональных условиях и сторонних копиях, не засчитываем. Возможные производители BetB2B, TVBET и BetGames проверены: связи с этой линией не найдено, называть кого-то по похожему интерфейсу нельзя.</p>
+            <p class="copy">Для нашего продукта это соседний рынок: он не требует соперника для клиента и может конкурировать за внимание игрока. Продажа потока наших партий как событий для таких линий — отдельная гипотеза с требованиями к данным и целостности соревнования, вне базового предложения.</p>
+          </div>
+<figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/virtual-durak-rules.jpg" data-title="1xBet · правила 10.103" data-cap="Раздел официального PDF: два игрока, 36 карт, ничья при пустой колоде и отбитых картах, перечень видов ставок. Страницы линии закрыты для нашего региона, поэтому показан документ." data-meta="afg.1xbet.com/web-api/rulespdf · официальный документ" aria-label="Увеличить: 1xBet · правила 10.103">
+    <div class="shot__bar"><i></i><i></i><i></i><span>1xBet · правила 10.103</span></div>
+    <div class="shot__img"><img src="img/durak/t/virtual-durak-rules.jpg" alt="1xBet · правила 10.103. Раздел официального PDF: два игрока, 36 карт, ничья при пустой колоде и отбитых картах, перечень видов ставок. Страницы линии закрыты для нашего региона, поэтому показан документ." width="960" height="1045" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>1xBet · правила 10.103</b>Раздел официального PDF: два игрока, 36 карт, ничья при пустой колоде и отбитых картах, перечень видов ставок. Страницы линии закрыты для нашего региона, поэтому показан документ.<small>afg.1xbet.com/web-api/rulespdf · <span class="tag tag--doc">официальный документ</span></small></figcaption>
+</figure>        </div>
+        <p class="src">Источники: <a href="https://afg.1xbet.com/web-api/rulespdf" target="_blank" rel="noopener">правила 1xBet</a> · <a href="https://ga.1xbet.com/en/esports/virtual/durak" target="_blank" rel="noopener">1xBet · линия</a> · <a href="https://betwinner.com/en/esports/virtual/durak/1672828-card-game-durak" target="_blank" rel="noopener">BetWinner · чемпионат 1672828</a> · <a href="https://linebet.com/km/live/durak/1672828-card-game-durak" target="_blank" rel="noopener">Linebet · чемпионат 1672828</a> · <a href="https://linebet.com/en/live/durak" target="_blank" rel="noopener">Linebet · live</a> · <a href="https://1xbit.com/en/esports/virtual/durak" target="_blank" rel="noopener">1xBit</a> · <a href="https://melbet.cd/fr/esports/virtual/durak" target="_blank" rel="noopener">Melbet</a> · <a href="https://sapphirebet.com/br/live/durak" target="_blank" rel="noopener">SapphireBet</a> · <a href="https://betandyou.com/web-api/rulespdf" target="_blank" rel="noopener">BetAndYou</a> · <a href="https://dwmu1hf7ovvid.cloudfront.net/site/upload/t%26c/22bet/en.pdf" target="_blank" rel="noopener">22Bet</a> · <a href="https://bet-b2b.com/" target="_blank" rel="noopener">BetB2B</a> · <a href="https://tvbet.tv/en/games/" target="_blank" rel="noopener">TVBET</a> · <a href="https://www.betgames.tv/game/" target="_blank" rel="noopener">BetGames</a></p>
+      </div>
+    </details>
+    <details class="appx" id="ax-payout">
+      <summary><em>E</em><div><h3>Модели выплат для столов на 3–6 игроков</h3><p>Почему для двоих предлагаем «победитель получает банк», и что меняется на больших столах. Все числа условные.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <p class="copy">В классическом «Дураке» определён только проигравший. Для стола на двоих это не создаёт трудности: второй игрок и есть победитель, спорными остаются ничья и выход из партии. Для столов на 3–6 игроков сначала нужно выбрать правило окончания и распределения, а затем экономику. Пример ниже: взнос 10 с каждого, комиссия условно 5% с банка.</p>
+        <div class="tablewrap tablewrap--cards">
+          <table class="tbl tbl--cards">
+            <thead><tr><th>Модель</th><th>Как считается</th><th>Пример на 6 игроков (банк 60, к распределению 57)</th><th>Где встречается</th><th>Что нужно решить</th></tr></thead>
+            <tbody>
+              <tr><td>Победитель получает банк</td><td data-k="Как считается">Выплата = взносы всех × (1 − комиссия)</td><td data-k="Пример">Победителю 57, чистый результат +47; остальные −10</td><td data-k="Где встречается">Dice Duels; для двоих — наше предложение</td><td data-k="Решить">Кто «первый вышедший», если двое избавились от карт одним ходом</td></tr>
+              <tr><td>Все, кроме последнего, делят поровну</td><td data-k="Как считается">Каждому = банк × (1 − комиссия) / (игроков − 1)</td><td data-k="Пример">Пятерым по 11,40, чистый результат +1,40; проигравший −10</td><td data-k="Где встречается">Условия Durak Crypto</td><td data-k="Решить">Слабый стимул при малом выигрыше; правило для покинувших партию</td></tr>
+              <tr><td>Выплаты по местам</td><td data-k="Как считается">Место k = доля места × банк × (1 − комиссия)</td><td data-k="Пример">При долях 50/30/20: 28,50 · 17,10 · 11,40; места 4–6 по −10</td><td data-k="Где встречается">Награды Crazy Panda в фишках</td><td data-k="Решить">Таблица долей, общие места при одновременном выходе, ничья последних двух</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="h3">Как другие решают спорные исходы</p>
+        <ul class="list" style="margin-top:12px">
+          <li><b>Одновременный выход.</b> Crazy Panda: награда за занятые места делится между вышедшими поровну.</li>
+          <li><b>Ничья последних двух.</b> Crazy Panda: делится награда предпоследнего места, «дурака» нет. Durak-play.ru: ставки возвращаются.</li>
+          <li><b>Выход из партии.</b> Crazy Panda: покинувший стол с картами награду не получает. Durak Crypto: три пропуска хода подряд — исключение с потерей взноса.</li>
+        </ul>
+        <p class="note" style="margin-top:var(--s3)">Для нашей игры эти правила — предмет согласования (раздел 05). Версию правил предлагаем сохранять в записи каждой партии, чтобы изменение правил не меняло уже сыгранные партии задним числом.</p>
+      </div>
+    </details>
+    <details class="appx" id="ax-archive">
+      <summary><em>F</em><div><h3>Архив экранов</h3><p>Остальные снимки из проверки: полные версии промокомпозиций, справочные страницы, страницы честности, боты. Открываются в галерее.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <div class="archive" data-gallery="archive">
+<figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-table-attack.jpg" data-title="DRK.gg · ход атакующего" data-cap="Рука внизу, козырь и подсказка «Your move. Attack!» в центре, таймер 29 с, отбой справа." data-meta="play.drk.gg · снято при проверке" aria-label="Увеличить: DRK.gg · ход атакующего">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · ход атакующего</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-table-attack.jpg" alt="DRK.gg · ход атакующего. Рука внизу, козырь и подсказка «Your move. Attack!» в центре, таймер 29 с, отбой справа." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · ход атакующего</b>Рука внизу, козырь и подсказка «Your move. Attack!» в центре, таймер 29 с, отбой справа.<small>play.drk.gg · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-review.jpg" data-title="DRK.gg · разбор партии" data-cap="Оценка «A — a clean game» и переход к записи ходов." data-meta="play.drk.gg · снято при проверке" aria-label="Увеличить: DRK.gg · разбор партии">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · разбор партии</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-review.jpg" alt="DRK.gg · разбор партии. Оценка «A — a clean game» и переход к записи ходов." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · разбор партии</b>Оценка «A — a clean game» и переход к записи ходов.<small>play.drk.gg · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-replay.jpg" data-title="DRK.gg · запись ходов" data-cap="Ход 1 из 12, число карт в колоде и отбое, кнопка «Turning point»." data-meta="play.drk.gg · снято при проверке" aria-label="Увеличить: DRK.gg · запись ходов">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · запись ходов</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-replay.jpg" alt="DRK.gg · запись ходов. Ход 1 из 12, число карт в колоде и отбое, кнопка «Turning point»." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · запись ходов</b>Ход 1 из 12, число карт в колоде и отбое, кнопка «Turning point».<small>play.drk.gg · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-table-m.jpg" data-title="DRK.gg · стол на телефоне" data-cap="Карты соперника сверху, козырь и подсказка в центре, таймер над рукой." data-meta="play.drk.gg · снято при проверке" aria-label="Увеличить: DRK.gg · стол на телефоне">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · стол на телефоне</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-table-m.jpg" alt="DRK.gg · стол на телефоне. Карты соперника сверху, козырь и подсказка в центре, таймер над рукой." width="600" height="1022" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · стол на телефоне</b>Карты соперника сверху, козырь и подсказка в центре, таймер над рукой.<small>play.drk.gg · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-newgame-m.jpg" data-title="DRK.gg · настройка партии" data-cap="Подкидной или переводной, колода 24/36/52, число мест, выбор бота." data-meta="play.drk.gg · снято при проверке" aria-label="Увеличить: DRK.gg · настройка партии">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · настройка партии</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-newgame-m.jpg" alt="DRK.gg · настройка партии. Подкидной или переводной, колода 24/36/52, число мест, выбор бота." width="600" height="1022" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · настройка партии</b>Подкидной или переводной, колода 24/36/52, число мест, выбор бота.<small>play.drk.gg · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/drk-ranked-m.jpg" data-title="DRK.gg · рейтинговая игра" data-cap="Формат «36 карт, подкидной, 1 на 1», сезон; рейтинг привязан к устройству." data-meta="play.drk.gg · снято при проверке" aria-label="Увеличить: DRK.gg · рейтинговая игра">
+    <div class="shot__bar"><i></i><i></i><i></i><span>DRK.gg · рейтинговая игра</span></div>
+    <div class="shot__img"><img src="img/durak/t/drk-ranked-m.jpg" alt="DRK.gg · рейтинговая игра. Формат «36 карт, подкидной, 1 на 1», сезон; рейтинг привязан к устройству." width="600" height="1022" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>DRK.gg · рейтинговая игра</b>Формат «36 карт, подкидной, 1 на 1», сезон; рейтинг привязан к устройству.<small>play.drk.gg · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/pokerist-lobby.jpg" data-title="Pokerist · уровни столов" data-cap="Уровни Novice–Legend со взносом в фишках и параметрами стола; закрытый стол для друзей." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Pokerist · уровни столов">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Pokerist · уровни столов</span></div>
+    <div class="shot__img"><img src="img/durak/t/pokerist-lobby.jpg" alt="Pokerist · уровни столов. Уровни Novice–Legend со взносом в фишках и параметрами стола; закрытый стол для друзей." width="960" height="443" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Pokerist · уровни столов</b>Уровни Novice–Legend со взносом в фишках и параметрами стола; закрытый стол для друзей.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/pokerist-profile.jpg" data-title="Pokerist · профиль" data-cap="Партии, крупнейший выигрыш, достижения и VIP-уровень — общие для игр издателя." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Pokerist · профиль">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Pokerist · профиль</span></div>
+    <div class="shot__img"><img src="img/durak/t/pokerist-profile.jpg" alt="Pokerist · профиль. Партии, крупнейший выигрыш, достижения и VIP-уровень — общие для игр издателя." width="960" height="443" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Pokerist · профиль</b>Партии, крупнейший выигрыш, достижения и VIP-уровень — общие для игр издателя.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/f/pokerist-defend.jpg" data-title="Pokerist · стол на четверых" data-cap="Фрагмент: колода «5» с козырем, четыре десятки на столе, подпись DEFEND, кнопка «I&#x27;ll take»." data-meta="Google Play · фрагмент промоматериала · промоматериал" aria-label="Увеличить: Pokerist · стол на четверых">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Pokerist · стол на четверых</span></div>
+    <div class="shot__img"><img src="img/durak/f/pokerist-defend-t.jpg" alt="Pokerist · стол на четверых. Фрагмент: колода «5» с козырем, четыре десятки на столе, подпись DEFEND, кнопка «I&#x27;ll take»." width="700" height="279" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Pokerist · стол на четверых</b>Фрагмент: колода «5» с козырем, четыре десятки на столе, подпись DEFEND, кнопка «I'll take».<small>Google Play · фрагмент промоматериала · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/pokerist-headsup.jpg" data-title="Pokerist · партия на двоих" data-cap="По шесть карт, реплики над аватарами, колода с козырем." data-meta="Google Play · промоматериал · промоматериал" aria-label="Увеличить: Pokerist · партия на двоих">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Pokerist · партия на двоих</span></div>
+    <div class="shot__img"><img src="img/durak/t/pokerist-headsup.jpg" alt="Pokerist · партия на двоих. По шесть карт, реплики над аватарами, колода с козырем." width="960" height="540" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Pokerist · партия на двоих</b>По шесть карт, реплики над аватарами, колода с козырем.<small>Google Play · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/crazypanda-table-w.jpg" data-title="Crazy Panda · стол" data-cap="Полная промокомпозиция: подписи «Бито», «Пас», «Беру», число карт, кнопка «Беру»." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Crazy Panda · стол">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Crazy Panda · стол</span></div>
+    <div class="shot__img"><img src="img/durak/t/crazypanda-table-w.jpg" alt="Crazy Panda · стол. Полная промокомпозиция: подписи «Бито», «Пас», «Беру», число карт, кнопка «Беру»." width="960" height="443" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Crazy Panda · стол</b>Полная промокомпозиция: подписи «Бито», «Пас», «Беру», число карт, кнопка «Беру».<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/crazypanda-choose.jpg" data-title="Crazy Panda · выбор стола" data-cap="Тип игры, число мест 2/3/4, ползунок взноса и кнопка «Таблица наград». Числа на композиции не согласованы между собой." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Crazy Panda · выбор стола">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Crazy Panda · выбор стола</span></div>
+    <div class="shot__img"><img src="img/durak/t/crazypanda-choose.jpg" alt="Crazy Panda · выбор стола. Тип игры, число мест 2/3/4, ползунок взноса и кнопка «Таблица наград». Числа на композиции не согласованы между собой." width="960" height="443" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Crazy Panda · выбор стола</b>Тип игры, число мест 2/3/4, ползунок взноса и кнопка «Таблица наград». Числа на композиции не согласованы между собой.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/crazypanda-rewards.jpg" data-title="Crazy Panda · справка о местах" data-cap="Победитель — первый вышедший; двух дураков быть не может; ничья и общие места описаны отдельно." data-meta="crazypanda.helpshift.com · снято при проверке" aria-label="Увеличить: Crazy Panda · справка о местах">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Crazy Panda · справка о местах</span></div>
+    <div class="shot__img"><img src="img/durak/t/crazypanda-rewards.jpg" alt="Crazy Panda · справка о местах. Победитель — первый вышедший; двух дураков быть не может; ничья и общие места описаны отдельно." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Crazy Panda · справка о местах</b>Победитель — первый вышедший; двух дураков быть не может; ничья и общие места описаны отдельно.<small>crazypanda.helpshift.com · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/crazypanda-payout.jpg" data-title="Crazy Panda · таблица наград" data-cap="Промокомпозиция с таблицей наград по местам для 2, 3 и 4 игроков; взнос, фонд и награды на ней не сходятся в один расчёт." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Crazy Panda · таблица наград">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Crazy Panda · таблица наград</span></div>
+    <div class="shot__img"><img src="img/durak/t/crazypanda-payout.jpg" alt="Crazy Panda · таблица наград. Промокомпозиция с таблицей наград по местам для 2, 3 и 4 игроков; взнос, фонд и награды на ней не сходятся в один расчёт." width="960" height="1281" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Crazy Panda · таблица наград</b>Промокомпозиция с таблицей наград по местам для 2, 3 и 4 игроков; взнос, фонд и награды на ней не сходятся в один расчёт.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcloud-lobby.jpg" data-title="Durak.cloud · выбор стола" data-cap="Полная промокомпозиция: уровни входа, кнопка «Play for 100», режимы Classic, Push, League." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Durak.cloud · выбор стола">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak.cloud · выбор стола</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcloud-lobby.jpg" alt="Durak.cloud · выбор стола. Полная промокомпозиция: уровни входа, кнопка «Play for 100», режимы Classic, Push, League." width="960" height="2078" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak.cloud · выбор стола</b>Полная промокомпозиция: уровни входа, кнопка «Play for 100», режимы Classic, Push, League.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcloud-table.jpg" data-title="Durak.cloud · стол" data-cap="Полная промокомпозиция «Up to 6 players»: пометка ATTACK, число карт, «Auto-take in 9s»." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Durak.cloud · стол">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak.cloud · стол</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcloud-table.jpg" alt="Durak.cloud · стол. Полная промокомпозиция «Up to 6 players»: пометка ATTACK, число карт, «Auto-take in 9s»." width="960" height="2078" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak.cloud · стол</b>Полная промокомпозиция «Up to 6 players»: пометка ATTACK, число карт, «Auto-take in 9s».<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcloud-shop.jpg" data-title="Durak.cloud · магазин" data-cap="Оформление стола, колоды и аватары; платная подписка с бонусом к игровой валюте." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Durak.cloud · магазин">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak.cloud · магазин</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcloud-shop.jpg" alt="Durak.cloud · магазин. Оформление стола, колоды и аватары; платная подписка с бонусом к игровой валюте." width="960" height="2078" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak.cloud · магазин</b>Оформление стола, колоды и аватары; платная подписка с бонусом к игровой валюте.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakplay-create.jpg" data-title="Durak-play.ru · создание стола" data-cap="Режим, 2–6 игроков, колода, ставка монетами, опции комнаты." data-meta="durak-play.ru · гостевой вход · снято при проверке" aria-label="Увеличить: Durak-play.ru · создание стола">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak-play.ru · создание стола</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakplay-create.jpg" alt="Durak-play.ru · создание стола. Режим, 2–6 игроков, колода, ставка монетами, опции комнаты." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak-play.ru · создание стола</b>Режим, 2–6 игроков, колода, ставка монетами, опции комнаты.<small>durak-play.ru · гостевой вход · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakplay-wait.jpg" data-title="Durak-play.ru · ожидание" data-cap="«2/2», соперник и гость, кнопка «Готов»." data-meta="durak-play.ru · снято при проверке" aria-label="Увеличить: Durak-play.ru · ожидание">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak-play.ru · ожидание</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakplay-wait.jpg" alt="Durak-play.ru · ожидание. «2/2», соперник и гость, кнопка «Готов»." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak-play.ru · ожидание</b>«2/2», соперник и гость, кнопка «Готов».<small>durak-play.ru · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakplay-table.jpg" data-title="Durak-play.ru · партия" data-cap="Колода «23» с козырем 7♣, отбитая пара, кнопка «Бито!». Таймера на экране нет. Ник скрыт нами." data-meta="durak-play.ru · снято при проверке" aria-label="Увеличить: Durak-play.ru · партия">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak-play.ru · партия</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakplay-table.jpg" alt="Durak-play.ru · партия. Колода «23» с козырем 7♣, отбитая пара, кнопка «Бито!». Таймера на экране нет. Ник скрыт нами." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak-play.ru · партия</b>Колода «23» с козырем 7♣, отбитая пара, кнопка «Бито!». Таймера на экране нет. Ник скрыт нами.<small>durak-play.ru · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakonline-table.jpg" data-title="Дурак [онлайн] · стол" data-cap="Стол на троих, число карт под аватарами, кнопка «Беру». Аватары скрыты нами." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Дурак [онлайн] · стол">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Дурак [онлайн] · стол</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakonline-table.jpg" alt="Дурак [онлайн] · стол. Стол на троих, число карт под аватарами, кнопка «Беру». Аватары скрыты нами." width="960" height="1707" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Дурак [онлайн] · стол</b>Стол на троих, число карт под аватарами, кнопка «Беру». Аватары скрыты нами.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakonline-rating.jpg" data-title="Дурак [онлайн] · рейтинг" data-cap="Вкладки «Общий», «Неделя», «Турниры», «Активность». Ники скрыты нами." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Дурак [онлайн] · рейтинг">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Дурак [онлайн] · рейтинг</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakonline-rating.jpg" alt="Дурак [онлайн] · рейтинг. Вкладки «Общий», «Неделя», «Турниры», «Активность». Ники скрыты нами." width="960" height="1707" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Дурак [онлайн] · рейтинг</b>Вкладки «Общий», «Неделя», «Турниры», «Активность». Ники скрыты нами.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakonline-store.jpg" data-title="Дурак [онлайн] · магазин" data-cap="Фоны и предметы за монеты." data-meta="App Store · промоматериал · промоматериал" aria-label="Увеличить: Дурак [онлайн] · магазин">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Дурак [онлайн] · магазин</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakonline-store.jpg" alt="Дурак [онлайн] · магазин. Фоны и предметы за монеты." width="960" height="1707" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Дурак [онлайн] · магазин</b>Фоны и предметы за монеты.<small>App Store · промоматериал · <span class="tag tag--promo">промоматериал</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/funfiesta-boosts.jpg" data-title="FunFiesta · платные усиления" data-cap="Подсказка хода, обмен карты, отмена хода соперника. Пример, который не переносим." data-meta="durak.funfiesta.games · снято при проверке" aria-label="Увеличить: FunFiesta · платные усиления">
+    <div class="shot__bar"><i></i><i></i><i></i><span>FunFiesta · платные усиления</span></div>
+    <div class="shot__img"><img src="img/durak/t/funfiesta-boosts.jpg" alt="FunFiesta · платные усиления. Подсказка хода, обмен карты, отмена хода соперника. Пример, который не переносим." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>FunFiesta · платные усиления</b>Подсказка хода, обмен карты, отмена хода соперника. Пример, который не переносим.<small>durak.funfiesta.games · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/duelbits-live.jpg" data-title="Dice Duels · экран без входа" data-cap="Сумма, число игроков, Create Duel и строка Buy In / Winnings / House Edge 5%; открытых дуэлей в момент снимка нет." data-meta="duelbits.com · снято при проверке" aria-label="Увеличить: Dice Duels · экран без входа">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Dice Duels · экран без входа</span></div>
+    <div class="shot__img"><img src="img/durak/t/duelbits-live.jpg" alt="Dice Duels · экран без входа. Сумма, число игроков, Create Duel и строка Buy In / Winnings / House Edge 5%; открытых дуэлей в момент снимка нет." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Dice Duels · экран без входа</b>Сумма, число игроков, Create Duel и строка Buy In / Winnings / House Edge 5%; открытых дуэлей в момент снимка нет.<small>duelbits.com · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/duelbits-list.jpg" data-title="Dice Duels · карточки дуэлей" data-cap="Взнос, возможный выигрыш и занятые места на каждой карточке." data-meta="help.duelbits.com · официальный скриншот · официальный скриншот" aria-label="Увеличить: Dice Duels · карточки дуэлей">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Dice Duels · карточки дуэлей</span></div>
+    <div class="shot__img"><img src="img/durak/t/duelbits-list.jpg" alt="Dice Duels · карточки дуэлей. Взнос, возможный выигрыш и занятые места на каждой карточке." width="960" height="171" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Dice Duels · карточки дуэлей</b>Взнос, возможный выигрыш и занятые места на каждой карточке.<small>help.duelbits.com · официальный скриншот · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/duelbits-create.jpg" data-title="Dice Duels · сетка комнат" data-cap="Список открытых дуэлей с суммами и заполнением мест. Панели создания на этом кадре нет." data-meta="help.duelbits.com · официальный скриншот · официальный скриншот" aria-label="Увеличить: Dice Duels · сетка комнат">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Dice Duels · сетка комнат</span></div>
+    <div class="shot__img"><img src="img/durak/t/duelbits-create.jpg" alt="Dice Duels · сетка комнат. Список открытых дуэлей с суммами и заполнением мест. Панели создания на этом кадре нет." width="960" height="481" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Dice Duels · сетка комнат</b>Список открытых дуэлей с суммами и заполнением мест. Панели создания на этом кадре нет.<small>help.duelbits.com · официальный скриншот · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/duelbits-fair.jpg" data-title="Duelbits · проверка честности" data-cap="Секретные числа сервера и клиента, счётчик и пример кода проверки." data-meta="duelbits.com/fairness · снято при проверке" aria-label="Увеличить: Duelbits · проверка честности">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Duelbits · проверка честности</span></div>
+    <div class="shot__img"><img src="img/durak/t/duelbits-fair.jpg" alt="Duelbits · проверка честности. Секретные числа сервера и клиента, счётчик и пример кода проверки." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Duelbits · проверка честности</b>Секретные числа сервера и клиента, счётчик и пример кода проверки.<small>duelbits.com/fairness · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/duel-lobby-m.jpg" data-title="Duel · комнаты на телефоне" data-cap="Карточка комнаты с «Waiting…», сумма, кнопка Join, панель создания внизу. Ник скрыт нами." data-meta="duel.com · снято при проверке" aria-label="Увеличить: Duel · комнаты на телефоне">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Duel · комнаты на телефоне</span></div>
+    <div class="shot__img"><img src="img/durak/t/duel-lobby-m.jpg" alt="Duel · комнаты на телефоне. Карточка комнаты с «Waiting…», сумма, кнопка Join, панель создания внизу. Ник скрыт нами." width="600" height="1022" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Duel · комнаты на телефоне</b>Карточка комнаты с «Waiting…», сумма, кнопка Join, панель создания внизу. Ник скрыт нами.<small>duel.com · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/duel-fair.jpg" data-title="Duel · проверка честности" data-cap="Общая схема для игр против казино; как скрыт жест игрока в дуэли, не объяснено." data-meta="duel.com/provably-fair · снято при проверке" aria-label="Увеличить: Duel · проверка честности">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Duel · проверка честности</span></div>
+    <div class="shot__img"><img src="img/durak/t/duel-fair.jpg" alt="Duel · проверка честности. Общая схема для игр против казино; как скрыт жест игрока в дуэли, не объяснено." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Duel · проверка честности</b>Общая схема для игр против казино; как скрыт жест игрока в дуэли, не объяснено.<small>duel.com/provably-fair · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/rollbit-lobby.jpg" data-title="Rollbit · список баттлов" data-cap="Слот, стоимость бонуса, статус, занятые места, кнопка «Join for $40». Ники скрыты нами." data-meta="blog.rollbit.com · кадр видео · официальный скриншот" aria-label="Увеличить: Rollbit · список баттлов">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Rollbit · список баттлов</span></div>
+    <div class="shot__img"><img src="img/durak/t/rollbit-lobby.jpg" alt="Rollbit · список баттлов. Слот, стоимость бонуса, статус, занятые места, кнопка «Join for $40». Ники скрыты нами." width="960" height="473" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Rollbit · список баттлов</b>Слот, стоимость бонуса, статус, занятые места, кнопка «Join for $40». Ники скрыты нами.<small>blog.rollbit.com · кадр видео · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/rollbit-battle.jpg" data-title="Rollbit · страница баттла" data-cap="«Results in 00:10 · Live», таблица участников. Ники скрыты нами." data-meta="blog.rollbit.com · официальный скриншот · официальный скриншот" aria-label="Увеличить: Rollbit · страница баттла">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Rollbit · страница баттла</span></div>
+    <div class="shot__img"><img src="img/durak/t/rollbit-battle.jpg" alt="Rollbit · страница баттла. «Results in 00:10 · Live», таблица участников. Ники скрыты нами." width="960" height="460" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Rollbit · страница баттла</b>«Results in 00:10 · Live», таблица участников. Ники скрыты нами.<small>blog.rollbit.com · официальный скриншот · <span class="tag tag--doc">официальный скриншот</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcrypto-landing.jpg" data-title="Durak Crypto · главная" data-cap="«Stake 1–200 USDT», значки TON и BEP-20, макет стола со строкой «POT 20.00 USDT»." data-meta="durakcrypto.com · снято при проверке" aria-label="Увеличить: Durak Crypto · главная">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak Crypto · главная</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcrypto-landing.jpg" alt="Durak Crypto · главная. «Stake 1–200 USDT», значки TON и BEP-20, макет стола со строкой «POT 20.00 USDT»." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak Crypto · главная</b>«Stake 1–200 USDT», значки TON и BEP-20, макет стола со строкой «POT 20.00 USDT».<small>durakcrypto.com · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcrypto-lobby.jpg" data-title="Durak Crypto · макет комнат" data-cap="Макет на странице «как это работает»: «No open rooms yet». Это иллюстрация сайта, не живая очередь." data-meta="durakcrypto.com/how-it-works · снято при проверке" aria-label="Увеличить: Durak Crypto · макет комнат">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak Crypto · макет комнат</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcrypto-lobby.jpg" alt="Durak Crypto · макет комнат. Макет на странице «как это работает»: «No open rooms yet». Это иллюстрация сайта, не живая очередь." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak Crypto · макет комнат</b>Макет на странице «как это работает»: «No open rooms yet». Это иллюстрация сайта, не живая очередь.<small>durakcrypto.com/how-it-works · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure><figure class="shot ">
+  <button class="shot__frame" type="button" data-full="img/durak/durakcrypto-rules.jpg" data-title="Durak Crypto · правила и таймер" data-cap="Карточки правил и блок «Turn Timer &amp; AFK»: ход за игрока по таймеру." data-meta="durakcrypto.com/how-it-works · снято при проверке" aria-label="Увеличить: Durak Crypto · правила и таймер">
+    <div class="shot__bar"><i></i><i></i><i></i><span>Durak Crypto · правила и таймер</span></div>
+    <div class="shot__img"><img src="img/durak/t/durakcrypto-rules.jpg" alt="Durak Crypto · правила и таймер. Карточки правил и блок «Turn Timer &amp; AFK»: ход за игрока по таймеру." width="960" height="600" loading="lazy" decoding="async"></div>
+  </button>
+  <figcaption><b>Durak Crypto · правила и таймер</b>Карточки правил и блок «Turn Timer & AFK»: ход за игрока по таймеру.<small>durakcrypto.com/how-it-works · <span class="tag tag--real">снято при проверке</span></small></figcaption>
+</figure>        </div>
+      </div>
+    </details>
+    <details class="appx" id="ax-limits">
+      <summary><em>G</em><div><h3>Границы проверки и расхождения версий</h3><p>Как читать статусы, что мы не делали и где источники противоречат друг другу.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <p class="copy">Проверка по открытым источникам: правила, условия, справочные разделы, магазины приложений, публичные экраны и гостевые партии без регистрации. Мы не вносили деньги, не делали ставок и не проверяли вывод на себе. Страница, доступная в момент проверки, доказывает существование предложения в этот момент, а не его непрерывную работу; недоступность страницы не доказывает закрытие. Региональные ограничения не обходили. Ники живых игроков и посторонний чат на снимках скрыты.</p>
+        <div class="legend">
+          <div><b>Подтверждено</b>Правило в документе оператора или экран, который мы видели сами.</div>
+          <div><b>По описанию оператора</b>Самоописание, карточка магазина или каталога; работу не проверяли.</div>
+          <div><b>Слабое</b>Каталог, рекламная страница, старая публикация.</div>
+          <div><b>Не установлено</b>Публичного подтверждения нет. Это не отрицательный факт.</div>
+        </div>
+        <p class="h3">Расхождения, которые мы не разрешили</p>
+        <ul class="list" style="margin-top:12px">
+          <li><b>Durak.cloud, число игроков.</b> Правила и карточка описывают 2–4 игрока, промокомпозиция в App Store — «Up to 6 players». Возможны разные версии приложения; используем расположение элементов, а не число мест.</li>
+          <li><b>Dice Duels, комиссия.</b> На публичном экране видна строка House Edge 5%; в справке от 20.07.2026 размер не назван. Возможна разница версий или регионов.</li>
+          <li><b>Durak Crypto, вывод.</b> Комиссия сети 0,50–1,50 USDT в шапке условий и 0,50 в тексте; вывод «около минуты» на сайте против ручного одобрения в условиях.</li>
+          <li><b>Telegram-боты.</b> Страница t.me с кнопкой «Start» есть и у ботов, которые при ручной проверке не отвечают или не существуют. Статус «страница есть» не равен статусу «бот работает»; для новых адресов ручная проверка не проводилась.</li>
+          <li><b>Линия букмекеров.</b> Общий номер чемпионата подтверждён у двух брендов по адресам страниц; одновременность одних и тех же событий у всех шести не зафиксирована.</li>
+        </ul>
+        <p class="h3">Что изменено относительно предыдущей версии этого приложения</p>
+        <ul class="list" style="margin-top:12px">
+          <li>Исправлены перепутанные подписи скриншотов Durak Online (TON App): стол и главный экран поменялись местами. Снимок Dice Duels с сеткой комнат больше не описывается как панель создания.</li>
+          <li>Удалён вывод о комиссии из экрана победы Durak Online: смысл второй суммы на кадре не установлен.</li>
+          <li>Промокомпозиции магазинов подписаны как промоматериал; числа на композиции Crazy Panda не используются как экономика.</li>
+          <li>Убраны утверждения «ниша свободна», «рынка нет» и вывод о нехватке игроков по макету пустой комнаты. Формулировка «no house edge» сохранена в оригинале и не приравнена к комиссии.</li>
+          <li>Убрано упоминание версии Pokerist для Steam: источник в реестре не сохранился.</li>
+          <li>Telegram-боты проверены вручную: @TonDurakGame_bot не существует, @FoolTGBot и @tondurakgamebot не отвечают, работает только @durakton_playbot. Выполнен повторный поиск: добавлены шесть адресов на монеты и Telegram Stars и мини-приложение Durak Crypto. Скриншоты-заглушки страниц t.me удалены.</li>
+          <li>Даты проверки убраны из подписей и текста; оставлены только даты документов операторов.</li>
+          <li>Утверждение об одновременных событиях у всех операторов линии смягчено до документированного присутствия.</li>
+        </ul>
+      </div>
+    </details>
+    <details class="appx" id="ax-sources">
+      <summary><em>H</em><div><h3>Источники</h3><p>Все использованные страницы, сгруппированные по проектам.</p></div><span class="pm"></span></summary>
+      <div class="appx__body">
+        <div class="sources">
+          <div>
+            <h4>«Дурак» без вывода денег</h4>
+            <p>
+              <a href="https://www.drk.gg/" target="_blank" rel="noopener">DRK.gg</a> · <a href="https://play.drk.gg/" target="_blank" rel="noopener">play.drk.gg</a> · <a href="https://www.drk.gg/terms" target="_blank" rel="noopener">условия 28.07.2026</a> · <a href="https://www.drk.gg/privacy" target="_blank" rel="noopener">политика данных</a><br>
+              <a href="https://www.kamagames.com/durak" target="_blank" rel="noopener">KamaGames · Durak</a> · <a href="https://www.durak.app/en/" target="_blank" rel="noopener">durak.app</a> · <a href="https://apps.apple.com/ua/app/durak-online-by-pokerist/id1470421868" target="_blank" rel="noopener">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.kamagames.durak" target="_blank" rel="noopener">Google Play</a> · <a href="https://www.kamagames.com/certificate" target="_blank" rel="noopener">сертификат генератора</a><br>
+              <a href="https://crazypanda.helpshift.com/hc/en/20-durak/" target="_blank" rel="noopener">Crazy Panda · справка</a> · <a href="https://crazypanda.helpshift.com/hc/en/20-durak/faq/702-about-durak-gaming-club/" target="_blank" rel="noopener">о продукте</a> · <a href="https://crazypanda.helpshift.com/hc/en/20-durak/faq/687-basic-rules-of-throw-in-fool/" target="_blank" rel="noopener">правила</a> · <a href="https://crazypanda.helpshift.com/hc/en/20-durak/faq/723-placement-and-rewards/" target="_blank" rel="noopener">места и награды</a> · <a href="https://apps.apple.com/ua/app/id6744317688" target="_blank" rel="noopener">App Store</a> · <a href="https://www.rustore.ru/catalog/app/air.ru.crazypanda.durak.rustore" target="_blank" rel="noopener">RuStore</a><br>
+              <a href="https://durak.cloud/en/" target="_blank" rel="noopener">Durak.cloud</a> · <a href="https://durak.cloud/regeln/" target="_blank" rel="noopener">правила</a> · <a href="https://api.durak.cloud/legal/privacy" target="_blank" rel="noopener">политика данных 29.08.2026</a> · <a href="https://apps.apple.com/ua/app/durak-card-game-online/id6782325784" target="_blank" rel="noopener">App Store</a><br>
+              <a href="https://durak-play.ru/" target="_blank" rel="noopener">Durak-play.ru</a> · <a href="https://durak-play.ru/en/help" target="_blank" rel="noopener">справка</a> · <a href="https://durakonline.ru/" target="_blank" rel="noopener">DurakOnline.ru</a> · <a href="https://durakonline.ru/home/agree" target="_blank" rel="noopener">соглашение</a> · <a href="https://apps.apple.com/us/app/id1584653396" target="_blank" rel="noopener">приложение «Дурак [онлайн]»</a><br>
+              <a href="https://durak.funfiesta.games/" target="_blank" rel="noopener">FunFiesta</a> · <a href="https://durak.funfiesta.games/terms" target="_blank" rel="noopener">условия 01.01.2026</a> · <a href="https://durak.funfiesta.games/faq" target="_blank" rel="noopener">вопросы и ответы</a>
+            </p>
+          </div>
+          <div>
+            <h4>Игра на деньги, Telegram, дуэли</h4>
+            <p>
+              <a href="https://durakcrypto.com/en" target="_blank" rel="noopener">Durak Crypto</a> · <a href="https://durakcrypto.com/en/how-it-works" target="_blank" rel="noopener">как это работает</a> · <a href="https://durakcrypto.com/en/terms" target="_blank" rel="noopener">условия 17.06.2026</a> · <a href="https://durakcrypto.com/en/fairness" target="_blank" rel="noopener">проверка честности</a> · <a href="https://t.me/DurakCryptoNews" target="_blank" rel="noopener">канал новостей</a><br>
+              <a href="https://t.me/FoolTGBot" target="_blank" rel="noopener">@FoolTGBot</a> · <a href="https://www.findmini.app/fooltgbot/" target="_blank" rel="noopener">FindMini</a> · <a href="https://t.me/TonDurakGame_bot" target="_blank" rel="noopener">@TonDurakGame_bot</a> · <a href="https://ton.app/games/durak-online?id=5411" target="_blank" rel="noopener">TON App · Durak Online</a> · <a href="https://t.me/tondurakgamebot" target="_blank" rel="noopener">@tondurakgamebot</a> · <a href="https://t.me/TonDurakGame/69" target="_blank" rel="noopener">пост о закрытии</a> · <a href="https://t.me/durakton_playbot" target="_blank" rel="noopener">@durakton_playbot</a> · <a href="https://ton.app/games/Durak-on-TON?id=3563" target="_blank" rel="noopener">TON App · Durak on TON</a> · <a href="https://www.findmini.app/durakton_playbot/" target="_blank" rel="noopener">FindMini</a><br>
+              <a href="https://t.me/DurakCryptoBot" target="_blank" rel="noopener">@DurakCryptoBot</a> · <a href="https://t.me/Durak_Bot" target="_blank" rel="noopener">@Durak_Bot</a> · <a href="https://t.me/DurakCardGameBot" target="_blank" rel="noopener">@DurakCardGameBot</a> · <a href="https://t.me/durakru_bot" target="_blank" rel="noopener">@durakru_bot</a> · <a href="https://www.findmini.app/durakru_bot/" target="_blank" rel="noopener">FindMini</a> · <a href="https://t.me/durakonlineru_bot" target="_blank" rel="noopener">@durakonlineru_bot</a> · <a href="https://www.findmini.app/durakonlineru_bot/" target="_blank" rel="noopener">FindMini</a> · <a href="https://t.me/durakbot" target="_blank" rel="noopener">@durakbot</a> · <a href="https://t.me/DurakGoBot" target="_blank" rel="noopener">@DurakGoBot</a> · <a href="https://minitelegram.com/en/apps/DurakGoBot" target="_blank" rel="noopener">каталог</a><br>
+              <a href="https://duelbits.com/en/originals/duels" target="_blank" rel="noopener">Dice Duels</a> · <a href="https://help.duelbits.com/en/articles/5351678-dice-duels-explained" target="_blank" rel="noopener">справка 20.07.2026</a> · <a href="https://duelbits.com/en/fairness" target="_blank" rel="noopener">честность</a> · <a href="https://help.duelbits.com/en/articles/16451925-what-countries-does-duelbits-accept" target="_blank" rel="noopener">страны</a><br>
+              <a href="https://duel.com/rock-paper-scissors" target="_blank" rel="noopener">Duel · Rock Paper Scissors</a> · <a href="https://duel.com/l1" target="_blank" rel="noopener">собственные игры</a> · <a href="https://duel.com/provably-fair" target="_blank" rel="noopener">проверка честности</a> · <a href="https://duel.com/policies/tos" target="_blank" rel="noopener">условия</a><br>
+              <a href="https://blog.rollbit.com/bonus-battles/" target="_blank" rel="noopener">Rollbit · Bonus Battles, 04.05.2023</a> · <a href="https://blog.rollbit.com/intro-to-bonus-battles/" target="_blank" rel="noopener">анонс 02.08.2021</a> · <a href="https://rollbit.com" target="_blank" rel="noopener">rollbit.com</a> · <a href="https://www.bitcoin.com/gambling/guides/bonuses-and-promotions/rollbit-bonuses-promotions/" target="_blank" rel="noopener">обзор Bitcoin.com, оплачен Rollbit</a>
+            </p>
+          </div>
+          <div>
+            <h4>Ставки, правила игры, прототипы</h4>
+            <p>
+              <a href="https://afg.1xbet.com/web-api/rulespdf" target="_blank" rel="noopener">1xBet · правила</a> · <a href="https://ga.1xbet.com/en/esports/virtual/durak" target="_blank" rel="noopener">1xBet · линия</a> · <a href="https://betwinner.com/en/esports/virtual/durak/1672828-card-game-durak" target="_blank" rel="noopener">BetWinner</a> · <a href="https://linebet.com/en/live/durak" target="_blank" rel="noopener">Linebet</a> · <a href="https://linebet.com/km/live/durak/1672828-card-game-durak" target="_blank" rel="noopener">Linebet · чемпионат</a> · <a href="https://1xbit.com/en/esports/virtual/durak" target="_blank" rel="noopener">1xBit</a> · <a href="https://melbet.cd/fr/esports/virtual/durak" target="_blank" rel="noopener">Melbet</a> · <a href="https://sapphirebet.com/br/live/durak" target="_blank" rel="noopener">SapphireBet</a> · <a href="https://betandyou.com/web-api/rulespdf" target="_blank" rel="noopener">BetAndYou</a> · <a href="https://dwmu1hf7ovvid.cloudfront.net/site/upload/t%26c/22bet/en.pdf" target="_blank" rel="noopener">22Bet</a><br>
+              <a href="https://bet-b2b.com/" target="_blank" rel="noopener">BetB2B</a> · <a href="https://tvbet.tv/en/games/" target="_blank" rel="noopener">TVBET</a> · <a href="https://www.betgames.tv/game/" target="_blank" rel="noopener">BetGames</a> — проверены как возможные производители линии, связь не установлена<br>
+              <a href="https://www.pagat.com/beating/podkidnoy_durak.html" target="_blank" rel="noopener">Pagat · подкидной</a> · <a href="https://www.pagat.com/beating/perevodnoy_durak.html" target="_blank" rel="noopener">Pagat · переводной, 01.09.2026</a><br>
+              <a href="https://github.com/SubZeroX9/durak-game" target="_blank" rel="noopener">Ethereum Durak</a> · <a href="https://github.com/RACE-Game/durak" target="_blank" rel="noopener">RACE Durak</a> · <a href="https://club888.casinofull.net/eng/live-betting" target="_blank" rel="noopener">CasinoFull</a>
+            </p>
+          </div>
+        </div>
+        <p class="note" style="margin-top:var(--s4)">Полный реестр из 78 источников с уровнями уверенности хранится в исследовательском отчёте и предоставляется по запросу.</p>
+      </div>
+    </details>
+  </div>
+</section>
+<section class="section section--surface" id="s07">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">07 · Итог</p>
+        <h2 class="heading">Какой «Дурак» предлагаем создать</h2>
+      </div>
+      <div>
+        <p class="lead">Исследование даёт основу для конкретного продукта. У качественных версий «Дурака» можно взять удобную подачу карточной игры, у денежных дуэлей — понятный порядок вступления в партию и расчёта результата. Предлагаем соединить эти решения в «Дураке» на реальные деньги, где игроку легко начать партию, удобно играть с телефона и понятно, как определяется выплата.</p>
+        <p class="copy">В изученной выборке мы не нашли убедительного прямого образца, который объединял бы все эти качества. При этом разные сегменты дают полезные ориентиры: игры на фишки — для игрового процесса и интерфейса, денежные дуэли — для взносов, комиссий и выплат. Букмекерский Virtual Durak — отдельный формат ставок на чужую партию, поэтому его нельзя считать образцом нашего продукта. Эти наблюдения помогают выбрать направление разработки, но не подтверждают размер спроса.</p>
+      </div>
+    </div>
+
+    <div class="take4">
+      <div><i>1</i><div><h3>Удобный карточный стол</h3><p>Крупные карты, заметный козырь и понятные действия на каждом ходу. Игрок сосредоточен на партии, а управление не требует лишних объяснений.</p><a href="#sol-table">Разбор стола →</a></div></div>
+      <div><i>2</i><div><h3>Простой вход в партию</h3><p>Несколько понятных уровней взноса и минимум настроек. На старте это помогает не распределять игроков по множеству отдельных очередей.</p><a href="#sol-lobby">Выбор суммы и соперника →</a></div></div>
+      <div><i>3</i><div><h3>Прозрачные денежные условия</h3><p>Взнос, комиссия и возможная выплата видны до подтверждения участия. После игры понятно, чем закончилась партия и как изменился баланс.</p><a href="#sol-money">Деньги до входа →</a></div></div>
+      <div><i>4</i><div><h3>Доверие к игре и результату</h3><p>Проверка раздачи, защита закрытых карт, история партий и заранее определённые правила при обрыве связи или истечении времени. Спорные ситуации разрешаются по понятным правилам, а не по переписке с поддержкой.</p><a href="#sol-result">Результат и разбор →</a></div></div>
+    </div>
+
+    <div class="first">
+      <div>
+        <span class="label">Рекомендуемая первая версия</span>
+        <h3>Подкидной «Дурак» на двоих, колода 36 карт</h3>
+        <p>Для начала партии нужны всего два участника, а ограниченный набор режимов позволит сосредоточить разработку на качестве самой игры: управлении, темпе партии, подборе соперника и корректных расчётах. Конкретные правила, уровни взноса и комиссия согласуются отдельно — вопросы собраны в <a href="#s05">разделе 05</a>, концепция экранов — в <a href="#s04">разделе 04</a>.</p>
+      </div>
+      <div>
+        <span class="label">Проверка запуска</span>
+        <h3>Находят ли игроки соперника и возвращаются ли за стол</h3>
+        <p>Главная проверка запуска — смогут ли игроки быстро находить соперника и захотят ли возвращаться после первых партий. Поэтому сначала оцениваем время ожидания, завершение партий и повторную игру. Эти результаты помогут выбрать дальнейшее развитие: переводной режим, дополнительные форматы столов, игру с друзьями или турниры.</p>
+      </div>
+    </div>
+
+    <div class="next">
+      <span class="label">Следующий шаг</span>
+      <p class="next__lead">Мы рекомендуем двигаться к разработке первой версии с чётко согласованным составом.</p>
+      <p>У проекта есть понятная продуктовая идея: знакомая карточная игра с удобным интерфейсом и прозрачными денежными условиями. Анализ уже помогает выбрать решения для её реализации. Следующий шаг — закрепить правила и основные экраны, отдельно оценить игровой модуль и согласовать план запуска с критериями дальнейшего развития.</p>
+      <p class="next__note">Игровой модуль оценивается отдельно от основной платформы: граница объёма описана в <a href="technical.html">техническом документе</a>, состав и этапы платформы — в <a href="offer.html">коммерческом предложении</a>.</p>
+      <p class="end__back"><a href="index.html">← Все документы проекта</a><a href="offer.html">Коммерческое предложение</a><a href="technical.html">Технический документ</a><a href="questions.html">Вопросы до начала работ</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр скриншота" hidden>
+  <div class="lb__top">
+    <span class="cnt" id="lb-cnt"></span>
+    <div class="lb__tools">
+      <button class="lb__btn" type="button" id="lb-zoom" aria-pressed="false">1:1</button>
+      <a class="lb__btn" id="lb-orig" href="#" target="_blank" rel="noopener">Оригинал ↗</a>
+      <button class="lb__btn" type="button" id="lb-close">Закрыть · Esc</button>
+    </div>
+  </div>
+  <div class="lb__stage" id="lb-stage">
+    <button class="lb__nav prev" type="button" id="lb-prev" aria-label="Предыдущий">‹</button>
+    <img id="lb-img" alt="">
+    <button class="lb__nav next" type="button" id="lb-next" aria-label="Следующий">›</button>
+  </div>
+  <div class="lb__cap" id="lb-cap">
+    <b id="lb-title"></b><span id="lb-text"></span><small id="lb-meta"></small>
+    <div class="lb__mob"><button class="lb__btn" type="button" id="lb-prev-m">‹ Назад</button><button class="lb__btn" type="button" id="lb-next-m">Вперёд ›</button></div>
+  </div>
+</div>
+<script>
+(function(){
+  var tb=document.getElementById('topbar'),menu=document.getElementById('tocmenu');
+  function onScroll(){tb.classList.toggle('show',window.scrollY>420)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  menu.addEventListener('click',function(e){if(e.target.closest('a'))menu.removeAttribute('open')});
+  document.addEventListener('click',function(e){if(!menu.contains(e.target))menu.removeAttribute('open')});
+
+  var lb=document.getElementById('lb'),stage=document.getElementById('lb-stage'),img=document.getElementById('lb-img');
+  var cnt=document.getElementById('lb-cnt'),title=document.getElementById('lb-title'),text=document.getElementById('lb-text'),meta=document.getElementById('lb-meta');
+  var prev=document.getElementById('lb-prev'),next=document.getElementById('lb-next'),prevM=document.getElementById('lb-prev-m'),nextM=document.getElementById('lb-next-m');
+  var close=document.getElementById('lb-close'),zoom=document.getElementById('lb-zoom'),orig=document.getElementById('lb-orig'),main=document.getElementById('main');
+  var items=[],idx=0,lastFocus=null;
+  function collect(btn){
+    var scope=btn.closest('[data-gallery]')||btn.closest('.sol__media')||btn.closest('.pair')||btn.closest('.archive')||null;
+    items=scope?Array.prototype.slice.call(scope.querySelectorAll('.shot__frame[data-full]')):[btn];
+    idx=Math.max(0,items.indexOf(btn));
+  }
+  function setZoom(on){stage.classList.toggle('zoom',on);zoom.setAttribute('aria-pressed',on?'true':'false')}
+  function show(i){
+    idx=(i+items.length)%items.length;var b=items[idx];
+    setZoom(false);img.src=b.getAttribute('data-full');img.alt=(b.querySelector('img')||{}).alt||'';orig.href=img.src;
+    title.textContent=b.getAttribute('data-title')||'';text.textContent=b.getAttribute('data-cap')||'';meta.textContent=b.getAttribute('data-meta')||'';
+    cnt.textContent=items.length>1?(idx+1)+' / '+items.length:'';
+    var single=items.length<2;prev.disabled=next.disabled=prevM.disabled=nextM.disabled=single;
+  }
+  function open(btn){lastFocus=btn;collect(btn);show(idx);lb.hidden=false;lb.classList.add('open');document.body.classList.add('lb-open');main.setAttribute('aria-hidden','true');close.focus()}
+  function shut(){lb.classList.remove('open');lb.hidden=true;document.body.classList.remove('lb-open');main.removeAttribute('aria-hidden');img.src='';if(lastFocus)lastFocus.focus()}
+  document.addEventListener('click',function(e){var b=e.target.closest('.shot__frame[data-full]');if(b){e.preventDefault();open(b)}});
+  close.addEventListener('click',shut);
+  prev.addEventListener('click',function(){show(idx-1)});next.addEventListener('click',function(){show(idx+1)});
+  prevM.addEventListener('click',function(){show(idx-1)});nextM.addEventListener('click',function(){show(idx+1)});
+  zoom.addEventListener('click',function(){setZoom(!stage.classList.contains('zoom'))});
+  img.addEventListener('click',function(){setZoom(!stage.classList.contains('zoom'))});
+  stage.addEventListener('click',function(e){if(e.target===stage&&!stage.classList.contains('zoom'))shut()});
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape'){shut();return}
+    if(e.key==='ArrowLeft'){show(idx-1);return}
+    if(e.key==='ArrowRight'){show(idx+1);return}
+    if(e.key==='Tab'){
+      var f=Array.prototype.filter.call(lb.querySelectorAll('button:not([disabled]),a[href]'),function(el){return el.offsetParent!==null});
+      if(!f.length)return;var first=f[0],last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+    }
+  });
+  var tx=null;
+  stage.addEventListener('touchstart',function(e){tx=e.changedTouches[0].clientX},{passive:true});
+  stage.addEventListener('touchend',function(e){if(tx===null||stage.classList.contains('zoom'))return;var dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>50&&items.length>1)show(dx<0?idx+1:idx-1)},{passive:true});
+})();
+</script>
+</body>
+</html>

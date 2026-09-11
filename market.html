@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Рынок криптоказино: что мы изучили и какие решения предлагаем для платформы</title>
+<meta name="description" content="Приложение к коммерческому предложению: что установлено о рынке криптоказино, какие решения конкурентов подходят нашей платформе и что согласовать с заказчиком.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ===== единая дизайн-система документов проекта ===== */
+:root{
+  --paper:#F5F4EF;
+  --paper-2:#ECEBE4;
+  --surface:#FFFFFF;
+  --ink:#12171B;
+  --ink-2:#3B454D;
+  --ink-3:#6B757E;
+  --line:#E1E0D8;
+  --line-strong:#C4C6BD;
+  --accent:#14505F;
+  --accent-ink:#0B3B47;
+  --accent-soft:#E3EDF0;
+  --accent-light:#7FB6C4;
+  --accent-2:#5C8B98;
+  --accent-3:#C4D3D8;
+  --neg:#8C4A3C;
+  --dark:#080A0C;
+  --dark-2:#101417;
+  --dark-line:#20262A;
+  --dark-ink:#F3F2ED;
+  --dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px;
+  --container:1080px;
+  --gutter:32px;
+  --radius:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-soft)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+img{max-width:100%}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.num{font-variant-numeric:tabular-nums}
+
+.section{padding-block:clamp(56px,7vw,88px);scroll-margin-top:24px}
+.section--surface{background:var(--paper-2)}
+.section--dark{background:var(--dark);color:var(--dark-ink)}
+.eyebrow{font-size:13.5px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
+.heading{font-weight:600;font-size:clamp(26px,3.4vw,38px);line-height:1.12;letter-spacing:-.025em;max-width:26ch}
+.heading--sm{font-size:clamp(21px,2.6vw,28px);max-width:34ch}
+.lead{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:58ch}
+.copy{font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:64ch}
+.copy + .copy{margin-top:.85em}
+.heading + .lead,.heading + .copy,.lead + .copy{margin-top:var(--s3)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.note{font-size:14px;line-height:1.5;color:var(--ink-3);max-width:72ch}
+.note a,.src a,.cap a,.obs a,.dec a,.gloss a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.note a:hover,.src a:hover,.cap a:hover,.obs a:hover,.dec a:hover,.gloss a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.list{list-style:none;margin:0;padding:0}
+.list li{position:relative;padding-left:20px;margin-bottom:8px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.list li:last-child{margin-bottom:0}
+.list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--accent)}
+.list b{color:var(--ink)}
+.back{display:inline-block;margin-top:var(--s3);font-size:14px}
+
+/* ---------- статусы (текст + цвет) ---------- */
+.st{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1px solid var(--line-strong);color:var(--ink-2);background:var(--surface);white-space:nowrap;vertical-align:middle}
+.st--kp{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+.st--disc{border-color:var(--ink-3)}
+.st--dev{border-style:dashed}
+.st--chk{border-color:var(--neg);color:var(--neg)}
+
+/* ---------- обложка ---------- */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(52px,7vw,84px)}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);margin-bottom:18px}
+.head__title{font-weight:700;font-size:clamp(30px,4.6vw,52px);line-height:1.05;letter-spacing:-.035em;max-width:24ch}
+.head__lead{font-family:var(--serif);font-size:clamp(17px,1.9vw,20px);line-height:1.5;color:#C9D0D5;max-width:56ch;margin-top:clamp(18px,2.4vw,26px)}
+.head__grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,64px);margin-top:clamp(28px,3.6vw,40px);padding-top:var(--s4);border-top:1px solid var(--dark-line);align-items:start}
+.head__scale b{display:block;font-weight:600;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.03em;line-height:1;color:var(--dark-ink);font-variant-numeric:tabular-nums}
+.head__scale span{display:block;margin-top:10px;font-size:14px;line-height:1.5;color:var(--dark-muted);max-width:30ch}
+.head__scale small{display:block;margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--dark-muted)}
+.head__finds{list-style:none;margin:0;padding:0}
+.head__finds li{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--dark-line);font-size:15.5px;line-height:1.45;color:#D4D9DC}
+.head__finds li:first-child{border-top:0;padding-top:0}
+.head__finds i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--accent-light);padding-top:3px}
+.head__finds b{color:var(--dark-ink)}
+
+/* ---------- содержание ---------- */
+.toc{padding-block:var(--s4);border-bottom:1px solid var(--line)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 var(--s5)}
+.toc a{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line);color:var(--ink);font-size:14.5px}
+.toc li:nth-child(-n+3) a{border-top:0}
+.toc a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent)}
+.toc a:hover{text-decoration:none;color:var(--accent)}
+.toc__ops{margin-top:var(--s3);padding-top:var(--s2);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline;font-size:13.5px}
+.toc__ops span{color:var(--ink-3);margin-right:6px}
+.toc__ops a{padding:3px 9px;border:1px solid var(--line-strong);border-radius:4px;color:var(--ink-2);background:var(--surface)}
+.toc__ops a:hover{text-decoration:none;color:var(--accent);border-color:var(--accent)}
+
+/* ---------- выводы ---------- */
+.finds{list-style:none;margin:var(--s4) 0 0;padding:0;counter-reset:f}
+.finds li{display:grid;grid-template-columns:44px 1fr;gap:var(--s2);padding:var(--s3) 0;border-top:1px solid var(--line)}
+.finds li:first-child{border-top:0;padding-top:0}
+.finds i{font-style:normal;font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:5px}
+.finds h3{font-size:18px;font-weight:600;line-height:1.3}
+.finds p{margin-top:6px;font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:70ch}
+
+/* ---------- выборка ---------- */
+.sample{width:100%;border-collapse:collapse;margin-top:var(--s4);font-size:14.5px}
+.sample th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 16px 10px 0;border-bottom:2px solid var(--ink)}
+.sample td{padding:10px 16px 10px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.45}
+.sample td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+.sample td:first-child a{color:inherit}
+.sample td:last-child,.sample th:last-child{padding-right:0}
+.sample td.n{font-family:var(--mono);font-size:13px;white-space:nowrap}
+
+/* ---------- как читать ---------- */
+.reading{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line-strong)}
+.reading b{display:block;font-size:15.5px;font-weight:600;margin-bottom:6px}
+.reading p{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-top:var(--s4)}
+.levels div{border-top:2px solid var(--ink);padding-top:12px}
+.levels b{display:block;font-size:15px;margin-bottom:4px}
+.levels p{font-size:14px;line-height:1.5;color:var(--ink-2)}
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s6);margin-top:var(--s4)}
+.gloss dl{margin:0}
+.gloss div{display:grid;grid-template-columns:160px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.45}
+.gloss dt{font-weight:600;color:var(--ink)}
+.gloss dt small{display:block;font-weight:400;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.gloss dd{margin:0;color:var(--ink-2)}
+
+/* ---------- цифры и графики ---------- */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--line-strong)}
+.kpis b{display:block;font-weight:600;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.kpis span{display:block;margin-top:8px;font-size:14.5px;line-height:1.45;color:var(--ink-2);max-width:30ch}
+.kpis small{display:block;margin-top:5px;font-size:12.5px;color:var(--ink-3)}
+.fig{margin:var(--s5) 0 0}
+.fig__q{font-weight:600;font-size:17px;line-height:1.35;color:var(--ink);margin-bottom:var(--s2)}
+.fig__q .label{display:block;margin-bottom:6px}
+.cap{margin-top:var(--s2);font-size:14px;line-height:1.5;color:var(--ink-3);max-width:74ch}
+.fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5) var(--s6)}
+.bars{display:grid;grid-template-columns:96px 1fr 88px;gap:6px 12px;align-items:center}
+.bars .bn{font-size:14px;font-weight:500;color:var(--ink);text-align:right}
+.bars .bn.mut{color:var(--ink-3);font-weight:400}
+.bars .bt{height:18px;position:relative}
+.bars .bb{height:100%;background:var(--accent);border-radius:2px;min-width:2px}
+.bars .bb.mut{background:#B7C4C8}
+.bars .bb.oth{background:transparent;border:1px dashed var(--line-strong)}
+.bars .bv{font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+.bars .sep{grid-column:1/-1;height:8px}
+.tracks{display:grid;gap:var(--s3);margin-top:var(--s2)}
+.track .tn{font-size:14.5px;font-weight:500;margin-bottom:6px}
+.track .tt{height:16px;background:var(--paper-2);border-radius:2px;position:relative}
+.track .tf{height:100%;background:var(--accent);border-radius:2px;min-width:3px}
+.track .tf.s2{background:var(--accent-2)}
+.track .tv{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:5px}
+.dbars{display:grid;grid-template-columns:90px 1fr 1fr 110px;gap:8px 0;align-items:center;margin-top:var(--s2)}
+.dbars .dn{font-size:14px;font-weight:500;text-align:right;padding-right:12px}
+.dbars .dl{height:18px;position:relative;border-right:1px solid var(--line-strong)}
+.dbars .dl div{position:absolute;right:0;top:0;height:100%;background:var(--neg);border-radius:2px 0 0 2px}
+.dbars .dr{height:18px;position:relative}
+.dbars .dr div{position:absolute;left:0;top:0;height:100%;background:var(--accent);border-radius:0 2px 2px 0}
+.dbars .dl div.unc,.dbars .dr div.unc{background:transparent;border:1px dashed var(--line-strong)}
+.dbars .dv{font-family:var(--mono);font-size:13px;color:var(--ink-2);padding-left:12px}
+.dbars .dv.neg{color:var(--neg)}
+.dbars .dhead{grid-column:2/4;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-3);padding-bottom:4px}
+
+/* ---------- таблицы ---------- */
+.tablewrap{margin-top:var(--s4);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mtab{width:100%;border-collapse:collapse;font-size:14px;margin-top:var(--s3)}
+.mtab th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 12px 8px 0;border-bottom:2px solid var(--ink);vertical-align:bottom}
+.mtab td{padding:9px 12px 9px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.45}
+.mtab td:first-child{color:var(--ink);font-weight:600}
+.mtab td:last-child,.mtab th:last-child{padding-right:0}
+.mtab td.n{font-family:var(--mono);font-size:13px;white-space:nowrap;color:var(--ink)}
+.mtab td.n small{display:block;color:var(--ink-3);font-size:11px;font-weight:400}
+.mtab .neg{color:var(--neg)}
+.table-note{margin-top:var(--s2);font-size:13.5px;color:var(--ink-3);max-width:76ch;line-height:1.5}
+/* наблюдения по задаче */
+.obs{width:100%;border-collapse:collapse;margin-top:var(--s3);font-size:14.5px}
+.obs th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 16px 8px 0;border-bottom:2px solid var(--ink)}
+.obs td{padding:10px 16px 10px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.5}
+.obs td:first-child{color:var(--ink);font-weight:600;white-space:nowrap;width:110px}
+.obs td:last-child,.obs th:last-child{padding-right:0}
+.obs td.src{width:34%;font-size:13.5px}
+
+/* ---------- задачи платформы ---------- */
+.task{padding-block:clamp(36px,4.4vw,56px);border-top:1px solid var(--line-strong)}
+.task:first-of-type{border-top:0;padding-top:var(--s5)}
+.task__head{display:flex;gap:var(--s3);align-items:baseline}
+.task__n{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.04em}
+.task__title{font-weight:600;font-size:clamp(21px,2.6vw,27px);line-height:1.15;letter-spacing:-.02em}
+.task__q{margin-top:10px;font-size:16px;color:var(--ink-2);max-width:70ch}
+.task__cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s4) clamp(26px,3.6vw,48px);margin-top:var(--s4)}
+.task__cols .label{display:block;margin-bottom:10px}
+.task__cols .list li{font-size:15px}
+.prop{margin-top:var(--s4);background:var(--surface);border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:var(--radius);padding:clamp(18px,2.2vw,24px) clamp(20px,2.6vw,30px)}
+.prop .label{color:var(--accent);display:block;margin-bottom:12px}
+.prop ul{list-style:none;margin:0;padding:0}
+.prop li{display:grid;grid-template-columns:1fr auto;gap:8px var(--s3);padding:9px 0;border-top:1px solid var(--line);font-size:15.5px;line-height:1.5;color:var(--ink);align-items:start}
+.prop li:first-child{border-top:0;padding-top:0}
+.prop li .st{margin-top:3px}
+.prop li span{color:var(--ink-2)}
+
+/* ---------- решения ---------- */
+.decs{margin-top:var(--s4)}
+.dec{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,6fr) auto;gap:var(--s3);padding:var(--s3) 0;border-top:1px solid var(--line);align-items:start}
+.dec:last-child{border-bottom:1px solid var(--line)}
+.dec h3{font-size:16.5px;font-weight:600;line-height:1.3}
+.dec p{font-size:15px;line-height:1.5;color:var(--ink-2)}
+.dec .st{margin-top:3px}
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:var(--s3);font-size:13.5px;color:var(--ink-2);align-items:center}
+
+/* ---------- карточки операторов ---------- */
+.casino{padding-block:clamp(36px,4.4vw,52px);border-top:1px solid var(--line-strong);scroll-margin-top:24px}
+.casino:first-of-type{border-top:0;padding-top:var(--s5)}
+.casino__head{display:flex;gap:var(--s3);align-items:baseline;flex-wrap:wrap}
+.casino__n{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.04em}
+.casino__name{font-weight:600;font-size:clamp(22px,2.6vw,28px);line-height:1.1;letter-spacing:-.025em}
+.casino__meta{font-size:14px;color:var(--ink-3)}
+.casino__meta a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.casino__meta a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none}
+.casino__role{margin-top:10px;font-size:16px;color:var(--ink-2);max-width:70ch}
+.casino__role b{color:var(--ink)}
+.casino__grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--s4) clamp(26px,3.6vw,48px);margin-top:var(--s4);align-items:start}
+.casino__nums{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.casino__nums b{display:block;font-weight:600;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.025em;line-height:1;font-variant-numeric:tabular-nums}
+.casino__nums b.down{color:var(--neg)}
+.casino__nums span{display:block;margin-top:6px;font-size:13.5px;line-height:1.4;color:var(--ink-3);max-width:24ch}
+.casino__body{margin-top:var(--s3)}
+.casino__body .label{display:block;margin-bottom:8px}
+.casino__body .list{margin-bottom:var(--s3)}
+.casino__body .list li{font-size:15px}
+.casino__limit{font-size:15px;line-height:1.5;color:var(--ink-2);padding-left:12px;border-left:2px solid var(--line-strong)}
+.casino__limit b{color:var(--ink)}
+.casino__src{margin-top:var(--s3);font-size:13.5px;line-height:1.7;color:var(--ink-3)}
+.casino__src a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.casino__src a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none}
+/* скриншот */
+.shot{margin:0}
+.shot__frame{border:1px solid var(--line-strong);border-radius:var(--radius);overflow:hidden;background:var(--dark-2)}
+.shot__bar{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;background:var(--paper-2);border-bottom:1px solid var(--line)}
+.shot__bar i{width:7px;height:7px;border-radius:50%;background:var(--line-strong);display:block}
+.shot__bar span{margin-left:8px;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.02em}
+.shot__bar em{margin-left:auto;font-style:normal;font-size:11.5px;color:var(--ink-3)}
+.shot__link{display:block;cursor:zoom-in}
+.shot__link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{margin-top:8px;font-size:13px;color:var(--ink-3);line-height:1.45}
+.lb{border:0;padding:0;background:transparent;max-width:min(96vw,1440px);width:96vw;max-height:96vh;overflow:auto}
+.lb::backdrop{background:rgba(8,10,12,.86)}
+.lb figure{margin:0}
+.lb img{display:block;width:100%;height:auto;max-height:84vh;object-fit:contain;border-radius:var(--radius);background:var(--dark-2)}
+.lb figcaption{margin-top:10px;color:var(--dark-muted);font-size:13.5px;display:flex;justify-content:space-between;gap:var(--s3);align-items:center;flex-wrap:wrap}
+.lb button,.lb .lb__alt{background:transparent;border:1px solid #4A5560;color:var(--dark-ink);border-radius:4px;padding:6px 14px;font:inherit;font-size:13.5px;cursor:pointer;min-height:32px}
+.lb button:focus-visible,.lb .lb__alt:focus-visible{outline:2px solid var(--accent-light);outline-offset:2px}
+.lb .lb__err{display:none;color:var(--dark-ink);font-size:15px;padding:40px 20px;text-align:center;background:var(--dark-2);border-radius:var(--radius)}
+.lb.is-error img{display:none}
+.lb.is-error .lb__err{display:block}
+
+/* ---------- источники ---------- */
+.sources{margin-top:var(--s4);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3) var(--s5)}
+.sources h3{font-size:14px;font-weight:600;margin-bottom:6px}
+.sources p{font-size:13px;line-height:1.7;color:var(--ink-3)}
+.sources a{color:var(--ink-2);border-bottom:1px solid var(--line)}
+.sources a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+
+/* ---------- адаптив ---------- */
+@media (max-width:960px){
+  .head__grid{grid-template-columns:1fr}
+  .reading,.levels{grid-template-columns:1fr 1fr}
+  .fig-grid,.gloss,.task__cols{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr 1fr}
+  .casino__grid{grid-template-columns:1fr}
+  .dec{grid-template-columns:1fr;gap:8px}
+  .sources{grid-template-columns:1fr 1fr}
+  .obs td.src{width:auto}
+  /* широкая таблица выборки: до 960 px — карточки в две колонки */
+  .mtab.cards,.mtab.cards tbody{display:block}
+  .mtab.cards thead{display:none}
+  .mtab.cards tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;border-top:2px solid var(--ink);padding:10px 0 8px;margin-top:6px}
+  .mtab.cards td{display:block;border:0;padding:2px 0;white-space:normal!important}
+  .mtab.cards td:first-child{grid-column:1/-1;font-size:15.5px;padding-bottom:2px}
+  .mtab.cards td:not(:first-child)::before{display:block;content:attr(data-l);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .mtab.cards td.n small{display:inline;margin-left:8px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  :root{--gutter:20px}
+  .toc ol{grid-template-columns:1fr}
+  .toc li:nth-child(-n+3) a{border-top:1px solid var(--line)}
+  .toc li:first-child a{border-top:0}
+  .reading,.levels,.kpis,.sources{grid-template-columns:1fr}
+  .casino__nums{grid-template-columns:1fr 1fr}
+  .gloss div{grid-template-columns:1fr;gap:3px}
+  .bars{grid-template-columns:78px 1fr 70px}
+  .bars .bn,.dbars .dn{font-size:13px}
+  .dbars{grid-template-columns:72px 1fr 1fr 78px}
+  .dbars .dv{font-size:12px;padding-left:8px}
+  .prop li{grid-template-columns:1fr}
+  .mtab.cards tr{grid-template-columns:1fr}
+  /* таблицы наблюдений и выборки: строка — карточка */
+  .obs,.obs tbody,.obs tr,.obs td,.sample,.sample tbody,.sample tr,.sample td{display:block;width:auto}
+  .obs thead,.sample thead{display:none}
+  .obs tr,.sample tr{border-top:1px solid var(--line);padding:10px 0}
+  .obs td,.sample td{border:0;padding:3px 0;white-space:normal!important}
+  .obs td:first-child,.sample td:first-child{font-size:15.5px}
+  .obs td.src::before{content:"Источник: ";color:var(--ink-3)}
+  .sample td[data-l]::before{content:attr(data-l) ": ";color:var(--ink-3)}
+  .lb{width:100vw;max-width:100vw}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@page{size:A4;margin:15mm 14mm}
+@page :first{margin:0}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;font-size:10pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding-inline:0}
+  .section{padding-block:18px}
+  .head{padding:24mm 16mm 20mm;break-after:page;page-break-after:always}
+  .toc,.back,.shot__bar em{display:none}
+  .task,.casino{padding-block:14px}
+  .casino__grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  .shot img{max-height:70mm;width:auto;max-width:100%}
+  .finds li,.prop,.dec,.obs tr,.casino__body,.kpis,.fig{break-inside:avoid;page-break-inside:avoid}
+  .heading,.task__title,.casino__name{break-after:avoid;page-break-after:avoid}
+  .lb{display:none}
+  a{color:inherit}
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <p class="head__eyebrow">Приложение к коммерческому предложению · обзор рынка</p>
+    <h1 class="head__title">Рынок криптоказино: что мы изучили и что предлагаем взять для платформы</h1>
+    <p class="head__lead">Десять криптоказино разобраны по официальным документам, данным о депозитах и посещаемости. Ниже — что установлено, какие решения конкурентов подходят нашей платформе и что нужно согласовать с заказчиком.</p>
+
+    <div class="head__grid">
+      <div class="head__scale">
+        <b class="num">$47.6 млрд</b>
+        <span>внесли игроки за 12 месяцев в 41 криптоказино, чьи кошельки отслеживает аналитика Tanzanite. Оценка по блокчейну, не выручка операторов и не весь рынок.</span>
+        <small>TANZANITE / VIP-GRINDERS · СРЕЗ ЗА АВГУСТ 2026</small>
+      </div>
+      <ol class="head__finds">
+        <li><i>01</i><span><b>Половину депозитов выборки</b> за август получает Stake; две трети объёма вносят 4 063 кошелька с оборотом более $100 тыс.</span></li>
+        <li><i>02</i><span><b>Три четверти депозитов</b> во II квартале 2026 внесены в USDT и USDC.</span></li>
+        <li><i>03</i><span><b>Проверяемость результата</b> описана у пяти операторов только для одиночных раундов; схемы для карточной партии нет ни у кого.</span></li>
+        <li><i>04</i><span><b>Игра между игроками на деньги</b> есть у двух операторов в простых форматах: один бросок или запуск слота.</span></li>
+      </ol>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<nav class="toc" aria-label="Содержание">
+  <div class="wrap">
+    <ol>
+      <li><a href="#m01"><em>01</em>Что установили</a></li>
+      <li><a href="#m02"><em>02</em>Рынок в трёх цифрах</a></li>
+      <li><a href="#m03"><em>03</em>Решения конкурентов по задачам платформы</a></li>
+      <li><a href="#m04"><em>04</em>Выводы и что согласовать</a></li>
+      <li><a href="#m05"><em>05</em>Справочник операторов</a></li>
+      <li><a href="#m06"><em>06</em>Данные, методология, источники</a></li>
+    </ol>
+    <p class="toc__ops"><span>Операторы:</span><a href="#c-stake">Stake</a><a href="#c-roobet">Roobet</a><a href="#c-shuffle">Shuffle</a><a href="#c-bcgame">BC.GAME</a><a href="#c-rainbet">Rainbet</a><a href="#c-duel">Duel</a><a href="#c-gamdom">Gamdom</a><a href="#c-rollbit">Rollbit</a><a href="#c-duelbits">Duelbits</a><a href="#c-cloudbet">Cloudbet</a></p>
+  </div>
+</nav>
+
+<!-- ===== 01 · ЧТО УСТАНОВИЛИ ===== -->
+<section class="section" id="m01">
+  <div class="wrap">
+    <p class="eyebrow">01 · Что установили</p>
+    <h2 class="heading">Четыре факта о рынке и что из них следует для проекта</h2>
+    <p class="lead">Десять операторов отобраны по полезности их решений: четыре крупнейших по деньгам, четыре с заметными продуктовыми решениями, два с играми между игроками. Это не рейтинг рынка.</p>
+
+    <ol class="finds">
+      <li><i>01</i><div>
+        <h3>Рынок держится на одном операторе и нескольких тысячах крупных игроков</h3>
+        <p>Stake — около половины депозитов выборки за август 2026, шесть операторов — около 83%. Кошельки с оборотом более $100 тыс. составляют 0.26% всех, но вносят 64.7% денег. Наша платформа рассчитана на массовую аудиторию, поэтому инструменты для крупных игроков — персональные менеджеры, перенос VIP-статуса — в первую версию не входят.</p>
+      </div></li>
+      <li><i>02</i><div>
+        <h3>Сети для запуска выбираются по стейблкоинам, а не по числу монет</h3>
+        <p>USDT и USDC — около 75% объёма депозитов во II квартале 2026. У Shuffle USDT принимается в пяти сетях, USDC в шести. КП предусматривает до трёх сетей: критерии выбора — доля стейблкоинов, комиссия сети и условия платёжного партнёра.</p>
+      </div></li>
+      <li><i>03</i><div>
+        <h3>Схемы проверяемости у конкурентов решают только одиночный раунд</h3>
+        <p>Duel публикует алгоритмы для отдельных игр и берёт случайность из внешнего сервиса drand; Gamdom и BC.GAME заранее создают цепочки результатов; Stake и Shuffle описывают схему с секретным числом. Всё это позволяет пересчитать результат после раунда. Секретность карт соперника, защита от сговора и обрыв связи в этих схемах не решаются — для карточной игры схему проектируем сами.</p>
+      </div></li>
+      <li><i>04</i><div>
+        <h3>Игра между игроками на деньги подтверждена в простых форматах</h3>
+        <p>Duelbits: дуэли на кубиках на 2–10 игроков с равными ставками и автостартом. Rollbit: соревнования с общим призом, в которых может участвовать сотрудник оператора. Комиссию с банка ни один источник не описывает. «Дурак» на реальные деньги в выборке не найден; прямые конкуренты разобраны в отдельном исследовании по игре.</p>
+      </div></li>
+    </ol>
+
+    <p class="eyebrow" style="margin-top:56px">Выборка</p>
+    <h3 class="heading heading--sm">Что изучали у каждого оператора</h3>
+    <table class="sample">
+      <thead><tr><th>Оператор</th><th>Решения, ради которых включён</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#c-stake">Stake</a></td><td>Каталог, история операций, лестница бонусов, выдача бонусов через Telegram</td></tr>
+        <tr><td><a href="#c-roobet">Roobet</a></td><td>Порог входа в чат, правила получения бонусов</td></tr>
+        <tr><td><a href="#c-shuffle">Shuffle</a></td><td>Вход через Telegram и Google, отдельный баланс-сейф, стейблкоины в нескольких сетях, формула партнёрских выплат</td></tr>
+        <tr><td><a href="#c-bcgame">BC.GAME</a></td><td>Каталог из тысяч игр, схема проверки для Crash</td></tr>
+        <tr><td><a href="#c-rainbet">Rainbet</a></td><td>Календарь наград с расчётом под игрока, внешняя случайность в общих раундах, условия проверки личности</td></tr>
+        <tr><td><a href="#c-duel">Duel</a></td><td>Публичные алгоритмы проверки, внешний источник случайности, сторонняя программа проверки</td></tr>
+        <tr><td><a href="#c-gamdom">Gamdom</a></td><td>Проверка личности по запросу с названными причинами, примеры кода проверки, соревнования</td></tr>
+        <tr><td><a href="#c-rollbit">Rollbit</a></td><td>Соревнования с общим призом, роль оператора в них, постепенная выдача наград</td></tr>
+        <tr><td><a href="#c-duelbits">Duelbits</a></td><td>Дуэли между игроками: столы, равный вход, блокировка ставки, автостарт; единая внутренняя валюта</td></tr>
+        <tr><td><a href="#c-cloudbet">Cloudbet</a></td><td>Опубликованные лимиты без проверки личности, порядок вывода</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:24px">Статусы предложений в документе: <span class="st st--kp">предусмотрено КП</span> <span class="st st--disc">рекомендуем обсудить</span> <span class="st st--dev">возможное развитие</span> <span class="st st--chk">требуется проверка</span>. Заявления операторов о себе помечены «по данным оператора». Методология и источники — в <a href="#m06">разделе 06</a>.</p>
+  </div>
+</section>
+
+<!-- ===== 02 · РЫНОК В ТРЁХ ЦИФРАХ ===== -->
+<section class="section section--surface" id="m02">
+  <div class="wrap">
+    <p class="eyebrow">02 · Рынок в трёх цифрах</p>
+    <h2 class="heading">Концентрация денег и состав платежей</h2>
+
+    <div class="kpis">
+      <div><b class="num">≈50%</b><span>депозитов выборки за август 2026 — у Stake; у шести операторов — около 83%</span><small>41 казино, Tanzanite / VIP-Grinders</small></div>
+      <div><b class="num">≈75%</b><span>объёма депозитов — USDT и USDC</span><small>II квартал 2026; сеть Bitcoin в выборке не учитывается</small></div>
+      <div><b class="num">64.7%</b><span>объёма за август внесли 4 063 кошелька с оборотом более $100 тыс.</span><small>кошельки, не люди</small></div>
+    </div>
+
+    <div class="fig-grid" style="margin-top:56px">
+      <figure class="fig" style="margin-top:0">
+        <p class="fig__q"><span class="label">Депозиты за август 2026 · млн $ · отслеживаемая выборка</span>Распределение денег между операторами</p>
+        <div class="bars">
+          <span class="bn">Stake</span><div class="bt"><div class="bb" style="width:100%"></div></div><span class="bv">2 120</span>
+          <span class="bn">Roobet</span><div class="bt"><div class="bb" style="width:21.4%"></div></div><span class="bv">453</span>
+          <span class="bn">Rainbet</span><div class="bt"><div class="bb" style="width:13.9%"></div></div><span class="bv">294</span>
+          <span class="bn">Duel</span><div class="bt"><div class="bb" style="width:11.8%"></div></div><span class="bv">251</span>
+          <span class="bn">Shuffle</span><div class="bt"><div class="bb" style="width:9.5%"></div></div><span class="bv">201</span>
+          <span class="bn">Gamdom</span><div class="bt"><div class="bb" style="width:8.7%"></div></div><span class="bv">185</span>
+          <span class="bn">BC.GAME</span><div class="bt"><div class="bb mut" style="width:2.2%"></div></div><span class="bv">46</span>
+          <span class="bn">Cloudbet</span><div class="bt"><div class="bb mut" style="width:1.5%"></div></div><span class="bv">33</span>
+          <span class="bn">Duelbits</span><div class="bt"><div class="bb mut" style="width:1.2%"></div></div><span class="bv">26</span>
+          <span class="bn">Rollbit</span><div class="bt"><div class="bb mut" style="width:0.6%"></div></div><span class="bv">13</span>
+          <span class="sep"></span>
+          <span class="bn mut">31 других</span><div class="bt"><div class="bb oth" style="width:28.8%"></div></div><span class="bv">≈610</span>
+        </div>
+        <p class="cap">Stake собирает больше, чем девять следующих операторов вместе. «31 других» — разница между итогом отчёта ($4.23 млрд) и десятью названными. Источник: <a href="https://www.vip-grinders.com/research/crypto-casino-market-report/" target="_blank" rel="noopener">VIP-Grinders / Tanzanite</a>; порядок первой четвёрки совпадает с <a href="https://tribuna.com/en/blogs/stake-again-outdeposited-the-next-nine-crypto-casinos-combin/" target="_blank" rel="noopener">пересказом июльского среза</a>.</p>
+      </figure>
+
+      <figure class="fig" style="margin-top:0">
+        <p class="fig__q"><span class="label">Состав депозитов · отслеживаемая выборка</span>Кто вносит деньги и в какой форме</p>
+        <div class="tracks">
+          <div class="track"><p class="tn">Доля кошельков с оборотом более $100 тыс.</p><div class="tt"><div class="tf" style="width:0.4%"></div></div><p class="tv">0.26% · 4 063 кошелька · август 2026</p></div>
+          <div class="track"><p class="tn">Их доля в объёме депозитов</p><div class="tt"><div class="tf" style="width:64.7%"></div></div><p class="tv">64.7% · август 2026</p></div>
+          <div class="track"><p class="tn">Доля USDT и USDC в объёме депозитов</p><div class="tt"><div class="tf s2" style="width:75%"></div></div><p class="tv">≈75% · II квартал 2026</p></div>
+        </div>
+        <p class="cap">О доле Bitcoin по этим данным судить нельзя: его сеть в выборку не входит. Посещаемость с депозитами не связана напрямую: Roobet четвёртый по визитам и второй по деньгам, Rainbet второй по визитам и третий по деньгам. Полная таблица — в <a href="#m06">разделе 06</a>. Источник: <a href="https://www.vip-grinders.com/research/crypto-casino-market-report/" target="_blank" rel="noopener">VIP-Grinders / Tanzanite</a>, <a href="https://www.similarweb.com/website/stake.com/" target="_blank" rel="noopener">Similarweb</a>.</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 · РЕШЕНИЯ КОНКУРЕНТОВ ПО ЗАДАЧАМ ПЛАТФОРМЫ ===== -->
+<section class="section" id="m03">
+  <div class="wrap">
+    <p class="eyebrow">03 · Решения конкурентов по задачам платформы</p>
+    <h2 class="heading">Шесть задач: что подтверждено у конкурентов и что предлагаем</h2>
+    <p class="lead">По каждой задаче — наблюдения со ссылками на документы операторов, одна оговорка о переносе и предложение со статусом по КП.</p>
+
+    <!-- 1 -->
+    <article class="task" id="t-money">
+      <div class="task__head"><span class="task__n">3.1</span><h3 class="task__title">Пополнение, баланс, вывод</h3></div>
+      <table class="obs">
+        <thead><tr><th>Оператор</th><th>Что подтверждено</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Shuffle</td><td>USDT в пяти сетях, USDC в шести. Отдельный баланс-сейф: средства не участвуют в игре, возврат в игровой баланс требует пароля.</td><td class="src"><a href="https://help.shuffle.com/en/articles/6966242-assets-supported-for-deposits-and-withdrawals" target="_blank" rel="noopener">Активы</a> · <a href="https://help.shuffle.com/en/articles/6966245-vault" target="_blank" rel="noopener">Сейф</a></td></tr>
+          <tr><td>Duelbits</td><td>Депозит конвертируется во внутренние единицы Bits по курсу на момент пополнения, при выводе — обратно. Комиссии платформы нет; вывод после отыгрыша 10% депозита.</td><td class="src"><a href="https://help.duelbits.com/en/articles/16798784-duelbits-fees-limits-processing-times" target="_blank" rel="noopener">Комиссии и лимиты</a></td></tr>
+          <tr><td>Cloudbet</td><td>Вывод: монета и сеть, адрес, код двухфакторной защиты, подтверждение по почте или в Telegram; обработка обычно до 24 часов.</td><td class="src"><a href="https://www.cloudbet.com/en/support/articles/103213-how-do-i-withdraw-funds-from-my-cloudbet-account" target="_blank" rel="noopener">Порядок вывода</a></td></tr>
+          <tr><td>Stake</td><td>Один баланс для казино и спорта; история переводов и ставок в кабинете; бонусы отражаются в той же истории.</td><td class="src"><a href="https://help.stake.com/en/articles/4793501-what-is-the-stake-vip-program" target="_blank" rel="noopener">VIP-программа</a>; кабинет — по публичному интерфейсу</td></tr>
+        </tbody>
+      </table>
+      <p class="casino__limit" style="margin-top:24px"><b>Оговорка.</b> «Без комиссии платформы» не означает бесплатный перевод: игрок платит комиссию сети, при небольших пополнениях она заметна. Единая внутренняя единица (как Bits) — выбор учёта, он требует объяснить игроку курс и момент его фиксации.</p>
+      <div class="prop">
+        <span class="label">Предложение</span>
+        <ul>
+          <li><div><b>Финансовое ядро с журналом операций и двухэтапным подтверждением выводов.</b> <span>Перед пополнением игрок видит сеть, минимальную сумму, комиссию и статус зачисления; перед выводом — сумму к получению и этап обработки.</span></div><span class="st st--kp">предусмотрено КП</span></li>
+          <li><div><b>Модель учёта: отдельные валюты на счёте или конвертация при пополнении.</b> <span>Влияет на интерфейс, отчётность и партнёрские выплаты.</span></div><span class="st st--disc">рекомендуем обсудить</span></li>
+          <li><div><b>Баланс-сейф по образцу Shuffle.</b></div><span class="st st--dev">возможное развитие</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="task" id="t-kyc">
+      <div class="task__head"><span class="task__n">3.2</span><h3 class="task__title">Проверка личности</h3></div>
+      <table class="obs">
+        <thead><tr><th>Оператор</th><th>Что подтверждено</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Cloudbet</td><td>Без проверки — два лимита: $2 200 на депозиты за всё время и $2 200 на вывод в день. Уровень 1 — телефон, лимиты сохраняются. Уровень 2 — документ, адрес, проверка лица; лимиты снимаются.</td><td class="src"><a href="https://www.cloudbet.com/en/support/articles/415596-what-are-cloudbet-s-verification-levels" target="_blank" rel="noopener">Уровни проверки</a></td></tr>
+          <tr><td>Gamdom</td><td>Без документов, пока проверку не запросят. Причины запроса названы: требования регулятора, подозрение на злоупотребление, бонус по промокоду, отдельные выводы.</td><td class="src"><a href="https://help.gamdom.com/en/articles/13250444-how-and-when-to-verify-your-account" target="_blank" rel="noopener">Когда нужна проверка</a></td></tr>
+          <tr><td>Rainbet</td><td>Документы могут запросить в любой момент; без ответа за 72 часа ограничиваются игра, выплаты и доступ к средствам. До проверки — лимит депозитов €500.</td><td class="src"><a href="https://rainbet.com/terms" target="_blank" rel="noopener">Правила</a></td></tr>
+          <tr><td>Shuffle</td><td>Регистрация по почте, через Google, LINE или Telegram; три уровня проверки; двухфакторная защита на вход, переводы и выводы.</td><td class="src"><a href="https://help.shuffle.com/en/articles/6918898-account-sign-up" target="_blank" rel="noopener">Регистрация</a> · <a href="https://help.shuffle.com/en/articles/6918878-account-verification" target="_blank" rel="noopener">Уровни</a></td></tr>
+        </tbody>
+      </table>
+      <p class="casino__limit" style="margin-top:24px"><b>Оговорка.</b> Пороги зависят от лицензии и платёжных партнёров оператора. Переносить стоит подход Cloudbet — лимиты и условия известны игроку до того, как он с ними столкнётся, — а не сами числа.</p>
+      <div class="prop">
+        <span class="label">Предложение</span>
+        <ul>
+          <li><div><b>Регистрация, вход через Telegram Mini App, двухфакторная защита, базовые правила риска, интеграция с внешним сервисом проверки.</b> <span>Тариф внешнего сервиса оплачивается отдельно.</span></div><span class="st st--kp">предусмотрено КП</span></li>
+          <li><div><b>Опубликованные лимиты до проверки и уровни их снятия; события, запускающие проверку.</b> <span>Решение до этапа 02.</span></div><span class="st st--disc">рекомендуем обсудить</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="task" id="t-fair">
+      <div class="task__head"><span class="task__n">3.3</span><h3 class="task__title">Проверяемость результата игры</h3></div>
+      <table class="obs">
+        <thead><tr><th>Оператор</th><th>Что подтверждено</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Duel</td><td>Mines: отпечаток секретного числа сервера показывается до ставки, игрок задаёт своё число, ставки нумеруются, раскладка вычисляется из этих данных. Crash: добавляется значение внешнего сервиса случайных чисел drand, номер будущего раунда объявлен заранее; преимущество в формуле 0.1%. Проверка прошлых раундов — после смены пары чисел; момент раскрытия секретного числа не указан.</td><td class="src"><a href="https://help.duel.com/en/articles/13730231-mines-pf" target="_blank" rel="noopener">Mines</a> · <a href="https://help.duel.com/en/articles/13733889-crash-pf" target="_blank" rel="noopener">Crash</a> · <a href="https://github.com/ProvablyFair-org/duel-mines" target="_blank" rel="noopener">сторонняя программа проверки</a></td></tr>
+          <tr><td>Gamdom, BC.GAME</td><td>Для каждой игры заранее создаётся цепочка из 10 млн результатов, последний элемент публикуется, игра идёт по цепочке в обратном порядке. Gamdom даёт код для пересчёта; BC.GAME описывает Crash с преимуществом 1%.</td><td class="src"><a href="https://help.gamdom.com/en/articles/9742227-gamdom-originals" target="_blank" rel="noopener">Gamdom</a> · <a href="https://whitepaper.bc.game/bc-white-paper/appendix/provably-fair" target="_blank" rel="noopener">BC.GAME</a></td></tr>
+          <tr><td>Rainbet, Duelbits</td><td>В играх на несколько человек результат берётся из блоков публичной сети EOS.</td><td class="src"><a href="https://rainbet.com/provably-fair" target="_blank" rel="noopener">Rainbet</a> · <a href="https://duelbits.com/blog/guide/duelbits-provably-fair-casino/" target="_blank" rel="noopener">Duelbits</a></td></tr>
+          <tr><td>Stake, Shuffle</td><td>Секретное число казино, число игрока, номер ставки; результат пересчитывается, у Stake — и сторонними программами.</td><td class="src"><a href="https://stake.com/provably-fair/overview" target="_blank" rel="noopener">Stake</a> · <a href="https://help.shuffle.com/en/articles/9286047-provably-fair-commitment-schemes" target="_blank" rel="noopener">Shuffle</a></td></tr>
+        </tbody>
+      </table>
+      <p class="casino__limit" style="margin-top:24px"><b>Оговорка.</b> Все схемы дают пересчитать одиночный раунд после его окончания. Они не гарантируют, что сервер не знал результат заранее, и не решают секретность карт соперника, сговор и обрыв связи. Возврат 99.9% у Duel относится к формуле Crash, а не ко всем играм.</p>
+      <div class="prop">
+        <span class="label">Предложение</span>
+        <ul>
+          <li><div><b>Игровые модули, включая «Дурак», генератор случайных чисел, проверку честности и RTP — отдельный объём.</b> <span>Платформа даёт стандартные интерфейсы подключения; оценка модуля уточняется после постановки задачи.</span></div><span class="st st--kp">предусмотрено КП</span></li>
+          <li><div><b>Принцип «зафиксировать до раунда, раскрыть после, дать программу пересчёта» с внешним источником случайности</b> <span>как основа схемы для собственных игр; схему для карточной партии проектирует команда.</span></div><span class="st st--disc">рекомендуем обсудить</span></li>
+          <li><div><b>Сертификация генератора случайных чисел.</b> <span>Требование ТЗ; внешняя сертификация оплачивается отдельно.</span></div><span class="st st--chk">требуется проверка</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="task" id="t-pvp">
+      <div class="task__head"><span class="task__n">3.4</span><h3 class="task__title">Столы и расчёты между игроками</h3></div>
+      <table class="obs">
+        <thead><tr><th>Оператор</th><th>Что подтверждено</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Duelbits</td><td>Дуэли на кубиках на 2–10 игроков. Создатель задаёт ставку и число мест; при входе ставка блокируется; открытые столы видны в списке; старт автоматический при заполнении; победитель получает весь банк. Комиссия платформы не описана.</td><td class="src"><a href="https://help.duelbits.com/en/articles/5351678-dice-duels-explained" target="_blank" rel="noopener">Правила Dice Duels</a> (прочитаны 10.09.2026; 11.09 страница недоступна)</td></tr>
+          <tr><td>Rollbit</td><td>«Битвы бонусов»: участники покупают одинаковый бонусный раунд в слоте, лучший результат получает приз. При ставке от $100 можно пригласить Rollbot — участника под управлением сотрудника оператора. Лимит участников и комиссия не указаны.</td><td class="src"><a href="https://help.rollbit.com/en/articles/6187922-how-to-create-a-bonus-battle" target="_blank" rel="noopener">Как создать битву</a></td></tr>
+          <tr><td>Duelbits</td><td>Игроки могут создавать испытания для других: заданный множитель при заданной ставке.</td><td class="src"><a href="https://duelbits.com/blog/guide/duelbits-challenges-guide/" target="_blank" rel="noopener">Испытания</a></td></tr>
+        </tbody>
+      </table>
+      <p class="casino__limit" style="margin-top:24px"><b>Оговорка.</b> Обе механики — одно действие, а не партия с ходами. Правила выхода, неявки, ничьей и обрыва связи, а также ставку комиссии с банка эти источники не дают.</p>
+      <div class="prop">
+        <span class="label">Предложение</span>
+        <ul>
+          <li><div><b>Модуль «Дурак»: столы, ставки, банк партии, история, управление в Back Office.</b> <span>Отдельная позиция КП, оценка после постановки задачи.</span></div><span class="st st--kp">предусмотрено КП</span></li>
+          <li><div><b>Порядок стола по образцу Duelbits: параметры, блокировка ставки при входе, автостарт.</b> <span>Правила отмены, неявки, ничьей, обрыва связи и ставка комиссии — в постановке задачи на модуль.</span></div><span class="st st--disc">рекомендуем обсудить</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="task" id="t-bonus">
+      <div class="task__head"><span class="task__n">3.5</span><h3 class="task__title">Бонусы и уровни</h3></div>
+      <table class="obs">
+        <thead><tr><th>Оператор</th><th>Что подтверждено</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Rainbet</td><td>Шесть типов наград по календарю; размер считается от ожидаемого дохода казино с игрока и растёт, если игрок в минусе за период. Персональный менеджер — от $2.5 млн ставок.</td><td class="src"><a href="https://help.rainbet.com/en/articles/15253793-calendar-rewards" target="_blank" rel="noopener">Календарь</a> · <a href="https://help.rainbet.com/en/articles/15265421-vip-program" target="_blank" rel="noopener">VIP</a></td></tr>
+          <tr><td>Shuffle</td><td>Более 50 уровней; 1 очко за $1 ставок в казино, 3 очка за $1 в спорте; ежедневный бонус с Bronze, еженедельный с Silver, возврат части ставок, ежемесячный бонус.</td><td class="src"><a href="https://help.shuffle.com/en/articles/9996771-the-shuffle-vip-program" target="_blank" rel="noopener">Уровни</a></td></tr>
+          <tr><td>Roobet, Rollbit</td><td>Roobet: возврат части ставок каждые 30 минут, награды из «сейфа» три раза в день. Rollbit: выдача три раза в день, возврат 5% преимущества казино, крупные бонусы на 20% сразу, остальное постепенно.</td><td class="src"><a href="https://help.roobet.com/en/articles/9546773-rewards-explained" target="_blank" rel="noopener">Roobet</a> · <a href="https://blog.rollbit.com/rollbit-rewards-rewards-calendar/" target="_blank" rel="noopener">Rollbit</a></td></tr>
+          <tr><td>Stake, Gamdom, Cloudbet</td><td>Stake: еженедельный бонус в закрытом Telegram-канале для VIP, через 24 часа — в кабинете. Gamdom: VIP по приглашению, соревнования «Король горы». Cloudbet: перенос VIP-статуса от другого оператора.</td><td class="src"><a href="https://help.stake.com/en/articles/9946653-where-is-the-weekly-bonus-posted-and-how-do-i-claim-it" target="_blank" rel="noopener">Stake</a> · <a href="https://help.gamdom.com/en/articles/9586217-vip-program-and-everything-you-need-to-know-about-it" target="_blank" rel="noopener">Gamdom</a> · <a href="https://www.cloudbet.com/en/support/articles/502444-does-cloudbet-offer-a-vip-transfer-program" target="_blank" rel="noopener">Cloudbet</a></td></tr>
+        </tbody>
+      </table>
+      <p class="casino__limit" style="margin-top:24px"><b>Оговорка.</b> Подтверждены описания механик, а не их эффект. Формулы конкурентов считают награду от преимущества казино; для игр между игроками доход платформы — комиссия с банка, база расчёта другая.</p>
+      <div class="prop">
+        <span class="label">Предложение</span>
+        <ul>
+          <li><div><b>Настраиваемый механизм бонусов и рангов.</b> <span>Условия задаёт менеджер или администратор, включает владелец (ТЗ).</span></div><span class="st st--kp">предусмотрено КП</span></li>
+          <li><div><b>Простая программа на старте с учётом стоимости выданных бонусов; расчёт под игрока по образцу Rainbet — как гипотеза для проверки.</b> <span>Бюджет и защита от злоупотреблений: несколько аккаунтов, сговор за столом, отыгрыш.</span></div><span class="st st--disc">рекомендуем обсудить</span></li>
+          <li><div><b>Персональные менеджеры, перенос статуса, турниры с призовым фондом.</b></div><span class="st st--dev">возможное развитие</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="task" id="t-growth">
+      <div class="task__head"><span class="task__n">3.6</span><h3 class="task__title">Партнёры, общение игроков, Telegram</h3></div>
+      <table class="obs">
+        <thead><tr><th>Оператор</th><th>Что подтверждено</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Shuffle, Duelbits, Cloudbet</td><td>Формулы партнёрских выплат опубликованы. Shuffle: (ставки × преимущество казино × ставка партнёра) / 2, расчёт в реальном времени. Duelbits: 10% расчётного преимущества казино. Cloudbet: 30% дохода казино плюс 0.2% оборота ставок на спорт.</td><td class="src"><a href="https://help.shuffle.com/en/articles/6969004-shuffle-affiliate-program" target="_blank" rel="noopener">Shuffle</a> · <a href="https://help.duelbits.com/en/articles/5351626-affiliates-explained" target="_blank" rel="noopener">Duelbits</a> · <a href="https://cdn.cloudbet.com/Cloudbet-Affiliates-_-Frequently-Asked-Questions.pdf" target="_blank" rel="noopener">Cloudbet</a></td></tr>
+          <tr><td>Gamdom</td><td>Кабинет партнёра показывает клики, регистрации и депозиты в реальном времени; начисления считаются раз в день.</td><td class="src"><a href="https://help.gamdom.com/en/articles/9717630-affiliate-program-everything-you-need-to-know" target="_blank" rel="noopener">Партнёры</a></td></tr>
+          <tr><td>Roobet</td><td>Чат открывается после включения двухфакторной защиты и $500 суммарных ставок.</td><td class="src"><a href="https://help.roobet.com/en/articles/6840930-chat-requirements" target="_blank" rel="noopener">Условия чата</a></td></tr>
+          <tr><td>Shuffle, Stake, Cloudbet</td><td>Telegram — вход (Shuffle), выдача бонусов VIP (Stake), подтверждение вывода (Cloudbet). Никто из десяти не делает Telegram единственным интерфейсом игры.</td><td class="src"><a href="https://help.shuffle.com/en/articles/6918898-account-sign-up" target="_blank" rel="noopener">Shuffle</a> · <a href="https://help.stake.com/en/articles/9946653-where-is-the-weekly-bonus-posted-and-how-do-i-claim-it" target="_blank" rel="noopener">Stake</a> · <a href="https://www.cloudbet.com/en/support/articles/103213-how-do-i-withdraw-funds-from-my-cloudbet-account" target="_blank" rel="noopener">Cloudbet</a></td></tr>
+        </tbody>
+      </table>
+      <p class="casino__limit" style="margin-top:24px"><b>Оговорка.</b> Партнёрские формулы конкурентов опираются на преимущество казино; для комиссии с банка формулу нужно задать отдельно.</p>
+      <div class="prop">
+        <span class="label">Предложение</span>
+        <ul>
+          <li><div><b>Партнёрская система: доля дохода, оплата за игрока, комбинированная модель; кабинет со статистикой по кампаниям.</b> <span>Открытая формула, как у Shuffle и Gamdom.</span></div><span class="st st--kp">предусмотрено КП</span></li>
+          <li><div><b>Каналы: сайт, Telegram Mini App как игровой клиент, бот для уведомлений и подтверждений, Android.</b></div><span class="st st--kp">предусмотрено КП</span></li>
+          <li><div><b>Чат игроков с порогом входа, таблицы лидеров.</b> <span>Поддержка — через систему обращений; общий чат — отдельное решение.</span></div><span class="st st--dev">возможное развитие</span></li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== 04 · ВЫВОДЫ И ЧТО СОГЛАСОВАТЬ ===== -->
+<section class="section section--surface" id="m04">
+  <div class="wrap">
+    <p class="eyebrow">04 · Выводы и что согласовать</p>
+    <h2 class="heading">Что берём для платформы</h2>
+    <p class="lead">Аудитория первой версии — русскоязычные игроки, приоритетный регион — СНГ. Ниже пять решений, которые исследование позволяет принять сейчас, и список вопросов для заказчика.</p>
+
+    <ol class="finds">
+      <li><i>01</i><div>
+        <h3>Касса показывает игроку каждую сумму до операции</h3>
+        <p>У Shuffle, Duelbits и Cloudbet до пополнения видны сеть перевода, комиссия и порядок вывода. Делаем так же: перед пополнением — способы, сеть, минимальная сумма, комиссия и статус зачисления; перед выводом — сумма к получению и этап обработки. В истории пополнения, ставки, выигрыши, бонусы и выводы различаются. Модель учёта — отдельные валюты или конвертация при пополнении — выбираем при проектировании. Конкретные сети, рублёвые способы и сроки выводов не обещаем до подтверждения условий интеграции.</p>
+      </div></li>
+      <li><i>02</i><div>
+        <h3>Условия проверки личности известны игроку заранее</h3>
+        <p>У Cloudbet лимиты до проверки опубликованы; у Rainbet запрос документов приходит внезапно и через 72 часа блокирует средства. Берём первый подход: лимиты, причины запроса документов и срок ответа описаны на русском до того, как игрок с ними столкнётся. Сами пороги и внешний сервис проверки согласуем до этапа 02.</p>
+      </div></li>
+      <li><i>03</i><div>
+        <h3>Собственные игры: правила до ставки, история раундов, проверка результата</h3>
+        <p>У Duel, Gamdom и Stake правила и выплаты видны до ставки, у каждого раунда есть история, результат можно пересчитать. Это поведение переносим на собственные игры платформы; «Дурак» между игроками — один из вариантов в согласованной линейке. Схема проверки для карточной партии у конкурентов отсутствует, её проектирует команда в рамках модуля. Собственные игры не считаем дешевле или прибыльнее по умолчанию.</p>
+      </div></li>
+      <li><i>04</i><div>
+        <h3>Бонусы как настраиваемые правила с учётом стоимости</h3>
+        <p>Уровни, возврат части ставок и награды по расписанию у конкурентов описаны как правила, а не как акции. Механизм бонусов и рангов входит в КП. На старте — простая программа: игрок видит, за что и когда получает награду, команда видит, сколько она стоит. Расчёт под игрока по образцу Rainbet и сложный календарь — после измерения первых месяцев.</p>
+      </div></li>
+      <li><i>05</i><div>
+        <h3>Партнёрка с открытой формулой, Telegram как вход и уведомления</h3>
+        <p>Формулы выплат Shuffle, Duelbits и Cloudbet опубликованы; кабинет Gamdom показывает клики, регистрации и депозиты. Партнёрская система КП строится так же: учёт привлечённых игроков, база расчёта, история начислений, разбивка по кампаниям. Для игр между игроками базой будет комиссия с банка — формулу задаём отдельно. Telegram по КП — Mini App как игровой клиент и бот для уведомлений; каналом привлечения его не считаем.</p>
+      </div></li>
+    </ol>
+
+    <div class="prop" style="margin-top:40px">
+      <span class="label">Итог</span>
+      <p class="copy" style="max-width:none;color:var(--ink)">Первая версия обеспечивает законченный путь игрока — регистрация, пополнение, игра, вывод — с понятной кассой, заранее известными условиями и управлением из Back Office. У конкурентов взяты отдельные решения, которые укладываются в состав КП. Что развивать дальше — сейф, турниры, персональных менеджеров, расчёт наград под игрока — решаем по данным первых месяцев: востребованность игр, успешность платежей, повторные визиты, стоимость привлечения и бонусов.</p>
+    </div>
+
+    <p class="eyebrow" style="margin-top:56px">Что согласовать с заказчиком</p>
+    <div class="legend"><span class="st st--disc">рекомендуем обсудить</span><span class="st st--chk">требуется проверка</span><span class="st st--dev">возможное развитие</span></div>
+    <div class="decs">
+      <div class="dec"><h3>Сети и токены</h3><p>До трёх сетей по КП; критерии — доля стейблкоинов, комиссия сети, условия платёжного партнёра. <a href="#t-money">3.1</a></p><span class="st st--disc">рекомендуем обсудить</span></div>
+      <div class="dec"><h3>Модель учёта баланса</h3><p>Отдельные валюты или конвертация во внутреннюю единицу. <a href="#t-money">3.1</a></p><span class="st st--disc">рекомендуем обсудить</span></div>
+      <div class="dec"><h3>Лимиты до проверки личности и её триггеры</h3><p>Пороги и внешний сервис проверки — до этапа 02. <a href="#t-kyc">3.2</a></p><span class="st st--disc">рекомендуем обсудить</span></div>
+      <div class="dec"><h3>Игровая линейка и правила столов</h3><p>Состав собственных игр; для «Дурака» — отмена, неявка, ничья, обрыв связи, ставка комиссии. <a href="#t-fair">3.3</a>, <a href="#t-pvp">3.4</a></p><span class="st st--disc">рекомендуем обсудить</span></div>
+      <div class="dec"><h3>Бонусная программа</h3><p>Набор наград на старте, бюджет, защита от злоупотреблений. <a href="#t-bonus">3.5</a></p><span class="st st--disc">рекомендуем обсудить</span></div>
+      <div class="dec"><h3>Партнёрская формула для комиссии с банка</h3><p>Единая или раздельная с собственными играми. <a href="#t-growth">3.6</a></p><span class="st st--disc">рекомендуем обсудить</span></div>
+      <div class="dec"><h3>Сертификация генератора случайных чисел</h3><p>Требование ТЗ; внешняя сертификация оплачивается отдельно.</p><span class="st st--chk">требуется проверка</span></div>
+      <div class="dec"><h3>Сейф, чат, турниры, персональные менеджеры, внешний API</h3><p>Есть у конкурентов, в КП не входят, для запуска не нужны.</p><span class="st st--dev">возможное развитие</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 · СПРАВОЧНИК ОПЕРАТОРОВ ===== -->
+<section class="section" id="m05">
+  <div class="wrap">
+    <p class="eyebrow">05 · Справочник операторов</p>
+    <h2 class="heading">Десять операторов: роль в исследовании, наблюдения, ограничения</h2>
+    <p class="lead">Каждая карточка: зачем оператор включён, два-три подтверждённых наблюдения, цифры с периодом, что нельзя переносить, источники. Скриншоты показывают только внешний вид главной страницы на 10 сентября 2026 года; выводы о кошельке, проверке личности и честности сделаны по документам, а не по снимкам.</p>
+    <p class="note" style="margin-top:12px">Депозиты — сумма переводов на отслеживаемые кошельки за август 2026 (оценка Tanzanite / VIP-Grinders). Визиты — Similarweb, значение «Total Visits» на публичной странице за август 2026. Заявления операторов о числе пользователей приводятся как их собственные данные.</p>
+
+    <!-- 01 STAKE -->
+    <article class="casino" id="c-stake">
+      <div class="casino__head"><span class="casino__n">01</span><h3 class="casino__name">Stake</h3><p class="casino__meta"><a href="https://stake.com" target="_blank" rel="noopener">stake.com</a> · с 2017 · оператор Medium Rare N.V. · лицензия Кюрасао</p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Крупнейший оператор выборки. Изучали организацию каталога, историю операций, лестницу бонусов и выдачу бонусов через Telegram. Заказчик назвал этот сайт ориентиром по стилю интерфейса.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>stake.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/stake.jpg" data-cap="Stake · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/stake.jpg" alt="Главная страница Stake: тёмная тема, меню слева, баннер и сетка популярных игр" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: тёмная тема, меню слева, каталог игр. Показывает стиль интерфейса, а не устройство кошелька.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$2.12 млрд</b><span>депозитов за август 2026, около половины выборки</span></li>
+            <li><b class="num">57.7 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">169+</b><span>стран обслуживания — по данным политики оператора</span></li>
+            <li><b class="num">2017</b><span>год запуска</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Один баланс на казино и спорт, история переводов и ставок в кабинете, собственные игры рядом с каталогом из тысяч сторонних (<a href="https://stake.com/casino/group/stake-originals" target="_blank" rel="noopener">список собственных игр</a>).</li>
+              <li>Схема проверки результата: секретное число казино, число игрока, номер ставки; пересчёт возможен сторонними программами (<a href="https://stake.com/provably-fair/overview" target="_blank" rel="noopener">описание</a>).</li>
+              <li>Еженедельный бонус публикуется в закрытом канале Telegram для VIP и через 24 часа доступен в кабинете (<a href="https://help.stake.com/en/articles/9946653-where-is-the-weekly-bonus-posted-and-how-do-i-claim-it" target="_blank" rel="noopener">справка</a>). Список запрещённых стран включает США, Великобританию, Германию, Францию, Испанию, Италию, Бразилию, Австралию; Россия в нём не названа (<a href="https://stake.com/policies/terms" target="_blank" rel="noopener">правила</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Внутреннее устройство учёта и надёжность выплат по открытым материалам не проверяются.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 02 ROOBET -->
+    <article class="casino" id="c-roobet">
+      <div class="casino__head"><span class="casino__n">02</span><h3 class="casino__name">Roobet</h3><p class="casino__meta"><a href="https://roobet.com" target="_blank" rel="noopener">roobet.com</a> · основан в 2019 <a href="https://roobet.com/about-us" target="_blank" rel="noopener">по данным оператора</a></p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Второй по депозитам оператор выборки при небольшой посещаемости. Изучали условия доступа к чату и правила получения бонусов.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>roobet.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/roobet.jpg" data-cap="Roobet · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/roobet.jpg" alt="Главная страница Roobet: баннер розыгрыша, разделы казино и спорта, собственные игры" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: баннер розыгрыша, разделы «Казино» и «Спорт», собственные игры.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$453 млн</b><span>депозитов за август 2026, второе место в выборке</span></li>
+            <li><b class="num">2.6 млн</b><span>визитов за август 2026, Similarweb</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Чат доступен после включения двухфакторной защиты и $500 суммарных ставок (<a href="https://help.roobet.com/en/articles/6840930-chat-requirements" target="_blank" rel="noopener">условия</a>).</li>
+              <li>Награды: мгновенный возврат части ставок каждые 30 минут, ежедневный, еженедельный и ежемесячный бонусы, награды из «сейфа» три раза в день, бонус за уровень (<a href="https://help.roobet.com/en/articles/9546773-rewards-explained" target="_blank" rel="noopener">описание</a>, обновлено в июле 2026). Задания — по отдельной подписке (<a href="https://help.roobet.com/en/articles/8496023-opt-in-mission-promotions" target="_blank" rel="noopener">справка</a>).</li>
+              <li>Второй уровень проверки требует паспорт, права или иное государственное удостоверение (<a href="https://help.roobet.com/en/articles/14709132-level-2-verification" target="_blank" rel="noopener">справка</a>). Список закрытых стран не содержит Россию; отдельные игры недоступны по решению их разработчиков (<a href="https://help.roobet.com/en/articles/13686927-roobet-restricted-regions" target="_blank" rel="noopener">регионы</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Депозиты и визиты — оценки с разным охватом; делить одно на другое и судить о «среднем игроке» нельзя.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 03 SHUFFLE -->
+    <article class="casino" id="c-shuffle">
+      <div class="casino__head"><span class="casino__n">03</span><h3 class="casino__name">Shuffle</h3><p class="casino__meta"><a href="https://shuffle.com" target="_blank" rel="noopener">shuffle.com</a> · запущен в феврале 2023 <a href="https://next.io/news/features/shuffle-ishan-haque-positive-crypto-regulation/" target="_blank" rel="noopener">по интервью основателей</a> · оператор Natural Nine B.V.</p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Изучали вход через Telegram и Google, отдельный баланс-сейф, приём стейблкоинов в нескольких сетях и открытую формулу партнёрских выплат.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>shuffle.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/shuffle.jpg" data-cap="Shuffle · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/shuffle.jpg" alt="Главная страница Shuffle: рекламные баннеры, собственные игры и слоты" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: акции, собственные игры Shuffle, слоты.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$201 млн</b><span>депозитов за август 2026</span></li>
+            <li><b class="num">4.6 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">50+</b><span>уровней в программе лояльности</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Регистрация по почте, через Google, LINE или Telegram; двухфакторная защита на вход, переводы и выводы (<a href="https://help.shuffle.com/en/articles/6918898-account-sign-up" target="_blank" rel="noopener">регистрация</a>, <a href="https://help.shuffle.com/en/articles/9271061-how-to-set-up-two-factor-authentication-2fa" target="_blank" rel="noopener">2FA</a>).</li>
+              <li>USDT в пяти сетях, USDC в шести; сейф как отдельный баланс, возврат с паролем (<a href="https://help.shuffle.com/en/articles/6966242-assets-supported-for-deposits-and-withdrawals" target="_blank" rel="noopener">активы</a>, <a href="https://help.shuffle.com/en/articles/6966245-vault" target="_blank" rel="noopener">сейф</a>).</li>
+              <li>Партнёрские выплаты считаются в реальном времени по формуле (объём ставок × преимущество казино × ставка партнёра) / 2 (<a href="https://help.shuffle.com/en/articles/6969004-shuffle-affiliate-program" target="_blank" rel="noopener">программа</a>). Уровни: 1 очко за $1 в казино, 3 за $1 в спорте (<a href="https://help.shuffle.com/en/articles/9996771-the-shuffle-vip-program" target="_blank" rel="noopener">VIP</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Сейф отделяет игровой баланс от неигрового; о сохранности средств у оператора это ничего не говорит.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04 BC.GAME -->
+    <article class="casino" id="c-bcgame">
+      <div class="casino__head"><span class="casino__n">04</span><h3 class="casino__name">BC.GAME</h3><p class="casino__meta"><a href="https://bc.game" target="_blank" rel="noopener">bc.game</a> · с 2017 · оператор Twocent Technology Ltd · лицензия Анжуана</p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Каталог из тысяч игр и документированная схема проверки для игры Crash.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>bc.game</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/bcgame.jpg" data-cap="BC.GAME · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/bcgame.jpg" alt="Главная страница BC.GAME: баннер, лента крупных выигрышей, разделы казино и спорта" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: баннер, лента крупных выигрышей, разделы «Казино» и «Спорт».</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$46 млн</b><span>депозитов за август 2026</span></li>
+            <li><b class="num down">−56%</b><span>к июлю по отчёту; число переводов снизилось меньше, чем сумма</span></li>
+            <li><b class="num">2.4 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">$30 млрд+</b><span>ставок за всё время — заявление оператора</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Для Crash заранее создаётся цепочка из 10 млн результатов, публикуемая в обратном порядке; преимущество казино 1% (<a href="https://whitepaper.bc.game/bc-white-paper/appendix/provably-fair" target="_blank" rel="noopener">описание</a>).</li>
+              <li>Оператор заявляет более 9 млн пользователей и 165 принимаемых криптовалют — собственные данные (<a href="https://whitepaper.bc.game/bc-white-paper/overview/key-data.md" target="_blank" rel="noopener">описание проекта</a>).</li>
+              <li>В ноябре 2024 суд Кюрасао признал компании-операторы банкротами по искам игроков; в декабре 2024 лицензия Кюрасао отозвана, оператор перешёл под лицензию Анжуана; спор продолжается (<a href="https://igamingbusiness.com/strategy/management/bc-game-withdraws-curacao/" target="_blank" rel="noopener">iGB</a>, <a href="https://next.io/news/casino/sources-bc-game-curacao-bankruptcy-will-likely-reversed/" target="_blank" rel="noopener">NEXT.io</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Связь между событиями 2024 года и снижением депозитов в августе 2026 не установлена.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 05 RAINBET -->
+    <article class="casino" id="c-rainbet">
+      <div class="casino__head"><span class="casino__n">05</span><h3 class="casino__name">Rainbet</h3><p class="casino__meta"><a href="https://rainbet.com" target="_blank" rel="noopener">rainbet.com</a> · более 8 000 игр, спорт, живые дилеры, собственные игры — по данным сайта</p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Второй по посещаемости оператор выборки. Изучали календарь наград с расчётом под игрока, внешнюю случайность в играх на несколько человек и условия проверки личности.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>rainbet.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/rainbet.jpg" data-cap="Rainbet · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/rainbet.jpg" alt="Главная страница Rainbet: баннер, разделы казино и спорта, лента выигрышей" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: разделы, лента выигрышей, партнёры.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$294 млн</b><span>депозитов за август 2026; изменение к июлю в источниках расходится</span></li>
+            <li><b class="num">19.2 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">$2.5 млн</b><span>суммарных ставок для персонального менеджера</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Шесть типов наград по календарю; размер считается от ожидаемого дохода с игрока и растёт при его минусе за период (<a href="https://help.rainbet.com/en/articles/15253793-calendar-rewards" target="_blank" rel="noopener">календарь</a>, <a href="https://help.rainbet.com/en/articles/15265421-vip-program" target="_blank" rel="noopener">VIP</a>).</li>
+              <li>В играх на несколько человек результат берётся из блоков сети EOS (<a href="https://rainbet.com/provably-fair" target="_blank" rel="noopener">описание</a>).</li>
+              <li>Документы могут запросить в любой момент; срок ответа 72 часа, до проверки лимит депозитов €500 (<a href="https://rainbet.com/terms" target="_blank" rel="noopener">правила</a>). По Similarweb больше всего посетителей из США, Канады и Японии.</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Эффект календаря на возвращение игроков открытыми данными не подтверждён.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 06 DUEL -->
+    <article class="casino" id="c-duel">
+      <div class="casino__head"><span class="casino__n">06</span><h3 class="casino__name">Duel</h3><p class="casino__meta"><a href="https://duel.com" target="_blank" rel="noopener">duel.com</a> · запущен в июле 2025 · основатель Осси Кетола (CSGOEmpire) · лицензия Анжуана</p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Самое подробное в выборке описание проверки результата для отдельных игр и внешний источник случайности для общего раунда.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>duel.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/duel.jpg" data-cap="Duel · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/duel.jpg" alt="Главная страница Duel: рисованный баннер и плитки собственных игр с указанием RTP" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: на плитках собственных игр указан RTP — доля возврата игроку. Это показатель математики игры, а не проверяемости.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$251 млн</b><span>депозитов за август 2026, четвёртое место в выборке</span></li>
+            <li><b class="num">2.5 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">0.1%</b><span>преимущество казино в формуле Crash</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Mines: опубликован полный алгоритм от секретного числа до раскладки поля; проверка прошлых раундов доступна после смены пары чисел (<a href="https://help.duel.com/en/articles/13730231-mines-pf" target="_blank" rel="noopener">описание</a>).</li>
+              <li>Crash: отпечаток секретного числа и номер будущего раунда drand показываются до старта (<a href="https://help.duel.com/en/articles/13733889-crash-pf" target="_blank" rel="noopener">описание</a>).</li>
+              <li>Сторонняя группа ProvablyFair.org опубликовала программу пересчёта результатов Mines с открытым кодом (<a href="https://github.com/ProvablyFair-org/duel-mines" target="_blank" rel="noopener">репозиторий</a>). Это проверка одной игры, а не аудит платформы.</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Описаны конкретные игры, а не движок для карточной партии. Причины роста депозитов открытыми данными не объясняются.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 07 GAMDOM -->
+    <article class="casino" id="c-gamdom">
+      <div class="casino__head"><span class="casino__n">07</span><h3 class="casino__name">Gamdom</h3><p class="casino__meta"><a href="https://gamdom.com" target="_blank" rel="noopener">gamdom.com</a> · с 2016, криптовалюты с 2020 <a href="https://help.gamdom.com/en/articles/13239748-getting-started-at-gamdom" target="_blank" rel="noopener">по данным оператора</a></p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Проверка личности только по запросу с названными причинами, примеры кода для пересчёта результатов, регулярные соревнования.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>gamdom.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/gamdom.jpg" data-cap="Gamdom · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/gamdom.jpg" alt="Главная страница Gamdom: баннер, разделы казино и спорта, собственные игры" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: баннер, разделы, собственные игры.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$185 млн</b><span>депозитов за август 2026</span></li>
+            <li><b class="num">1.5 млн</b><span>визитов за август 2026, Similarweb; около двух третей — прямые заходы</span></li>
+            <li><b class="num">3 000+</b><span>игр — по данным оператора</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Без документов можно пополнять, играть и выводить, пока проверку не запросят; причины запроса перечислены (<a href="https://help.gamdom.com/en/articles/13250444-how-and-when-to-verify-your-account" target="_blank" rel="noopener">справка</a>).</li>
+              <li>Цепочка из 10 млн результатов на игру и примеры кода пересчёта для Roulette, HiLo, Dice, Plinko, Mines, Keno (<a href="https://help.gamdom.com/en/articles/9742227-gamdom-originals" target="_blank" rel="noopener">описание</a>).</li>
+              <li>VIP по приглашению (<a href="https://help.gamdom.com/en/articles/9586217-vip-program-and-everything-you-need-to-know-about-it" target="_blank" rel="noopener">справка</a>); соревнования «Король горы» (<a href="https://help.gamdom.com/en/articles/9721638-king-of-the-hill-koth-faq" target="_blank" rel="noopener">FAQ</a>); кабинет партнёра в реальном времени, начисления раз в день (<a href="https://help.gamdom.com/en/articles/9717630-affiliate-program-everything-you-need-to-know" target="_blank" rel="noopener">партнёры</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Доля прямых заходов не говорит о лояльности или об отсутствии рекламы. Криптовалюты: BTC, ETH, USDT, USDC, USD1, BNB, LTC, TRX, XRP, DOGE, SOL (<a href="https://help.gamdom.com/en/articles/8981140-deposit-methods" target="_blank" rel="noopener">платежи</a>).</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 08 ROLLBIT -->
+    <article class="casino" id="c-rollbit">
+      <div class="casino__head"><span class="casino__n">08</span><h3 class="casino__name">Rollbit</h3><p class="casino__meta"><a href="https://rollbit.com" target="_blank" rel="noopener">rollbit.com</a> · запущен в феврале 2020 · <a href="https://whitepaper.rollbot.com/rlb-whitepaper" target="_blank" rel="noopener">описание проекта</a></p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Соревнования нескольких игроков с общим призом, роль оператора в них и календарь наград с постепенной выдачей.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>rollbit.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/rollbit.jpg" data-cap="Rollbit · главная страница · 10.09.2026 · сайт ограничил регион съёмки, данные не загрузились" target="_blank" rel="noopener"><img src="img/market/rollbit.jpg" alt="Главная страница Rollbit: меню с разделами казино, спорт, фьючерсы, битвы бонусов; данные не загрузились из-за региональных ограничений" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Сайт ограничивает доступ из региона съёмки: видна структура страницы без данных. По этому кадру нельзя судить о работающем интерфейсе.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$13 млн</b><span>депозитов за август 2026</span></li>
+            <li><b class="num down">−73.5%</b><span>к июлю по отчёту; во II квартале — около $50 млн в месяц</span></li>
+            <li><b class="num">0.84 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">1 млн+</b><span>пользователей и $5 млрд+ ставок — заявление оператора</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>«Битвы бонусов»: участники покупают одинаковый бонусный раунд в слоте, лучший результат получает приз; при ставке от $100 можно пригласить Rollbot, которым управляет сотрудник оператора (<a href="https://help.rollbit.com/en/articles/6187922-how-to-create-a-bonus-battle" target="_blank" rel="noopener">справка</a>).</li>
+              <li>Испытания: первый, кто выбьет заданный множитель при заданной ставке, получает приз; их создают оператор и партнёры (<a href="https://blog.rollbit.com/challenges-over-50-000-available/" target="_blank" rel="noopener">блог</a>).</li>
+              <li>Награды выдаются три раза в день; возврат 5% от преимущества казино; еженедельный и ежемесячный бонусы на 20% сразу, остальное растянуто (<a href="https://blog.rollbit.com/rollbit-rewards-rewards-calendar/" target="_blank" rel="noopener">блог</a>). До пяти уровней проверки личности (<a href="https://help.rollbit.com/en/articles/6176886-how-do-i-complete-kyc" target="_blank" rel="noopener">справка</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Причины снижения депозитов открытыми данными не установлены. В соревновании может участвовать сотрудник оператора через Rollbot.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 09 DUELBITS -->
+    <article class="casino" id="c-duelbits">
+      <div class="casino__head"><span class="casino__n">09</span><h3 class="casino__name">Duelbits</h3><p class="casino__meta"><a href="https://duelbits.com" target="_blank" rel="noopener">duelbits.com</a> · запущен в июне 2020</p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Работающие дуэли между игроками на реальные деньги: список столов, равный вход, блокировка ставки, автостарт. Единая внутренняя валюта учёта.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>duelbits.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/duelbits.jpg" data-cap="Duelbits · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/duelbits.jpg" alt="Главная страница Duelbits: баннер, разделы казино и спорта, лента выигрышей, популярные игры" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: разделы, лента выигрышей, популярные игры. Экран дуэлей на снимке не показан.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$26 млн</b><span>депозитов за август 2026</span></li>
+            <li><b class="num">0.64 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">2–10</b><span>игроков за столом дуэли на кубиках</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Создатель стола задаёт ставку и число мест, ставка блокируется при входе, старт при заполнении, победитель получает весь банк (<a href="https://help.duelbits.com/en/articles/5351678-dice-duels-explained" target="_blank" rel="noopener">правила</a>; прочитаны 10.09.2026). К результату добавляется номер блока сети EOS (<a href="https://duelbits.com/blog/guide/duelbits-provably-fair-casino/" target="_blank" rel="noopener">блог</a>).</li>
+              <li>Депозиты конвертируются во внутренние единицы Bits по курсу на момент пополнения; вывод после отыгрыша 10% депозита; комиссии платформы нет (<a href="https://help.duelbits.com/en/articles/16798784-duelbits-fees-limits-processing-times" target="_blank" rel="noopener">справка</a>).</li>
+              <li>Партнёр получает 10% расчётного преимущества казино (<a href="https://help.duelbits.com/en/articles/5351626-affiliates-explained" target="_blank" rel="noopener">справка</a>). Справочный центр называет Россию среди примеров принимаемых стран; приоритет у пользовательского соглашения (<a href="https://help.duelbits.com/en/articles/16451925-what-countries-does-duelbits-accept" target="_blank" rel="noopener">страны</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Дуэль — один бросок, а не партия с ходами. Удержание комиссии из банка на странице правил не описано, поэтому комиссию нашей платформы из этого референса выводить нельзя.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10 CLOUDBET -->
+    <article class="casino" id="c-cloudbet">
+      <div class="casino__head"><span class="casino__n">10</span><h3 class="casino__name">Cloudbet</h3><p class="casino__meta"><a href="https://www.cloudbet.com" target="_blank" rel="noopener">cloudbet.com</a> · <a href="https://www.cloudbet.com/en/about-us" target="_blank" rel="noopener">с 2013</a> · ставки на спорт как основа, казино в дополнение</p></div>
+      <p class="casino__role"><b>Зачем включён.</b> Опубликованные лимиты до проверки личности и описанный порядок вывода.</p>
+      <div class="casino__grid">
+        <figure class="shot">
+          <div class="shot__frame"><div class="shot__bar"><i></i><i></i><i></i><span>cloudbet.com</span><em>нажмите, чтобы увеличить</em></div>
+          <a class="shot__link" href="img/market/full/cloudbet.jpg" data-cap="Cloudbet · главная страница · 10.09.2026" target="_blank" rel="noopener"><img src="img/market/cloudbet.jpg" alt="Главная страница Cloudbet: баннер с амбассадором, карточки преимуществ, статистика выводов" width="1200" height="750" loading="lazy"></a></div>
+          <figcaption>Главная страница: рекламный лендинг со спортсменом-амбассадором и статистикой выводов по данным оператора.</figcaption>
+        </figure>
+        <div>
+          <ul class="casino__nums">
+            <li><b class="num">$33 млн</b><span>депозитов за август 2026</span></li>
+            <li><b class="num">0.48 млн</b><span>визитов за август 2026, Similarweb</span></li>
+            <li><b class="num">$2 200</b><span>лимит депозитов за всё время без проверки</span></li>
+            <li><b class="num">$2 200</b><span>лимит вывода в день без проверки</span></li>
+          </ul>
+          <div class="casino__body">
+            <span class="label">Наблюдения</span>
+            <ul class="list">
+              <li>Два лимита без проверки; уровень 1 — телефон, уровень 2 — документ, адрес, проверка лица, после чего лимиты снимаются (<a href="https://www.cloudbet.com/en/support/articles/415596-what-are-cloudbet-s-verification-levels" target="_blank" rel="noopener">справка</a>).</li>
+              <li>Вывод: монета и сеть, адрес, двухфакторный код, подтверждение по почте или в Telegram, обработка обычно до 24 часов (<a href="https://www.cloudbet.com/en/support/articles/103213-how-do-i-withdraw-funds-from-my-cloudbet-account" target="_blank" rel="noopener">справка</a>).</li>
+              <li>Открытый репозиторий с документацией API для ленты событий, ставок и управления счётом (<a href="https://github.com/cloudbet/docs" target="_blank" rel="noopener">GitHub</a>). Перенос VIP-статуса от другого оператора (<a href="https://www.cloudbet.com/en/support/articles/502444-does-cloudbet-offer-a-vip-transfer-program" target="_blank" rel="noopener">справка</a>).</li>
+            </ul>
+            <p class="casino__limit"><b>Ограничение.</b> Распределение посетителей по странам по Similarweb необычное; объяснений у нас нет.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <a class="back" href="#m01">↑ К результатам исследования</a>
+  </div>
+</section>
+
+<!-- ===== 06 · ДАННЫЕ, МЕТОДОЛОГИЯ, СЛОВАРЬ, ИСТОЧНИКИ ===== -->
+<section class="section section--surface" id="m06">
+  <div class="wrap">
+    <p class="eyebrow">06 · Данные, методология, словарь, источники</p>
+    <h2 class="heading">Откуда цифры и как их читать</h2>
+
+    <h3 class="heading heading--sm" style="margin-top:40px">Полная таблица выборки</h3>
+    <table class="mtab cards">
+      <thead><tr><th>Оператор</th><th>Депозиты, авг 2026</th><th>К июлю</th><th>Визиты, авг 2026</th><th>Проверка личности</th><th>Проверяемость</th><th>Внешняя случайность</th><th>Игра между игроками</th></tr></thead>
+      <tbody>
+        <tr><td>Stake</td><td class="n" data-l="Депозиты">$2.12 млрд</td><td class="n neg" data-l="К июлю">−2.3%</td><td class="n" data-l="Визиты">57.7 млн</td><td data-l="Проверка личности">По риску и порогам</td><td data-l="Проверяемость">Стандартная схема, сторонние программы</td><td data-l="Внешняя случайность">—</td><td data-l="Игра между игроками">—</td></tr>
+        <tr><td>Roobet</td><td class="n" data-l="Депозиты">$453 млн</td><td class="n" data-l="К июлю">+23%</td><td class="n" data-l="Визиты">2.6 млн</td><td data-l="Проверка личности">Уровни; второй — документ</td><td data-l="Проверяемость">Для собственных игр</td><td data-l="Внешняя случайность">—</td><td data-l="Игра между игроками">—</td></tr>
+        <tr><td>Shuffle</td><td class="n" data-l="Депозиты">$201 млн</td><td class="n neg" data-l="К июлю">−1.5%</td><td class="n" data-l="Визиты">4.6 млн</td><td data-l="Проверка личности">3 уровня</td><td data-l="Проверяемость">Стандартная схема</td><td data-l="Внешняя случайность">—</td><td data-l="Игра между игроками">—</td></tr>
+        <tr><td>BC.GAME</td><td class="n" data-l="Депозиты">$46 млн</td><td class="n neg" data-l="К июлю">−56%</td><td class="n" data-l="Визиты">2.4 млн</td><td data-l="Проверка личности">Документ по требованию</td><td data-l="Проверяемость">Цепочка результатов (Crash)</td><td data-l="Внешняя случайность">—</td><td data-l="Игра между игроками">—</td></tr>
+        <tr><td>Rainbet</td><td class="n" data-l="Депозиты">$294 млн</td><td class="n" data-l="К июлю">расходится*</td><td class="n" data-l="Визиты">19.2 млн</td><td data-l="Проверка личности">В любой момент, 72 ч</td><td data-l="Проверяемость">Стандартная схема</td><td data-l="Внешняя случайность">Блоки EOS</td><td data-l="Игра между игроками">«Битвы кейсов»</td></tr>
+        <tr><td>Duel</td><td class="n" data-l="Депозиты">$251 млн</td><td class="n" data-l="К июлю">+7…9%</td><td class="n" data-l="Визиты">2.5 млн</td><td data-l="Проверка личности">По требованию</td><td data-l="Проверяемость">Полные алгоритмы для отдельных игр</td><td data-l="Внешняя случайность">drand (Crash)</td><td data-l="Игра между игроками">—</td></tr>
+        <tr><td>Gamdom</td><td class="n" data-l="Депозиты">$185 млн</td><td class="n" data-l="К июлю">+5.7%</td><td class="n" data-l="Визиты">1.5 млн</td><td data-l="Проверка личности">По запросу, причины названы</td><td data-l="Проверяемость">Цепочка результатов, код пересчёта</td><td data-l="Внешняя случайность">—</td><td data-l="Игра между игроками">—</td></tr>
+        <tr><td>Rollbit</td><td class="n" data-l="Депозиты">$13 млн</td><td class="n neg" data-l="К июлю">−73.5%</td><td class="n" data-l="Визиты">0.84 млн</td><td data-l="Проверка личности">До 5 уровней</td><td data-l="Проверяемость">Собственная схема</td><td data-l="Внешняя случайность">—</td><td data-l="Игра между игроками">«Битвы бонусов», испытания</td></tr>
+        <tr><td>Duelbits</td><td class="n" data-l="Депозиты">$26 млн</td><td class="n" data-l="К июлю">+32.6%</td><td class="n" data-l="Визиты">0.64 млн</td><td data-l="Проверка личности">По риску</td><td data-l="Проверяемость">Стандартная схема</td><td data-l="Внешняя случайность">Блок EOS (дуэли)</td><td data-l="Игра между игроками">Дуэли на кубиках, испытания</td></tr>
+        <tr><td>Cloudbet</td><td class="n" data-l="Депозиты">$33 млн</td><td class="n neg" data-l="К июлю">−41%</td><td class="n" data-l="Визиты">0.48 млн</td><td data-l="Проверка личности">Лимиты без проверки, 2 уровня</td><td data-l="Проверяемость">Стандартная схема для своих игр</td><td data-l="Внешняя случайность">—</td><td data-l="Игра между игроками">—</td></tr>
+      </tbody>
+    </table>
+    <p class="table-note">Депозиты и изменение к июлю — отчёт <a href="https://www.vip-grinders.com/research/crypto-casino-market-report/" target="_blank" rel="noopener">VIP-Grinders / Tanzanite</a> за август 2026; страница отчёта при повторной проверке 11.09.2026 была недоступна, значения независимо не подтверждены. *По Rainbet отчёт даёт −16.2%, а <a href="https://tribuna.com/en/blogs/stake-again-outdeposited-the-next-nine-crypto-casinos-combin/" target="_blank" rel="noopener">пересказ июльского среза Tanzanite</a> — рост около 2%; это два пересказа данных одного поставщика, а не независимые источники, поэтому значение не усредняем. Визиты — <a href="https://www.similarweb.com/website/stake.com/" target="_blank" rel="noopener">Similarweb</a>, «Total Visits» на публичной странице за август 2026. Описательные колонки — по документам операторов из раздела 03; «—» означает, что решение в открытых материалах не найдено.</p>
+
+    <figure class="fig">
+      <p class="fig__q"><span class="label">Изменение депозитов за месяц · июль → август 2026 · по отчёту</span>Как изменились наблюдаемые депозиты</p>
+      <div class="dbars">
+        <span></span><div class="dhead"><span>СНИЖЕНИЕ</span><span>РОСТ</span></div><span></span>
+        <span class="dn">Duelbits</span><div class="dl"></div><div class="dr"><div style="width:44.4%"></div></div><span class="dv">+32.6%</span>
+        <span class="dn">Roobet</span><div class="dl"></div><div class="dr"><div style="width:31.4%"></div></div><span class="dv">+23.1%</span>
+        <span class="dn">Duel</span><div class="dl"></div><div class="dr"><div style="width:12.4%"></div></div><span class="dv">+9.1%</span>
+        <span class="dn">Gamdom</span><div class="dl"></div><div class="dr"><div style="width:7.8%"></div></div><span class="dv">+5.7%</span>
+        <span class="dn">Shuffle</span><div class="dl"><div style="width:2%"></div></div><div class="dr"></div><span class="dv neg">−1.5%</span>
+        <span class="dn">Stake</span><div class="dl"><div style="width:3.1%"></div></div><div class="dr"></div><span class="dv neg">−2.3%</span>
+        <span class="dn">Rainbet</span><div class="dl"><div class="unc" style="width:22%"></div></div><div class="dr"></div><span class="dv neg">−16.2%*</span>
+        <span class="dn">Cloudbet</span><div class="dl"><div style="width:55.8%"></div></div><div class="dr"></div><span class="dv neg">−41.0%</span>
+        <span class="dn">BC.GAME</span><div class="dl"><div style="width:75.8%"></div></div><div class="dr"></div><span class="dv neg">−55.7%</span>
+        <span class="dn">Rollbit</span><div class="dl"><div style="width:100%"></div></div><div class="dr"></div><span class="dv neg">−73.5%</span>
+      </div>
+      <p class="cap">Показано изменение суммы депозитов, а не числа игроков. Причины изменений в отчёте не раскрываются, и мы их не приписываем. *Rainbet показан пунктиром: источники расходятся.</p>
+    </figure>
+
+    <h3 class="heading heading--sm" style="margin-top:64px">Методология</h3>
+    <div class="reading">
+      <div><b>Депозиты по блокчейну</b><p>Переводы криптовалюты публичны. <a href="https://tanzanite.xyz" target="_blank" rel="noopener">Tanzanite</a> сопоставляет адреса с казино, <a href="https://www.vip-grinders.com/research/crypto-casino-market-report/" target="_blank" rel="noopener">VIP-Grinders</a> публикует отчёт по 41 оператору. Часть адресов не атрибутирована, сеть Bitcoin не учитывается, кошелёк не равен человеку. Это оценка внесённых сумм, а не выручка и не объём ставок. Аналитика Tanzanite поддерживается Stake, о чём сервис сообщает сам.</p></div>
+      <div><b>Посещаемость</b><p>Оценки <a href="https://www.similarweb.com/website/stake.com/" target="_blank" rel="noopener">Similarweb</a>: число открытий сайта за месяц, а не число игроков. Разные сервисы дают оценки с разбросом в разы: снимки Semrush из первичного исследования были в 3–17 раз выше и в документ не включены. Цифры пригодны для порядка величин и мест в выборке.</p></div>
+      <div><b>Документы операторов</b><p>Правила, политики проверки личности, справочные центры, описания честности игр. Прочитаны 10 сентября 2026; часть перепроверена 11 сентября. Страницы Dice Duels (Duelbits) и отчёт VIP-Grinders при повторной проверке были недоступны — это отмечено в тексте. Официальная страница подтверждает описание функции, а не её работу.</p></div>
+      <div><b>Заявления операторов</b><p>Числа пользователей и оборотов из собственных материалов операторов приведены в карточках BC.GAME и Rollbit с пометкой «заявление оператора». Для сравнения операторов они не используются.</p></div>
+    </div>
+    <p class="note" style="margin-top:20px">Утверждение «принимает игроков из России» описывает правила оператора на дату проверки, а не законность игры с территории России. Отсутствие страны в списке ограничений не является юридическим заключением.</p>
+
+    <h3 class="heading heading--sm" style="margin-top:64px">Словарь</h3>
+    <div class="gloss">
+      <dl>
+        <div><dt>Стейблкоин<small>USDT, USDC</small></dt><dd>Криптовалюта, курс которой эмитент удерживает около одного доллара. Снижает влияние колебаний курса биткоина на баланс игрока, но несёт риски эмитента и сети.</dd></div>
+        <div><dt>Собственные игры<small>Originals</small></dt><dd>Простые быстрые игры, которые казино разрабатывает само: Crash, Mines, Dice, Plinko. Позволяют опубликовать схему проверки результата.</dd></div>
+        <div><dt>Проверяемость результата<small>provably fair</small></dt><dd>Схема, при которой казино фиксирует исходные данные до раунда, а после раунда игрок может пересчитать результат. Подтверждает воспроизводимость, но не решает секретность карт, сговор и ботов.</dd></div>
+        <div><dt>Внешняя случайность<small>drand, блоки EOS</small></dt><dd>Публичный источник случайных чисел, который не контролирует ни казино, ни игрок. Добавляется к исходным данным раунда.</dd></div>
+        <div><dt>Преимущество казино и RTP</dt><dd>Доля ставок, которую казино в среднем оставляет себе, и её дополнение до 100% — доля возврата игрокам. Преимущество 1% соответствует RTP 99%.</dd></div>
+      </dl>
+      <dl>
+        <div><dt>Возврат части ставок<small>rakeback</small></dt><dd>Регулярное начисление игроку доли от преимущества казино с его ставок.</dd></div>
+        <div><dt>Проверка личности<small>KYC / AML</small></dt><dd>KYC — запрос документов игрока; AML — контроль против отмывания денег. Операторы различаются порогами и причинами запроса.</dd></div>
+        <div><dt>Игра между игроками<small>PvP</small></dt><dd>Игроки вносят ставки в общий банк, победитель получает банк по правилам игры; платформа может удерживать комиссию. У некоторых операторов в таких играх участвует и сам оператор.</dd></div>
+        <div><dt>Комиссия с банка</dt><dd>Доход платформы в игре между игроками: доля от банка партии. Отдельная база расчёта, не совпадающая с преимуществом казино в собственных играх.</dd></div>
+        <div><dt>Партнёрская программа<small>affiliate, RevShare, CPA</small></dt><dd>Выплаты за приведённых игроков: доля дохода с игрока (RevShare), фиксированная сумма за игрока (CPA) или их сочетание.</dd></div>
+      </dl>
+    </div>
+
+    <h3 class="heading heading--sm" style="margin-top:64px">Источники</h3>
+    <p class="note" style="margin-top:12px">Первоисточники прочитаны 10 сентября 2026 года; отмеченные страницы перепроверены 11 сентября. Правила операторов меняются, перед принятием решений ссылки стоит открыть заново.</p>
+    <div class="sources">
+      <div><h3>Рынок и данные</h3><p><a href="https://www.vip-grinders.com/research/crypto-casino-market-report/" target="_blank" rel="noopener">VIP-Grinders · отчёт о рынке криптоказино</a><br><a href="https://tanzanite.xyz" target="_blank" rel="noopener">Tanzanite · аналитика по блокчейну</a><br><a href="https://tribuna.com/en/blogs/stake-again-outdeposited-the-next-nine-crypto-casinos-combin/" target="_blank" rel="noopener">Tribuna · пересказ июльского среза</a><br><a href="https://www.businessofigaming.com/crypto-casinos-deposit-volume/" target="_blank" rel="noopener">Business of iGaming · объёмы депозитов</a><br><a href="https://www.similarweb.com/website/stake.com/" target="_blank" rel="noopener">Similarweb · посещаемость</a><br><a href="https://docs.drand.love/docs/cryptography/" target="_blank" rel="noopener">drand · документация</a></p></div>
+      <div><h3>Stake</h3><p><a href="https://stake.com/policies/terms" target="_blank" rel="noopener">Правила</a> · <a href="https://stake.com/policies/anti-money-laundering" target="_blank" rel="noopener">Политика AML</a> · <a href="https://stake.com/provably-fair/overview" target="_blank" rel="noopener">Проверяемость</a> · <a href="https://help.stake.com/en/articles/4793501-what-is-the-stake-vip-program" target="_blank" rel="noopener">VIP</a> · <a href="https://help.stake.com/en/articles/9946653-where-is-the-weekly-bonus-posted-and-how-do-i-claim-it" target="_blank" rel="noopener">Еженедельный бонус</a> (перепроверено 11.09) · <a href="https://stake.com/casino/group/stake-originals" target="_blank" rel="noopener">Собственные игры</a></p></div>
+      <div><h3>Roobet</h3><p><a href="https://roobet.com/about-us" target="_blank" rel="noopener">О компании</a> · <a href="https://help.roobet.com/en/articles/13686927-roobet-restricted-regions" target="_blank" rel="noopener">Регионы</a> · <a href="https://help.roobet.com/en/articles/6610575-regional-restrictions-by-game-provider" target="_blank" rel="noopener">Ограничения по играм</a> · <a href="https://help.roobet.com/en/articles/14709132-level-2-verification" target="_blank" rel="noopener">Проверка личности</a> · <a href="https://help.roobet.com/en/articles/9546773-rewards-explained" target="_blank" rel="noopener">Награды</a> · <a href="https://help.roobet.com/en/articles/8496023-opt-in-mission-promotions" target="_blank" rel="noopener">Задания</a> · <a href="https://help.roobet.com/en/articles/6840930-chat-requirements" target="_blank" rel="noopener">Чат</a></p></div>
+      <div><h3>Shuffle</h3><p><a href="https://help.shuffle.com/en/articles/6918898-account-sign-up" target="_blank" rel="noopener">Регистрация</a> · <a href="https://help.shuffle.com/en/articles/9271061-how-to-set-up-two-factor-authentication-2fa" target="_blank" rel="noopener">2FA</a> · <a href="https://help.shuffle.com/en/articles/6918878-account-verification" target="_blank" rel="noopener">Уровни проверки</a> · <a href="https://help.shuffle.com/en/articles/6966242-assets-supported-for-deposits-and-withdrawals" target="_blank" rel="noopener">Активы</a> · <a href="https://help.shuffle.com/en/articles/6966245-vault" target="_blank" rel="noopener">Сейф</a> (перепроверено 11.09) · <a href="https://help.shuffle.com/en/articles/9286047-provably-fair-commitment-schemes" target="_blank" rel="noopener">Проверяемость</a> · <a href="https://help.shuffle.com/en/articles/9996771-the-shuffle-vip-program" target="_blank" rel="noopener">Уровни</a> · <a href="https://help.shuffle.com/en/articles/6969004-shuffle-affiliate-program" target="_blank" rel="noopener">Партнёры</a> · <a href="https://next.io/news/features/shuffle-ishan-haque-positive-crypto-regulation/" target="_blank" rel="noopener">Запуск, NEXT.io</a></p></div>
+      <div><h3>BC.GAME</h3><p><a href="https://whitepaper.bc.game/bc-white-paper" target="_blank" rel="noopener">Описание проекта</a> · <a href="https://whitepaper.bc.game/bc-white-paper/overview/key-data.md" target="_blank" rel="noopener">Ключевые данные</a> · <a href="https://whitepaper.bc.game/bc-white-paper/appendix/provably-fair" target="_blank" rel="noopener">Проверяемость</a> · <a href="https://whitepaper.bc.game/bc-white-paper/appendix/general-terms-and-conditions/privacy-policy.md" target="_blank" rel="noopener">Данные и проверка</a> · <a href="https://igamingbusiness.com/strategy/management/bc-game-withdraws-curacao/" target="_blank" rel="noopener">Лицензия, iGB</a> · <a href="https://next.io/news/casino/sources-bc-game-curacao-bankruptcy-will-likely-reversed/" target="_blank" rel="noopener">Банкротство, NEXT.io</a></p></div>
+      <div><h3>Rainbet</h3><p><a href="https://rainbet.com/" target="_blank" rel="noopener">Сайт</a> · <a href="https://rainbet.com/terms" target="_blank" rel="noopener">Правила</a> · <a href="https://rainbet.com/provably-fair" target="_blank" rel="noopener">Проверяемость</a> · <a href="https://help.rainbet.com/en/articles/15253793-calendar-rewards" target="_blank" rel="noopener">Календарь наград</a> · <a href="https://help.rainbet.com/en/articles/15265421-vip-program" target="_blank" rel="noopener">VIP</a></p></div>
+      <div><h3>Duel</h3><p><a href="https://help.duel.com/en/collections/18464073-provably-fair-scrolls" target="_blank" rel="noopener">Описания проверяемости</a> · <a href="https://help.duel.com/en/articles/13730231-mines-pf" target="_blank" rel="noopener">Mines</a> (перепроверено 11.09) · <a href="https://help.duel.com/en/articles/13733889-crash-pf" target="_blank" rel="noopener">Crash</a> (перепроверено 11.09) · <a href="https://github.com/ProvablyFair-org/duel-mines" target="_blank" rel="noopener">Программа проверки</a> · <a href="https://www.provablyfair.org/casinos/duel" target="_blank" rel="noopener">ProvablyFair.org</a></p></div>
+      <div><h3>Gamdom</h3><p><a href="https://help.gamdom.com/en/articles/13239748-getting-started-at-gamdom" target="_blank" rel="noopener">О платформе</a> (перепроверено 11.09) · <a href="https://help.gamdom.com/en/articles/13250444-how-and-when-to-verify-your-account" target="_blank" rel="noopener">Проверка личности</a> · <a href="https://help.gamdom.com/en/articles/8981140-deposit-methods" target="_blank" rel="noopener">Платежи</a> · <a href="https://help.gamdom.com/en/articles/9742227-gamdom-originals" target="_blank" rel="noopener">Проверяемость</a> · <a href="https://help.gamdom.com/en/articles/9586217-vip-program-and-everything-you-need-to-know-about-it" target="_blank" rel="noopener">VIP</a> · <a href="https://help.gamdom.com/en/articles/10290516-gamdom-rewards-2-0-how-it-works" target="_blank" rel="noopener">Награды</a> · <a href="https://help.gamdom.com/en/articles/9721638-king-of-the-hill-koth-faq" target="_blank" rel="noopener">Король горы</a> · <a href="https://help.gamdom.com/en/articles/9717630-affiliate-program-everything-you-need-to-know" target="_blank" rel="noopener">Партнёры</a></p></div>
+      <div><h3>Rollbit</h3><p><a href="https://whitepaper.rollbot.com/rlb-whitepaper" target="_blank" rel="noopener">Описание проекта</a> · <a href="https://help.rollbit.com/en/articles/6179447-how-do-i-deposit" target="_blank" rel="noopener">Пополнение</a> · <a href="https://help.rollbit.com/en/articles/6181426-deposit-and-withdrawal-fees" target="_blank" rel="noopener">Комиссии</a> · <a href="https://help.rollbit.com/en/articles/6176886-how-do-i-complete-kyc" target="_blank" rel="noopener">Проверка личности</a> · <a href="https://blog.rollbit.com/rollbit-rewards-rewards-calendar/" target="_blank" rel="noopener">Календарь наград</a> · <a href="https://help.rollbit.com/en/articles/6187922-how-to-create-a-bonus-battle" target="_blank" rel="noopener">Битвы бонусов</a> (перепроверено 11.09) · <a href="https://blog.rollbit.com/challenges-over-50-000-available/" target="_blank" rel="noopener">Испытания</a></p></div>
+      <div><h3>Duelbits</h3><p><a href="https://help.duelbits.com/en/articles/5351678-dice-duels-explained" target="_blank" rel="noopener">Дуэли на кубиках</a> (11.09 недоступна) · <a href="https://help.duelbits.com/en/articles/16451925-what-countries-does-duelbits-accept" target="_blank" rel="noopener">Страны</a> · <a href="https://help.duelbits.com/en/articles/16798784-duelbits-fees-limits-processing-times" target="_blank" rel="noopener">Bits и лимиты</a> · <a href="https://help.duelbits.com/en/articles/6515316-is-duelbits-provably-fair" target="_blank" rel="noopener">Проверяемость</a> · <a href="https://duelbits.com/blog/guide/duelbits-provably-fair-casino/" target="_blank" rel="noopener">Проверяемость, блог</a> · <a href="https://help.duelbits.com/en/articles/5351626-affiliates-explained" target="_blank" rel="noopener">Партнёры</a> · <a href="https://duelbits.com/blog/news/introducing-duelbits-predict/" target="_blank" rel="noopener">Прогнозы</a> · <a href="https://duelbits.com/blog/guide/duelbits-challenges-guide/" target="_blank" rel="noopener">Испытания</a></p></div>
+      <div><h3>Cloudbet</h3><p><a href="https://www.cloudbet.com/en/about-us" target="_blank" rel="noopener">О компании</a> · <a href="https://www.cloudbet.com/en/support/articles/415596-what-are-cloudbet-s-verification-levels" target="_blank" rel="noopener">Уровни проверки</a> (перепроверено 11.09) · <a href="https://www.cloudbet.com/en/support/articles/103213-how-do-i-withdraw-funds-from-my-cloudbet-account" target="_blank" rel="noopener">Вывод</a> · <a href="https://www.cloudbet.com/en/support/articles/103236-how-do-you-ensure-your-games-are-fair" target="_blank" rel="noopener">Честность игр</a> · <a href="https://github.com/cloudbet/docs" target="_blank" rel="noopener">API, GitHub</a> · <a href="https://www.cloudbet.com/en/support/articles/124788-what-rewards-and-promotions-does-cloudbet-offer" target="_blank" rel="noopener">Награды</a> · <a href="https://www.cloudbet.com/en/support/articles/502444-does-cloudbet-offer-a-vip-transfer-program" target="_blank" rel="noopener">Перенос VIP</a> · <a href="https://www.cloudbet.com/en/support/articles/103138-what-s-the-cloudbet-referral-program-about" target="_blank" rel="noopener">Приглашения</a> · <a href="https://cdn.cloudbet.com/Cloudbet-Affiliates-_-Frequently-Asked-Questions.pdf" target="_blank" rel="noopener">Партнёры, FAQ</a> · <a href="https://www.cloudbet.com/en/support/articles/103144-can-i-buy-crypto-on-cloudbet" target="_blank" rel="noopener">Покупка криптовалюты</a></p></div>
+      <div><h3>Связанные документы проекта</h3><p>Состав поставки и границы объёма — коммерческое предложение (документ 01). Финансовое ядро, каналы и проверка личности — техническое приложение (документ 02). Прямые конкуренты и спрос на «Дурака» — отдельное исследование по игре (документ 06, черновик).</p></div>
+    </div>
+    <a class="back" href="#m01">↑ К результатам исследования</a>
+  </div>
+</section>
+
+</main>
+
+<dialog class="lb" id="lb" aria-label="Скриншот в полном размере">
+  <figure>
+    <img id="lb-img" src="" alt="">
+    <p class="lb__err" id="lb-err">Увеличенная версия не загрузилась. <a class="lb__alt" id="lb-alt" href="#" target="_blank" rel="noopener">Открыть изображение в новой вкладке</a></p>
+    <figcaption><span id="lb-cap"></span><button type="button" id="lb-close" autofocus>Закрыть</button></figcaption>
+  </figure>
+</dialog>
+<script>
+(function(){
+  var dlg=document.getElementById('lb');
+  if(!dlg||typeof dlg.showModal!=='function') return; /* без поддержки dialog ссылка откроет изображение в новой вкладке */
+  var img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap'),alt=document.getElementById('lb-alt'),closeBtn=document.getElementById('lb-close');
+  var opener=null;
+  function open(a){
+    opener=a;
+    dlg.classList.remove('is-error');
+    var href=a.getAttribute('href');
+    img.alt=a.querySelector('img').alt;
+    cap.textContent=a.getAttribute('data-cap')||'';
+    alt.href=href;
+    img.onerror=function(){dlg.classList.add('is-error');};
+    img.onload=function(){dlg.classList.remove('is-error');};
+    img.src=href;
+    dlg.showModal();
+    closeBtn.focus();
+  }
+  document.querySelectorAll('.shot__link').forEach(function(a){
+    a.addEventListener('click',function(e){e.preventDefault();open(a);});
+  });
+  closeBtn.addEventListener('click',function(){dlg.close();});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+  dlg.addEventListener('close',function(){img.onerror=null;img.src='';if(opener){opener.focus();opener=null;}});
+})();
+</script>
+</body>
+</html>

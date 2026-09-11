@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crypto Casino Platform — 07. Рублёвые пополнения</title>
+<meta name="description" content="Что предусмотрено в проекте и что нужно решить для подключения российских карт и СБП: текущий статус, итоги обзора рынка, рекомендация для запуска, следующий шаг и ответственность.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ===== единая дизайн-система документов проекта ===== */
+:root{
+  --paper:#F5F4EF;
+  --paper-2:#ECEBE4;
+  --surface:#FFFFFF;
+  --ink:#12171B;
+  --ink-2:#3B454D;
+  --ink-3:#6B757E;
+  --line:#E1E0D8;
+  --line-strong:#C4C6BD;
+  --accent:#14505F;
+  --accent-ink:#0B3B47;
+  --accent-soft:#E3EDF0;
+  --accent-light:#7FB6C4;
+  --dark:#080A0C;
+  --dark-line:#20262A;
+  --dark-ink:#F3F2ED;
+  --dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px;
+  --container:1080px;
+  --gutter:32px;
+  --radius:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent-soft)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+
+.section{padding-block:clamp(40px,5vw,56px);scroll-margin-top:24px}
+.section--surface{background:var(--paper-2)}
+.eyebrow{font-size:13.5px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
+.heading{font-weight:600;font-size:clamp(24px,3vw,32px);line-height:1.15;letter-spacing:-.025em;max-width:30ch}
+.lead{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:58ch}
+.copy{font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:66ch}
+.copy + .copy{margin-top:.85em}
+.heading + .lead,.heading + .copy,.lead + .copy{margin-top:var(--s3)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.note{font-size:14px;line-height:1.5;color:var(--ink-3);max-width:72ch}
+.note a,.src a,.cands a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.note a:hover,.src a:hover,.cands a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+
+/* ---------- статусы ---------- */
+.st{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1px solid var(--line-strong);color:var(--ink-2);background:var(--surface);white-space:nowrap;vertical-align:middle}
+.st--kp{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+.st--disc{border-style:dashed}
+
+/* ---------- шапка ---------- */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(36px,5vw,56px)}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);margin-bottom:14px}
+.head__title{font-weight:700;font-size:clamp(30px,4.2vw,46px);line-height:1.05;letter-spacing:-.035em;max-width:24ch}
+.head__sub{font-family:var(--serif);font-size:clamp(17px,1.9vw,20px);line-height:1.45;color:#C9D0D5;max-width:52ch;margin-top:clamp(12px,1.6vw,18px)}
+.head__intro{margin-top:clamp(18px,2.4vw,26px);padding-top:18px;border-top:1px solid var(--dark-line);font-size:15.5px;line-height:1.55;color:#D4D9DC;max-width:70ch}
+
+/* ---------- таблица статусов ---------- */
+.obs{width:100%;border-collapse:collapse;margin-top:var(--s4);font-size:14.5px}
+.obs th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 16px 8px 0;border-bottom:2px solid var(--ink)}
+.obs td{padding:12px 16px 12px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.5}
+.obs td:first-child{color:var(--ink);font-weight:600;width:32%}
+.obs td.status{width:22%;white-space:nowrap}
+.obs td:last-child,.obs th:last-child{padding-right:0}
+.table-note{margin-top:var(--s2);font-size:13.5px;color:var(--ink-3);max-width:76ch;line-height:1.5}
+
+/* ---------- обзор ---------- */
+.finds{list-style:none;margin:var(--s4) 0 0;padding:0}
+.finds li{display:grid;grid-template-columns:44px 1fr;gap:var(--s2);padding:18px 0;border-top:1px solid var(--line)}
+.finds li:first-child{border-top:0;padding-top:0}
+.finds i{font-style:normal;font-family:var(--mono);font-size:12.5px;color:var(--accent);padding-top:4px}
+.finds h3{font-size:17.5px;font-weight:600;line-height:1.3}
+.finds p{margin-top:5px;font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:70ch}
+.limit{margin-top:var(--s3);padding-left:var(--s3);border-left:2px solid var(--accent);font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:64ch}
+.limit b{color:var(--ink)}
+.cands{margin-top:var(--s3);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cands summary{cursor:pointer;padding:12px 0;font-size:15px;color:var(--ink);list-style:none;display:flex;gap:10px;align-items:center}
+.cands summary::-webkit-details-marker{display:none}
+.cands summary::before{content:"+";font-family:var(--mono);color:var(--accent);width:14px}
+.cands[open] summary::before{content:"−"}
+.cands summary .note{display:inline}
+.cands table{width:100%;border-collapse:collapse;font-size:14px;margin:4px 0 var(--s2)}
+.cands td{padding:9px 14px 9px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.5}
+.cands td:first-child{color:var(--ink);font-weight:600;width:30%}
+.cands td:last-child{padding-right:0}
+.cands .table-note{margin-bottom:var(--s2)}
+
+/* ---------- рекомендация ---------- */
+.scen{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s3);margin-top:var(--s4)}
+.scen article{background:var(--surface);border:1px solid var(--line-strong);border-top:3px solid var(--accent);border-radius:var(--radius);padding:clamp(18px,2.2vw,24px) clamp(20px,2.6vw,28px)}
+.scen .label{display:block;margin-bottom:10px;color:var(--accent)}
+.scen h3{font-size:19px;font-weight:600;line-height:1.3}
+.scen p{margin-top:12px;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.scen p b{color:var(--ink)}
+.ask{margin-top:var(--s3);background:var(--dark);color:var(--dark-ink);border-radius:var(--radius);padding:clamp(22px,2.8vw,32px) clamp(22px,3vw,36px);display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--s3) var(--s5);align-items:start}
+.ask .label{color:var(--accent-light);display:block;margin-bottom:10px}
+.ask h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.4vw,26px);line-height:1.3;letter-spacing:-.01em}
+.ask p{font-size:15px;line-height:1.55;color:var(--dark-muted);padding-top:26px}
+
+/* ---------- следующий шаг ---------- */
+.steps{list-style:none;margin:var(--s4) 0 0;padding:0;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3)}
+.steps li{border-top:2px solid var(--ink);padding-top:12px;font-size:15px;line-height:1.5;color:var(--ink-2)}
+.steps li::before{counter-increment:s;content:"0" counter(s);display:block;font-family:var(--mono);font-size:12px;color:var(--accent);margin-bottom:6px}
+.steps b{display:block;color:var(--ink);margin-bottom:4px}
+.roles{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line-strong)}
+.roles__head{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.roles__head h3{font-size:19px;font-weight:600}
+.roles__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2) var(--s5);margin-top:var(--s3)}
+.roles__grid div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.roles__grid b{color:var(--ink)}
+.roles__grid span{color:var(--ink-2)}
+.money{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s3) var(--s5);margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line-strong)}
+.money h3{font-size:17px;font-weight:600;margin-bottom:8px}
+.money p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.result{margin-top:var(--s4);background:var(--surface);border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:var(--radius);padding:clamp(16px,2vw,22px) clamp(20px,2.6vw,28px)}
+.result .label{color:var(--accent);display:block;margin-bottom:8px}
+.result p{font-size:16px;line-height:1.55;color:var(--ink);max-width:72ch}
+.src{margin-top:var(--s4);font-size:13.5px;line-height:1.6;color:var(--ink-3);max-width:76ch}
+
+/* ---------- адаптив ---------- */
+@media (max-width:960px){
+  .steps{grid-template-columns:1fr 1fr}
+  .roles__grid{grid-template-columns:1fr}
+  .roles__grid div{grid-template-columns:130px 1fr}
+  .ask{grid-template-columns:1fr}
+  .ask p{padding-top:0}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  :root{--gutter:20px}
+  .scen,.money,.steps{grid-template-columns:1fr}
+  .roles__grid div{grid-template-columns:1fr;gap:2px}
+  .obs,.obs tbody,.obs tr,.obs td,.cands table,.cands tbody,.cands tr,.cands td{display:block;width:auto}
+  .obs thead{display:none}
+  .obs tr,.cands tr{border-top:1px solid var(--line);padding:12px 0}
+  .obs td,.cands td{border:0;padding:3px 0;width:auto!important;white-space:normal!important}
+  .obs td:first-child,.cands td:first-child{font-size:15.5px;padding-bottom:6px}
+  .obs td:not(:first-child)::before{display:block;content:attr(data-l);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .obs td.status::before{margin-bottom:4px}
+  .finds li{grid-template-columns:32px 1fr}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@page{size:A4;margin:15mm 14mm}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;font-size:10pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding-inline:0}
+  .head{padding:14mm 12mm 10mm;margin:0 0 6mm;border-radius:0}
+  .section{padding-block:14px}
+  .section--surface{background:#fff}
+  .eyebrow{break-after:avoid;page-break-after:avoid}
+  .heading{font-size:15pt;max-width:none;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
+  .lead,.copy{max-width:none}
+  .obs,.cands table{font-size:9pt}
+  .obs tr,.cands tr,.finds li,.scen article,.ask,.steps li,.roles__grid div,.result{break-inside:avoid;page-break-inside:avoid}
+  .obs thead{display:table-header-group}
+  .cands{border:0}
+  .cands summary::before{display:none}
+  .cands summary{display:block;padding:0 0 6px;font-weight:600}
+  .cands summary .note{font-weight:400}
+  .cands table{display:table}
+  .scen{gap:12px}
+  .ask{background:#fff;color:var(--ink);border:1px solid var(--line-strong)}
+  .ask .label{color:var(--accent)}
+  .ask p{color:var(--ink-2)}
+  a{color:inherit}
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <p class="head__eyebrow">Приложение к коммерческому предложению</p>
+    <h1 class="head__title">07. Рублёвые пополнения</h1>
+    <p class="head__sub">Что предусмотрено в проекте и что нужно решить для подключения российских карт и СБП.</p>
+    <p class="head__intro">В текущем предложении предусмотрены пополнения криптовалютой. Российские карты и СБП рассматриваем как дополнительное направление. До включения этой интеграции в согласованный объём нужно получить согласие платёжного провайдера и понять условия приёма денег и выплат.</p>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== 01 · ЧТО ПРЕДУСМОТРЕНО ===== -->
+<section class="section" id="p01">
+  <div class="wrap">
+    <p class="eyebrow">01 · Что предусмотрено</p>
+    <h2 class="heading">Криптовалюта входит в проект, российские карты и СБП пока нет</h2>
+    <table class="obs">
+      <thead><tr><th>Возможность</th><th>Текущий статус</th><th>Что это означает для заказчика</th></tr></thead>
+      <tbody>
+        <tr><td>Пополнение криптовалютой</td><td class="status" data-l="Текущий статус"><span class="st st--kp">Предусмотрено КП</span></td><td data-l="Что это означает">Реализуется в согласованных сетях и составе работ: до трёх blockchain-сетей, депозиты, выводы и история операций.</td></tr>
+        <tr><td>Пополнение российской картой или через СБП</td><td class="status" data-l="Текущий статус"><span class="st">Не подтверждено</span></td><td data-l="Что это означает">Нужен провайдер, который согласует обслуживание конкретного казино. В текущий объём работ интеграция не входит.</td></tr>
+        <tr><td>Выплаты игрокам на российские карты</td><td class="status" data-l="Текущий статус"><span class="st">Не подтверждено</span></td><td data-l="Что это означает">Проверяются отдельно: согласие провайдера на приём платежей не гарантирует возможность выплат.</td></tr>
+      </tbody>
+    </table>
+    <p class="table-note">В документе «Вопросы до начала работ» мы рекомендуем показывать игроку эквивалент баланса в долларах и рублях. Отображение баланса в рублях не означает возможность пополнить его российской картой.</p>
+  </div>
+</section>
+
+<!-- ===== 02 · ЧТО ПОКАЗАЛ ОБЗОР ===== -->
+<section class="section section--surface" id="p02">
+  <div class="wrap">
+    <p class="eyebrow">02 · Что показал обзор рынка</p>
+    <h2 class="heading">На рынке есть предложения для приёма рублей, но по открытым данным пока нельзя выбрать партнёра и гарантировать подключение</h2>
+    <p class="copy">Обзор нужен, чтобы понять, есть ли провайдеры, готовые принимать рубли для казино, и что потребуется для их подключения. Мы изучили сайты и документацию провайдеров, их условия обслуживания и официальные реестры.</p>
+    <ol class="finds">
+      <li><i>01</i><div>
+        <h3>Предложения существуют</h3>
+        <p>Есть компании, которые заявляют работу с казино, и сервисы с российскими платёжными методами. Нужно подтвердить, что конкретный провайдер одновременно поддерживает нашу отрасль, оператора и страны игроков. Код рубля в его документации этого не подтверждает.</p>
+      </div></li>
+      <li><i>02</i><div>
+        <h3>Условия важнее списка методов</h3>
+        <p>До выбора партнёра необходимо узнать комиссии, удержание части средств, сроки перечисления денег оператору и условия выплат игрокам. Без этого нельзя оценить стоимость приёма рублей.</p>
+      </div></li>
+      <li><i>03</i><div>
+        <h3>Техническая интеграция — только часть задачи</h3>
+        <p>Команда может оценить подключение после получения документации и согласования бизнеса провайдером. Наличие API или логотипа СБП на сайте таким согласованием не является.</p>
+      </div></li>
+    </ol>
+    <p class="limit"><b>Правовое ограничение.</b> Иностранная лицензия сама по себе не разрешает обслуживать российский рынок. До подключения нужно проверить требования к оператору, странам игроков и источникам платежей. Подробности и источники — в полном отчёте.</p>
+    <details class="cands">
+      <summary>Кандидаты из исследования <span class="note">· список для переговоров подготовлен, договорённости о подключении пока отсутствуют</span></summary>
+      <table>
+        <tbody>
+          <tr><td>Paykassma, PayAdmit</td><td>Заявляют работу с казино и ставками. У первого код рубля есть в справочнике валют, у второго в документации перечислены СБП и переводы между картами. Приём российских карт для казино не подтверждён.</td></tr>
+          <tr><td>ENOT, FreeKassa, FKwallet</td><td>Российские методы в документации: карты, МИР, СБП, выплаты на карты. Согласие на обслуживание казино не установлено.</td></tr>
+          <tr><td>Corefy, Praxis, PaymentIQ</td><td>Платформы, объединяющие несколько провайдеров в одном подключении. Имеют смысл после того, как хотя бы один провайдер подтвердит обслуживание.</td></tr>
+          <tr><td>Cryptopay, NOWPayments</td><td>Приём криптовалюты для игровых проектов. Вопрос российских карт не решают.</td></tr>
+          <tr><td>PayAtlas, PayConsult</td><td>Консультанты по подбору платёжных провайдеров для игровой отрасли. Могут ускорить поиск, но сами платежи не проводят.</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">Подключение не подтверждено. Это кандидаты по итогам обзора открытых источников, а не партнёры команды. Переговоры с ними не велись.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ===== 03 · РЕКОМЕНДАЦИЯ ===== -->
+<section class="section" id="p03">
+  <div class="wrap">
+    <p class="eyebrow">03 · Рекомендация</p>
+    <h2 class="heading">Как действовать в нашем проекте</h2>
+    <div class="scen">
+      <article>
+        <span class="label">Сценарий А</span>
+        <h3>Российские карты обязательны в первой версии</h3>
+        <p>Сначала нужно подтвердить платёжного партнёра, условия его работы и возможность обслуживания выбранной аудитории. После этого можно оценить интеграцию и согласовать её влияние на бюджет и сроки. <b>До подтверждения партнёра обещать запуск с российскими картами нельзя.</b></p>
+        <p>Это условие касается рублёвого платёжного направления, а не всей платформы: остальные работы по КП от него не зависят.</p>
+      </article>
+      <article>
+        <span class="label">Сценарий Б</span>
+        <h3>Рублёвые пополнения можно добавить после первой версии</h3>
+        <p>Можно сохранить криптовалютный сценарий, предусмотренный текущим КП, а рублёвые платежи рассмотреть отдельным этапом. Его состав и сроки согласуются после выбора провайдера.</p>
+        <p>Запуск на криптовалюте не снимает требований к оператору и аудитории: страны игроков и условия лицензии проверяются в любом случае.</p>
+      </article>
+    </div>
+    <div class="ask">
+      <div>
+        <span class="label">Решение заказчика</span>
+        <h3>Нужно определить: российские карты обязательны для первого запуска или могут быть добавлены позднее?</h3>
+      </div>
+      <p>От ответа зависит, входит ли выбор провайдера в подготовку к запуску или планируется отдельным этапом после него.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 · СЛЕДУЮЩИЙ ШАГ ===== -->
+<section class="section section--surface" id="p04">
+  <div class="wrap">
+    <p class="eyebrow">04 · Следующий шаг</p>
+    <h2 class="heading">От обзора рынка к предложению по подключению</h2>
+    <ol class="steps">
+      <li><b>Уточнить исходные данные</b>Компания и лицензия оператора, страны игроков, нужные способы пополнения и выплат, предполагаемые объёмы.</li>
+      <li><b>Получить решение провайдера</b>Согласие на обслуживание бизнеса и письменные условия расчётов.</li>
+      <li><b>Оценить подключение</b>Документация, изменения в интерфейсах и финансовом учёте, стоимость и сроки интеграции.</li>
+      <li><b>Согласовать объём работ</b>Что входит в разработку, кто заключает договор с провайдером и кто отвечает за работу платежей после запуска.</li>
+    </ol>
+
+    <div class="roles">
+      <div class="roles__head"><h3>Кто за что отвечает</h3><span class="st st--disc">Предлагаемый порядок · требует согласования</span></div>
+      <p class="note" style="margin-top:10px">В КП и техническом документе ответственность по рублёвым платежам не закреплена, поэтому предлагаем следующее распределение.</p>
+      <div class="roles__grid">
+        <div><b>Заказчик</b><span>Предоставляет данные оператора, определяет целевые рынки и согласует коммерческие условия провайдера.</span></div>
+        <div><b>Провайдер</b><span>Принимает решение об обслуживании и определяет условия приёма и перечисления денег.</span></div>
+        <div><b>Команда разработки</b><span>Оценивает и реализует техническое подключение в согласованном объёме.</span></div>
+        <div><b>Поиск и переговоры</b><span>Кто ведёт поиск провайдеров и переговоры с ними, нужно согласовать отдельно: эта работа пока ни за кем не закреплена.</span></div>
+      </div>
+    </div>
+
+    <div class="money">
+      <div>
+        <h3>Стоимость и сроки</h3>
+        <p>Стоимость и сроки подключения рублёвых платежей пока не определены. Их можно оценить после выбора провайдера и получения его документации. В текущую стоимость по КП входит криптовалютная инфраструктура; работы по рублёвым платежам в неё не включены, и включение этих работ в текущую стоимость требует согласования.</p>
+      </div>
+      <div>
+        <h3>Расходы на провайдера</h3>
+        <p>Комиссии и удержания провайдера нужно учитывать отдельно от стоимости разработки. По КП комиссии и тарифы сторонних сервисов заказчик оплачивает напрямую провайдерам, это правило распространяется и на рублёвые платежи.</p>
+      </div>
+    </div>
+
+    <div class="result">
+      <span class="label">Ожидаемый результат</span>
+      <p>После согласования провайдера заказчик получает понятный состав подключения: способы пополнения и выплат, условия расчётов, стоимость и сроки разработки.</p>
+    </div>
+
+    <p class="src">Основано на обзоре открытых источников от 10–11 сентября 2026 года. Переговоры и согласование подключения не проводились. Полный отчёт с матрицей провайдеров, правовой картой и источниками: <a href="rub-report.html" target="_blank" rel="noopener">Приём рублей и российских банковских карт в онлайн-казино</a>.</p>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+  var d=document.querySelector('.cands');if(!d)return;var was=false;
+  window.addEventListener('beforeprint',function(){was=d.open;d.open=true;});
+  window.addEventListener('afterprint',function(){d.open=was;});
+})();
+</script>
+</body>
+</html>
