@@ -117,6 +117,23 @@ h1{
 }
 .doc:hover .arrow,.doc:focus-visible .arrow{color:var(--accent);transform:translateX(4px)}
 
+/* ===== Раздел в работе ===== */
+.doc--soon{cursor:default}
+.doc--soon:hover{background:transparent;padding-left:12px}
+.doc--soon .n,.doc--soon h2,.doc--soon p{color:var(--ink-3)}
+.doc--soon:hover h2{color:var(--ink-3)}
+.doc--soon .soon{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  border:1px solid var(--line-strong,#C4C6BD);
+  border-radius:3px;
+  padding:3px 8px;
+  white-space:nowrap;
+}
+
 /* ===== Подвал ===== */
 .foot{
   flex:0 0 auto;
@@ -188,12 +205,12 @@ h1{
       <p>Концепция игрового модуля «Дурак» на реальные деньги: предлагаемая игра, шесть решений с экранами других продуктов, макеты, что рекомендуем для первой версии и что нужно согласовать.</p>
     </a>
 
-    <a class="doc" href="payments.html" target="_blank" rel="noopener">
+    <div class="doc doc--soon" aria-disabled="true">
       <span class="n">07</span>
       <h2>Рублёвые пополнения: оценка перед запуском</h2>
-      <svg class="arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="soon">Скоро</span>
       <p>Что предусмотрено в проекте, что показал обзор рынка, рекомендация для запуска и что нужно решить для подключения российских карт и СБП.</p>
-    </a>
+    </div>
 
     <a class="doc" href="brief.html" target="_blank" rel="noopener">
       <span class="n">08</span>
