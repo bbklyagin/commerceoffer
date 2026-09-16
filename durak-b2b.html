@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дурак для казино и продажи другим операторам — коммерческое предложение</title>
+<meta name="description" content="Многопользовательская казино-игра «Дурак» для собственной платформы и продажи другим операторам. Web и Telegram, 2–6 игроков, два режима. Состав разработки, стоимость $28 000, этапы и условия передачи проекта.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ===== единая дизайн-система документов проекта ===== */
+:root{
+  --paper:#F5F4EF;--paper-2:#ECEBE4;--surface:#FFFFFF;
+  --ink:#12171B;--ink-2:#3B454D;--ink-3:#6B757E;
+  --line:#E1E0D8;--line-strong:#C4C6BD;
+  --accent:#14505F;--accent-ink:#0B3B47;--accent-soft:#E3EDF0;--accent-light:#7FB6C4;
+  --neg:#8C4A3C;--warn:#8A6A1F;
+  --dark:#080A0C;--dark-2:#101417;--dark-3:#182028;--dark-line:#20262A;--dark-ink:#F3F2ED;--dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;
+  --container:1080px;--gutter:32px;--radius:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent-soft)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:clamp(48px,6vw,76px);scroll-margin-top:64px}
+.section--surface{background:var(--paper-2)}
+.eyebrow{font-size:13.5px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
+.heading{font-weight:600;font-size:clamp(26px,3.2vw,36px);line-height:1.12;letter-spacing:-.025em;max-width:26ch;overflow-wrap:break-word;hyphens:auto}
+.lead{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:56ch}
+.copy{font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:66ch}
+.copy + .copy{margin-top:.85em}
+.heading + .lead,.heading + .copy,.lead + .copy{margin-top:var(--s3)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.note{font-size:14px;line-height:1.5;color:var(--ink-3);max-width:76ch}
+.note a,.src a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.note a:hover,.src a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.src{margin-top:var(--s3);font-size:13.5px;line-height:1.7;color:var(--ink-3)}
+.list{list-style:none;margin:0;padding:0}
+.list li{position:relative;padding-left:20px;margin-bottom:8px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.list li:last-child{margin-bottom:0}
+.list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--accent)}
+.list li b{color:var(--ink)}
+.h3{font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+.h4{font-size:16.5px;font-weight:600;line-height:1.3}
+.intro{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:start}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(26px,3.6vw,48px)}
+.callout{margin-top:var(--s4);background:var(--surface);border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:var(--radius);padding:clamp(16px,2vw,22px) clamp(18px,2.4vw,28px)}
+.callout .label{color:var(--accent);display:block;margin-bottom:8px}
+.callout p{font-size:15.5px;line-height:1.55;color:var(--ink);max-width:78ch}
+.callout p + p{margin-top:8px}
+
+/* ---------- верхняя панель ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:40;height:46px;background:rgba(245,244,239,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .25s ease}
+.topbar.show{transform:none}
+.topbar .in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter);height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13.5px}
+.topbar .doc{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .doc a{color:var(--ink-3);margin-right:10px}
+.topbar nav{display:flex;gap:18px}
+.topbar nav a{color:var(--ink-2);white-space:nowrap}
+.topbar nav a:hover{color:var(--accent);text-decoration:none}
+.topbar details{position:relative}
+.topbar summary{list-style:none;cursor:pointer;color:var(--accent);white-space:nowrap;padding:6px 0}
+.topbar summary::-webkit-details-marker{display:none}
+.topbar details[open] summary{color:var(--ink)}
+.topbar .menu{position:absolute;right:0;top:100%;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.12);padding:8px 0;min-width:290px;display:grid}
+.topbar .menu a{padding:8px 16px;color:var(--ink);font-size:14px;display:flex;gap:10px}
+.topbar .menu a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent);padding-top:3px}
+.topbar .menu a:hover{background:var(--paper-2);text-decoration:none}
+
+/* ---------- обложка ---------- */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(44px,6vw,72px)}
+.head__grid{display:grid;grid-template-columns:minmax(0,60fr) minmax(0,40fr);gap:clamp(24px,3.4vw,40px) clamp(28px,4.5vw,56px);align-items:start}
+.head__main{grid-column:1;grid-row:1}
+.head__grid .head__note{grid-column:1;grid-row:2;margin-top:0}
+.head__grid .pricecard{grid-column:2;grid-row:1/span 2;align-self:start}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);margin-bottom:18px}
+.head__eyebrow a{color:var(--dark-muted);border-bottom:1px solid var(--dark-line)}
+.head__eyebrow a:hover{color:var(--dark-ink);text-decoration:none}
+.head__title{font-weight:700;font-size:clamp(30px,4.2vw,48px);line-height:1.05;letter-spacing:-.032em;overflow-wrap:break-word;hyphens:auto}
+.head__lead{font-family:var(--serif);font-size:clamp(17px,1.9vw,20px);line-height:1.5;color:#C9D0D5;max-width:50ch;margin-top:clamp(16px,2.2vw,24px)}
+.head__facts{list-style:none;margin:clamp(20px,2.6vw,28px) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.head__facts li{font-size:14px;color:var(--dark-ink);border:1px solid var(--dark-line);background:var(--dark-2);border-radius:99px;padding:6px 14px}
+.head__note{margin-top:clamp(20px,2.6vw,28px);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:14px;line-height:1.55;color:var(--dark-muted);max-width:62ch}
+.head__note a{color:var(--accent-light)}
+.pricecard{background:var(--dark-2);border:1px solid var(--dark-line);border-radius:8px;padding:clamp(20px,2.6vw,28px)}
+.pricecard .label{color:var(--accent-light);display:block;margin-bottom:12px}
+.pricecard__sum{font-size:clamp(40px,5vw,54px);font-weight:700;letter-spacing:-.035em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.pricecard__cap{margin-top:10px;font-size:15px;line-height:1.5;color:var(--dark-ink)}
+.pricecard dl{margin:var(--s3) 0 0;padding-top:var(--s2);border-top:1px solid var(--dark-line);display:grid;gap:9px;font-size:14px}
+.pricecard dl > div{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.pricecard dt{color:var(--dark-muted)}
+.pricecard dd{margin:0;color:var(--dark-ink);text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- содержание ---------- */
+.toc{padding-block:var(--s4);border-bottom:1px solid var(--line)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 var(--s5)}
+.toc a{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line);color:var(--ink);font-size:14.5px}
+.toc li:nth-child(-n+3) a{border-top:0}
+.toc a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent)}
+.toc a:hover{text-decoration:none;color:var(--accent)}
+
+/* ---------- таблицы ---------- */
+.tablewrap{margin-top:var(--s4)}
+.tbl{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5}
+.tbl th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 16px 10px 0;border-bottom:2px solid var(--ink);vertical-align:bottom}
+.tbl td{padding:11px 16px 11px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+.tbl th:last-child,.tbl td:last-child{padding-right:0}
+.tbl td:first-child{color:var(--ink);font-weight:600}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+.tbl tr.tot td{border-top:2px solid var(--ink);color:var(--ink);font-weight:600}
+.tbl td a{color:inherit;border-bottom:1px solid var(--line-strong)}
+.tbl td a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.tbl small{display:block;font-size:12.5px;color:var(--ink-3);font-weight:400;margin-top:3px}
+.table-note{margin-top:var(--s2);font-size:13.5px;line-height:1.5;color:var(--ink-3);max-width:80ch}
+
+/* ---------- концепция стола ---------- */
+.concept{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,56px);margin-top:var(--s5);align-items:start}
+.concept__txt .label{display:block;margin-bottom:10px}
+.concept__txt p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.concept__txt p + p{margin-top:10px}
+.mock{max-width:360px;margin-inline:auto;background:var(--dark-3);color:var(--dark-ink);border-radius:16px;padding:14px 14px 16px;font-size:13.5px;line-height:1.35;box-shadow:inset 0 0 0 1px #2A343C}
+.mk-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--dark-muted)}
+.mk-top b{color:var(--dark-ink);font-weight:600}
+.mk-table{margin-top:12px;background:#0E2A22;border-radius:12px;padding:12px;position:relative;box-shadow:inset 0 0 0 1px #1E4237}
+.mk-seats{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#9FC2B4}
+.mk-seat{text-align:center;flex:1 1 0;min-width:0}
+.mk-seat b{display:block;color:#fff;font-weight:500;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mk-seat i{font-style:normal;display:block;margin-top:2px}
+.mk-seat.turn b{color:#B9E3D3}
+.mk-seat.turn i{color:var(--accent-light)}
+.mk-center{display:flex;justify-content:center;gap:8px;align-items:flex-end;margin:14px 0 10px;min-height:56px}
+.mk-card{display:inline-flex;flex-direction:column;justify-content:space-between;width:36px;height:52px;background:#FBF8EE;color:#12171B;border-radius:4px;padding:3px 4px;font-weight:600;font-size:12px;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.mk-card.red{color:#B3261E}
+.mk-card.back{background:repeating-linear-gradient(45deg,#3B6E82 0 3px,#2C5766 3px 6px);border:2px solid #E8E4D8}
+.mk-card small{font-size:10px;font-weight:500;align-self:flex-end}
+.mk-card.def{transform:translate(-14px,10px)}
+.mk-info{display:flex;justify-content:space-between;font-size:11px;color:#9FC2B4}
+.mk-info b{color:#fff;font-weight:600}
+.mk-turn{margin-top:11px;text-align:center;font-size:12px;color:#B9E3D3}
+.mk-turn b{color:#fff;font-weight:600}
+.mk-hand{display:flex;justify-content:center;gap:5px;margin-top:10px;flex-wrap:wrap}
+.mk-hand .mk-card{width:38px;height:54px}
+.mk-hand .mk-card.ok{outline:2px solid var(--accent-light);outline-offset:1px}
+.mk-tabs{display:flex;gap:6px;margin-top:12px;padding-top:11px;border-top:1px solid #2A343C;font-size:11.5px}
+.mk-tabs span{border:1px solid #33404A;border-radius:6px;padding:5px 9px;color:var(--dark-muted);white-space:nowrap}
+.mk-tabs span.on{border-color:var(--accent-light);background:#0F2B33;color:#fff}
+.mk-tabs span.free{border-style:dashed}
+
+/* ---------- деньги ---------- */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3) clamp(24px,3.4vw,44px);margin-top:var(--s4)}
+.facts > div{padding-top:var(--s2);border-top:2px solid var(--ink)}
+.facts b{display:block;font-size:17px;font-weight:600;line-height:1.3}
+.facts p{margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.facts small{display:block;margin-top:10px;padding-top:9px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;line-height:1.45;letter-spacing:.03em;color:var(--ink-3)}
+.subs{margin-top:var(--s5);display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(26px,3.6vw,48px)}
+.subs h3{font-size:17px;font-weight:600;line-height:1.3;margin-bottom:10px}
+.subs p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.subs p + p{margin-top:9px}
+
+/* ---------- схема операторов ---------- */
+.b2b{margin-top:var(--s5)}
+.b2b__row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.b2b__op{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);padding:16px 18px}
+.b2b__op b{display:block;font-size:16px;font-weight:600}
+.b2b__op p{margin-top:5px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.b2b__link{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);height:30px}
+.b2b__link span{position:relative;font-family:var(--mono);font-size:11px;color:var(--ink-3);display:flex;align-items:center;justify-content:center}
+.b2b__link span::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line-strong)}
+.b2b__link i{font-style:normal;position:relative;z-index:1;background:var(--paper);padding:0 8px;letter-spacing:.04em}
+.b2b__core{background:var(--dark);color:var(--dark-ink);border-radius:var(--radius);padding:clamp(18px,2.2vw,24px) clamp(18px,2.6vw,28px)}
+.b2b__core b{display:block;font-size:17px;font-weight:600;color:#fff}
+.b2b__core p{margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--dark-muted)}
+.b2b__core ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.b2b__core li{font-size:12.5px;color:var(--dark-ink);border:1px solid var(--dark-line);border-radius:99px;padding:4px 11px}
+.b2b__cap{margin-top:var(--s2);font-size:13.5px;line-height:1.5;color:var(--ink-3)}
+
+/* ---------- цена ---------- */
+.price{margin-top:var(--s4);background:var(--dark);color:var(--dark-ink);border-radius:8px;padding:clamp(22px,2.8vw,34px) clamp(20px,3vw,40px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--s3) var(--s5);align-items:center}
+.price .label{color:var(--accent-light);display:block;margin-bottom:10px}
+.price__sum{font-size:clamp(38px,5.2vw,56px);font-weight:700;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;color:#fff}
+.price__unit{margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--dark-muted)}
+.price__txt p{font-size:15.5px;line-height:1.55;color:#D4D9DC}
+.price__txt p + p{margin-top:9px}
+.price__txt b{color:#fff}
+
+/* ---------- надёжность ---------- */
+.rel{margin-top:var(--s5);display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(28px,4vw,56px)}
+.rel > div{padding-top:var(--s2);border-top:1px solid var(--line-strong)}
+.rel h3{font-size:17px;font-weight:600;line-height:1.3;margin-bottom:9px}
+.rel p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.rel p + p{margin-top:8px}
+
+/* ---------- этапы ---------- */
+.stages{list-style:none;margin:var(--s4) 0 0;padding:0;counter-reset:st}
+.stages li{display:grid;grid-template-columns:34px minmax(0,4fr) minmax(0,7fr);gap:var(--s2) clamp(20px,3vw,40px);padding:16px 0;border-top:1px solid var(--line);align-items:baseline}
+.stages li:first-child{border-top:1px solid var(--line-strong)}
+.stages li:last-child{border-bottom:1px solid var(--line-strong)}
+.stages li::before{counter-increment:st;content:"0" counter(st);font-family:var(--mono);font-size:12px;color:var(--accent)}
+.stages b{font-size:16.5px;font-weight:600;color:var(--ink)}
+.stages span{font-size:15px;line-height:1.55;color:var(--ink-2)}
+
+/* ---------- раскрываемые блоки ---------- */
+.appx{border-top:1px solid var(--line-strong)}
+.appx:last-of-type{border-bottom:1px solid var(--line-strong)}
+.appx summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr 24px;gap:12px;align-items:baseline;padding:16px 0}
+.appx summary::-webkit-details-marker{display:none}
+.appx summary h3{font-size:17.5px;font-weight:600;line-height:1.3}
+.appx summary p{margin-top:4px;font-size:14px;color:var(--ink-3);line-height:1.5;max-width:70ch}
+.appx summary .pm{font-family:var(--mono);font-size:18px;color:var(--accent);text-align:right;line-height:1}
+.appx[open] summary .pm::before{content:"−"}
+.appx:not([open]) summary .pm::before{content:"+"}
+.appx__body{padding:0 0 var(--s4)}
+.appx__body .copy{font-size:15.5px;max-width:78ch}
+.appx__body .copy + .copy{margin-top:.8em}
+.appx__body .h4{margin-top:var(--s3)}
+.appx__body .h4:first-child{margin-top:0}
+.appx__body .tablewrap{margin-top:var(--s3)}
+.appx__body .list{margin-top:12px}
+.st{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px dashed var(--line-strong);color:var(--ink-2);background:var(--surface);white-space:nowrap}
+
+/* ---------- финал ---------- */
+.next{margin-top:var(--s5);background:var(--dark);color:var(--dark-ink);border-radius:8px;padding:clamp(24px,3.2vw,38px) clamp(22px,3.2vw,42px)}
+.next .label{color:var(--accent-light);display:block;margin-bottom:12px}
+.next__lead{font-family:var(--serif);font-size:clamp(20px,2.4vw,27px);line-height:1.3;letter-spacing:-.01em;color:var(--dark-ink);max-width:36ch}
+.next p:not(.next__lead){margin-top:var(--s2);font-size:15.5px;line-height:1.55;color:var(--dark-muted);max-width:74ch}
+.next a{color:var(--accent-light)}
+.next__back{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:14.5px;display:flex;gap:24px;flex-wrap:wrap}
+
+/* ---------- адаптив ---------- */
+@media (max-width:960px){
+  .head__grid,.intro,.grid2,.subs,.rel,.concept{grid-template-columns:1fr}
+  .head__grid .head__main{grid-column:1;grid-row:auto;order:1}
+  .head__grid .pricecard{grid-column:1;grid-row:auto;order:2}
+  .head__grid .head__note{grid-column:1;grid-row:auto;order:3;padding-top:var(--s3);border-top:1px solid var(--dark-line)}
+  .facts{grid-template-columns:1fr}
+  .price{grid-template-columns:1fr}
+  .stages li{grid-template-columns:30px 1fr}
+  .stages span{grid-column:2}
+  .topbar nav{display:none}
+  .tbl--cards thead{display:none}
+  .tbl--cards,.tbl--cards tbody,.tbl--cards tr,.tbl--cards td{display:block;width:auto}
+  .tbl--cards tr{border-top:2px solid var(--ink);padding:12px 0 8px}
+  .tbl--cards td,.tbl--cards td:first-child,.tbl--cards td.n{border:0;padding:3px 0;white-space:normal;text-align:left;width:auto}
+  .tbl--cards td:first-child{font-size:16px;padding-bottom:5px}
+  .tbl--cards td[data-k]::before{display:block;content:attr(data-k);font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:1px}
+  .tbl--est tr{display:grid;grid-template-columns:1fr auto;column-gap:16px;border-top:1px solid var(--line);padding:12px 0}
+  .tbl--est tr:first-child{border-top:2px solid var(--ink)}
+  .tbl--est tr.tot{border-top:2px solid var(--ink)}
+  .tbl--est td:first-child{grid-column:1;grid-row:1;padding:0;font-size:15.5px}
+  .tbl--est td.n{grid-column:2;grid-row:1;padding:0;text-align:right;font-weight:600;color:var(--ink)}
+  .tbl--est td:last-child{grid-column:1/-1;grid-row:2;padding:5px 0 0;font-size:14px}
+  .tbl--est td[data-k]::before{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  :root{--gutter:20px}
+  .section{scroll-margin-top:56px}
+  .head__title{font-size:27px;letter-spacing:-.028em}
+  .toc ol{grid-template-columns:1fr}
+  .toc li:nth-child(-n+3) a{border-top:1px solid var(--line)}
+  .toc li:first-child a{border-top:0}
+  .b2b__row{grid-template-columns:1fr}
+  .b2b__link{grid-template-columns:1fr;height:26px}
+  .b2b__link span:last-child{display:none}
+  .mock{max-width:none}
+  .mk-hand .mk-card{width:34px;height:48px}
+  .mk-tabs{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar{transition:none}}
+
+@page{size:A4;margin:15mm 14mm}
+@page :first{margin:0}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;font-size:10pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding-inline:0}
+  .section{padding-block:16px}
+  .section--surface{background:#fff}
+  .head{padding:22mm 16mm 18mm;break-after:page;page-break-after:always}
+  .topbar,.toc,.next__back{display:none}
+  .heading{break-after:avoid;page-break-after:avoid}
+  .tbl tr,.stages li,.rel > div,.facts > div,.callout,.price,.next,.mock,.b2b__op,.b2b__core{break-inside:avoid;page-break-inside:avoid}
+  .tbl thead{display:table-header-group}
+  .appx{border-color:#bbb}
+  .appx summary .pm{display:none}
+  .appx:not([open]) .appx__body{display:block}
+  .price,.next,.b2b__core{background:#fff;color:var(--ink);border:1px solid var(--line-strong)}
+  .price .label,.next .label{color:var(--accent)}
+  .price__sum,.b2b__core b{color:var(--ink)}
+  .price__txt p,.next p:not(.next__lead){color:var(--ink-2)}
+  .price__txt b,.next__lead{color:var(--ink)}
+  .b2b__core p{color:var(--ink-2)}
+  .b2b__core li{color:var(--ink-2);border-color:var(--line-strong)}
+  a{color:inherit}
+}
+</style>
+</head>
+<body>
+<div class="topbar" id="topbar">
+  <div class="in">
+    <div class="doc"><a href="index.html" title="Все документы проекта">← Документы</a>Дурак · коммерческое предложение</div>
+    <nav aria-label="Разделы">
+      <a href="#s01">Игра</a><a href="#s02">Деньги</a><a href="#s03">Казино</a><a href="#s04">Объём</a><a href="#s05">Стоимость</a><a href="#s06">Надёжность</a><a href="#s07">Этапы</a><a href="#s08">Передача</a>
+    </nav>
+    <details id="tocmenu">
+      <summary>Содержание</summary>
+      <div class="menu">
+        <a href="#s01"><em>01</em>Какой будет игра</a>
+        <a href="#s02"><em>02</em>Взносы, время и выплаты</a>
+        <a href="#s03"><em>03</em>Подключение казино и операторов</a>
+        <a href="#s04"><em>04</em>Отличие от оценки $6–8 тыс.</a>
+        <a href="#s05"><em>05</em>Состав разработки и стоимость</a>
+        <a href="#s06"><em>06</em>Как проверяются партии и выплаты</a>
+        <a href="#s07"><em>07</em>Этапы и первый запуск</a>
+        <a href="#s08"><em>08</em>Передача проекта и условия</a>
+        <a href="#tech"><em>+</em>Техническое приложение</a>
+        <a href="durak.html"><em>06</em>Игровые референсы Дурака</a>
+        <a href="index.html"><em>↑</em>Все документы проекта</a>
+      </div>
+    </details>
+  </div>
+</div>
+
+<header class="head">
+  <div class="wrap head__grid">
+    <div class="head__main">
+      <p class="head__eyebrow"><a href="index.html">Документы проекта</a> · Приложение 09 · Игровой продукт</p>
+      <h1 class="head__title">Многопользовательская казино-игра «Дурак» для собственной платформы и продажи другим операторам</h1>
+      <p class="head__lead">Разработка Дурака для Web и Telegram с передачей исходного кода, панели управления и документации.</p>
+      <ul class="head__facts">
+        <li>2–6 игроков</li>
+        <li>Подкидной и переводной</li>
+        <li>Web + Telegram Mini App</li>
+      </ul>
+    </div>
+    <p class="head__note">Подключение первого казино входит в стоимость.</p>
+    <div class="pricecard">
+      <span class="label">Стоимость разработки</span>
+      <p class="pricecard__sum">$28 000</p>
+      <p class="pricecard__cap">Фиксированная стоимость разработки.</p>
+      <dl>
+        <div><dt>Трудоёмкость</dt><dd>около 1 400 часов</dd></div>
+      </dl>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Содержание">
+  <div class="wrap">
+    <ol>
+      <li><a href="#s01"><em>01</em>Какой будет игра</a></li>
+      <li><a href="#s02"><em>02</em>Взносы, время и выплаты</a></li>
+      <li><a href="#s03"><em>03</em>Подключение казино и операторов</a></li>
+      <li><a href="#s04"><em>04</em>Отличие от оценки $6–8 тыс.</a></li>
+      <li><a href="#s05"><em>05</em>Состав разработки и стоимость</a></li>
+      <li><a href="#s06"><em>06</em>Как проверяются партии и выплаты</a></li>
+      <li><a href="#s07"><em>07</em>Этапы и первый запуск</a></li>
+      <li><a href="#s08"><em>08</em>Передача проекта и условия</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ===== 01 ===== -->
+<section class="section" id="s01">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">01 · Игра</p>
+        <h2 class="heading">Столы на 2–6 игроков, два режима и бесплатное обучение</h2>
+      </div>
+      <div>
+        <p class="lead">Подкидной и переводной Дурак с выбором столов, несколькими одновременными партиями и тренировкой без денежных ставок.</p>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Возможность</th><th>Что доступно игроку</th></tr></thead>
+        <tbody>
+          <tr><td>Два режима</td><td>Подкидной и переводной Дурак</td></tr>
+          <tr><td>Разные столы</td><td>От 2 до 6 участников, колоды 24, 36 и 52 карты в допустимых сочетаниях</td></tr>
+          <tr><td>Быстрый вход</td><td>Автоматический поиск подходящей партии или выбор публичного стола</td></tr>
+          <tr><td>Игра с друзьями</td><td>Закрытые столы для друзей. Доступ — после установленного числа партий с другими игроками</td></tr>
+          <tr><td>Несколько партий</td><td>Переключение между активными столами с отдельными таймерами</td></tr>
+          <tr><td>Тренировка</td><td>Бесплатные партии с ботами разной сложности. Боты отмечены в интерфейсе</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="concept">
+      <div class="concept__txt">
+        <span class="label">Концепция интерфейса</span>
+        <p>Карты, козырь, очерёдность ходов и таймер — на одном экране. Интерфейс адаптируется к телефону, компьютеру и числу участников. В стоимость входит один дизайн стола и колоды.</p>
+        <p>Профиль игрока: ник, аватар, число партий и доля побед. Общение — готовые фразы и эмодзи. Звук и вибрация — с возможностью отключения.</p>
+        <p>Боты доступны только в бесплатной тренировке.</p>
+      </div>
+      <div>
+        <div class="mock" role="img" aria-label="Концепция экрана: стол на четырёх игроков и переключение между активными партиями">
+          <div class="mk-top"><span>Стол № 4127 · <b>Подкидной</b></span><span>36 карт · 4 игрока</span></div>
+          <div class="mk-table">
+            <div class="mk-seats">
+              <div class="mk-seat"><b>Ирина</b><i>6 карт</i></div>
+              <div class="mk-seat"><b>Марат</b><i>атакует</i></div>
+              <div class="mk-seat"><b>Лев</b><i>5 карт</i></div>
+            </div>
+            <div class="mk-center">
+              <span class="mk-card red">7<small>♦</small></span>
+              <span class="mk-card def">К<small>♠</small></span>
+              <span class="mk-card red">7<small>♥</small></span>
+            </div>
+            <div class="mk-info"><span>Козырь <b>♠</b> · в колоде 9</span><span>Банк <b>$20</b> · комиссия 10%</span></div>
+          </div>
+          <p class="mk-turn">Ваш ход · <b>22 с</b> · отбиться или взять</p>
+          <div class="mk-hand">
+            <span class="mk-card ok">Т<small>♠</small></span>
+            <span class="mk-card red">9<small>♦</small></span>
+            <span class="mk-card">В<small>♣</small></span>
+            <span class="mk-card red ok">Д<small>♥</small></span>
+            <span class="mk-card">8<small>♣</small></span>
+          </div>
+          <div class="mk-tabs"><span class="on">Стол 4127</span><span>Стол 4130 · 12 с</span><span class="free">Тренировка</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 ===== -->
+<section class="section section--surface" id="s02">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">02 · Деньги и время</p>
+        <h2 class="heading">Взносы, комиссия и выплаты по местам</h2>
+      </div>
+      <div>
+        <p class="lead">До входа за стол доступны режим, колода, число игроков, взнос, комиссия, выплаты и время на ход. После начала партии условия не меняются.</p>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div>
+        <b>$1, $3, $5, $10</b>
+        <p>Взносы долларовых столов. Рублёвые столы работают отдельно, их уровни согласуются перед запуском. Обмена валют внутри игры нет.</p>
+      </div>
+      <div>
+        <b>10% с банка</b>
+        <p>Базовая комиссия, настраивается по столам и фиксируется для начатой партии.</p>
+      </div>
+      <div>
+        <b>30 и 15 секунд</b>
+        <p>Время на ход для обычных и быстрых столов. Окно возврата после обрыва связи — до 60 секунд.</p>
+      </div>
+    </div>
+
+    <div class="subs">
+      <div>
+        <h3>Распределение банка</h3>
+        <p>Банк после комиссии распределяется по призовым местам. Последнее место — без выплаты. При ничьей предусмотрен возврат взносов с учётом комиссии по правилам стола.</p>
+        <p>Доли выплат, правила ничьей и округления согласуются на этапе проектирования.</p>
+      </div>
+      <div>
+        <h3>Начало партии</h3>
+        <p>Вход в игру — через выбор стола или быстрый поиск. Если партия не собрана за 2–3 минуты, взнос снова доступен игроку. Резервирование или списание с последующим возвратом определяется API кошелька казино.</p>
+        <p>Уведомления в Telegram сообщают о появлении подходящих игроков. Доступны пользователям, подключившим уведомления.</p>
+      </div>
+      <div>
+        <h3>Пропуски хода и выход из партии</h3>
+        <p>Добровольный выход из партии считается техническим поражением. Последствия пропуска хода и обрыва связи, а также порядок работы таймеров согласуются в правилах игры.</p>
+      </div>
+      <div>
+        <h3>Набор столов на старте</h3>
+        <p>Для запуска выбирается ограниченный набор столов, чтобы быстрее собирать партии. Остальные допустимые сочетания режимов, колод и числа игроков доступны в настройках.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 ===== -->
+<section class="section" id="s03">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">03 · Работа с казино</p>
+        <h2 class="heading">Одна игра, несколько независимых операторов</h2>
+      </div>
+      <div>
+        <p class="lead">Аккаунт и баланс игрока остаются в казино. Сервер Дурака ведёт партию, рассчитывает суммы и передаёт запросы на резервирование, списание, выплату или возврат.</p>
+        <p class="copy">Для каждого оператора — отдельные ключи доступа, настройки, данные и отчёты. Базовый брендинг: логотип, название и цвета.</p>
+      </div>
+    </div>
+
+    <div class="b2b">
+      <div class="b2b__row">
+        <div class="b2b__op"><b>Казино A</b><p>Аккаунты, баланс, кошелёк, партнёрские начисления. Свои валюты, взносы и комиссия.</p></div>
+        <div class="b2b__op"><b>Казино B</b><p>Аккаунты, баланс, кошелёк, партнёрские начисления. Свои валюты, взносы и комиссия.</p></div>
+      </div>
+      <div class="b2b__link" aria-hidden="true"><span><i>API</i></span><span><i>API</i></span></div>
+      <div class="b2b__core">
+        <b>Игровой сервис «Дурак»</b>
+        <p>Правила, раздача, ходы и результат партии; расчёт взносов, комиссии и выплат; история, отчёты и панель управления.</p>
+        <ul><li>Отдельные настройки оператора</li><li>Раздельные данные и отчёты</li><li>События для партнёрского учёта</li></ul>
+      </div>
+      <p class="b2b__cap">У каждого казино своя аудитория. Игроки разных операторов не встречаются за одним столом.</p>
+    </div>
+
+    <div class="subs">
+      <div>
+        <h3>Первое подключение</h3>
+        <p>В стоимость входит подключение казино заказчика и совместная проверка денежных операций. Для интеграции необходимы API кошелька, тестовые счета и технический контакт со стороны казино.</p>
+        <p>Для следующих операторов предусмотрены документация и примеры. Адаптация и проверка новых подключений оплачиваются отдельно.</p>
+      </div>
+      <div>
+        <h3>Партнёрский учёт</h3>
+        <p>Игра передаёт сведения об участниках, взносах, результатах и комиссии. Партнёрские начисления выполняет казино.</p>
+        <h3 style="margin-top:var(--s3)">Условия для других операторов</h3>
+        <p>Владелец продукта определяет условия продажи и подключения: разовая оплата, подписка или доля комиссии. Роялти разработчику не предусмотрены.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 ===== -->
+<section class="section section--surface" id="s04">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">04 · Изменение объёма</p>
+        <h2 class="heading">Чем новый состав отличается от оценки $6–8 тыс.</h2>
+      </div>
+      <div>
+        <p class="lead">Оценка $6–8 тыс. относилась к модулю внутри казино: подкидной Дурак на двоих с колодой 36 карт. Новое предложение включает расширенную игру и самостоятельный сервис для подключения других операторов.</p>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Область</th><th>Оценка $6–8 тыс.</th><th>Новый состав</th></tr></thead>
+        <tbody>
+          <tr><td>Игра</td><td data-k="Было">Подкидной, 2 игрока, 36 карт</td><td data-k="Стало">Два режима, 2–6 игроков, колоды 24/36/52 в допустимых сочетаниях</td></tr>
+          <tr><td>Выбор партии</td><td data-k="Было">Простой вход в матч</td><td data-k="Стало">Поиск, публичные и закрытые столы, несколько одновременных партий</td></tr>
+          <tr><td>Интерфейс и обучение</td><td data-k="Было">Объём Web и Mini App согласовывался в рамках платформы</td><td data-k="Стало">Web, Telegram Mini App, уведомления и бесплатные тренировочные боты</td></tr>
+          <tr><td>Расчёты и контроль</td><td data-k="Было">Финансовые операции и панель основной платформы</td><td data-k="Стало">Выплаты по местам, собственный журнал операций и панель разбора партий</td></tr>
+          <tr><td>Подключение казино</td><td data-k="Было">Модуль одной платформы</td><td data-k="Стало">API для нескольких операторов с отдельными настройками и данными</td></tr>
+          <tr><td>Передача</td><td data-k="Было">Модуль в составе казино</td><td data-k="Стало">Самостоятельный проект с исходниками и документацией для подключения операторов</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="copy" style="margin-top:var(--s4)">Аккаунты и кошелёк остаются на стороне казино. В состав Дурака входят расчёты партий, журнал операций и интеграция с кошельком.</p>
+  </div>
+</section>
+
+<!-- ===== 05 ===== -->
+<section class="section" id="s05">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">05 · Состав и стоимость</p>
+        <h2 class="heading">Состав разработки и стоимость</h2>
+      </div>
+      <div>
+        <p class="lead">В стоимость входят проектирование, дизайн, разработка, тестирование, подключение первого казино и передача проекта.</p>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards tbl--est">
+        <thead><tr><th>Блок</th><th class="n">Часы</th><th>Результат</th></tr></thead>
+        <tbody>
+          <tr><td>Правила и проектирование</td><td class="n">70</td><td>Правила обоих режимов, места и выплаты, таймеры, допустимые сочетания столов и колод</td></tr>
+          <tr><td>Дизайн, Web и Telegram</td><td class="n">290</td><td>Лобби и игровые экраны, карты и анимации, несколько партий, интерфейс Mini App</td></tr>
+          <tr><td>Игровой движок и проверка раздачи</td><td class="n">180</td><td>Проверка ходов на сервере, определение результата и проверка раздачи через drand</td></tr>
+          <tr><td>Лобби, онлайн-столы и восстановление</td><td class="n">175</td><td>Поиск, публичные и закрытые столы, синхронизация ходов, возврат в игру и уведомления</td></tr>
+          <tr><td>Взносы и выплаты</td><td class="n">60</td><td>Резервирование, комиссия, распределение по местам, ничьи, отмены и возвраты</td></tr>
+          <tr><td>Подключение казино</td><td class="n">90</td><td>Интеграция с кошельком, отдельные настройки и данные операторов, события партнёрского учёта</td></tr>
+          <tr><td>Панель, споры и контроль</td><td class="n">190</td><td>История, отчёты, подозрительные партии, выплаты на проверке и решения сотрудников</td></tr>
+          <tr><td>Тренировочные боты</td><td class="n">60</td><td>Бесплатные соперники для обучения обоим режимам с разными уровнями сложности</td></tr>
+          <tr><td>Инфраструктура и тестирование</td><td class="n">230</td><td>Развёртывание, мониторинг, резервные копии; проверка правил, сбоев, нагрузки и безопасности</td></tr>
+          <tr><td>Документация и передача</td><td class="n">35</td><td>Код, описание API, инструкции запуска и эксплуатации, передача проекта команде заказчика</td></tr>
+          <tr class="tot"><td>Итого</td><td class="n">1 380</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="price">
+      <div>
+        <span class="label">Стоимость разработки</span>
+        <p class="price__sum">$28 000</p>
+        <p class="price__unit">Фиксированная стоимость разработки</p>
+      </div>
+      <div class="price__txt">
+        <p>Изменения согласованного состава и дополнительные интеграции оцениваются отдельно, до начала работ.</p>
+        <p>Расчётная трудоёмкость — 1 380 часов. Рабочий диапазон — 1 250–1 550 часов; стоимость согласованного состава остаётся фиксированной.</p>
+        <p>Для сравнения: основная платформа казино оценена в 2 740 часов и $57 000. Трудоёмкость Дурака составляет около половины этого объёма.</p>
+      </div>
+    </div>
+
+    <details class="appx" style="margin-top:var(--s5)">
+      <summary><div><h3>Рыночные ориентиры</h3><p>Как продаются сопоставимые решения и чем отличается их состав</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <div class="tablewrap">
+          <table class="tbl tbl--cards">
+            <thead><tr><th>Решение</th><th>Опубликованная модель или оценка</th><th>Отличие состава</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><a href="https://evenbeter.com/knowledge-base/choose-igaming-product/poker-network/online-poker-software-price-why-does-it-cost-so/" target="_blank" rel="noopener">EvenBet — лицензия на покерное ПО</a></td>
+                <td data-k="Модель или оценка">Поставщик описывает три модели: ограниченный пакет, аренда с роялти и покупка без роялти. Цена не опубликована</td>
+                <td data-k="Отличие состава">Лицензия на готовый покерный продукт, а не заказная разработка. Передача исходного кода и право подключать другие казино проверяются по конкретному предложению</td>
+              </tr>
+              <tr>
+                <td><a href="https://twinwingames.com/rummy-game-development-cost/" target="_blank" rel="noopener">Twin Win Games — разработка rummy</a></td>
+                <td data-k="Модель или оценка">Студия публикует ориентиры заказной разработки: $20–50 тыс. за игру без денежных ставок и $160–300 тыс. за платформу с реальными деньгами</td>
+                <td data-k="Отличие состава">В верхнюю оценку входят собственный кошелёк, депозиты и выводы, KYC/AML, турниры и бонусы. Этих блоков в Дураке нет: кошелёк и аккаунты у казино</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Источники проверены 16 сентября 2026 года. Цена лицензии, оценка заказной разработки и стоимость платформы — разные величины; прямого сопоставления с $28 000 они не дают. Публичного предложения на многопользовательского Дурака с передачей исходного кода в открытых источниках не найдено.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ===== 06 ===== -->
+<section class="section section--surface" id="s06">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">06 · Надёжность</p>
+        <h2 class="heading">Как проверяются партии и выплаты</h2>
+      </div>
+      <div>
+        <p class="lead">В состав разработки входят восстановление партий, контроль денежных операций, проверка раздачи и разбор спорных результатов.</p>
+      </div>
+    </div>
+
+    <div class="rel">
+      <div>
+        <h3>Возвращение после обрыва связи</h3>
+        <p>Сервер сохраняет карты, очерёдность ходов и таймеры каждого стола. После обрыва связи игрок возвращается в партию по правилам возврата в игру. После перезапуска сервера состояние восстанавливается из сохранённых данных.</p>
+      </div>
+      <div>
+        <h3>Защита от повторной выплаты</h3>
+        <p>Каждая денежная операция имеет уникальный номер. При потере ответа результат проверяется, а повторный запрос использует тот же номер. Совместимость кошелька с этим механизмом проверяется при подключении. Незавершённые операции доступны в панели.</p>
+      </div>
+      <div>
+        <h3>Проверяемая раздача</h3>
+        <p>Для формирования раздачи используется drand — публичный источник случайных значений. После партии участнику доступна проверка по её номеру. Во время игры чужие карты остаются скрытыми.</p>
+      </div>
+      <div>
+        <h3>Спорные партии</h3>
+        <p>Контроль включает ограничения совместной игры по IP и устройству, повторные встречи и подозрительные проигрыши.</p>
+        <p>Спорная выплата может быть задержана до проверки. Сотрудник рассматривает историю партии и фиксирует решение в журнале. Подозрение на нарушение требует проверки.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 ===== -->
+<section class="section" id="s07">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">07 · Ход работ</p>
+        <h2 class="heading">Этапы, приёмка и первый запуск</h2>
+      </div>
+      <div>
+        <p class="lead">Запуск Дурака планируется вместе с казино. Сроки согласуются после проверки API, состава команды и правил игры.</p>
+      </div>
+    </div>
+
+    <ol class="stages">
+      <li><b>Правила и дизайн</b><span>Режимы, допустимые столы и колоды, расчёт мест и выплат, экраны сайта и Telegram</span></li>
+      <li><b>Игровая логика и тренировка</b><span>Подкидной и переводной режимы, разные столы, таймеры и бесплатная тренировка</span></li>
+      <li><b>Лобби и Telegram</b><span>Быстрый поиск, публичные и закрытые столы, несколько партий, уведомления и возврат в игру</span></li>
+      <li><b>Интеграция и панель управления</b><span>Взносы и выплаты, операторские настройки, панель, данные для партнёрских начислений и разбор спорной партии</span></li>
+      <li><b>Проверка, запуск и передача</b><span>Поведение при сбоях, проверка раздачи, нагрузка, запуск и передача проекта</span></li>
+    </ol>
+
+    <div class="subs">
+      <div>
+        <h3>Приёмка</h3>
+        <p>Каждый этап завершается демонстрацией результата. Проверка — на тестовом стенде или по подготовленным материалам.</p>
+        <p>Перед запуском проверяются правила игры, денежные операции, восстановление после сбоев и разделение данных операторов. Критические ошибки устраняются до сдачи. Порядок приёмки и график оплаты закрепляются в договоре.</p>
+      </div>
+      <div>
+        <h3>Что измеряется после запуска</h3>
+        <p>Продуктовые цели — ожидание соперника менее минуты в часы пик и более 90% завершённых партий. Отдельно отслеживается доля игроков, возвращающихся на вторую сессию в течение недели.</p>
+        <p>Это продуктовые ориентиры для анализа запуска. Технические критерии приёмки согласуются отдельно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 ===== -->
+<section class="section section--surface" id="s08">
+  <div class="wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">08 · Передача проекта</p>
+        <h2 class="heading">Передача проекта и условия</h2>
+      </div>
+      <div>
+        <p class="lead">Заказчику передаются права на использование, изменение и продажу разработанного продукта другим операторам. Сторонние библиотеки и материалы используются на условиях их лицензий.</p>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:var(--s5)">
+      <div>
+        <h3 class="h3">Комплект передачи</h3>
+        <ul class="list" style="margin-top:12px">
+          <li>Исходный код игры, сервера, панели управления, тренировочных ботов и интеграций</li>
+          <li>Макеты, графика и перечень лицензий сторонних материалов</li>
+          <li>Описание API, примеры, средства тестирования и инструкция подключения оператора</li>
+          <li>Инструмент проверки раздачи и инструкция</li>
+          <li>Инструкции по установке, резервному копированию, восстановлению и проверке незавершённых операций</li>
+          <li>Результаты тестирования, доступы и инструктаж по эксплуатации</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="h3">Дополнительные расходы и сопровождение</h3>
+        <p class="copy" style="margin-top:12px">Облако, домены, платные внешние сервисы, лицензирование и независимая сертификация оплачиваются отдельно. Доработки под конкретные регуляторные требования после лабораторной проверки в стоимость не входят.</p>
+        <p class="copy">Порядок приёмки, гарантийного исправления ошибок и дальнейшего сопровождения закрепляется в договоре. Новые функции после передачи оцениваются отдельно.</p>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Направление</th><th>Что не входит в первый запуск</th></tr></thead>
+        <tbody>
+          <tr><td>Общие игроки разных казино</td><td>Межоператорская очередь и взаиморасчёты</td></tr>
+          <tr><td>Развитие игры</td><td>Турниры, рейтинги, клубы, серии партий, «Шулер», японский режим и дополнительные оформления</td></tr>
+          <tr><td>Другие приложения и общение</td><td>Отдельные нативные приложения для iOS и Android, свободный текстовый чат</td></tr>
+          <tr><td>Системы казино</td><td>Собственный кошелёк, депозиты и выводы, идентификация клиентов и проверки KYC/AML, CRM и отдельная партнёрская система</td></tr>
+          <tr><td>Расширенный контроль</td><td>Антифрод на машинном обучении и отдельная система расследований</td></tr>
+          <tr><td>Последующие подключения</td><td>Адаптация других казино и агрегаторов после первого запуска</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="label">Согласование на этапе проектирования</span>
+      <p>В первый этап входят согласование выплат и округления, допустимых столов и колод, таймеров, рублёвых взносов и порядка проверки спорных выплат.</p>
+      <p>Эти работы включены в стоимость.</p>
+    </div>
+
+    <div class="next">
+      <span class="label">Для начала работ</span>
+      <p class="next__lead">Начало проекта — согласование состава работ, графика и условий договора.</p>
+      <p>Первый этап: правила игры, экраны и схема подключения казино.</p>
+      <p class="next__back"><a href="index.html">← Все документы проекта</a><a href="durak.html">Игровые референсы Дурака</a><a href="offer.html">Коммерческое предложение по платформе</a><a href="technical.html">Технический документ</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ТЕХНИЧЕСКОЕ ПРИЛОЖЕНИЕ ===== -->
+<section class="section" id="tech">
+  <div class="wrap">
+    <p class="eyebrow">Техническое приложение</p>
+    <h2 class="heading">Подробности состава и правил</h2>
+    <p class="copy" style="margin-top:var(--s3);margin-bottom:var(--s4)">Материал для технической команды заказчика. Для чтения основного предложения приложение не требуется.</p>
+
+    <details class="appx">
+      <summary><div><h3>А. Подробная смета</h3><p>Часы по инженерным блокам и их место в таблице раздела «Состав и стоимость»</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <div class="tablewrap">
+          <table class="tbl tbl--cards tbl--est">
+            <thead><tr><th>Инженерный блок</th><th class="n">Часы</th><th>Блок основного раздела</th></tr></thead>
+            <tbody>
+              <tr><td>Правила и игровая спецификация</td><td class="n">70</td><td>Правила и проектирование</td></tr>
+              <tr><td>UX/UI и визуальная система</td><td class="n">105</td><td>Дизайн, Web и Telegram</td></tr>
+              <tr><td>HTML5-клиент, Web и Telegram</td><td class="n">185</td><td>Дизайн, Web и Telegram</td></tr>
+              <tr><td>Серверный игровой движок</td><td class="n">125</td><td>Игровой движок и проверка раздачи</td></tr>
+              <tr><td>Realtime, восстановление и несколько столов</td><td class="n">175</td><td>Лобби, онлайн-столы и восстановление</td></tr>
+              <tr><td>Случайность, drand и проверка раздачи</td><td class="n">55</td><td>Игровой движок и проверка раздачи</td></tr>
+              <tr><td>Взносы, комиссия и расчёт по местам</td><td class="n">60</td><td>Взносы и выплаты</td></tr>
+              <tr><td>B2B API провайдера</td><td class="n">90</td><td>Подключение казино</td></tr>
+              <tr><td>Панель провайдера</td><td class="n">100</td><td>Панель, споры и контроль</td></tr>
+              <tr><td>Контроль злоупотреблений и сговора</td><td class="n">90</td><td>Панель, споры и контроль</td></tr>
+              <tr><td>Тренировочные боты</td><td class="n">60</td><td>Тренировочные боты</td></tr>
+              <tr><td>Инфраструктура и мониторинг</td><td class="n">55</td><td>Инфраструктура и тестирование</td></tr>
+              <tr><td>Тестирование, автоматизация, нагрузка и безопасность</td><td class="n">175</td><td>Инфраструктура и тестирование</td></tr>
+              <tr><td>Документация и передача</td><td class="n">35</td><td>Документация и передача</td></tr>
+              <tr class="tot"><td>Итого</td><td class="n">1 380</td><td>Десять блоков основного раздела</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Лобби учтено в realtime; работа с несколькими операторами — в B2B API; Telegram — в клиенте и лобби; партнёрские события — в финансовой логике, API и тестировании.</p>
+      </div>
+    </details>
+
+    <details class="appx">
+      <summary><div><h3>Б. Конфигурации игры и правила времени</h3><p>Режимы, колоды, таймеры, несколько столов и закрытые столы</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <div class="tablewrap">
+          <table class="tbl tbl--cards">
+            <thead><tr><th>Параметр</th><th>Состав и границы</th></tr></thead>
+            <tbody>
+              <tr><td>Режимы</td><td>Подкидной и переводной</td></tr>
+              <tr><td>Игроки</td><td>2–6 игроков; допустимые сочетания с колодами закрепляются в правилах</td></tr>
+              <tr><td>Колоды</td><td>Колоды 24, 36 и 52 карты. При раздаче по шесть карт колода из 24 карт допускает не более четырёх игроков. Правила козыря и игры без добора согласуются для полностью розданной колоды</td></tr>
+              <tr><td>Таймеры</td><td>30 секунд на обычных столах, 15 секунд на быстрых</td></tr>
+              <tr><td>Возврат в игру</td><td>Окно до 60 секунд; порядок взаимодействия окна с таймером хода утверждается</td></tr>
+              <tr><td>Пропуски хода</td><td>Требуются точные правила для атаки, защиты и трёх последовательных пропусков</td></tr>
+              <tr><td>Выход из партии</td><td>Техническое поражение; место и выплаты остальным определяются утверждённой таблицей</td></tr>
+              <tr><td>Несколько столов</td><td>Отдельные состояния и денежные обязательства по каждому столу; максимальное число активных столов фиксируется</td></tr>
+              <tr><td>Закрытые столы</td><td>Порог ранее сыгранных партий и критерии зачёта фиксируются до запуска</td></tr>
+              <tr><td>Тренировки</td><td>Явно помеченные боты, оба режима, допустимые конфигурации и несколько согласованных уровней сложности</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details class="appx">
+      <summary><div><h3>В. Взносы, места и комиссия</h3><p>Валюты, комиссия, распределение банка и округление</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <p class="copy">Взносы в долларах — $1, $3, $5 и $10. Уровни рублёвых столов задаются отдельной таблицей. Валюты не смешиваются в одной партии; автоматическая конвертация не разрабатывается.</p>
+        <p class="copy">Базовая комиссия — 10%, настраивается по столу и фиксируется для начатой партии.</p>
+        <p class="copy">Распределение банка зависит от числа участников. Доли выплат, расчёт комиссии, ничьи, технические поражения и округление закрепляются в спецификации. Последнее место остаётся без выплаты. Отдельно определяется распределение мест при нескольких технических поражениях, одновременном выходе и завершении партии без добора.</p>
+        <p class="copy">Правило округления согласуется отдельно. Итоговые выплаты и удержания должны соответствовать взносам, а фактические условия — быть доступны игроку до начала партии.</p>
+      </div>
+    </details>
+
+    <details class="appx">
+      <summary><div><h3>Г. Кошелёк и события партнёрского учёта</h3><p>Состав API, повторные операции и требования к событиям</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <p class="copy">API покрывает запуск сессии, идентификацию оператора и игрока, запрос баланса, согласованное резервирование или списание, выплату, возврат и откат операции. Способ освобождения денег при отмене поиска зависит от выбранного контракта первого казино. В первую интеграцию входит схема денежных операций, согласованная с казино заказчика.</p>
+        <p class="copy">Каждая операция содержит идентификатор транзакции, идентификатор партии, валюту и сумму. Повторный запрос не приводит к повторному списанию или выплате при поддержке идемпотентности кошельком. Операция без подтверждённого результата остаётся незавершённой до сверки с казино; повторные и поздние подтверждения обрабатываются по тому же журналу.</p>
+        <p class="copy">Событие партнёрского учёта содержит идентификаторы оператора, игрока и партии, валюту, оборот, комиссию и результат; для надёжной доставки добавляются идентификатор события, статус и версия. Повторы и корректировки не должны приводить к повторным начислениям. Сумма комиссии, отнесённой к игрокам, равна фактически удержанной комиссии партии.</p>
+        <p class="copy">Указанные в брифе 10–15% для партнёров относятся к рейку приведённых игроков, а не к обороту ставок. Начисления выполняет основная платформа казино.</p>
+      </div>
+    </details>
+
+    <details class="appx">
+      <summary><div><h3>Д. Проверка раздачи через drand</h3><p>Порядок фиксации, раскрытия и поведение при недоступности источника</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <p class="copy">Протокол связывает идентификатор партии, версию алгоритма, заранее зафиксированный закрытый вклад сервера и выбранное по определённому правилу значение drand. Ответ источника проверяется, порядок карт воспроизводится после раскрытия данных.</p>
+        <p class="copy">Порядок фиксации и раскрытия данных должен исключать вычисление колоды до завершения партии и выбор подходящего значения случайности задним числом.</p>
+        <p class="copy">При недоступности источника предусмотрены повторные запросы к другому адресу той же сети и того же раунда. Время ожидания, предел попыток и отмена начала партии согласуются отдельно. Автоматическая замена drand другим генератором не предусмотрена.</p>
+        <p class="copy">Свойства публичного источника описаны в <a href="https://docs.drand.love/docs/cryptography/" target="_blank" rel="noopener">документации drand</a>. Игровой протокол и его проверки — часть работ по проекту.</p>
+      </div>
+    </details>
+
+    <details class="appx">
+      <summary><div><h3>Е. Контроль, споры и ограничения доступа</h3><p>Правила выявления, задержка выплат и порядок решений</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <p class="copy">Правила включают проверки по IP и устройству, повторяющиеся пары игроков, частые технические поражения, намеренные проигрыши и анализ закрытых столов. Пороговые значения задаются в настройках. Совпадение IP или устройства ограничивает совместную игру; вывод о нарушении требует проверки.</p>
+        <p class="copy">До отправки спорной выплаты она может удерживаться в состоянии проверки. Блокировка уже зачисленных денег возможна только через отдельную операцию на стороне казино и его полномочия. В панели фиксируются причина, сотрудник, решение и связанные операции.</p>
+        <p class="copy">Предупреждение, приостановка выплаты и блокировка при подтверждённых нарушениях применяются по утверждённому порядку. Политика для остальных участников партии, сроки проверки и перераспределение спорных сумм определяются заранее. Возврат и перераспределение создают отдельные учтённые операции; история задним числом не редактируется.</p>
+      </div>
+    </details>
+
+    <details class="appx">
+      <summary><div><h3>Ж. Telegram, уведомления и тренировки</h3><p>Mini App, связь с операторской сессией и уровни ботов</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <p class="copy">В Mini App проверяются данные запуска Telegram и связь пользователя с операторской сессией. Поддерживаются открытие и возврат в активную партию, интерфейс мобильного устройства и разрешённые Telegram-уведомления. Данные Telegram не заменяют операторскую сессию: обработка аккаунта остаётся на стороне казино.</p>
+        <p class="copy">Уведомление о появлении подходящих игроков требует доступного адресата и включённых у него настроек получения сообщений. Повторные события не должны создавать поток одинаковых уведомлений.</p>
+        <p class="copy">Звук и вибрация зависят от возможностей браузера и устройства. Число уровней сложности ботов и различия между ними фиксируются в спецификации. Бесплатные боты не расходуют реальные средства, не учитываются как реальные соперники и не засчитываются в условия доступа к закрытым денежным столам.</p>
+      </div>
+    </details>
+
+    <details class="appx">
+      <summary><div><h3>З. Проверки перед сдачей и измерение запуска</h3><p>Сценарии приёмки, нагрузка и определения показателей</p></div><span class="pm" aria-hidden="true"></span></summary>
+      <div class="appx__body">
+        <p class="copy">Проверки охватывают оба режима, допустимые колоды и составы столов, технические поражения, ничьи, несколько активных партий, разрывы связи и восстановление после перезапуска. Денежные сценарии включают частичное финансирование стола, поздние ответы кошелька, отмены, защиту от повторных списаний и выплат, заморозку и ручное решение спора.</p>
+        <p class="copy">Отдельно проверяются недоступность drand, скрытие карт во время партии, воспроизведение раздачи, изоляция операторов, события партнёрского учёта и отсутствие ботов в денежных партиях.</p>
+        <p class="copy">Число одновременных пользователей и столов, длительность нагрузки, оборудование и браузеры фиксируются до реализации. Показатели ожидания, завершения партий и возврата игроков считаются по согласованным определениям, отдельно от тренировок и тестовых аккаунтов.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+  var tb=document.getElementById('topbar'),menu=document.getElementById('tocmenu');
+  function onScroll(){tb.classList.toggle('show',window.scrollY>420)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  menu.addEventListener('click',function(e){if(e.target.closest('a'))menu.removeAttribute('open')});
+  document.addEventListener('click',function(e){if(!menu.contains(e.target))menu.removeAttribute('open')});
+  var appx=document.querySelectorAll('.appx'),was=[];
+  window.addEventListener('beforeprint',function(){was=[];appx.forEach(function(d,i){was[i]=d.open;d.open=true})});
+  window.addEventListener('afterprint',function(){appx.forEach(function(d,i){d.open=was[i]})});
+})();
+</script>
+</body>
+</html>
