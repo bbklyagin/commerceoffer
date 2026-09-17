@@ -1,0 +1,236 @@
+{
+  "doc": {
+    "title": "Техническое задание",
+    "subtitle": "Casino Platform",
+    "version": "черновик",
+    "updated": "2026-09-17",
+    "note": "Разделы наполняются последовательно. Оформленный раздел содержит принятые решения, критерии приёмки и список открытых вопросов."
+  },
+  "statuses": {
+    "confirmed": {
+      "label": "Решение есть — зафиксировано в брифе",
+      "short": "Решение есть",
+      "decision": "Решение в брифе",
+      "tone": "accent"
+    },
+    "committed": {
+      "label": "Зафиксировано в архитектуре платформы",
+      "short": "Архитектура",
+      "decision": "Зафиксировано в архитектуре",
+      "tone": "accent-soft"
+    },
+    "spec": {
+      "label": "Требование технического задания",
+      "short": "ТЗ",
+      "decision": "Требование ТЗ",
+      "tone": "neutral"
+    },
+    "design": {
+      "label": "Параметры определяются на проектировании",
+      "short": "Проектирование",
+      "decision": "Решение на проектировании",
+      "tone": "neutral"
+    },
+    "external": {
+      "label": "Зависит от внешнего сервиса или провайдера",
+      "short": "Внешняя зависимость",
+      "decision": "Зависит от внешнего сервиса",
+      "tone": "dashed"
+    },
+    "proposed": {
+      "label": "Предложение команды, нужно подтверждение",
+      "short": "Предложение",
+      "decision": "Предложение команды",
+      "tone": "dashed"
+    },
+    "open": {
+      "label": "Требуется решение",
+      "short": "Требуется решение",
+      "decision": "Текущее состояние",
+      "tone": "open"
+    }
+  },
+  "topics": [
+    {
+      "id": "01",
+      "title": "Пользователь и аккаунт",
+      "summary": "Регистрация, авторизация, профиль, сессии, восстановление, 2FA, устройства, ограничения аккаунта, история действий.",
+      "file": "01-user-account.json"
+    },
+    {
+      "id": "02",
+      "title": "Финансовое ядро и баланс",
+      "summary": "Внутренний ledger, игровой баланс, блокировки средств, списания и начисления, транзакции, комиссии, конвертация, статусы, идемпотентность, финансовая история.",
+      "file": "02-financial-core.json"
+    },
+    {
+      "id": "03",
+      "title": "Криптовалютная инфраструктура",
+      "summary": "Сети и токены, депозитные адреса, ввод и вывод, подтверждения blockchain, Hot/Warm/Cold, HSM, управление резервами, network fees, sweep и consolidation, мониторинг транзакций.",
+      "file": "03-crypto-infrastructure.json"
+    },
+    {
+      "id": "04",
+      "title": "Фиатные и рублёвые платежи",
+      "summary": "Пополнение и вывод в рублях, P2P/СБП/провайдеры, callbacks, статусы, reconciliation, ошибки платежей, ручной разбор, лимиты и комиссии.",
+      "file": "04-fiat-payments.json"
+    },
+    {
+      "id": "05",
+      "title": "Касса",
+      "summary": "Единый интерфейс пополнения и вывода: крипта и фиат, выбор метода, суммы, статусы, история, лимиты, подтверждения и ошибки. Продуктовый слой над финансовым ядром.",
+      "file": "05-cashier.json"
+    },
+    {
+      "id": "06",
+      "title": "Игровая платформа и Game Integration Layer",
+      "summary": "Каталог игр, запуск игровой сессии, работа с агрегаторами и собственными играми, bet/win/rollback, игровые транзакции, sessions и rounds, RTP и provably fair где применимо, история игр.",
+      "file": "06-game-integration.json"
+    },
+    {
+      "id": "07",
+      "title": "«Дурак» — игровое ядро",
+      "summary": "Правила, игровой сервер, matchmaking, столы, раунды, карты, ставки, таймеры, reconnect, результаты, комиссии, спорные ситуации, anti-collusion, provably fair и клиент игры.",
+      "file": "07-durak-core.json"
+    },
+    {
+      "id": "08",
+      "title": "«Дурак» — B2B Provider Layer",
+      "summary": "Operator API, seamless wallet, multi-tenancy, operator sessions, callbacks, протокол транзакций, API credentials, sandbox, документация, reconciliation и подключение сторонних казино.",
+      "file": "08-durak-b2b.json"
+    },
+    {
+      "id": "09",
+      "title": "Back Office и административная система",
+      "summary": "Управление игроками, финансами, выводами, играми, платежами, рисками, бонусами, партнёрами, контентом, настройками платформы, журналами и операционными процессами.",
+      "file": "09-back-office.json"
+    },
+    {
+      "id": "10",
+      "title": "Роли, права и безопасность действий сотрудников",
+      "summary": "Founder, Admin, Finance, Support, Affiliate Manager и другие роли; RBAC, permissions, maker-checker, двойное подтверждение, критические операции, журналирование действий.",
+      "file": "10-staff-roles.json"
+    },
+    {
+      "id": "11",
+      "title": "Risk, AML, KYC и Fraud",
+      "summary": "KYC, AML, проверки транзакций, лимиты, risk flags, мультиаккаунтинг, device и IP checks, блокировки, ручные проверки, подозрительная активность, Responsible Gaming.",
+      "file": "11-risk-aml-kyc.json"
+    },
+    {
+      "id": "12",
+      "title": "Бонусная система, ранги и удержание",
+      "summary": "Welcome-бонусы, промокоды, cashback, wagering, ограничения, ранги и VIP, бонусный баланс, правила применения, anti-abuse, акции.",
+      "file": "12-bonuses-ranks.json"
+    },
+    {
+      "id": "13",
+      "title": "Партнёрская и Affiliate-система",
+      "summary": "Attribution, ссылки и метки, CPA, RevShare, Hybrid, NGR и GGR, postback, партнёрский кабинет, статистика, выплаты, hold, anti-fraud.",
+      "file": "13-affiliate.json"
+    },
+    {
+      "id": "14",
+      "title": "Контент и управление витриной",
+      "summary": "Главная, категории игр, баннеры, акции, CMS-элементы, тексты, SEO-настройки, локализация, управление отображением контента без разработчиков.",
+      "file": "14-content-storefront.json"
+    },
+    {
+      "id": "15",
+      "title": "Web Application",
+      "summary": "Полная пользовательская web-версия: навигация, responsive UI, игровые экраны, касса, профиль, каталог, партнёрские и промо-механики, остальные пользовательские сценарии.",
+      "file": "15-web-application.json"
+    },
+    {
+      "id": "16",
+      "title": "Telegram Mini App",
+      "summary": "Авторизация через Telegram, Mini App UX, игровые сценарии, касса, профиль, deep links, особенности Telegram WebView и синхронизация с основной платформой.",
+      "file": "16-telegram-mini-app.json"
+    },
+    {
+      "id": "17",
+      "title": "Telegram Bot",
+      "summary": "Авторизация и привязка, уведомления, ссылки на актуальный домен, переход в Mini App, кассу и игры, сервисные сообщения, возможные финансовые подтверждения.",
+      "file": "17-telegram-bot.json"
+    },
+    {
+      "id": "18",
+      "title": "Android Application",
+      "summary": "Capacitor/APK shell, авторизация, navigation и deep links, обновления, работа с WebView и native-функциями, push, распространение APK, version management.",
+      "file": "18-android-application.json",
+      "note": "В разделе 01 зафиксирован отказ от Android-приложения. Принадлежность этого раздела к актуальному объёму требует подтверждения — связано с вопросом Q-09 раздела 01."
+    },
+    {
+      "id": "19",
+      "title": "Уведомления и коммуникации",
+      "summary": "In-app, Telegram, email и при необходимости push: финансовые события, безопасность, игры, поддержка, бонусы, маркетинговые сообщения, шаблоны и пользовательские настройки.",
+      "file": "19-notifications.json"
+    },
+    {
+      "id": "20",
+      "title": "Поддержка пользователей",
+      "summary": "Chatwoot, обращения, тикеты и диалоги, данные игрока для оператора, эскалации, финансовые обращения, история коммуникации, связь с Back Office.",
+      "file": "20-support.json"
+    },
+    {
+      "id": "21",
+      "title": "Инфраструктура и DevOps",
+      "summary": "Production, Staging и Development, серверы, базы данных, Redis и очереди, CI/CD, containers, secrets, scaling, deployment, environments, backups, disaster recovery.",
+      "file": "21-infrastructure.json"
+    },
+    {
+      "id": "22",
+      "title": "Домены, зеркала и доступность платформы",
+      "summary": "Основной домен, пул зеркал, Cloudflare, CDN и WAF, переключение, актуальные ссылки через Telegram, SSL и DNS, механизмы восстановления доступности.",
+      "file": "22-domains-mirrors.json"
+    },
+    {
+      "id": "23",
+      "title": "Кибербезопасность",
+      "summary": "Защита API, rate limiting, WAF, DDoS, secrets, encryption, HSM, security headers, dependency scanning, SAST/SCA/DAST, session security, защита административного контура и финансовых операций.",
+      "file": "23-cybersecurity.json"
+    },
+    {
+      "id": "24",
+      "title": "Логи, аудит и observability",
+      "summary": "Application logs, financial audit trail, действия сотрудников, игровые события, API logs, метрики, tracing, alerts, health checks, диагностика инцидентов.",
+      "file": null
+    },
+    {
+      "id": "25",
+      "title": "Аналитика и отчётность",
+      "summary": "Игроки, депозиты и выводы, GGR и NGR, игры, «Дурак», партнёры, бонусы, платёжные методы, retention, финансовые отчёты, dashboards, экспорт в CSV и Excel.",
+      "file": null
+    },
+    {
+      "id": "26",
+      "title": "Интеграции и внешние сервисы",
+      "summary": "KYC/AML, game aggregator, платёжные провайдеры, blockchain RPC, email, Telegram, Chatwoot, аналитика и прочие third-party API. Для каждой — отдельный integration contract.",
+      "file": null
+    },
+    {
+      "id": "27",
+      "title": "Конфигурация платформы",
+      "summary": "Глобальные настройки, валюты, лимиты, комиссии, feature flags, игровые параметры, финансовые пороги, настройки интеграций и всё, что владелец может менять без релиза кода.",
+      "file": null
+    },
+    {
+      "id": "28",
+      "title": "Нефункциональные требования",
+      "summary": "Производительность, количество одновременных пользователей, latency, availability, масштабирование, финансовая консистентность, отказоустойчивость, браузеры и устройства, локализация, accessibility.",
+      "file": null
+    },
+    {
+      "id": "29",
+      "title": "Тестирование и контроль качества",
+      "summary": "Unit, integration и E2E, финансовые сценарии, blockchain, отказы платежей, игровые тесты, нагрузочные тесты, security testing, регрессия, UAT.",
+      "file": null
+    },
+    {
+      "id": "30",
+      "title": "Передача проекта, документация и приёмка",
+      "summary": "Репозитории, исходники, API docs, архитектура, схема БД и миграции, инструкции развёртывания, environments, доступы, техническая документация, критерии приёмки, передача знаний, гарантийные 45 дней.",
+      "file": null
+    }
+  ]
+}
