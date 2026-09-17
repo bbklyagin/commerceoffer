@@ -194,31 +194,31 @@
       "id": "24",
       "title": "Логи, аудит и observability",
       "summary": "Application logs, financial audit trail, действия сотрудников, игровые события, API logs, метрики, tracing, alerts, health checks, диагностика инцидентов.",
-      "file": null
+      "file": "24-logs-audit.json"
     },
     {
       "id": "25",
       "title": "Аналитика и отчётность",
       "summary": "Игроки, депозиты и выводы, GGR и NGR, игры, «Дурак», партнёры, бонусы, платёжные методы, retention, финансовые отчёты, dashboards, экспорт в CSV и Excel.",
-      "file": null
+      "file": "25-analytics.json"
     },
     {
       "id": "26",
       "title": "Интеграции и внешние сервисы",
       "summary": "KYC/AML, game aggregator, платёжные провайдеры, blockchain RPC, email, Telegram, Chatwoot, аналитика и прочие third-party API. Для каждой — отдельный integration contract.",
-      "file": null
+      "file": "26-integrations.json"
     },
     {
       "id": "27",
       "title": "Конфигурация платформы",
       "summary": "Глобальные настройки, валюты, лимиты, комиссии, feature flags, игровые параметры, финансовые пороги, настройки интеграций и всё, что владелец может менять без релиза кода.",
-      "file": null
+      "file": "27-platform-config.json"
     },
     {
       "id": "28",
       "title": "Нефункциональные требования",
       "summary": "Производительность, количество одновременных пользователей, latency, availability, масштабирование, финансовая консистентность, отказоустойчивость, браузеры и устройства, локализация, accessibility.",
-      "file": null
+      "file": "28-nfr.json"
     },
     {
       "id": "29",
