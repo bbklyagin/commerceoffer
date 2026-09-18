@@ -2,7 +2,11 @@
   "id": "03",
   "title": "Криптовалютная инфраструктура",
   "purpose": "Модуль отвечает за взаимодействие платформы с блокчейн-сетями и за безопасное хранение и движение криптоактивов вне внутреннего журнала проводок: подключение сетей, поддержку токенов, выдачу депозитных адресов, мониторинг входящих транзакций, подтверждения, подготовку и исполнение выводов, сетевые комиссии, уровни хранения Hot / Warm / Cold, подпись внутри защищённого контура, консолидацию депозитов, пополнение операционных кошельков, сверку с блокчейном и обработку сбоев сетей и провайдеров.",
-  "channels": ["TRON", "TON", "Bitcoin"],
+  "channels": [
+    "TRON",
+    "TON",
+    "Bitcoin"
+  ],
   "boundary": {
     "inTitle": "Входит в модуль",
     "in": [
@@ -44,11 +48,27 @@
           "blocks": [
             {
               "kind": "table",
-              "head": ["Сеть", "Активы", "Назначение"],
+              "head": [
+                "Сеть",
+                "Активы",
+                "Назначение"
+              ],
               "rows": [
-                ["TRON", "USDT TRC-20", "Основной массовый канал криптопополнений"],
-                ["TON", "TON, USDT в TON", "Аудитория Telegram"],
-                ["Bitcoin", "BTC", "Отдельный сегмент пользователей"]
+                [
+                  "TRON",
+                  "USDT TRC-20",
+                  "Основной массовый канал криптопополнений"
+                ],
+                [
+                  "TON",
+                  "TON, USDT в TON",
+                  "Аудитория Telegram"
+                ],
+                [
+                  "Bitcoin",
+                  "BTC",
+                  "Отдельный сегмент пользователей"
+                ]
               ]
             },
             {
@@ -157,7 +177,11 @@
             {
               "kind": "list",
               "title": "Назначение",
-              "items": ["Быстрые выплаты игрокам", "Оплата сетевых комиссий", "Ограниченный операционный остаток"]
+              "items": [
+                "Быстрые выплаты игрокам",
+                "Оплата сетевых комиссий",
+                "Ограниченный операционный остаток"
+              ]
             },
             {
               "kind": "list",
@@ -183,7 +207,12 @@
             {
               "kind": "list",
               "title": "Назначение",
-              "items": ["Пополнение Hot", "Приём излишков с Hot", "Промежуточное хранение", "Контролируемое движение в Cold"]
+              "items": [
+                "Пополнение Hot",
+                "Приём излишков с Hot",
+                "Промежуточное хранение",
+                "Контролируемое движение в Cold"
+              ]
             }
           ]
         },
@@ -213,7 +242,9 @@
               "text": "Само наличие двух владельцев подтверждено, но политика подписи не детализирована: не определено, какие операции требуют подписи одного владельца, какие — обоих, как действовать при недоступности одного и как менять его учётные данные."
             }
           ],
-          "questions": ["Q-04"]
+          "questions": [
+            "Q-04"
+          ]
         }
       ]
     },
@@ -230,7 +261,14 @@
             {
               "kind": "list",
               "title": "Каждый адрес связан минимум с",
-              "items": ["Игроком", "Сетью", "Активом", "Ссылкой на источник адреса", "Статусом", "Датой создания"]
+              "items": [
+                "Игроком",
+                "Сетью",
+                "Активом",
+                "Ссылкой на источник адреса",
+                "Статусом",
+                "Датой создания"
+              ]
             }
           ]
         },
@@ -267,7 +305,9 @@
               ]
             }
           ],
-          "questions": ["Q-09"]
+          "questions": [
+            "Q-09"
+          ]
         },
         {
           "ref": "03.14",
@@ -341,12 +381,25 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["DETECTED", "PENDING_CONFIRMATIONS", "CONFIRMED", "CREDIT_REQUESTED", "CREDITED"]
+              "items": [
+                "DETECTED",
+                "PENDING_CONFIRMATIONS",
+                "CONFIRMED",
+                "CREDIT_REQUESTED",
+                "CREDITED"
+              ]
             },
             {
               "kind": "states",
               "title": "Альтернативные состояния",
-              "items": ["IGNORED", "UNSUPPORTED_ASSET", "BELOW_MINIMUM", "REORGED", "MANUAL_REVIEW", "FAILED_PROCESSING"]
+              "items": [
+                "IGNORED",
+                "UNSUPPORTED_ASSET",
+                "BELOW_MINIMUM",
+                "REORGED",
+                "MANUAL_REVIEW",
+                "FAILED_PROCESSING"
+              ]
             }
           ]
         },
@@ -382,7 +435,9 @@
               "text": "Значения для TRON, TON и Bitcoin не зафиксированы. Это прямой компромисс: чем больше подтверждений, тем медленнее зачисление и тем ниже риск отката. Если модель сети не использует классические подтверждения, адаптер приводит её финальность к единой внутренней модели."
             }
           ],
-          "questions": ["Q-01"]
+          "questions": [
+            "Q-01"
+          ]
         },
         {
           "ref": "03.21",
@@ -448,7 +503,9 @@
               "text": "Автоматизированный возврат ошибочно отправленных активов не считается обязательной функцией первой версии. Сама возможность возврата зависит от владения адресом и технологии сети — в части случаев средства вернуть невозможно в принципе."
             }
           ],
-          "questions": ["Q-12"]
+          "questions": [
+            "Q-12"
+          ]
         },
         {
           "ref": "03.26",
@@ -460,7 +517,12 @@
             {
               "kind": "list",
               "title": "Возможные политики",
-              "items": ["Зачислить", "Накапливать до порога", "Не зачислять автоматически", "Отправить в ручной разбор"]
+              "items": [
+                "Зачислить",
+                "Накапливать до порога",
+                "Не зачислять автоматически",
+                "Отправить в ручной разбор"
+              ]
             },
             {
               "kind": "note",
@@ -468,7 +530,9 @@
               "text": "Вопрос не формальный: консолидация мелких пополнений может стоить дороже самой суммы, и тогда каждое такое пополнение — прямой убыток платформы."
             }
           ],
-          "questions": ["Q-07"]
+          "questions": [
+            "Q-07"
+          ]
         }
       ]
     },
@@ -527,9 +591,18 @@
             {
               "kind": "defs",
               "items": [
-                { "name": "TRON", "text": "Баланс TRX, Energy и Bandwidth, стоимость перевода USDT TRC-20, пополнение операционных адресов ресурсами при необходимости." },
-                { "name": "TON", "text": "Native TON для оплаты комиссий, особенности переводов Jetton для USDT, финальность сообщений, требования к адресу и комментарию." },
-                { "name": "Bitcoin", "text": "Выбор входов, адреса сдачи, ставка комиссии, пыльные выходы, политика подтверждений, консолидация, замена транзакции, восстановление зависших транзакций." }
+                {
+                  "name": "TRON",
+                  "text": "Баланс TRX, Energy и Bandwidth, стоимость перевода USDT TRC-20, пополнение операционных адресов ресурсами при необходимости."
+                },
+                {
+                  "name": "TON",
+                  "text": "Native TON для оплаты комиссий, особенности переводов Jetton для USDT, финальность сообщений, требования к адресу и комментарию."
+                },
+                {
+                  "name": "Bitcoin",
+                  "text": "Выбор входов, адреса сдачи, ставка комиссии, пыльные выходы, политика подтверждений, консолидация, замена транзакции, восстановление зависших транзакций."
+                }
               ]
             },
             {
@@ -570,7 +643,9 @@
               "text": "Для криптовыводов отдельно нужно понимать, как действует правило «как завели — так и получили»: считается ли USDT одним активом независимо от сети."
             }
           ],
-          "questions": ["Q-11"]
+          "questions": [
+            "Q-11"
+          ]
         },
         {
           "ref": "03.34",
@@ -625,7 +700,9 @@
               "text": "Расхождение оценки и факта неизбежно — комиссия в сети меняется между расчётом и отправкой. Не определено, какую цифру видит игрок: фиксированную, оценочную или фактическую после исполнения."
             }
           ],
-          "questions": ["Q-08"]
+          "questions": [
+            "Q-08"
+          ]
         },
         {
           "ref": "03.38",
@@ -687,9 +764,18 @@
             {
               "kind": "defs",
               "items": [
-                { "name": "Hot", "text": "Допускается автоматическая подпись в пределах операционных лимитов." },
-                { "name": "Warm", "text": "Требует повышенного согласования и ручной операции." },
-                { "name": "Cold", "text": "Только строго контролируемая ручная процедура." }
+                {
+                  "name": "Hot",
+                  "text": "Допускается автоматическая подпись в пределах операционных лимитов."
+                },
+                {
+                  "name": "Warm",
+                  "text": "Требует повышенного согласования и ручной операции."
+                },
+                {
+                  "name": "Cold",
+                  "text": "Только строго контролируемая ручная процедура."
+                }
               ]
             }
           ]
@@ -717,7 +803,9 @@
               "text": "Здесь прямой компромисс: чем выше лимиты, тем больше выплат уходит без участия сотрудника — и тем больше средств под риском при компрометации операционного кошелька."
             }
           ],
-          "questions": ["Q-02"]
+          "questions": [
+            "Q-02"
+          ]
         },
         {
           "ref": "03.44",
@@ -736,7 +824,9 @@
               "text": "Не определено, кто три подписывающих, где находятся их учётные данные, может ли владелец быть двумя из трёх, как выполняется замена подписывающего и экстренная замена при утрате доступа."
             }
           ],
-          "questions": ["Q-03"]
+          "questions": [
+            "Q-03"
+          ]
         },
         {
           "ref": "03.45",
@@ -747,7 +837,14 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["Запрос", "Проверка", "Изолированная процедура подписи", "Отправка в сеть", "Подтверждение", "Сверка"]
+              "items": [
+                "Запрос",
+                "Проверка",
+                "Изолированная процедура подписи",
+                "Отправка в сеть",
+                "Подтверждение",
+                "Сверка"
+              ]
             }
           ]
         },
@@ -818,7 +915,9 @@
               "text": "Если внутренний обмен активов войдёт в объём (вопрос Q-01 раздела 02), обязательства по конкретной сети смогут меняться без движения в этой сети. Криптослою нужно знать, требует ли обмен реального перемещения средств."
             }
           ],
-          "questions": ["Q-10"]
+          "questions": [
+            "Q-10"
+          ]
         },
         {
           "ref": "03.50",
@@ -871,7 +970,12 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["Критическое оповещение", "Создание инцидента", "При необходимости аварийная остановка", "Процедура компрометации ключа или кошелька"]
+              "items": [
+                "Критическое оповещение",
+                "Создание инцидента",
+                "При необходимости аварийная остановка",
+                "Процедура компрометации ключа или кошелька"
+              ]
             }
           ]
         }
@@ -897,7 +1001,9 @@
               "text": "Конкретные провайдеры не выбраны. Это влияет и на стоимость эксплуатации, и на скорость обнаружения пополнений."
             }
           ],
-          "questions": ["Q-06"]
+          "questions": [
+            "Q-06"
+          ]
         },
         {
           "ref": "03.56",
@@ -909,8 +1015,14 @@
             {
               "kind": "defs",
               "items": [
-                { "name": "Пополнения", "text": "Не теряются, просто не подтверждаются до восстановления наблюдения. После переподключения наблюдатель догоняет пропущенные блоки и события." },
-                { "name": "Выводы", "text": "Нельзя автоматически считать выплату неудачной только из-за таймаута. Статус транзакции проверяется через тот же или альтернативный источник." }
+                {
+                  "name": "Пополнения",
+                  "text": "Не теряются, просто не подтверждаются до восстановления наблюдения. После переподключения наблюдатель догоняет пропущенные блоки и события."
+                },
+                {
+                  "name": "Выводы",
+                  "text": "Нельзя автоматически считать выплату неудачной только из-за таймаута. Статус транзакции проверяется через тот же или альтернативный источник."
+                }
               ]
             }
           ]
@@ -951,12 +1063,25 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["CREATED", "AWAITING_SIGNATURE", "SIGNED", "BROADCASTING", "BROADCASTED", "PENDING_CONFIRMATIONS", "CONFIRMED"]
+              "items": [
+                "CREATED",
+                "AWAITING_SIGNATURE",
+                "SIGNED",
+                "BROADCASTING",
+                "BROADCASTED",
+                "PENDING_CONFIRMATIONS",
+                "CONFIRMED"
+              ]
             },
             {
               "kind": "states",
               "title": "Альтернативные состояния",
-              "items": ["FAILED_PRE_BROADCAST", "UNKNOWN", "STUCK", "REPLACED"]
+              "items": [
+                "FAILED_PRE_BROADCAST",
+                "UNKNOWN",
+                "STUCK",
+                "REPLACED"
+              ]
             }
           ]
         },
@@ -969,7 +1094,12 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["Таймаут", "Запрос состояния", "Определение hash и позиции в сети", "Только потом — повтор или пересборка"]
+              "items": [
+                "Таймаут",
+                "Запрос состояния",
+                "Определение hash и позиции в сети",
+                "Только потом — повтор или пересборка"
+              ]
             },
             {
               "kind": "note",
@@ -1141,7 +1271,9 @@
               "text": "Техническую схему восстановления выбирает команда, но распределение частей секрета — решение владельцев: это вопрос о том, кто в принципе способен получить доступ к резерву платформы."
             }
           ],
-          "questions": ["Q-05"]
+          "questions": [
+            "Q-05"
+          ]
         },
         {
           "ref": "03.71",
@@ -1179,7 +1311,12 @@
             {
               "kind": "list",
               "title": "Типичные причины",
-              "items": ["Инцидент в блокчейне", "Недоступность провайдера", "Обслуживание кошельков", "Миграция токена"]
+              "items": [
+                "Инцидент в блокчейне",
+                "Недоступность провайдера",
+                "Обслуживание кошельков",
+                "Миграция токена"
+              ]
             }
           ]
         },
@@ -1224,8 +1361,14 @@
             {
               "kind": "defs",
               "items": [
-                { "name": "Пополнение", "text": "Актив, сеть, сумма, статус, время, hash транзакции, состояние подтверждений." },
-                { "name": "Вывод", "text": "Актив, сеть, запрошенная сумма, сетевая комиссия, отправленная сумма, адрес получателя, статус, hash транзакции после отправки, временные метки." }
+                {
+                  "name": "Пополнение",
+                  "text": "Актив, сеть, сумма, статус, время, hash транзакции, состояние подтверждений."
+                },
+                {
+                  "name": "Вывод",
+                  "text": "Актив, сеть, запрошенная сумма, сетевая комиссия, отправленная сумма, адрес получателя, статус, hash транзакции после отправки, временные метки."
+                }
               ]
             }
           ]
@@ -1252,12 +1395,25 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["ADDRESS_ASSIGNED", "DETECTED", "PENDING_CONFIRMATIONS", "CONFIRMED", "FINANCE_POSTING", "CREDITED"]
+              "items": [
+                "ADDRESS_ASSIGNED",
+                "DETECTED",
+                "PENDING_CONFIRMATIONS",
+                "CONFIRMED",
+                "FINANCE_POSTING",
+                "CREDITED"
+              ]
             },
             {
               "kind": "states",
               "title": "Альтернативы",
-              "items": ["BELOW_MINIMUM", "UNSUPPORTED_ASSET", "REORGED", "MANUAL_REVIEW", "FAILED_INTERNAL_PROCESSING"]
+              "items": [
+                "BELOW_MINIMUM",
+                "UNSUPPORTED_ASSET",
+                "REORGED",
+                "MANUAL_REVIEW",
+                "FAILED_INTERNAL_PROCESSING"
+              ]
             }
           ]
         },
@@ -1270,12 +1426,28 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["APPROVED_BY_FINANCE", "QUEUED", "PREPARING", "AWAITING_SIGNATURE", "SIGNED", "BROADCASTING", "BROADCASTED", "PENDING_CONFIRMATIONS", "CONFIRMED"]
+              "items": [
+                "APPROVED_BY_FINANCE",
+                "QUEUED",
+                "PREPARING",
+                "AWAITING_SIGNATURE",
+                "SIGNED",
+                "BROADCASTING",
+                "BROADCASTED",
+                "PENDING_CONFIRMATIONS",
+                "CONFIRMED"
+              ]
             },
             {
               "kind": "states",
               "title": "Альтернативы",
-              "items": ["CANCELLED_BEFORE_SIGNING", "FAILED_PRE_BROADCAST", "UNKNOWN", "STUCK", "MANUAL_REVIEW"]
+              "items": [
+                "CANCELLED_BEFORE_SIGNING",
+                "FAILED_PRE_BROADCAST",
+                "UNKNOWN",
+                "STUCK",
+                "MANUAL_REVIEW"
+              ]
             }
           ]
         },
@@ -1317,12 +1489,23 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["CANDIDATE", "PLANNED", "AWAITING_FEE", "AWAITING_SIGNATURE", "BROADCASTED", "CONFIRMED"]
+              "items": [
+                "CANDIDATE",
+                "PLANNED",
+                "AWAITING_FEE",
+                "AWAITING_SIGNATURE",
+                "BROADCASTED",
+                "CONFIRMED"
+              ]
             },
             {
               "kind": "states",
               "title": "Альтернативы",
-              "items": ["SKIPPED_LOW_VALUE", "FAILED", "STUCK"]
+              "items": [
+                "SKIPPED_LOW_VALUE",
+                "FAILED",
+                "STUCK"
+              ]
             }
           ]
         },
@@ -1335,7 +1518,15 @@
           "blocks": [
             {
               "kind": "flow",
-              "items": ["REQUESTED", "APPROVAL_REQUIRED", "APPROVED", "SIGNING", "BROADCASTED", "CONFIRMED", "RECONCILED"]
+              "items": [
+                "REQUESTED",
+                "APPROVAL_REQUIRED",
+                "APPROVED",
+                "SIGNING",
+                "BROADCASTED",
+                "CONFIRMED",
+                "RECONCILED"
+              ]
             }
           ]
         },
@@ -1468,19 +1659,58 @@
             {
               "kind": "defs",
               "items": [
-                { "name": "Blockchain Gateway", "text": "Единый интерфейс к сетям." },
-                { "name": "Адаптеры сетей", "text": "TRON, TON, Bitcoin — особенности каждой сети." },
-                { "name": "Address Service", "text": "Генерация, назначение и жизненный цикл адресов." },
-                { "name": "Chain Watcher", "text": "Наблюдение за блоками, транзакциями и событиями." },
-                { "name": "Deposit Processor", "text": "Нормализация пополнений и их состояния." },
-                { "name": "Withdrawal Processor", "text": "Исполнение подтверждённых выплат в сети." },
-                { "name": "Transaction Builder", "text": "Формирование неподписанных транзакций." },
-                { "name": "Signing Service", "text": "Подпись внутри защищённого контура." },
-                { "name": "Wallet Manager", "text": "Состояние Hot / Warm / Cold и перемещения между уровнями." },
-                { "name": "Sweep Service", "text": "Консолидация депозитов." },
-                { "name": "Fee Service", "text": "Оценка и учёт сетевых комиссий." },
-                { "name": "Reconciliation", "text": "Сверка с блокчейном." },
-                { "name": "Crypto Monitoring", "text": "Метрики, оповещения, сигналы инцидентов." }
+                {
+                  "name": "Blockchain Gateway",
+                  "text": "Единый интерфейс к сетям."
+                },
+                {
+                  "name": "Адаптеры сетей",
+                  "text": "TRON, TON, Bitcoin — особенности каждой сети."
+                },
+                {
+                  "name": "Address Service",
+                  "text": "Генерация, назначение и жизненный цикл адресов."
+                },
+                {
+                  "name": "Chain Watcher",
+                  "text": "Наблюдение за блоками, транзакциями и событиями."
+                },
+                {
+                  "name": "Deposit Processor",
+                  "text": "Нормализация пополнений и их состояния."
+                },
+                {
+                  "name": "Withdrawal Processor",
+                  "text": "Исполнение подтверждённых выплат в сети."
+                },
+                {
+                  "name": "Transaction Builder",
+                  "text": "Формирование неподписанных транзакций."
+                },
+                {
+                  "name": "Signing Service",
+                  "text": "Подпись внутри защищённого контура."
+                },
+                {
+                  "name": "Wallet Manager",
+                  "text": "Состояние Hot / Warm / Cold и перемещения между уровнями."
+                },
+                {
+                  "name": "Sweep Service",
+                  "text": "Консолидация депозитов."
+                },
+                {
+                  "name": "Fee Service",
+                  "text": "Оценка и учёт сетевых комиссий."
+                },
+                {
+                  "name": "Reconciliation",
+                  "text": "Сверка с блокчейном."
+                },
+                {
+                  "name": "Crypto Monitoring",
+                  "text": "Метрики, оповещения, сигналы инцидентов."
+                }
               ]
             }
           ]
@@ -1494,24 +1724,75 @@
           "blocks": [
             {
               "kind": "table",
-              "head": ["Сущность", "Поля"],
+              "head": [
+                "Сущность",
+                "Поля"
+              ],
               "rows": [
-                ["blockchain_networks", "id; code; name; status; native_asset; adapter_type; config_version"],
-                ["crypto_assets", "id; symbol; type; decimals"],
-                ["network_assets", "id; network_id; asset_id; contract_reference; decimals; deposit_enabled; withdrawal_enabled; confirmations_required; status"],
-                ["wallet_groups", "id; network_id; tier; status; signing_policy_id"],
-                ["wallets", "id; wallet_group_id; address; role; status; created_at"],
-                ["deposit_addresses", "id; player_id; network_asset_id; address; memo; derivation_reference; status; created_at; retired_at"],
-                ["blockchain_transactions", "id; network_id; tx_hash; status; block_reference; confirmations; first_seen_at; confirmed_at"],
-                ["blockchain_transfers", "id; blockchain_transaction_id; network_asset_id; from_address; to_address; memo; raw_amount; normalized_amount; transfer_index"],
-                ["crypto_deposits", "id; player_id; blockchain_transfer_id; network_asset_id; amount; status; finance_transaction_id"],
-                ["crypto_withdrawals", "id; financial_withdrawal_id; network_asset_id; amount; destination; fee_estimate; actual_fee; status"],
-                ["signing_requests", "id; operation_id; wallet_id; payload_hash; policy; status; requested_at; signed_at"],
-                ["sweep_operations", "id; network_asset_id; source_address; destination_wallet; amount; fee; status"],
-                ["rebalance_operations", "id; source_tier; destination_tier; network_asset_id; amount; status; approval_reference"],
-                ["rpc_providers", "id; network_id; role; status; priority"],
-                ["chain_cursors", "network_id; watcher_type; cursor; updated_at"],
-                ["crypto_reconciliation_items", "id; network_asset_id; internal_reference; chain_reference; discrepancy_type; status"]
+                [
+                  "blockchain_networks",
+                  "id; code; name; status; native_asset; adapter_type; config_version"
+                ],
+                [
+                  "crypto_assets",
+                  "id; symbol; type; decimals"
+                ],
+                [
+                  "network_assets",
+                  "id; network_id; asset_id; contract_reference; decimals; deposit_enabled; withdrawal_enabled; confirmations_required; status"
+                ],
+                [
+                  "wallet_groups",
+                  "id; network_id; tier; status; signing_policy_id"
+                ],
+                [
+                  "wallets",
+                  "id; wallet_group_id; address; role; status; created_at"
+                ],
+                [
+                  "deposit_addresses",
+                  "id; player_id; network_asset_id; address; memo; derivation_reference; status; created_at; retired_at"
+                ],
+                [
+                  "blockchain_transactions",
+                  "id; network_id; tx_hash; status; block_reference; confirmations; first_seen_at; confirmed_at"
+                ],
+                [
+                  "blockchain_transfers",
+                  "id; blockchain_transaction_id; network_asset_id; from_address; to_address; memo; raw_amount; normalized_amount; transfer_index"
+                ],
+                [
+                  "crypto_deposits",
+                  "id; player_id; blockchain_transfer_id; network_asset_id; amount; status; finance_transaction_id"
+                ],
+                [
+                  "crypto_withdrawals",
+                  "id; financial_withdrawal_id; network_asset_id; amount; destination; fee_estimate; actual_fee; status"
+                ],
+                [
+                  "signing_requests",
+                  "id; operation_id; wallet_id; payload_hash; policy; status; requested_at; signed_at"
+                ],
+                [
+                  "sweep_operations",
+                  "id; network_asset_id; source_address; destination_wallet; amount; fee; status"
+                ],
+                [
+                  "rebalance_operations",
+                  "id; source_tier; destination_tier; network_asset_id; amount; status; approval_reference"
+                ],
+                [
+                  "rpc_providers",
+                  "id; network_id; role; status; priority"
+                ],
+                [
+                  "chain_cursors",
+                  "network_id; watcher_type; cursor; updated_at"
+                ],
+                [
+                  "crypto_reconciliation_items",
+                  "id; network_asset_id; internal_reference; chain_reference; discrepancy_type; status"
+                ]
               ]
             }
           ]
@@ -1526,13 +1807,34 @@
             {
               "kind": "defs",
               "items": [
-                { "name": "Адреса", "text": "Получить или создать депозитный адрес, вывести адрес из обращения, определить владельца адреса." },
-                { "name": "Пополнения", "text": "Состояние пополнений, переобработка, число подтверждений." },
-                { "name": "Выводы", "text": "Передать подтверждённую выплату, получить её статус в сети, отменить до подписи, где это разрешено." },
-                { "name": "Комиссии", "text": "Оценить комиссию вывода, получить текущее состояние комиссий." },
-                { "name": "Кошельки", "text": "Состояние операционных кошельков, запрос перемещения средств, запрос консолидации." },
-                { "name": "Сети", "text": "Список поддерживаемых сетей и активов, состояние обслуживания." },
-                { "name": "Административные", "text": "Пересканировать диапазон блоков, переобработать транзакцию, отключить пополнения или выводы, аварийно остановить выплаты." }
+                {
+                  "name": "Адреса",
+                  "text": "Получить или создать депозитный адрес, вывести адрес из обращения, определить владельца адреса."
+                },
+                {
+                  "name": "Пополнения",
+                  "text": "Состояние пополнений, переобработка, число подтверждений."
+                },
+                {
+                  "name": "Выводы",
+                  "text": "Передать подтверждённую выплату, получить её статус в сети, отменить до подписи, где это разрешено."
+                },
+                {
+                  "name": "Комиссии",
+                  "text": "Оценить комиссию вывода, получить текущее состояние комиссий."
+                },
+                {
+                  "name": "Кошельки",
+                  "text": "Состояние операционных кошельков, запрос перемещения средств, запрос консолидации."
+                },
+                {
+                  "name": "Сети",
+                  "text": "Список поддерживаемых сетей и активов, состояние обслуживания."
+                },
+                {
+                  "name": "Административные",
+                  "text": "Пересканировать диапазон блоков, переобработать транзакцию, отключить пополнения или выводы, аварийно остановить выплаты."
+                }
               ]
             }
           ]
@@ -1546,7 +1848,28 @@
           "blocks": [
             {
               "kind": "states",
-              "items": ["CryptoDepositDetected", "CryptoDepositConfirmationUpdated", "CryptoDepositConfirmed", "CryptoDepositReorged", "CryptoDepositUnsupported", "CryptoWithdrawalQueued", "CryptoWithdrawalSigning", "CryptoWithdrawalBroadcasted", "CryptoWithdrawalConfirmed", "CryptoWithdrawalStuck", "CryptoWithdrawalFailed", "CryptoFeeUpdated", "SweepRequested", "SweepCompleted", "WalletLowBalance", "WalletExcessBalance", "WalletUnexpectedOutgoing", "CryptoReconciliationMismatch", "NetworkDegraded", "NetworkRecovered"]
+              "items": [
+                "CryptoDepositDetected",
+                "CryptoDepositConfirmationUpdated",
+                "CryptoDepositConfirmed",
+                "CryptoDepositReorged",
+                "CryptoDepositUnsupported",
+                "CryptoWithdrawalQueued",
+                "CryptoWithdrawalSigning",
+                "CryptoWithdrawalBroadcasted",
+                "CryptoWithdrawalConfirmed",
+                "CryptoWithdrawalStuck",
+                "CryptoWithdrawalFailed",
+                "CryptoFeeUpdated",
+                "SweepRequested",
+                "SweepCompleted",
+                "WalletLowBalance",
+                "WalletExcessBalance",
+                "WalletUnexpectedOutgoing",
+                "CryptoReconciliationMismatch",
+                "NetworkDegraded",
+                "NetworkRecovered"
+              ]
             },
             {
               "kind": "note",
@@ -1635,14 +1958,35 @@
             },
             {
               "kind": "table",
-              "head": ["Критические", "Предупреждения"],
+              "head": [
+                "Критические",
+                "Предупреждения"
+              ],
               "rows": [
-                ["Неожидаемая исходящая транзакция", "Резкий рост сетевой комиссии"],
-                ["Недоступность сервиса подписи или ошибка защищённого модуля", "Замедление подтверждений"],
-                ["Критически низкий остаток Hot Wallet", "Остаток Hot ниже целевого"],
-                ["Расхождение остатка кошелька", "Рост очереди на консолидацию"],
-                ["Повторяющиеся неудачные отправки", "Переключение на резервный источник данных"],
-                ["Остановка наблюдателя или критическое отставание", "—"]
+                [
+                  "Неожидаемая исходящая транзакция",
+                  "Резкий рост сетевой комиссии"
+                ],
+                [
+                  "Недоступность сервиса подписи или ошибка защищённого модуля",
+                  "Замедление подтверждений"
+                ],
+                [
+                  "Критически низкий остаток Hot Wallet",
+                  "Остаток Hot ниже целевого"
+                ],
+                [
+                  "Расхождение остатка кошелька",
+                  "Рост очереди на консолидацию"
+                ],
+                [
+                  "Повторяющиеся неудачные отправки",
+                  "Переключение на резервный источник данных"
+                ],
+                [
+                  "Остановка наблюдателя или критическое отставание",
+                  "—"
+                ]
               ]
             }
           ]
@@ -1657,8 +2001,14 @@
             {
               "kind": "defs",
               "items": [
-                { "name": "Должны содержать", "text": "Сеть, идентификатор операции, hash транзакции, логическую ссылку на кошелёк, переход состояния, сквозной идентификатор запроса." },
-                { "name": "Не должны содержать", "text": "Приватные ключи, seed-фразы, части секрета восстановления, данные подписи, секреты аутентификации." }
+                {
+                  "name": "Должны содержать",
+                  "text": "Сеть, идентификатор операции, hash транзакции, логическую ссылку на кошелёк, переход состояния, сквозной идентификатор запроса."
+                },
+                {
+                  "name": "Не должны содержать",
+                  "text": "Приватные ключи, seed-фразы, части секрета восстановления, данные подписи, секреты аутентификации."
+                }
               ]
             },
             {
@@ -1725,7 +2075,13 @@
             {
               "kind": "list",
               "title": "Для каждой среды отдельно",
-              "items": ["Наборы кошельков и ключей", "Секреты", "Адреса", "Пространства ключей защищённого модуля", "Учётные данные источников данных"]
+              "items": [
+                "Наборы кошельков и ключей",
+                "Секреты",
+                "Адреса",
+                "Пространства ключей защищённого модуля",
+                "Учётные данные источников данных"
+              ]
             }
           ]
         },
@@ -1778,29 +2134,170 @@
     }
   ],
   "acceptance": [
-    { "ref": "AC-01", "title": "Поддержка сетей", "items": ["Рабочая конфигурация поддерживает согласованные интеграции TRON, TON и Bitcoin и заявленные активы этих сетей"] },
-    { "ref": "AC-02", "title": "Принадлежность адреса", "items": ["Каждый активный депозитный адрес или комментарий однозначно связан с внутренним владельцем"] },
-    { "ref": "AC-03", "title": "Отсутствие ключей в приложении", "items": ["Сервисы приложения не имеют возможности получить приватный ключ в открытом виде"] },
-    { "ref": "AC-04", "title": "Обнаружение пополнения", "items": ["Тестовое пополнение в сети обнаруживается наблюдателем и получает корректный идентификатор, специфичный для этой сети"] },
-    { "ref": "AC-05", "title": "Подтверждения", "items": ["Пополнение не передаётся в финансовое ядро как окончательное раньше настроенного порога финальности"] },
-    { "ref": "AC-06", "title": "Повторное пополнение", "items": ["Повторное сканирование той же транзакции не приводит к повторному зачислению"] },
-    { "ref": "AC-07", "title": "Перезапуск наблюдателя", "items": ["После остановки и запуска пропущенные транзакции восстанавливаются через сохранённую позицию или пересканирование, без дубликатов"] },
-    { "ref": "AC-08", "title": "Неподдерживаемый актив", "items": ["Неподдерживаемый актив не зачисляется как поддерживаемый баланс"] },
-    { "ref": "AC-09", "title": "Консолидация", "items": ["Подходящий остаток депозитного адреса безопасно консолидируется в целевой кошелёк", "Операция отслеживается до подтверждения в сети"] },
-    { "ref": "AC-10", "title": "Пороги операционного кошелька", "items": ["Система формирует оповещение при выходе остатка Hot Wallet за настроенные минимум и максимум"] },
-    { "ref": "AC-11", "title": "Комиссия при выводе", "items": ["Криптовывод учитывает сетевую комиссию по подтверждённой политике, где комиссию оплачивает игрок"] },
-    { "ref": "AC-12", "title": "Проверка адреса", "items": ["Некорректный адрес получателя отклоняется до подписи"] },
-    { "ref": "AC-13", "title": "Отмена вывода", "items": ["Вывод можно отменить до установленной точки подписи и отправки", "После отправки штатная отмена невозможна"] },
-    { "ref": "AC-14", "title": "Подпись", "items": ["Подтверждённый вывод подписывается внутри защищённого контура", "Приватный ключ не возвращается вызывающему сервису"] },
-    { "ref": "AC-15", "title": "Безопасность при таймауте", "items": ["Имитация таймаута после фактической отправки не приводит к повторной выплате"] },
-    { "ref": "AC-16", "title": "Зависшая транзакция", "items": ["Зависшая транзакция обнаруживается и переводится в отдельное состояние для разрешения способом, применимым к этой сети"] },
-    { "ref": "AC-17", "title": "Сверка кошельков", "items": ["Система сравнивает фактические остатки в сети с ожидаемыми и обнаруживает искусственно созданное расхождение"] },
-    { "ref": "AC-18", "title": "Неожидаемая исходящая транзакция", "items": ["Неавторизованная тестовая исходящая транзакция с контролируемого кошелька формирует критическое оповещение безопасности"] },
-    { "ref": "AC-19", "title": "Аварийная остановка", "items": ["Уполномоченная роль останавливает новые криптовыплаты, не останавливая мониторинг пополнений"] },
-    { "ref": "AC-20", "title": "Изоляция сетей", "items": ["Недоступность адаптера TRON не выводит из строя адаптеры TON и Bitcoin"] },
-    { "ref": "AC-21", "title": "Разделение сред", "items": ["Рабочие кошельки и учётные данные подписи не используются на тестовом контуре и в разработке"] },
-    { "ref": "AC-22", "title": "Восстановление", "items": ["После восстановления состояния сервисов выполняется пересканирование и сверка без двойного зачисления"] },
-    { "ref": "AC-23", "title": "Аудит", "items": ["Перемещение в Warm и Cold, изменение политики подписи и аварийная остановка оставляют неизменяемые записи аудита"] }
+    {
+      "ref": "AC-01",
+      "title": "Поддержка сетей",
+      "items": [
+        "Рабочая конфигурация поддерживает согласованные интеграции TRON, TON и Bitcoin и заявленные активы этих сетей"
+      ]
+    },
+    {
+      "ref": "AC-02",
+      "title": "Принадлежность адреса",
+      "items": [
+        "Каждый активный депозитный адрес или комментарий однозначно связан с внутренним владельцем"
+      ]
+    },
+    {
+      "ref": "AC-03",
+      "title": "Отсутствие ключей в приложении",
+      "items": [
+        "Сервисы приложения не имеют возможности получить приватный ключ в открытом виде"
+      ]
+    },
+    {
+      "ref": "AC-04",
+      "title": "Обнаружение пополнения",
+      "items": [
+        "Тестовое пополнение в сети обнаруживается наблюдателем и получает корректный идентификатор, специфичный для этой сети"
+      ]
+    },
+    {
+      "ref": "AC-05",
+      "title": "Подтверждения",
+      "items": [
+        "Пополнение не передаётся в финансовое ядро как окончательное раньше настроенного порога финальности"
+      ]
+    },
+    {
+      "ref": "AC-06",
+      "title": "Повторное пополнение",
+      "items": [
+        "Повторное сканирование той же транзакции не приводит к повторному зачислению"
+      ]
+    },
+    {
+      "ref": "AC-07",
+      "title": "Перезапуск наблюдателя",
+      "items": [
+        "После остановки и запуска пропущенные транзакции восстанавливаются через сохранённую позицию или пересканирование, без дубликатов"
+      ]
+    },
+    {
+      "ref": "AC-08",
+      "title": "Неподдерживаемый актив",
+      "items": [
+        "Неподдерживаемый актив не зачисляется как поддерживаемый баланс"
+      ]
+    },
+    {
+      "ref": "AC-09",
+      "title": "Консолидация",
+      "items": [
+        "Подходящий остаток депозитного адреса безопасно консолидируется в целевой кошелёк",
+        "Операция отслеживается до подтверждения в сети"
+      ]
+    },
+    {
+      "ref": "AC-10",
+      "title": "Пороги операционного кошелька",
+      "items": [
+        "Система формирует оповещение при выходе остатка Hot Wallet за настроенные минимум и максимум"
+      ]
+    },
+    {
+      "ref": "AC-11",
+      "title": "Комиссия при выводе",
+      "items": [
+        "Криптовывод учитывает сетевую комиссию по подтверждённой политике, где комиссию оплачивает игрок"
+      ]
+    },
+    {
+      "ref": "AC-12",
+      "title": "Проверка адреса",
+      "items": [
+        "Некорректный адрес получателя отклоняется до подписи"
+      ]
+    },
+    {
+      "ref": "AC-13",
+      "title": "Отмена вывода",
+      "items": [
+        "Вывод можно отменить до установленной точки подписи и отправки",
+        "После отправки штатная отмена невозможна"
+      ]
+    },
+    {
+      "ref": "AC-14",
+      "title": "Подпись",
+      "items": [
+        "Подтверждённый вывод подписывается внутри защищённого контура",
+        "Приватный ключ не возвращается вызывающему сервису"
+      ]
+    },
+    {
+      "ref": "AC-15",
+      "title": "Безопасность при таймауте",
+      "items": [
+        "Имитация таймаута после фактической отправки не приводит к повторной выплате"
+      ]
+    },
+    {
+      "ref": "AC-16",
+      "title": "Зависшая транзакция",
+      "items": [
+        "Зависшая транзакция обнаруживается и переводится в отдельное состояние для разрешения способом, применимым к этой сети"
+      ]
+    },
+    {
+      "ref": "AC-17",
+      "title": "Сверка кошельков",
+      "items": [
+        "Система сравнивает фактические остатки в сети с ожидаемыми и обнаруживает искусственно созданное расхождение"
+      ]
+    },
+    {
+      "ref": "AC-18",
+      "title": "Неожидаемая исходящая транзакция",
+      "items": [
+        "Неавторизованная тестовая исходящая транзакция с контролируемого кошелька формирует критическое оповещение безопасности"
+      ]
+    },
+    {
+      "ref": "AC-19",
+      "title": "Аварийная остановка",
+      "items": [
+        "Уполномоченная роль останавливает новые криптовыплаты, не останавливая мониторинг пополнений"
+      ]
+    },
+    {
+      "ref": "AC-20",
+      "title": "Изоляция сетей",
+      "items": [
+        "Недоступность адаптера TRON не выводит из строя адаптеры TON и Bitcoin"
+      ]
+    },
+    {
+      "ref": "AC-21",
+      "title": "Разделение сред",
+      "items": [
+        "Рабочие кошельки и учётные данные подписи не используются на тестовом контуре и в разработке"
+      ]
+    },
+    {
+      "ref": "AC-22",
+      "title": "Восстановление",
+      "items": [
+        "После восстановления состояния сервисов выполняется пересканирование и сверка без двойного зачисления"
+      ]
+    },
+    {
+      "ref": "AC-23",
+      "title": "Аудит",
+      "items": [
+        "Перемещение в Warm и Cold, изменение политики подписи и аварийная остановка оставляют неизменяемые записи аудита"
+      ]
+    }
   ],
   "teamDecisions": {
     "title": "Решения на стороне технической команды",
@@ -1832,193 +2329,129 @@
   "questions": [
     {
       "ref": "Q-01",
-      "blocking": true,
-      "source": "03.19",
-      "title": "Число подтверждений по сетям",
-      "question": "Сколько подтверждений требовать до зачисления пополнения в TRON, TON и Bitcoin?",
-      "context": "Это прямой компромисс между скоростью зачисления и риском: при недостаточном числе подтверждений возможна ситуация, когда средства зачислены, а транзакция затем исчезла из цепочки. Единое значение для трёх сетей неприменимо — у них разные модели финальности.",
-      "note": "В любом варианте значения хранятся как настройка по паре «сеть + актив» и меняются без доработки кода.",
+      "blocking": false,
+      "source": "03.43",
+      "title": "Сколько денег держать в кошельке для ежедневных выплат",
+      "question": "Сколько криптовалюты держать «под рукой» для быстрых выплат и до какой суммы отправлять её без участия человека?",
+      "context": "Есть три места хранения: кошелёк для ежедневных выплат, промежуточный и холодный резерв. Первый работает автоматически, поэтому именно он под ударом при взломе. Чем больше в нём денег и чем выше сумма автоматической отправки, тем быстрее игроки получают выплаты — и тем больше можно потерять за один раз.",
+      "note": "Значения предлагается задать консервативно и скорректировать после первых недель работы: все они остаются настройками Back Office. Разумный ориентир для целевого остатка — сумма типичных суточных выплат.",
       "answer": {
-        "kind": "choice",
-        "options": [
-          { "t": "Значения на уровне практики крупных сервисов: TRON — около 20 подтверждений, TON — финальность мастерчейна, Bitcoin — 2 подтверждения", "rec": true },
-          { "t": "Повышенные требования: Bitcoin — от 3 до 6 подтверждений, остальные сети с запасом. Зачисление медленнее, риск отката ниже" },
-          { "t": "Минимальные требования ради скорости зачисления — выше риск при реорганизации сети" }
-        ]
+        "kind": "text",
+        "placeholder": "Например: держать сумму выплат за сутки, автоматически отправлять до 200 долларов, не более 3 000 долларов в сутки",
+        "hint": "Укажите значения или подход к их расчёту."
       }
     },
     {
       "ref": "Q-02",
-      "blocking": false,
-      "source": "03.43",
-      "title": "Лимиты операционного кошелька",
-      "question": "Какие стартовые лимиты задать для Hot Wallet?",
-      "context": "Нужны пять значений: минимальный, целевой и максимальный остаток, максимальная сумма автоматической выплаты и суточный лимит автоматической подписи. Чем выше лимиты, тем больше выводов уходит без участия сотрудника — и тем больше средств под риском при компрометации операционного кошелька.",
-      "note": "Значения предлагается задать консервативно и скорректировать после первых недель работы: все они остаются настройками Back Office. Разумный ориентир для целевого остатка — сумма типичных суточных выплат.",
+      "blocking": true,
+      "source": "03.44",
+      "title": "Кто хранит ключи от денег казино",
+      "question": "Кто именно будет тремя хранителями ключей, если для перевода нужны подписи любых двух из них?",
+      "context": "Схема «двое из трёх» защищает от того, что один человек уведёт деньги в одиночку. Она перестаёт работать, если два ключа из трёх у одного и того же человека — формально схема та же, фактически он распоряжается деньгами сам. Это единственное решение, где ошибка означает безвозвратную потерю денег игроков.",
+      "note": "Процедуру плановой и экстренной замены подписывающего предлагается описать сразу: замена «по факту утраты доступа» обычно оказывается невозможной.",
       "answer": {
-        "kind": "text",
-        "placeholder": "Например: целевой остаток — сумма суточных выплат, максимальная автоматическая выплата — $200, суточный лимит автоподписи — $3 000",
-        "hint": "Укажите значения или подход к их расчёту."
+        "kind": "choice",
+        "options": [
+          {
+            "t": "Оба владельца и один доверенный сотрудник",
+            "rec": true
+          },
+          {
+            "t": "Оба владельца и независимый внешний хранитель третьего ключа"
+          },
+          {
+            "t": "Один владелец и два сотрудника"
+          }
+        ]
       }
     },
     {
       "ref": "Q-03",
       "blocking": true,
-      "source": "03.44",
-      "title": "Кто подписывает операции промежуточного уровня",
-      "question": "Кто три подписывающих в схеме 2 из 3 и как выполняется их замена?",
-      "context": "Модель 2 из 3 зафиксирована в архитектуре, состав подписывающих — нет. Отдельно нужно понимать, может ли один владелец быть двумя из трёх подписывающих: в этом случае схема формально остаётся 2 из 3, но фактически перестаёт защищать от действий одного человека.",
-      "note": "Процедуру плановой и экстренной замены подписывающего предлагается описать сразу: замена «по факту утраты доступа» обычно оказывается невозможной.",
+      "source": "03.10",
+      "title": "Какие переводы владельцы подписывают лично",
+      "question": "Какие операции с криптовалютой может провести сотрудник, а какие — только владельцы, и когда нужны оба?",
+      "context": "Владельцев двое и права у них равные. Из этого не следует, кто участвует в каждой операции: обычная выплата игроку, пополнение рабочего кошелька из резерва и доступ к холодному хранилищу — это разные уровни риска. Отдельно нужно решить, что делать, если один владелец недоступен.",
       "answer": {
         "kind": "choice",
         "options": [
-          { "t": "Оба владельца и один доверенный сотрудник платформы", "rec": true },
-          { "t": "Оба владельца и внешний независимый хранитель третьего ключа" },
-          { "t": "Один владелец и два сотрудника платформы" }
+          {
+            "t": "Обычные выплаты — без владельцев; пополнение рабочего кошелька — владелец и сотрудник; холодный резерв — оба владельца",
+            "rec": true
+          },
+          {
+            "t": "Любое движение денег вне рабочего кошелька требует обоих владельцев"
+          },
+          {
+            "t": "Каждый владелец действует самостоятельно на всех уровнях"
+          }
         ]
       }
     },
     {
       "ref": "Q-04",
-      "blocking": true,
-      "source": "03.10",
-      "title": "Права владельцев в операциях с криптоактивами",
-      "question": "Какие операции с криптоактивами требуют подписи одного владельца, а какие — обоих?",
-      "context": "У платформы два равноправных владельца. Политика подписи от этого не следует автоматически: нужно определить, кто участвует в обычных выплатах, в перемещении средств из промежуточного уровня, в операциях с резервом и в изменении политик подписи, а также что делать при недоступности одного из владельцев.",
+      "blocking": false,
+      "source": "03.70",
+      "title": "Как восстановить доступ к резерву, если ключ потерян",
+      "question": "На сколько частей разделить секрет восстановления, у кого они хранятся и сколько частей нужно собрать?",
+      "context": "Холодный резерв устроен так, что просто «достать ключ» нельзя — иначе он не был бы защищённым. Значит, заранее нужна схема восстановления. Мало частей — рискуем потерять доступ навсегда; много — растёт круг людей, способных добраться до денег. Этот же ответ действует для раздела 10.",
+      "note": "Техническую реализацию схемы выбирает команда. От владельцев нужно распределение частей и правило кворума.",
       "answer": {
         "kind": "choice",
         "options": [
-          { "t": "Обычные выплаты — без участия владельцев; перемещение из Warm — владелец и сотрудник; операции с резервом и изменение политик подписи — оба владельца", "rec": true },
-          { "t": "Любое движение средств вне операционного кошелька требует обоих владельцев" },
-          { "t": "Каждый владелец действует самостоятельно на всех уровнях хранения" }
+          {
+            "t": "Две части из трёх: по одной у каждого владельца, третья — в банковской ячейке или у доверенного лица",
+            "rec": true
+          },
+          {
+            "t": "Три части из пяти — шире круг хранителей, но надёжнее от потери"
+          },
+          {
+            "t": "Две части из двух, только у владельцев — проще, но потеря одной части необратима"
+          }
         ]
       }
     },
     {
       "ref": "Q-05",
       "blocking": false,
-      "source": "03.70",
-      "title": "Восстановление доступа к резерву",
-      "question": "Как распределяются части секрета восстановления и сколько их нужно для восстановления доступа?",
-      "context": "Защищённое хранение исключает простую выгрузку ключа, поэтому восстановление доступа возможно только по заранее выбранной схеме. Это решение владельцев: оно определяет, кто в принципе способен получить доступ к резерву платформы.",
-      "note": "Техническую реализацию схемы выбирает команда. От владельцев нужно распределение частей и правило кворума.",
+      "source": "03.36",
+      "title": "Какую комиссию сети показывать игроку",
+      "question": "Игрок выводит криптовалюту. Какую комиссию сети он видит: заранее известную, примерную или фактическую?",
+      "context": "Комиссия в сети меняется каждую минуту, поэтому между моментом заявки и моментом отправки она почти всегда другая. Вопрос в том, кто берёт на себя эту разницу — игрок или казино.",
       "answer": {
         "kind": "choice",
         "options": [
-          { "t": "Две части из трёх: по одной у каждого владельца, третья — в банковской ячейке или у доверенного лица", "rec": true },
-          { "t": "Три части из пяти с расширенным кругом хранителей" },
-          { "t": "Две части из двух — только у владельцев. Проще, но утрата одной части необратима" }
+          {
+            "t": "Своя фиксированная комиссия по каждой сети: игрок знает сумму заранее, разницу берёт на себя казино",
+            "rec": true
+          },
+          {
+            "t": "Примерная комиссия при заявке, фактическая — в истории операции после отправки"
+          },
+          {
+            "t": "Только фактическая комиссия после отправки — заранее сумма неизвестна"
+          }
         ]
       }
     },
     {
       "ref": "Q-06",
-      "blocking": true,
-      "source": "03.54",
-      "title": "Источники данных по сетям",
-      "question": "Использовать коммерческие RPC-сервисы или собственные узлы для TRON, TON и Bitcoin?",
-      "context": "От выбора зависят стоимость эксплуатации, скорость обнаружения пополнений и степень независимости от внешних сервисов. Тарифы внешних сервисов оплачиваются отдельно от разработки.",
-      "note": "В любом варианте предусматриваются основной и резервный источник и контроль их доступности.",
-      "answer": {
-        "kind": "choice",
-        "options": [
-          { "t": "Коммерческий сервис как основной и второй сервис как резервный по каждой сети — быстрее и дешевле на старте", "rec": true },
-          { "t": "Собственный узел для Bitcoin, коммерческие сервисы для TRON и TON" },
-          { "t": "Собственные узлы во всех трёх сетях — дороже в эксплуатации, независимость максимальная" }
-        ]
-      }
-    },
-    {
-      "ref": "Q-07",
-      "blocking": false,
-      "source": "03.26",
-      "title": "Минимальная сумма криптопополнения",
-      "question": "Есть ли минимальная сумма пополнения и что происходит с суммой ниже неё?",
-      "context": "Правила минимального криптопополнения в брифе не зафиксированы. Вопрос прикладной: консолидация мелкого пополнения может стоить дороже самой суммы, и тогда каждое такое пополнение приносит платформе убыток.",
-      "answer": {
-        "kind": "choice",
-        "options": [
-          { "t": "Минимум по каждой сети на уровне стоимости консолидации: ниже — не зачисляется автоматически и уходит в ручной разбор", "rec": true },
-          { "t": "Сумма ниже минимума накапливается на адресе и зачисляется при достижении порога" },
-          { "t": "Минимума нет — зачисляется любая сумма, расходы на консолидацию берёт платформа" }
-        ]
-      }
-    },
-    {
-      "ref": "Q-08",
-      "blocking": false,
-      "source": "03.36",
-      "title": "Какая комиссия показывается при криптовыводе",
-      "question": "Что игрок видит как комиссию вывода: фиксированное значение, оценку или фактическую комиссию?",
-      "context": "Комиссия в сети меняется между расчётом и отправкой, поэтому оценка и факт почти всегда расходятся. Решение определяет, кто несёт это расхождение — игрок или платформа.",
-      "answer": {
-        "kind": "choice",
-        "options": [
-          { "t": "Фиксированная комиссия платформы по каждой сети: игрок видит её заранее, расхождение с фактической берёт на себя платформа", "rec": true },
-          { "t": "Оценка сети на момент заявки, фактическая комиссия — в истории операции после исполнения" },
-          { "t": "Только фактическая комиссия после исполнения — заранее точная сумма неизвестна" }
-        ]
-      }
-    },
-    {
-      "ref": "Q-09",
-      "blocking": false,
-      "source": "03.13",
-      "title": "Постоянный или разовый депозитный адрес",
-      "question": "Адрес пополнения закрепляется за игроком навсегда или выдаётся новый на каждое пополнение?",
-      "context": "Постоянный адрес удобнее: его можно сохранить в кошельке и отправлять повторно. Новый адрес на каждое пополнение выше по приватности, но увеличивает число адресов, расходы на консолидацию и число обращений в поддержку по старым адресам.",
-      "answer": {
-        "kind": "choice",
-        "options": [
-          { "t": "Постоянный адрес у игрока в каждой сети", "rec": true },
-          { "t": "Новый адрес на каждое пополнение" },
-          { "t": "Выбрать по каждой сети отдельно на этапе проектирования" }
-        ]
-      }
-    },
-    {
-      "ref": "Q-10",
-      "blocking": false,
-      "source": "03.49",
-      "title": "Обмен активов и движение в сетях",
-      "question": "Если внутренний обмен активов войдёт в объём, требует ли он реального движения средств в сетях?",
-      "context": "Вопрос имеет смысл только при положительном ответе на Q-01 раздела 02. Если обмен остаётся внутренней учётной операцией, платформа принимает на себя изменение структуры резервов: обязательства в одном активе растут, а фактический остаток в его сети — нет.",
-      "answer": {
-        "kind": "choice",
-        "options": [
-          { "t": "Обмен остаётся внутренней учётной операцией, движения в сетях нет — структура резервов выравнивается вручную", "rec": true },
-          { "t": "Обмен выполняется через реальное движение средств или через внешнюю биржу" }
-        ]
-      }
-    },
-    {
-      "ref": "Q-11",
-      "blocking": false,
-      "source": "03.33",
-      "title": "Правило «как завели — так и получили» для криптовыводов",
-      "question": "Считается ли USDT одним активом независимо от сети при выводе?",
-      "context": "Связано с Q-02 раздела 02. Здесь нужен ответ на более узкий вопрос: если игрок пополнил USDT в TRON, может ли он вывести USDT в TON. Формально это один и тот же актив, но разные сети и разные комиссии.",
-      "answer": {
-        "kind": "choice",
-        "options": [
-          { "t": "USDT — один актив независимо от сети: сеть вывода игрок выбирает сам", "rec": true },
-          { "t": "Вывод только в той сети, в которой было пополнение" },
-          { "t": "Ограничение действует до прохождения KYC, затем снимается" }
-        ]
-      }
-    },
-    {
-      "ref": "Q-12",
       "blocking": false,
       "source": "03.24",
-      "title": "Возврат ошибочно отправленных средств",
-      "question": "Входит ли возврат активов, отправленных в неподдерживаемой сети, в обязанности поддержки?",
-      "context": "Часть таких средств вернуть технически невозможно, часть — возможно, но каждая операция ручная и требует работы с ключами. От ответа зависит, что написано в правилах и что обещает поддержка.",
+      "title": "Если игрок отправил монеты не в ту сеть",
+      "question": "Обязано ли казино возвращать монеты, которые игрок отправил в неподдерживаемой сети или не на тот адрес?",
+      "context": "Часть таких переводов вернуть технически невозможно вообще. Остальные возвращаются вручную, с доступом к ключам — это долго и небезопасно. От ответа зависит, что написано в правилах и что поддержка вправе обещать игроку.",
       "answer": {
         "kind": "choice",
         "options": [
-          { "t": "Возврат не гарантируется: каждый случай разбирается индивидуально, без обязательств по срокам и результату", "rec": true },
-          { "t": "Включить возврат в обязанности поддержки с описанной процедурой — объём работ увеличивается" }
+          {
+            "t": "Возврат не гарантируем: разбираем по возможности, без обещаний по срокам и результату",
+            "rec": true
+          },
+          {
+            "t": "Возврат входит в обязанности поддержки, с описанной процедурой — работы больше"
+          }
         ]
       }
     }

@@ -446,8 +446,8 @@ var BASE = 'spec/';
    Инструкция по подключению — в spec/ENDPOINT.md
    ============================================================ */
 var SUBMIT = {
-  mode: 'off',
-  url: ''
+  mode: 'gas',
+  url: 'https://script.google.com/macros/s/AKfycbyoROCZc4ZsAJfblvuIhWXsCyyqcxcObqHm_gGPCr9rfQjYyJ6dpENQQ4yK1EIzDKsgLQ/exec'
 };
 var esc = function(s){ return String(s == null ? '' : s).replace(/[<>]/g, function(c){ return c === '<' ? '&lt;' : '&gt;'; }); };
 var el = function(tag, cls, html){
@@ -1084,15 +1084,14 @@ function init(mf){
     sideEl.appendChild(side);
   });
 
-  document.getElementById('sideCount').textContent = ready.length + '/' + mf.topics.length;
-  document.getElementById('barStat').innerHTML = '<b>' + ready.length + '</b> из <b>' + mf.topics.length + '</b> разделов';
+  document.getElementById('sideCount').textContent = mf.topics.length;
+  document.getElementById('barStat').innerHTML = '<b>' + mf.topics.length + '</b> ' + plural(mf.topics.length, 'раздел', 'раздела', 'разделов');
 
   // статистика обложки: число открытых вопросов считаем после загрузки оформленных разделов
   var stats = document.getElementById('stats');
   stats.innerHTML =
     '<div><dt>Разделов</dt><dd>' + mf.topics.length + '<small>полный документ</small></dd></div>' +
-    '<div><dt>Оформлено</dt><dd>' + ready.length + '<small>с решениями</small></dd></div>' +
-    '<div class="open"><dt>Открытых вопросов</dt><dd><span id="statQ">—</span><small id="statQnote">в оформленных разделах</small></dd></div>';
+    '<div class="open"><dt>Открытых вопросов</dt><dd><span id="statQ">—</span><small id="statQnote">требуют решения</small></dd></div>';
 
   Promise.all(ready.map(function(t){
     return fetch(BASE + t.file, { cache: 'no-cache' })
@@ -1116,7 +1115,7 @@ function init(mf){
     });
     if (ok) {
       document.getElementById('statQ').textContent = total;
-      document.getElementById('statQnote').textContent = blocking ? blocking + ' ' + plural(blocking, 'блокирующий', 'блокирующих', 'блокирующих') : 'в оформленных разделах';
+      document.getElementById('statQnote').textContent = blocking ? blocking + ' ' + plural(blocking, 'блокирующий', 'блокирующих', 'блокирующих') : 'требуют решения';
       document.getElementById('barStat').innerHTML += ' · <span class="qn"><b>' + total + '</b> ' +
         plural(total, 'открытый вопрос', 'открытых вопроса', 'открытых вопросов') + '</span>';
       syncSide();

@@ -19,13 +19,15 @@ var SUBMIT = {
 
 ### Шаги
 
-1. Создать новую Google Таблицу.
-2. В ней: **Расширения → Apps Script**.
-3. Удалить содержимое `Код.gs` и вставить скрипт из блока ниже.
+1. Создать Google Таблицу.
+2. В ней: **Расширения → Apps Script.**
+3. Удалить всё содержимое файла и вставить целиком код из [apps-script.gs](apps-script.gs) — там и приём ответов, и чтение для страницы просмотра.
 4. **Начать развёртывание → Новое развёртывание → Тип: веб-приложение.**
    - *Запуск от имени:* **я**;
    - *У кого есть доступ:* **у всех**.
-     Это обязательное условие: страница отправляет запрос от имени анонимного посетителя.
+
+> **Самая частая ошибка — доступ.** Если оставить «только я» или «все, у кого есть аккаунт Google», страница получит отказ `403` и не сможет ни отправить ответы, ни прочитать их. Проверить просто: открыть URL развёртывания в окне браузера без входа в Google — должно ответить `ok`, а не страница «доступ запрещён».
+
 5. Скопировать выданный URL вида `https://script.google.com/macros/s/AKfy.../exec`.
 6. В `spec.html` указать:
 
@@ -36,61 +38,19 @@ var SUBMIT = {
 };
 ```
 
-### Скрипт для Apps Script
+### Токен для просмотра ответов
 
-```javascript
-function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.waitLock(30000);
-  try {
-    var data = JSON.parse(e.postData.contents);
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+Токен задан прямо в скрипте — переменная `VIEW_TOKEN` в первых строках. Менять его в свойствах проекта не нужно.
 
-    // лист с построчными ответами
-    var sh = ss.getSheetByName('Ответы');
-    if (!sh) {
-      sh = ss.insertSheet('Ответы');
-      sh.appendRow(['Получено', 'ID отправки', 'Раздел', 'Название раздела',
-                    'Кто отвечает', 'Вопрос', 'Блокирующий', 'Источник',
-                    'Текст вопроса', 'Ответ', 'Комментарий']);
-      sh.setFrozenRows(1);
-    }
+Ссылка на просмотр ответов:
 
-    var now = new Date();
-    var rows = (data.answers || []).map(function (a) {
-      return [now, data.submissionId, data.topicId, data.topicTitle,
-              data.author, a.ref, a.blocking ? 'да' : '', a.source,
-              a.question, a.answer, a.comment];
-    });
-    if (rows.length) {
-      sh.getRange(sh.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
-    }
-
-    // лист с полными отправками — страховка от потери при изменении формата
-    var raw = ss.getSheetByName('Журнал');
-    if (!raw) {
-      raw = ss.insertSheet('Журнал');
-      raw.appendRow(['Получено', 'ID отправки', 'Раздел', 'JSON']);
-      raw.setFrozenRows(1);
-    }
-    raw.appendRow([now, data.submissionId, data.topicId, e.postData.contents]);
-
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: true, saved: rows.length }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } finally {
-    lock.releaseLock();
-  }
-}
-
-function doGet() {
-  return ContentService.createTextOutput('ok');
-}
 ```
+https://bbklyagin.github.io/commerceoffer/answers.html#u=<URL_РАЗВЁРТЫВАНИЯ>&k=<VIEW_TOKEN>
+```
+
+После первого открытия страница запоминает адрес и токен в браузере — дальше достаточно открыть `answers.html`.
+
+**Важно:** страница `answers.html` лежит в публичном репозитории, её видно в списке файлов. Ответы защищает только токен. Если ссылка куда-то попала — поменяйте строку `VIEW_TOKEN` в скрипте и разверните заново.
 
 ### Уведомления о новых ответах
 

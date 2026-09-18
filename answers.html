@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Ответы по техническому заданию</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F5F4EF;--paper-2:#ECEBE4;--surface:#FFFFFF;
+  --ink:#12171B;--ink-2:#3B454D;--ink-3:#6B757E;
+  --line:#E1E0D8;--line-strong:#C4C6BD;
+  --accent:#14505F;--accent-ink:#0B3B47;--accent-soft:#E3EDF0;--accent-light:#7FB6C4;
+  --neg:#8C4A3C;--warn:#8A6A1F;--warn-soft:#F3EBD6;
+  --dark:#080A0C;--dark-line:#20262A;--dark-ink:#F3F2ED;--dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --container:1160px;--gutter:32px;--radius:6px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.mono{font-family:var(--mono);font-size:.92em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(32px,4.4vw,52px)}
+.head__eyebrow{font-size:13px;color:var(--dark-muted);margin-bottom:14px}
+.head__grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,48px);align-items:end}
+.head__title{font-weight:700;font-size:clamp(26px,3.4vw,38px);line-height:1.08;letter-spacing:-.03em}
+.head__lead{font-family:var(--serif);font-size:16.5px;line-height:1.5;color:#C9D0D5;max-width:56ch;margin-top:14px}
+.stats{display:flex;gap:clamp(18px,3vw,34px);flex-wrap:wrap}
+.stats div{min-width:64px}
+.stats dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--dark-muted);margin-bottom:6px}
+.stats dd{margin:0;font-size:clamp(22px,2.4vw,28px);font-weight:700;letter-spacing:-.03em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.stats dd small{display:block;margin-top:5px;font-size:12px;font-weight:400;letter-spacing:0;color:var(--dark-muted)}
+.stats .warn dd{color:#E2C982}
+
+.bar{position:sticky;top:0;z-index:20;background:rgba(245,244,239,.97);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar__in{max-width:var(--container);margin-inline:auto;padding:10px var(--gutter);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.bar input[type=search]{flex:1 1 220px;max-width:340px;font:inherit;font-size:14px;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);padding:7px 11px}
+.bar input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.btn{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-2);font:inherit;font-size:13.5px;padding:7px 13px;border-radius:var(--radius);cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn--on{background:var(--accent-soft);border-color:var(--accent-light);color:var(--accent-ink)}
+.bar__note{font-size:13px;color:var(--ink-3);margin-left:auto}
+
+.main{padding:clamp(28px,3.4vw,44px) 0 72px}
+.setup{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:clamp(20px,3vw,32px);max-width:760px}
+.setup h2{font-size:20px;letter-spacing:-.02em;margin-bottom:10px}
+.setup p{color:var(--ink-2);font-size:15.5px;margin-bottom:16px}
+.setup label{display:block;font-size:13px;color:var(--ink-3);margin:14px 0 5px}
+.setup input{width:100%;font:inherit;font-size:14.5px;font-family:var(--mono);background:var(--paper);border:1px solid var(--line-strong);border-radius:var(--radius);padding:9px 11px}
+.setup input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.setup .row{display:flex;gap:10px;margin-top:18px;align-items:center;flex-wrap:wrap}
+.setup .hint{font-size:13.5px;color:var(--ink-3);line-height:1.5}
+
+.msg{border-radius:var(--radius);padding:12px 14px;font-size:14.5px;margin-bottom:18px;max-width:760px}
+.msg--err{background:#FBEFEC;border:1px solid #E3C6BE;color:var(--neg)}
+.msg--wait{background:var(--warn-soft);border:1px solid #DFCFA6;color:var(--warn)}
+.msg--ok{background:var(--accent-soft);border:1px solid var(--accent-light);color:var(--accent-ink)}
+.msg:empty{display:none}
+
+.sec{background:var(--surface);border:1px solid var(--line);border-radius:8px;margin-bottom:14px;overflow:hidden}
+.sec__head{display:flex;gap:12px;align-items:baseline;padding:14px 18px;cursor:pointer;user-select:none}
+.sec__head:hover{background:var(--paper-2)}
+.sec__n{font-family:var(--mono);font-size:12px;color:var(--ink-3);min-width:26px}
+.sec__t{font-weight:600;font-size:16.5px;letter-spacing:-.01em;flex:1}
+.sec__meta{font-size:13px;color:var(--ink-3);white-space:nowrap}
+.sec__body{border-top:1px solid var(--line);padding:4px 18px 16px}
+.sec[data-open="0"] .sec__body{display:none}
+
+.qa{padding:14px 0;border-bottom:1px solid var(--line)}
+.qa:last-child{border-bottom:0}
+.qa__top{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.qa__ref{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.qa__q{font-weight:600;font-size:15px;flex:1;min-width:220px}
+.tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:3px;padding:2px 6px;white-space:nowrap}
+.tag--bl{color:var(--warn);background:var(--warn-soft);border:1px solid #DFCFA6}
+.qa__a{font-size:15.5px;color:var(--ink);background:var(--paper);border-left:3px solid var(--accent-light);border-radius:0 4px 4px 0;padding:8px 12px}
+.qa__c{font-size:14px;color:var(--ink-2);margin-top:7px;padding-left:12px;border-left:3px solid var(--line-strong)}
+.qa__f{font-size:12.5px;color:var(--ink-3);margin-top:7px;display:flex;gap:14px;flex-wrap:wrap}
+.hide{display:none}
+.empty{color:var(--ink-3);font-size:15px;padding:24px 0}
+@media (max-width:760px){
+  :root{--gutter:18px}
+  .head__grid{grid-template-columns:1fr;align-items:start}
+  .bar__note{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <div class="head__eyebrow">Casino Platform · служебная страница</div>
+    <div class="head__grid">
+      <div>
+        <h1 class="head__title">Ответы по техническому заданию</h1>
+        <p class="head__lead">Сводка ответов заказчика по разделам. Страница читает данные из вашей таблицы и ничего не хранит на сервере.</p>
+      </div>
+      <dl class="stats" id="stats"></dl>
+    </div>
+  </div>
+</header>
+
+<div class="bar" id="bar" hidden>
+  <div class="bar__in">
+    <input type="search" id="q" placeholder="Поиск по вопросам, ответам и комментариям" aria-label="Поиск">
+    <button class="btn" id="fBlock" type="button">Только блокирующие</button>
+    <button class="btn" id="fComment" type="button">Только с комментарием</button>
+    <button class="btn" id="expand" type="button">Развернуть всё</button>
+    <button class="btn" id="csv" type="button">Выгрузить CSV</button>
+    <button class="btn" id="reload" type="button">Обновить</button>
+    <span class="bar__note" id="note"></span>
+  </div>
+</div>
+
+<main class="main">
+  <div class="wrap">
+    <div class="msg" id="msg"></div>
+    <div id="setup" class="setup" hidden>
+      <h2>Подключение</h2>
+      <p>Укажите адрес приёмника и токен просмотра. Они сохранятся в этом браузере — дальше страница будет открываться сразу.</p>
+      <label for="u">Адрес приёмника (Apps Script, оканчивается на <span class="mono">/exec</span>)</label>
+      <input id="u" type="text" spellcheck="false" placeholder="https://script.google.com/macros/s/…/exec">
+      <label for="k">Токен просмотра (свойство скрипта <span class="mono">VIEW_TOKEN</span>)</label>
+      <input id="k" type="text" spellcheck="false" placeholder="b7f2a9c41e8d4a6fb35c90e7d1a8c246">
+      <div class="row">
+        <button class="btn btn--on" id="save" type="button">Подключить</button>
+        <button class="btn" id="forget" type="button">Забыть настройки</button>
+      </div>
+      <p class="hint" style="margin-top:16px">Ссылку можно собрать сразу: <span class="mono">answers.html#u=АДРЕС&amp;k=ТОКЕН</span>. Единственная защита ответов — токен: страница лежит в публичном репозитории. Если ссылка куда-то попала, смените <span class="mono">VIEW_TOKEN</span> в свойствах скрипта и разверните его заново.</p>
+    </div>
+    <div id="list"></div>
+  </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var LSK = { u: 'answers.endpoint.v1', k: 'answers.token.v1' };
+  var el = function (id) { return document.getElementById(id); };
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+    del: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+  };
+
+  // --- конфигурация: из адреса страницы, затем из памяти браузера ---
+  function fromHash() {
+    var h = (location.hash || '').replace(/^#/, '');
+    if (!h) return {};
+    var out = {};
+    h.split('&').forEach(function (part) {
+      var i = part.indexOf('=');
+      if (i < 0) return;
+      out[decodeURIComponent(part.slice(0, i))] = decodeURIComponent(part.slice(i + 1));
+    });
+    return out;
+  }
+
+  var hash = fromHash();
+  var cfg = {
+    u: hash.u || store.get(LSK.u),
+    k: hash.k || store.get(LSK.k)
+  };
+  if (hash.u || hash.k) {
+    if (hash.u) store.set(LSK.u, hash.u);
+    if (hash.k) store.set(LSK.k, hash.k);
+    // адрес и токен не остаются в строке браузера
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+
+  var rows = [];
+  var state = { blocking: false, comment: false, q: '' };
+
+  // приводим данные к единому виду: таблица может вернуть «00» числом, а дату — объектом
+  function pad2(v) {
+    var s = String(v == null ? '' : v).trim();
+    return /^\d$/.test(s) ? '0' + s : s;
+  }
+  function fmtDate(v) {
+    var s = String(v == null ? '' : v).trim();
+    if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/.test(s)) return s;
+    var d = new Date(s);
+    if (isNaN(d.getTime())) return s;
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
+           ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  function normalize(r) {
+    r.topicId = pad2(r.topicId);
+    r.at = fmtDate(r.at);
+    return r;
+  }
+
+  function say(kind, text) {
+    var m = el('msg');
+    m.className = 'msg' + (kind ? ' msg--' + kind : '');
+    m.innerHTML = text || '';
+  }
+
+  // --- загрузка: JSONP, потому что Apps Script отдаёт ответ через редирект ---
+  var jsonpSeq = 0;
+  function load() {
+    if (!cfg.u || !cfg.k) { showSetup(); return; }
+    say('wait', 'Загружаем ответы…');
+    el('bar').hidden = false;
+
+    var cbName = '__answersCb' + (++jsonpSeq);
+    var done = false;
+    var timer = setTimeout(function () {
+      if (done) return;
+      done = true;
+      cleanup();
+      say('err', 'Приёмник не ответил за 20 секунд. Проверьте адрес развёртывания и то, что у скрипта установлен доступ «у всех».');
+    }, 20000);
+
+    function cleanup() {
+      try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+      if (s && s.parentNode) s.parentNode.removeChild(s);
+      clearTimeout(timer);
+    }
+
+    window[cbName] = function (data) {
+      if (done) return;
+      done = true;
+      cleanup();
+      if (!data || !data.ok) {
+        var err = data && data.error === 'forbidden'
+          ? 'Токен не подходит. Проверьте значение <span class="mono">VIEW_TOKEN</span> в свойствах скрипта.'
+          : 'Приёмник вернул ошибку: ' + esc((data && data.error) || 'неизвестно');
+        say('err', err);
+        showSetup();
+        return;
+      }
+      rows = (data.rows || []).map(normalize);
+      say('', '');
+      el('setup').hidden = true;
+      render();
+    };
+
+    var url = cfg.u + (cfg.u.indexOf('?') < 0 ? '?' : '&') +
+      'k=' + encodeURIComponent(cfg.k) + '&callback=' + cbName + '&_=' + Date.now();
+    var s = document.createElement('script');
+    s.src = url;
+    s.onerror = function () {
+      if (done) return;
+      done = true;
+      cleanup();
+      say('err', 'Не удалось обратиться к приёмнику. Проверьте, что адрес заканчивается на <span class="mono">/exec</span> и скрипт развёрнут с доступом «у всех».');
+      showSetup();
+    };
+    document.head.appendChild(s);
+  }
+
+  function showSetup() {
+    el('setup').hidden = false;
+    el('u').value = cfg.u;
+    el('k').value = cfg.k;
+    el('stats').innerHTML = '';
+    el('list').innerHTML = '';
+  }
+
+  // --- сборка: последняя отправка по каждому разделу побеждает ---
+  function latestBySection() {
+    var bySub = {};
+    rows.forEach(function (r) {
+      var key = r.topicId + '|' + r.sub;
+      (bySub[key] = bySub[key] || { topicId: r.topicId, topicTitle: r.topicTitle, author: r.author, at: r.at, sub: r.sub, items: [] }).items.push(r);
+    });
+    var byTopic = {};
+    Object.keys(bySub).forEach(function (key) {
+      var sub = bySub[key];
+      var cur = byTopic[sub.topicId];
+      if (!cur || String(sub.at) > String(cur.at)) byTopic[sub.topicId] = sub;
+    });
+    return Object.keys(byTopic).sort().map(function (id) { return byTopic[id]; });
+  }
+
+  function matches(item) {
+    if (state.blocking && !item.blocking) return false;
+    if (state.comment && !item.comment) return false;
+    if (state.q) {
+      var hay = (item.question + ' ' + item.answer + ' ' + item.comment + ' ' + item.ref).toLowerCase();
+      if (hay.indexOf(state.q) < 0) return false;
+    }
+    return true;
+  }
+
+  function render() {
+    var subs = latestBySection();
+    var all = subs.reduce(function (a, s) { return a.concat(s.items); }, []);
+    var answered = all.filter(function (i) { return i.answer && i.answer !== '—'; });
+    var blocking = answered.filter(function (i) { return i.blocking; });
+    var last = all.reduce(function (m, i) { return String(i.at) > m ? String(i.at) : m; }, '');
+
+    el('stats').innerHTML =
+      '<div><dt>Разделов</dt><dd>' + subs.length + '<small>с ответами</small></dd></div>' +
+      '<div><dt>Ответов</dt><dd>' + answered.length + '<small>из ' + all.length + ' вопросов</small></dd></div>' +
+      '<div class="warn"><dt>Блокирующих</dt><dd>' + blocking.length + '<small>отвечено</small></dd></div>';
+
+    el('note').textContent = last ? 'последняя отправка ' + last : '';
+
+    var html = subs.map(function (s) {
+      var items = s.items.filter(matches);
+      if (!items.length) return '';
+      var body = items.map(function (i) {
+        return '<div class="qa">' +
+          '<div class="qa__top">' +
+            '<span class="qa__ref">' + esc(i.ref) + '</span>' +
+            '<span class="qa__q">' + esc(i.question) + '</span>' +
+            (i.blocking ? '<span class="tag tag--bl">блокирующий</span>' : '') +
+          '</div>' +
+          '<div class="qa__a">' + (esc(i.answer) || '<span style="color:var(--ink-3)">без ответа</span>') + '</div>' +
+          (i.comment ? '<div class="qa__c">' + esc(i.comment) + '</div>' : '') +
+          (i.source ? '<div class="qa__f"><span>пункт ' + esc(i.source) + '</span></div>' : '') +
+        '</div>';
+      }).join('');
+      return '<section class="sec" data-open="1">' +
+        '<div class="sec__head" role="button" tabindex="0">' +
+          '<span class="sec__n">' + esc(s.topicId) + '</span>' +
+          '<span class="sec__t">' + esc(s.topicTitle) + '</span>' +
+          '<span class="sec__meta">' + items.length + ' · ' + esc(s.author || 'без имени') + ' · ' + esc(s.at) + '</span>' +
+        '</div>' +
+        '<div class="sec__body">' + body + '</div>' +
+      '</section>';
+    }).join('');
+
+    el('list').innerHTML = html || '<p class="empty">Под фильтр ничего не попало.</p>';
+
+    Array.prototype.forEach.call(document.querySelectorAll('.sec__head'), function (h) {
+      var toggle = function () {
+        var sec = h.parentNode;
+        sec.dataset.open = sec.dataset.open === '1' ? '0' : '1';
+      };
+      h.addEventListener('click', toggle);
+      h.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
+  }
+
+  function toCSV() {
+    var subs = latestBySection();
+    var head = ['Раздел', 'Название', 'Кто отвечает', 'Отправлено', 'Вопрос', 'Блокирующий', 'Пункт', 'Текст вопроса', 'Ответ', 'Комментарий'];
+    var lines = [head];
+    subs.forEach(function (s) {
+      s.items.filter(matches).forEach(function (i) {
+        lines.push([s.topicId, s.topicTitle, s.author, i.at, i.ref, i.blocking ? 'да' : '', i.source, i.question, i.answer, i.comment]);
+      });
+    });
+    var csv = '﻿' + lines.map(function (r) {
+      return r.map(function (c) { return '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"'; }).join(';');
+    }).join('\r\n');
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'otvety-tz-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  // --- события ---
+  el('save').addEventListener('click', function () {
+    cfg.u = el('u').value.trim();
+    cfg.k = el('k').value.trim();
+    if (!cfg.u || !cfg.k) { say('err', 'Нужны и адрес, и токен.'); return; }
+    store.set(LSK.u, cfg.u); store.set(LSK.k, cfg.k);
+    load();
+  });
+  el('forget').addEventListener('click', function () {
+    store.del(LSK.u); store.del(LSK.k);
+    cfg = { u: '', k: '' };
+    rows = [];
+    el('bar').hidden = true;
+    say('ok', 'Настройки удалены из этого браузера.');
+    showSetup();
+  });
+  el('reload').addEventListener('click', load);
+  el('csv').addEventListener('click', toCSV);
+  el('q').addEventListener('input', function () { state.q = this.value.trim().toLowerCase(); render(); });
+  el('fBlock').addEventListener('click', function () {
+    state.blocking = !state.blocking; this.classList.toggle('btn--on', state.blocking); render();
+  });
+  el('fComment').addEventListener('click', function () {
+    state.comment = !state.comment; this.classList.toggle('btn--on', state.comment); render();
+  });
+  el('expand').addEventListener('click', function () {
+    var secs = document.querySelectorAll('.sec');
+    var anyClosed = Array.prototype.some.call(secs, function (s) { return s.dataset.open === '0'; });
+    Array.prototype.forEach.call(secs, function (s) { s.dataset.open = anyClosed ? '1' : '0'; });
+    this.textContent = anyClosed ? 'Свернуть всё' : 'Развернуть всё';
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
