@@ -176,10 +176,14 @@ a:hover{text-decoration:underline}
     return out;
   }
 
+  // адрес приёмника и токен по умолчанию — чтобы страница открывалась и без ссылки с параметрами
+  var DEFAULT_U = 'https://script.google.com/macros/s/AKfycbyoROCZc4ZsAJfblvuIhWXsCyyqcxcObqHm_gGPCr9rfQjYyJ6dpENQQ4yK1EIzDKsgLQ/exec';
+  var DEFAULT_K = '0ace427f067c305f925d081eeff296cb';
+
   var hash = fromHash();
   var cfg = {
-    u: hash.u || store.get(LSK.u),
-    k: hash.k || store.get(LSK.k)
+    u: hash.u || store.get(LSK.u) || DEFAULT_U,
+    k: hash.k || store.get(LSK.k) || DEFAULT_K
   };
   if (hash.u || hash.k) {
     if (hash.u) store.set(LSK.u, hash.u);
@@ -230,8 +234,8 @@ a:hover{text-decoration:underline}
       if (done) return;
       done = true;
       cleanup();
-      say('err', 'Приёмник не ответил за 20 секунд. Проверьте адрес развёртывания и то, что у скрипта установлен доступ «у всех».');
-    }, 20000);
+      say('err', 'Приёмник не ответил за 60 секунд. Проверьте адрес развёртывания и то, что у скрипта установлен доступ «у всех».');
+    }, 60000);
 
     function cleanup() {
       try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
