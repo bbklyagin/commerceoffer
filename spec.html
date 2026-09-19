@@ -247,6 +247,27 @@ a:hover{text-decoration:underline;text-underline-offset:.18em}
 .q__state{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent-light);border-radius:3px;padding:2px 6px}
 .q__state--skip{color:var(--ink-3);background:var(--surface);border-color:var(--line-strong)}
 .qcard--done{border-left-color:var(--accent)}
+/* решения заказчика */
+.cd{margin-top:22px}
+.cd__list{display:grid;gap:10px;margin-top:14px}
+.cdi{background:var(--paper);border:1px solid var(--line);border-left:2px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;padding:13px 16px}
+.cdi--default{border-left-color:#C9B173}
+.cdi--open{border-left-color:var(--warn);background:var(--warn-soft)}
+.cdi__top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.cdi__st{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;border-radius:3px;padding:2px 6px;color:#fff;background:var(--accent)}
+.cdi--default .cdi__st{background:#B08F3C}
+.cdi--open .cdi__st{background:var(--warn)}
+.cdi h4{margin:6px 0 0;font-size:15.5px;font-weight:600;line-height:1.35;color:var(--ink);max-width:70ch}
+.cdi__q{margin:4px 0 0;font-size:13.5px;color:var(--ink-3);max-width:80ch}
+.cdi__d{margin:8px 0 0;font-size:15px;line-height:1.5;color:var(--ink);max-width:80ch}
+.cdi__n{margin:6px 0 0;font-size:13.5px;line-height:1.5;color:var(--ink-2);max-width:80ch}
+.cdi__raw{margin:8px 0 0;font-size:13px;color:var(--ink-3);max-width:80ch}
+.cdi__raw summary{cursor:pointer;color:var(--ink-2)}
+.cdi__raw p{margin:6px 0 0;white-space:pre-wrap}
+.q__def{margin:10px 0 0;padding:10px 12px;border:1px dashed #C9B173;border-radius:6px;font-size:14px;line-height:1.5;color:var(--ink-2);background:var(--paper)}
+.q__def b{color:var(--ink)}
+.qdef{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:#7A6224;background:#F1E8CF;border-radius:3px;padding:2px 6px}
+
 
 /* ---------- форма ответа ---------- */
 .ans{margin-top:14px;padding-top:12px;border-top:1px solid #E3D6B4}
@@ -519,11 +540,17 @@ function renderQuestion(topicId, q){
   h += '<article class="qcard' + (q.blocking ? ' qcard--block' : '') + '" id="' + qAnchor(topicId, q.ref) + '" data-topic="' + esc(topicId) + '" data-ref="' + esc(q.ref) + '">';
   h += '<div class="q__top"><span class="q__ref">' + esc(q.ref) + '</span>' +
        (q.blocking ? '<span class="qblock">блокирующий</span>' : '') +
+       (q.deferred ? '<span class="qdef">' + (q.deferred.status === 'open' ? 'ответ не получен' : 'ответ не получен — настройка') + '</span>' : '') +
        '<span class="q__state" data-state hidden>отвечено</span>' +
        (q.source ? '<span class="q__src">раздел ' + esc(q.source) + '</span>' : '') +
        '</div>';
   h += '<h4>' + esc(q.question) + '</h4>';
   if (q.context) h += '<p class="q__ctx">' + esc(q.context) + '</p>';
+  if (q.deferred) {
+    h += '<div class="q__def"><b>' + (q.deferred.status === 'open' ? 'Решение не принято.' : 'Реализуется как настраиваемый параметр.') + '</b> ' + esc(q.deferred.text) +
+         (q.deferred.note ? ' <span>' + esc(q.deferred.note) + '</span>' : '') +
+         (q.deferred.comment ? '<br><i>Комментарий заказчика: ' + esc(q.deferred.comment) + '</i>' : '') + '</div>';
+  }
 
   h += '<div class="ans">';
 
@@ -913,6 +940,35 @@ function renderTopicBody(data){
     frag.appendChild(ft);
   }
 
+  if (data.customerDecisions && (data.customerDecisions.items || []).length) {
+    var cd = data.customerDecisions;
+    var stName = { confirmed: 'принято', 'default': 'по умолчанию', open: 'открыт' };
+    var nConf = cd.items.filter(function(i){ return i.status === 'confirmed'; }).length;
+    var fc = el('details', 'fold cd');
+    fc.open = true;
+    fc.innerHTML =
+      '<summary><h3>' + esc(cd.title) + '</h3><span class="badge badge--done">' + nConf + ' из ' + cd.items.length + '</span><span class="pm" aria-hidden="true"></span></summary>' +
+      '<div class="fold__body">' +
+        (cd.intro ? '<p class="copy" style="font-size:15.5px">' + esc(cd.intro) + '</p>' : '') +
+        '<div class="cd__list">' +
+        cd.items.map(function(i){
+          return '<div class="cdi cdi--' + esc(i.status) + '">' +
+            '<div class="cdi__top"><span>' + esc(i.ref) + '</span><span class="cdi__st">' + stName[i.status] + '</span>' +
+              (i.blocking ? '<span class="qblock">блокирующий</span>' : '') +
+              (i.source ? '<span>раздел ' + esc(i.source) + '</span>' : '') + '</div>' +
+            '<h4>' + esc(i.title) + '</h4>' +
+            (i.question ? '<p class="cdi__q">' + esc(i.question) + '</p>' : '') +
+            '<p class="cdi__d">' + esc(i.decision) + '</p>' +
+            (i.note ? '<p class="cdi__n">' + esc(i.note) + '</p>' : '') +
+            ((i.answer || i.comment) ? '<details class="cdi__raw"><summary>Ответ заказчика</summary>' +
+              (i.answer ? '<p>' + esc(i.answer) + '</p>' : '') +
+              (i.comment ? '<p>Комментарий: ' + esc(i.comment) + '</p>' : '') + '</details>' : '') +
+          '</div>';
+        }).join('') +
+        '</div></div>';
+    frag.appendChild(fc);
+  }
+
   var qs = data.questions || [];
   var qsec = el('section', 'qs');
   if (qs.length) {
@@ -922,14 +978,14 @@ function renderTopicBody(data){
         '<span class="badge badge--open">' + qs.length + '</span>' +
         (blocking ? '<span class="qblock">' + blocking + ' блокирующих</span>' : '') +
       '</div>' +
-      '<p class="qs__note">Эти решения нужны до фиксации финального ТЗ. Блокирующими отмечены вопросы, без ответа на которые нельзя начинать реализацию соответствующей части модуля. Выберите вариант или впишите свой — ответы по разделу отправляются одной кнопкой внизу.</p>' +
+      '<p class="qs__note">По этим вопросам ответ пока не получен. Они не блокируют реализацию: каждый реализуется как настраиваемый параметр со стартовым значением, указанным в карточке, а решение заказчика меняет настройку без изменения объёма работ. Ответить можно здесь — ответы по разделу отправляются одной кнопкой внизу.</p>' +
       '<div class="qs__list">' +
         qs.map(function(q){ return renderQuestion(data.id, q); }).join('') +
       '</div>';
     qsec.appendChild(renderSendPanel(data));
   } else {
     qsec.innerHTML = '<div class="qs__h"><h3>Нерешённые вопросы</h3><span class="badge badge--done">нет</span></div>' +
-      '<p class="qs__note">По этому разделу все решения зафиксированы.</p>';
+      '<p class="qs__note">По этому разделу все решения приняты.</p>';
   }
   frag.appendChild(qsec);
 
@@ -1091,7 +1147,7 @@ function init(mf){
   var stats = document.getElementById('stats');
   stats.innerHTML =
     '<div><dt>Разделов</dt><dd>' + mf.topics.length + '<small>полный документ</small></dd></div>' +
-    '<div class="open"><dt>Открытых вопросов</dt><dd><span id="statQ">—</span><small id="statQnote">требуют решения</small></dd></div>';
+    '<div class="open"><dt>Открытых вопросов</dt><dd><span id="statQ">—</span><small id="statQnote">без ответа, реализуются как настройки</small></dd></div>';
 
   Promise.all(ready.map(function(t){
     return fetch(BASE + t.file, { cache: 'no-cache' })
@@ -1115,7 +1171,7 @@ function init(mf){
     });
     if (ok) {
       document.getElementById('statQ').textContent = total;
-      document.getElementById('statQnote').textContent = blocking ? blocking + ' ' + plural(blocking, 'блокирующий', 'блокирующих', 'блокирующих') : 'требуют решения';
+      document.getElementById('statQnote').textContent = 'без ответа, реализуются как настройки';
       document.getElementById('barStat').innerHTML += ' · <span class="qn"><b>' + total + '</b> ' +
         plural(total, 'открытый вопрос', 'открытых вопроса', 'открытых вопросов') + '</span>';
       syncSide();
