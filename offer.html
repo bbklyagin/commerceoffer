@@ -485,7 +485,7 @@ footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font
 .v3-scope-total{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--v3-s5);align-items:end;border-top:2px solid var(--v3-ink);margin-top:var(--v3-s5);padding-top:var(--v3-s4)}
 
 /* ---- G. timeline ---- */
-.v3-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--v3-s4);position:relative;list-style:none;margin:0;padding:0}
+.v3-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--v3-s3);position:relative;list-style:none;margin:0;padding:0}
 .v3-timeline::before{content:"";position:absolute;left:0;right:0;top:5px;height:1px;background:var(--v3-line-strong)}
 .v3-timeline__step{position:relative;padding-top:var(--v3-s4)}
 .v3-timeline__step::before{content:"";position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:var(--v3-accent)}
@@ -824,6 +824,22 @@ footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font
 .v3-est__mini-list li{position:relative;margin:0 0 6px;padding-left:16px;font-size:14px;line-height:1.42;color:var(--v3-ink-2)}
 .v3-est__mini-list li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--v3-accent)}
 .v3-est__boundary{font-size:14px;line-height:1.48;color:var(--v3-ink-3);margin:0;padding-top:var(--v3-s2);border-top:1px solid var(--v3-line)}
+.v3-est__prelim{margin-top:var(--v3-s6);padding-top:var(--v3-s5);border-top:2px solid var(--v3-ink)}
+.v3-est__prelim-head{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--v3-s3) var(--v3-s6);align-items:start}
+.v3-est__prelim-head .v3-copy{max-width:none}
+.v3-est__prelim-scroll{margin-top:var(--v3-s4);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.v3-est__table--prelim{min-width:900px}
+.v3-est__table--prelim th,.v3-est__table--prelim td{vertical-align:top;padding-right:16px;text-align:left;white-space:normal}
+.v3-est__table--prelim th:last-child,.v3-est__table--prelim td:last-child{text-align:left;white-space:normal;padding-right:0}
+.v3-est__table--prelim th:nth-child(3),.v3-est__table--prelim td:nth-child(3),.v3-est__table--prelim th:nth-child(4),.v3-est__table--prelim td:nth-child(4){white-space:nowrap;font-variant-numeric:tabular-nums}
+.v3-est__table--prelim td:first-child{font-weight:600;color:var(--v3-ink)}
+.v3-est__table--prelim tr:last-child td{font-weight:500;color:var(--v3-ink-2)}
+.v3-est__table--prelim tr:last-child td:first-child,.v3-est__table--prelim tr:last-child td:nth-child(4){font-weight:600;color:var(--v3-ink)}
+.v3-est__prelim-rules{margin:var(--v3-s4) 0 0;padding-left:1.25em;font-size:14.5px;line-height:1.5;color:var(--v3-ink-2);columns:2;column-gap:var(--v3-s6)}
+.v3-est__prelim-rules li{margin:0 0 8px;break-inside:avoid;page-break-inside:avoid}
+.v3-est__prelim-rules b{color:var(--v3-ink);font-weight:600}
+@media (max-width:960px){.v3-est__prelim-head{grid-template-columns:1fr}.v3-est__prelim-rules{columns:1}}
+@media print{.v3-est__prelim{break-before:page;page-break-before:always;margin-top:0;padding-top:4px}.v3-est__prelim-scroll{overflow:visible}.v3-est__table--prelim{min-width:0;font-size:9pt}.v3-est__prelim-rules{columns:1;font-size:9.5pt}}
 .v3-est__game-boundary{margin-top:var(--v3-s6);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,9fr);gap:var(--v3-s5);align-items:start;padding-top:var(--v3-s4);border-top:2px solid var(--v3-ink)}
 .v3-est__game-boundary .v3-list{max-width:none}
 
@@ -835,9 +851,11 @@ footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font
 .v3-road__term .v3-big-number__label{margin-left:auto;max-width:22ch}
 .v3-road .v3-timeline{margin-top:var(--v3-s7)}
 .v3-road .v3-timeline__when{font-weight:600;color:var(--v3-accent)}
-.v3-road .v3-timeline__title{font-size:clamp(22px,2.3vw,26px)}
+.v3-road .v3-timeline__title{font-size:clamp(18px,1.6vw,21px);line-height:1.22}
 .v3-road .v3-timeline__what{color:var(--v3-ink-2)}
-.v3-road .v3-timeline__result{margin-top:var(--v3-s3);font-size:15.5px}
+.v3-road .v3-timeline__result{margin-top:var(--v3-s3);font-size:14.5px}
+.v3-road .v3-timeline__what{font-size:14px}
+.v3-road__map{margin-top:var(--v3-s5);padding-top:var(--v3-s3);border-top:1px solid var(--v3-line);max-width:none}
 
 
 
@@ -1193,6 +1211,18 @@ footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font
 .v3-est__mini-list li{position:relative;padding-left:16px;margin-bottom:7px}
 .v3-est__mini-list li::before{content:"";position:absolute;left:0;top:.66em;width:7px;height:1px;background:var(--v3-accent)}
 .v3-est__boundary{margin-top:var(--v3-s3);padding-top:var(--v3-s3);border-top:1px solid var(--v3-line);font-size:13px;color:var(--v3-ink-3);line-height:1.5}
+/* prelim table: overrides later est-table rules */
+.v3-est__table.v3-est__table--prelim{table-layout:fixed;min-width:960px;width:100%}
+.v3-est__table.v3-est__table--prelim th,.v3-est__table.v3-est__table--prelim td{padding:10px 16px 10px 0;text-align:left;white-space:normal;vertical-align:top;font-variant-numeric:normal;font-size:14px;line-height:1.45}
+.v3-est__table.v3-est__table--prelim th{font-size:11.5px;line-height:1.3}
+.v3-est__table.v3-est__table--prelim th:last-child,.v3-est__table.v3-est__table--prelim td:last-child{text-align:left;white-space:normal;padding-right:0}
+.v3-est__table.v3-est__table--prelim th:nth-child(3),.v3-est__table.v3-est__table--prelim td:nth-child(3),.v3-est__table.v3-est__table--prelim th:nth-child(4),.v3-est__table.v3-est__table--prelim td:nth-child(4){white-space:nowrap;font-variant-numeric:tabular-nums}
+.v3-est__table.v3-est__table--prelim th:nth-child(1){width:13%}
+.v3-est__table.v3-est__table--prelim th:nth-child(2){width:31%}
+.v3-est__table.v3-est__table--prelim th:nth-child(3){width:7%}
+.v3-est__table.v3-est__table--prelim th:nth-child(4){width:8%}
+.v3-est__table.v3-est__table--prelim th:nth-child(5){width:23%}
+.v3-est__table.v3-est__table--prelim th:nth-child(6){width:18%}
 
 
 /* ---------- 08 · ROLE & CONTROL MAP ---------- */
@@ -1253,6 +1283,28 @@ footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font
 .v3-format__money{font-size:19px;font-weight:600;color:var(--v3-ink);letter-spacing:-.02em}
 .v3-format__money span{color:var(--v3-line-strong);margin:0 6px;font-weight:400}
 .v3-format__milestone{padding:var(--v3-s5) 0}
+.v3-format__weeks{margin:6px 0 0;font-size:13.5px;color:var(--v3-ink-3);font-variant-numeric:tabular-nums}
+
+/* 10 · календарь этапов и «Дурак» */
+.v3-format__calendar,.v3-format__durak{margin-top:var(--v3-s6);display:grid;grid-template-columns:minmax(240px,3fr) minmax(0,9fr);gap:var(--v3-s5);align-items:start;padding-top:var(--v3-s4);border-top:1px solid var(--v3-line)}
+.v3-format__calendar .v3-small,.v3-format__durak .v3-small{margin-top:var(--v3-s2)}
+.v3-format__gantt{list-style:none;margin:0;padding:0}
+.v3-format__gantt li{display:grid;grid-template-columns:168px repeat(26,minmax(0,1fr));gap:0 2px;align-items:center;margin:0 0 10px}
+.v3-format__gantt li b{font-size:14px;font-weight:600;color:var(--v3-ink);padding-right:12px;white-space:nowrap;line-height:1.2}
+.v3-format__gantt li b small{display:block;font-size:12.5px;font-weight:400;color:var(--v3-ink-3);font-variant-numeric:tabular-nums}
+.v3-format__gantt li i{display:block;height:8px;border-radius:999px;background:var(--v3-ink-3)}
+.v3-format__gantt li.is-durak i{background:var(--v3-accent)}
+.v3-format__gantt li.is-axis{margin:0 0 6px;padding-bottom:6px;border-bottom:1px solid var(--v3-line)}
+.v3-format__gantt li.is-axis span{font-size:11px;color:var(--v3-ink-3);text-align:center;font-variant-numeric:tabular-nums}
+.v3-format__gantt li.is-gap{margin:6px 0 10px}
+.v3-format__durak-list{list-style:none;margin:0;padding:0}
+.v3-format__durak-list li{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1.3fr) 90px;gap:var(--v3-s3);align-items:baseline;padding:10px 0;border-bottom:1px solid var(--v3-line)}
+.v3-format__durak-list li:first-child{padding-top:0}
+.v3-format__durak-list b{font-size:15.5px;font-weight:600;color:var(--v3-ink)}
+.v3-format__durak-list span{font-size:14px;color:var(--v3-ink-3)}
+.v3-format__durak-list em{font-style:normal;font-size:16px;font-weight:600;color:var(--v3-ink);text-align:right;font-variant-numeric:tabular-nums}
+.v3-format__durak-total{margin-top:var(--v3-s2);font-size:14.5px;color:var(--v3-ink-2)}
+.v3-format__durak-total b{color:var(--v3-ink)}
 
 
 /* 09 · included strip — 4 колонки в две строки вместо 7 узких */
@@ -1261,7 +1313,7 @@ footer{margin-top:72px;padding:20px 0 64px;border-top:1px solid var(--rule);font
 
 /* 10 · пропорциональная полоса платежей */
 .v3-format__paystrip{
-  display:grid;grid-template-columns:20fr 20fr 25fr 20fr 15fr;gap:4px;
+  display:grid;grid-template-columns:18fr 24fr 22fr 26fr 10fr;gap:4px;
   border:0;margin:var(--v3-s6) 0 0;padding:0;
 }
 .v3-format__paystrip span{
@@ -1402,7 +1454,12 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
   .v3-bounds__row{grid-template-columns:44px minmax(0,1fr);gap:var(--v3-s2) var(--v3-s3)}
   .v3-bounds__value{grid-column:2;text-align:left;white-space:normal}
   .v3-bounds__value b{font-size:32px}
-  .v3-format__head,.v3-format__acceptance,.v3-format__after,.v3-format__bugchange{grid-template-columns:1fr;gap:var(--v3-s4)}
+  .v3-format__head,.v3-format__acceptance,.v3-format__after,.v3-format__bugchange,.v3-format__calendar,.v3-format__durak{grid-template-columns:1fr;gap:var(--v3-s4)}
+  .v3-format__gantt li{grid-template-columns:96px repeat(26,minmax(0,1fr))}
+  .v3-format__gantt li b{font-size:13px}
+  .v3-format__gantt li.is-axis span:nth-of-type(even){visibility:hidden}
+  .v3-format__durak-list li{grid-template-columns:1fr;gap:4px}
+  .v3-format__durak-list em{text-align:left}
   .v3-format__summary{justify-self:start;text-align:left}
   .v3-format__milestone{grid-template-columns:44px minmax(0,1fr);gap:var(--v3-s2) var(--v3-s3)}
   .v3-format__milestone > div:last-child{grid-column:2}
@@ -1575,7 +1632,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
   .v3-lead{font-size:13pt}
   .v3-copy{font-size:11.5pt}
   .v3-big-number__value{font-size:56pt}
-  .v3-timeline{grid-template-columns:repeat(4,1fr)}
+  .v3-timeline{grid-template-columns:repeat(5,1fr)}
   .v3-compare{grid-template-columns:1fr 1fr;gap:var(--v3-s5)}
   .v3-section a{color:inherit}
   .v3-split--middle,.v3-split--end{break-inside:avoid;page-break-inside:avoid}
@@ -1890,7 +1947,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
   <div class="in">
     <div class="doc">Crypto Casino Platform</div>
     <div class="cur" id="topcur"></div>
-    <div class="sum">18–21 нед.</div>
+    <div class="sum">$61,000 · 6 месяцев</div>
   </div>
 </div>
 
@@ -1900,19 +1957,19 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
     <div class="v3-hero__main">
       <div>
         <h1 class="v3-display"><span class="v3-hero__nowrap">Crypto Casino</span><br>Platform</h1>
-        <p class="v3-lead">Проектирование и разработка собственной криптовалютной игровой платформы: Web, Telegram, Android, финансовое ядро, Back Office и криптовалютная инфраструктура.</p>
+        <p class="v3-lead">Проектирование и разработка собственной игровой платформы: Web, Telegram, финансовое ядро, криптовалютные и рублёвые платежи, агрегатор игр, Back Office и криптовалютная инфраструктура.</p>
 
         <div class="v3-hero__kpis">
-          <p class="v3-big-number v3-big-number--md"><span class="v3-big-number__value">18–21 нед.</span><span class="v3-big-number__label">срок реализации</span></p>
-          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">Web + Telegram + Android</span><span class="v3-big-number__label">точки входа для игроков</span></p>
-          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">до 3 сетей</span><span class="v3-big-number__label">blockchain-сети на старте</span></p>
+          <p class="v3-big-number v3-big-number--md"><span class="v3-big-number__value">6 месяцев</span><span class="v3-big-number__label">срок реализации</span></p>
+          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">Web + Telegram</span><span class="v3-big-number__label">точки входа для игроков</span></p>
+          <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">3 сети</span><span class="v3-big-number__label">TRON · TON · Bitcoin</span></p>
         </div>
 
-        <p class="v3-hero__note">Игровые модули подключаются отдельно.</p>
+        <p class="v3-hero__note">Редакция 2 · 22 сентября 2026 · заменяет предложение от 11 сентября 2026. Стоимость платформы $61,000. Собственные игры («Дурак» — отдельное предложение) в этот объём не входят.</p>
       </div>
 
       <figure class="v3-hero__visual">
-        <svg viewBox="-40 -10 620 540" role="img" aria-label="Единая платформа: финансовое ядро в центре, вокруг него клиентские приложения, Back Office, криптоинфраструктура и партнёрская система; игровые модули подключаются отдельно">
+        <svg viewBox="-40 -10 620 540" role="img" aria-label="Единая платформа: финансовое ядро в центре, вокруг него клиентские приложения, Back Office, криптоинфраструктура и партнёрская система; собственные игры подключаются отдельно">
           <defs>
             <radialGradient id="heroCore" cx="38%" cy="32%" r="78%">
               <stop offset="0%" stop-color="#1D6A7D"/>
@@ -1946,7 +2003,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
 
           <line x1="260" y1="260" x2="260" y2="452" class="v3-hs-link" stroke-dasharray="3 5"/>
           <circle cx="260" cy="452" r="4.5" class="v3-hs-dot--ghost"/>
-          <text x="260" y="474" class="v3-hs-label v3-hs-label--muted" text-anchor="middle">Игровые модули · отдельно</text>
+          <text x="260" y="474" class="v3-hs-label v3-hs-label--muted" text-anchor="middle">Собственные игры · отдельно</text>
         </svg>
       </figure>
     </div>
@@ -1980,7 +2037,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
 
     <div class="v3-eco__layout">
       <div class="v3-eco__text">
-        <p class="v3-lead">Игрок работает с платформой через Web, Telegram или Android. Внутри все точки входа связаны с финансовым ядром, Back Office, криптовалютной инфраструктурой и партнёрской системой.</p>
+        <p class="v3-lead">Игрок работает с платформой через Web или Telegram. Внутри обе точки входа связаны с финансовым ядром, кассой, криптовалютной инфраструктурой, агрегатором игр, Back Office и партнёрской системой.</p>
       </div>
 
       <div class="v3-eco__map" role="img" aria-label="Карта платформы: клиентские приложения для игроков, ядро платформы, финансовое ядро, крипто, Back Office, партнёрская система и подключаемые игровые модули">
@@ -1994,7 +2051,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         </svg>
 
         <div class="v3-eco__node v3-eco__node--strong v3-eco__node--apps">
-          <p class="v3-eco__title">Web + Telegram + Android</p>
+          <p class="v3-eco__title">Web + Telegram</p>
           <p class="v3-eco__sub">точки входа для игрока</p>
         </div>
         <div class="v3-eco__arrow" aria-hidden="true"></div>
@@ -2007,11 +2064,11 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
 
         <div class="v3-eco__node v3-eco__node--strong v3-eco__node--fin">
           <p class="v3-eco__title">Финансовое ядро</p>
-          <p class="v3-eco__sub">балансы · ставки · выплаты · история операций</p>
+          <p class="v3-eco__sub">балансы · касса ₽ и крипта · выплаты · история операций</p>
         </div>
         <div class="v3-eco__node v3-eco__node--soft v3-eco__node--crypto">
           <p class="v3-eco__title">Crypto</p>
-          <p class="v3-eco__sub">депозиты · выводы · blockchain-сети</p>
+          <p class="v3-eco__sub">депозиты · выводы · TRON, TON, Bitcoin</p>
         </div>
         <div class="v3-eco__node v3-eco__node--strong v3-eco__node--bo">
           <p class="v3-eco__title">Back Office</p>
@@ -2025,12 +2082,12 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
 
         <div class="v3-eco__node v3-eco__node--optional v3-eco__node--games">
           <p class="v3-eco__title">Games</p>
-          <p class="v3-eco__sub">подключаемые игровые модули</p>
-          <span class="v3-eco__tag">отдельный объём</span>
+          <p class="v3-eco__sub">слоты и живое казино через агрегатор · «Дурак» — отдельное предложение</p>
+          <span class="v3-eco__tag">агрегатор входит</span>
         </div>
       </div>
 
-      <p class="v3-callout v3-eco__callout">Платформа объединяет клиентские приложения, деньги, криптовалютные операции, партнёров и подключаемые игры в одной системе.</p>
+      <p class="v3-callout v3-eco__callout">Платформа объединяет клиентские приложения, деньги, криптовалютные и рублёвые операции, партнёров и подключаемые игры в одной системе.</p>
     </div>
   </div>
 </section>
@@ -2043,7 +2100,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
     <h2 class="v3-heading">Что получит заказчик</h2>
     <p class="v3-lead">После разработки у вас будет готовая платформа: интерфейсы игроков, Back Office, финансовое ядро и инфраструктура запуска.</p>
 
-    <figure class="v3-res__stage" role="img" aria-label="Концептуальные превью продукта: Public Web application, Telegram Mini App, Android-приложение и Back Office на одной платформе">
+    <figure class="v3-res__stage" role="img" aria-label="Концептуальные превью продукта: Telegram Mini App, мобильная версия Public Web application и Back Office на одной платформе">
       <div class="v3-device v3-res__phone v3-res__phone--tg" aria-hidden="true">
         <div class="v3-device__notch"></div>
         <div class="v3-device__screen">
@@ -2064,7 +2121,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
       <div class="v3-device v3-res__phone v3-res__phone--and" aria-hidden="true">
         <div class="v3-device__notch"></div>
         <div class="v3-device__screen">
-          <div class="v3-ui-head"><span class="v3-ui-kicker">Android</span><span class="v3-ui-bar" style="width:34px;height:10px"></span></div>
+          <div class="v3-ui-head"><span class="v3-ui-kicker">Web · mobile</span><span class="v3-ui-bar" style="width:34px;height:10px"></span></div>
           <div class="v3-ui-panel">
             <div class="v3-ui-rank"><i></i><div><div class="v3-ui-label">Баланс</div><div class="v3-ui-value" style="font-size:17px">$3,150</div></div></div>
           </div>
@@ -2123,9 +2180,9 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <p class="v3-lead" style="margin-top:var(--v3-s3)">Всё основное для запуска: игроки, деньги, команда, партнёры и эксплуатация.</p>
       </div>
       <ol class="v3-outcomes">
-        <li class="v3-outcome"><span class="v3-outcome__index">01</span><div><h4 class="v3-title">Клиентские приложения</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Public Web application, Telegram Mini App и Android. Игрок регистрируется, пополняет баланс, выводит средства и открывает подключённые игры.</p></div></li>
+        <li class="v3-outcome"><span class="v3-outcome__index">01</span><div><h4 class="v3-title">Клиентские приложения</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Public Web application и Telegram Mini App. Игрок регистрируется, проходит верификацию, пополняет баланс криптовалютой или рублями, выводит средства и открывает игры агрегатора.</p></div></li>
         <li class="v3-outcome"><span class="v3-outcome__index">02</span><div><h4 class="v3-title">Система управления</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Команда управляет игроками, выплатами, бонусами, партнёрами и доступами из одного Back Office.</p></div></li>
-        <li class="v3-outcome"><span class="v3-outcome__index">03</span><div><h4 class="v3-title">Финансовая система</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Платформа ведёт балансы, депозиты, ставки, выигрыши, выводы и историю средств.</p></div></li>
+        <li class="v3-outcome"><span class="v3-outcome__index">03</span><div><h4 class="v3-title">Финансовая система</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Платформа ведёт балансы, депозиты в криптовалюте и рублях, обмен ₽↔USDT, ставки, выигрыши, выводы и историю средств.</p></div></li>
         <li class="v3-outcome"><span class="v3-outcome__index">04</span><div><h4 class="v3-title">Партнёрская система</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Партнёры приводят игроков, видят статистику и получают вознаграждение по согласованной модели.</p></div></li>
         <li class="v3-outcome"><span class="v3-outcome__index">05</span><div><h4 class="v3-title">Готовая инфраструктура</h4><p class="v3-copy v3-mt-2" style="font-size:16px">Система развёрнута, задокументирована и готова к production в согласованной конфигурации.</p></div></li>
       </ol>
@@ -2161,13 +2218,13 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <div class="v3-work__actor">
           <span class="v3-work__index">01</span>
           <h3 class="v3-subheading">Игрок</h3>
-          <p class="v3-work__actor-sub">Web / Telegram Mini App / Android</p>
+          <p class="v3-work__actor-sub">Web / Telegram Mini App</p>
         </div>
         <ol class="v3-work__steps" style="--n:4">
           <li class="v3-work__step"><b>Регистрация</b><small>аккаунт в приложении</small></li>
-          <li class="v3-work__step"><b>Пополнение</b><small>криптовалютой в поддерживаемой сети</small></li>
-          <li class="v3-work__step v3-work__step--focus"><b>Игра</b><small>подключаемый модуль</small></li>
-          <li class="v3-work__step v3-work__step--end"><b>Вывод</b><small>проходит предусмотренные проверки</small></li>
+          <li class="v3-work__step"><b>Пополнение</b><small>криптовалютой или рублями через кассу</small></li>
+          <li class="v3-work__step v3-work__step--focus"><b>Игра</b><small>игры агрегатора или «Дурак»</small></li>
+          <li class="v3-work__step v3-work__step--end"><b>Вывод</b><small>после KYC и согласования финансовым отделом</small></li>
         </ol>
         <p class="v3-work__outcome"><b>Для игрока</b>Один аккаунт и единый баланс во всех клиентских приложениях.</p>
       </article>
@@ -2182,7 +2239,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
           <li class="v3-work__step"><b>Реферальная ссылка</b><small>свои ссылки и материалы</small></li>
           <li class="v3-work__step"><b>Новый игрок</b><small>закрепляется за партнёром</small></li>
           <li class="v3-work__step"><b>Доход платформы</b><small>учитывается по игрокам партнёра</small></li>
-          <li class="v3-work__step v3-work__step--focus"><b>Вознаграждение</b><small>RevShare, выплата по запросу</small></li>
+          <li class="v3-work__step v3-work__step--focus"><b>Вознаграждение</b><small>RevShare или CPA, выплата в USDT по запросу</small></li>
         </ol>
         <p class="v3-work__outcome"><b>Для бизнеса</b>Понятный учёт привлечённых игроков и партнёрских выплат.</p>
       </article>
@@ -2281,7 +2338,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
 <!-- 06 SCOPE & ESTIMATE -->
 <aside class="v3-statement" aria-label="Ключевой акцент проекта">
   <div class="v3-statement__inner">
-    <p class="v3-statement__lead">Около половины инженерного объёма — это <b>финансовое ядро, криптоинфраструктура и надёжность платформы</b>.</p>
+    <p class="v3-statement__lead">Около половины инженерного объёма — это <b>финансовое ядро, платежи, криптоинфраструктура и надёжность платформы</b>.</p>
     <p class="v3-statement__note">Интерфейсы важны, но основная сложность проекта находится там, где проходят деньги и где система должна выдерживать сбои.</p>
   </div>
 </aside>
@@ -2292,54 +2349,85 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
       <div>
         <p class="v3-eyebrow">06 · Состав проекта и стоимость</p>
         <h2 class="v3-heading">Из чего складывается стоимость проекта</h2>
-        <p class="v3-lead">Фиксированная стоимость согласованного объёма распределяется между девятью крупными блоками разработки.</p>
+        <p class="v3-lead">Стоимость согласованного объёма распределяется между одиннадцатью блоками разработки. Две позиции — рублёвый платёжный канал и агрегатор игр — оценены предварительно и уточняются после получения документации поставщиков.</p>
       </div>
-      <p class="v3-big-number v3-est__price"><span class="v3-big-number__value v3-num">$57,000</span><span class="v3-big-number__label">фиксированная стоимость</span></p>
+      <p class="v3-big-number v3-est__price"><span class="v3-big-number__value v3-num">$61,000</span><span class="v3-big-number__label">стоимость платформы · редакция 2</span></p>
     </div>
 
-    <aside class="v3-est__revision" aria-label="О предварительной оценке проекта">
-      <p>Ранее на этапе первичного обсуждения мы ориентировочно оценивали проект в диапазоне <b>$40,000–50,000</b>. Эта оценка была предварительной и формировалась до детальной проработки требований.</p>
-      <p>После полного анализа ТЗ, архитектуры платформы, финансового и криптовалютного контуров, ролей и доступов, инфраструктуры, безопасности и объёма клиентских приложений была сформирована финальная оценка проекта, представленная в настоящем коммерческом предложении.</p>
+    <aside class="v3-est__revision" aria-label="Что изменилось относительно КП от 11 сентября">
+      <p><b>Что изменилось относительно КП от 11 сентября.</b> Стоимость платформы: <span class="v3-num">$57,000 − $2,000 + $4,000 + $2,000 = <b>$61,000</b></span>. Снято мобильное приложение Android по решению заказчика (−$2,000). Добавлен рублёвый платёжный канал: один P2P-провайдер, касса и обменник ₽↔USDT (+$4,000, предварительная оценка). Добавлен агрегатор игр с витриной (+$2,000, предварительная оценка).</p>
+      <p>Без изменения цены в объём вошли: ответственная игра и 2FA игрока, KYC-провайдер Sumsub и AML-проверка криптоадресов, отчётность и дашборд, расширенные бонусы и партнёрская программа, транзакционная почта, нагрузочные испытания, консультации по облаку и стране. Сети названы: TRON, TON, Bitcoin. Срок — 6 месяцев. «Дурак» — отдельное предложение на $28,000; вторая собственная игра в объём не входит.</p>
     </aside>
 
-    <div class="v3-est__strip" role="img" aria-label="Распределение трудоёмкости: проектирование и интерфейсы 585 часов, деньги и crypto 965 часов, операции и запуск 1190 часов">
-      <div class="v3-est__bar"><span class="g1" style="width:21.4%"></span><span class="g2" style="width:35.2%"></span><span class="g3" style="width:43.4%"></span></div>
+    <div class="v3-est__strip" role="img" aria-label="Распределение трудоёмкости: проектирование и интерфейсы 625 часов, деньги, платежи и игры 1475 часов, операции и запуск 1360 часов">
+      <div class="v3-est__bar"><span class="g1" style="width:18.1%"></span><span class="g2" style="width:42.6%"></span><span class="g3" style="width:39.3%"></span></div>
       <ul class="v3-est__legend">
-        <li class="g1"><i></i><b>Проектирование и интерфейсы</b><small>585 ч · $12,300</small></li>
-        <li class="g2"><i></i><b>Деньги и крипто</b><small>965 ч · $20,100</small></li>
-        <li class="g3"><i></i><b>Операции и запуск</b><small>1,190 ч · $24,600</small></li>
+        <li class="g1"><i></i><b>Проектирование и интерфейсы</b><small>625 ч · $12,300</small></li>
+        <li class="g2"><i></i><b>Деньги, платежи и игры</b><small>1,475 ч · $26,100</small></li>
+        <li class="g3"><i></i><b>Операции и запуск</b><small>1,360 ч · $22,600</small></li>
       </ul>
     </div>
 
     <div class="v3-est__total">
-      <p class="v3-big-number"><span class="v3-big-number__value">≈2,740 ч</span><span class="v3-big-number__label">расчётная трудоёмкость проекта</span></p>
+      <p class="v3-big-number"><span class="v3-big-number__value">≈3,460 ч</span><span class="v3-big-number__label">расчётная трудоёмкость проекта</span></p>
       <div class="v3-est__facts">
-        <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">≈2,560–2,910 ч</span><span class="v3-big-number__note">реалистичный диапазон оценки</span></p>
-        <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">9 блоков</span><span class="v3-big-number__note">каждый раскрывается по составу работ</span></p>
+        <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">≈3,240–3,690 ч</span><span class="v3-big-number__note">реалистичный диапазон оценки</span></p>
+        <p class="v3-big-number v3-big-number--sm"><span class="v3-big-number__value">11 блоков</span><span class="v3-big-number__note">каждый раскрывается по составу работ</span></p>
       </div>
     </div>
 
     <div class="v3-est__scope-note">
-      <p><b>Игры отдельно</b>Game engines, RNG, RTP logic, game UI и proprietary games не входят в текущий объём.</p>
-      <p><b>Web входит</b>Public Web application для игроков включён вместе с Telegram и Android.</p>
+      <p><b>Игры через агрегатор</b>Слоты и живое казино подключаются через один агрегатор по единому кошельку. Собственные игры не входят: «Дурак» — отдельное предложение, вторая игра оценивается после постановки задачи.</p>
+      <p><b>Web + Telegram</b>Public Web application и Telegram Mini App как полноценный клиент. Мобильное приложение не входит.</p>
       <p><b>Self-custody входит</b>Стоимость учитывает Hot / Warm / Cold tiers и HSM-backed signing.</p>
-      <p><b>До 3 сетей</b>Конкретные blockchain-сети согласуются до crypto-модуля.</p>
+      <p><b>3 сети</b>TRON (USDT TRC-20), TON (TON и USDT в TON), Bitcoin (BTC).</p>
     </div>
 
     <div class="v3-est__accordions">
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">01</span><span class="v3-est__name">Проектирование и архитектура<span class="v3-est__desc">Требования, service boundaries, data model, ledger, custody и deployment architecture.</span></span><span class="v3-est__block-price v3-num">$3,000</span><span class="v3-est__range">140 ч · диапазон 130–150 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Финализация требований, scope и технических ограничений</td><td>15 ч</td></tr><tr><td>Пользовательские и ключевые бизнес-сценарии</td><td>10 ч</td></tr><tr><td>Архитектура сервисов и service boundaries</td><td>20 ч</td></tr><tr><td>Архитектура Core / Finance и сетевой изоляции</td><td>15 ч</td></tr><tr><td>Модель данных и основные схемы БД</td><td>15 ч</td></tr><tr><td>Архитектура Internal Ledger</td><td>15 ч</td></tr><tr><td>Wallet/custody architecture</td><td>15 ч</td></tr><tr><td>API Gateway, BFF, gRPC и event contracts</td><td>15 ч</td></tr><tr><td>Permission model / RBAC architecture</td><td>10 ч</td></tr><tr><td>Infrastructure / deployment architecture</td><td>10 ч</td></tr><tr><td>Итого</td><td>140 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>финализация technical scope и service boundaries</li><li>архитектура core, finance, ledger и wallet/custody</li><li>API, gRPC и event contracts</li><li>RBAC и permission architecture</li><li>инфраструктурная и deployment architecture</li></ul></div><p class="v3-est__boundary">Детальная работа с контрактами, сервисами и инфраструктурой относится к соответствующим последующим блокам.</p></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">02</span><span class="v3-est__name">Product Design + Web Frontend<span class="v3-est__desc">UX/UI, Design System, Public Web application, responsive states и API integration.</span></span><span class="v3-est__block-price v3-num">$5,200</span><span class="v3-est__range">250 ч · диапазон 230–270 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Анализ референсов и UX-концепция</td><td>15 ч</td></tr><tr><td>2–3 визуальных направления ключевых экранов</td><td>25 ч</td></tr><tr><td>Финализация выбранной концепции</td><td>15 ч</td></tr><tr><td>Design System / UI Kit</td><td>25 ч</td></tr><tr><td>UX пользовательской части платформы</td><td>20 ч</td></tr><tr><td>UI основных пользовательских экранов</td><td>30 ч</td></tr><tr><td>UI wallet / deposit / withdrawal flows</td><td>15 ч</td></tr><tr><td>Responsive states и adaptive layouts</td><td>15 ч</td></tr><tr><td>Реализация Web Frontend / layout</td><td>55 ч</td></tr><tr><td>Интеграция Frontend с API</td><td>20 ч</td></tr><tr><td>Client-side states / errors / loading / validation</td><td>10 ч</td></tr><tr><td>Cross-browser / responsive polishing</td><td>5 ч</td></tr><tr><td>Итого</td><td>250 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Public Web application для игроков</li><li>UX/UI основных сценариев и Design System</li><li>wallet / deposit / withdrawal interfaces</li><li>client-side validation, states и API integration</li><li>адаптация под desktop/mobile resolutions</li></ul></div><p class="v3-est__boundary">Интерфейсы proprietary games, игровая графика, PixiJS/WebGL-сцены, brandbook и сложные custom 3D/illustration assets не входят без отдельного согласования.</p></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">03</span><span class="v3-est__name">Пользователи / Auth / RBAC<span class="v3-est__desc">Accounts, sessions, 2FA, permission-based RBAC и контроль доступа на уровнях API и БД.</span></span><span class="v3-est__block-price v3-num">$4,100</span><span class="v3-est__range">195 ч · диапазон 180–210 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Регистрация / авторизация</td><td>20 ч</td></tr><tr><td>Sessions / JWT / rotating refresh tokens</td><td>15 ч</td></tr><tr><td>Account / Profile management</td><td>12 ч</td></tr><tr><td>Password recovery / security flows</td><td>10 ч</td></tr><tr><td>Staff 2FA / TOTP</td><td>12 ч</td></tr><tr><td>Founder FIDO2 security flow</td><td>8 ч</td></tr><tr><td>Permission-based RBAC engine</td><td>25 ч</td></tr><tr><td>Реализация 7 базовых ролей</td><td>20 ч</td></tr><tr><td>Permission Matrix</td><td>15 ч</td></tr><tr><td>Row-level access control</td><td>15 ч</td></tr><tr><td>API-level permission enforcement</td><td>15 ч</td></tr><tr><td>DB-level access restrictions</td><td>10 ч</td></tr><tr><td>Maker–checker permissions</td><td>8 ч</td></tr><tr><td>Security / RBAC integration tests</td><td>10 ч</td></tr><tr><td>Итого</td><td>195 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Базовые роли</p><ul class="v3-est__mini-list"><li>Founder, Admin, Finance, Support</li><li>Affiliate Manager, Partner, Player</li><li>permission-based RBAC вместо проверки только названия роли</li><li>контроль на API, service layer, row-level и DB-level</li></ul></div></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">04</span><span class="v3-est__name">Финансовая система + FX<span class="v3-est__desc">Internal Ledger, balances, deposits, withdrawals, limits, risk, reconciliation и audit trail.</span></span><span class="v3-est__block-price v3-num">$9,900</span><span class="v3-est__range">475 ч · диапазон 450–490 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Internal Double-Entry Ledger</td><td>75 ч</td></tr><tr><td>Accounts / balances / balance cache</td><td>30 ч</td></tr><tr><td>Ledger invariants и atomic transactions</td><td>25 ч</td></tr><tr><td>Idempotency layer</td><td>20 ч</td></tr><tr><td>Deposit lifecycle</td><td>35 ч</td></tr><tr><td>Withdrawal lifecycle</td><td>50 ч</td></tr><tr><td>Funds reservation / locked balances</td><td>25 ч</td></tr><tr><td>Maker–checker approval workflow</td><td>30 ч</td></tr><tr><td>Limits / thresholds / manual adjustments</td><td>25 ч</td></tr><tr><td>Basic Risk rules</td><td>25 ч</td></tr><tr><td>AML workflow integration layer</td><td>20 ч</td></tr><tr><td>Reconciliation / balance verification</td><td>30 ч</td></tr><tr><td>Financial Audit Trail</td><td>25 ч</td></tr><tr><td>Rollback / failed transaction handling</td><td>15 ч</td></tr><tr><td>Multi-currency / FX service и conversion logging</td><td>15 ч</td></tr><tr><td>Financial integration tests</td><td>30 ч</td></tr><tr><td>Итого</td><td>475 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>append-only financial entries, balances и account types</li><li>deposit / withdrawal lifecycle</li><li>reservation, maker–checker, limits и thresholds</li><li>basic rule-based risk checks и AML integration layer</li><li>reconciliation, rollback, audit trail и FX logging</li></ul></div><p class="v3-est__boundary">Финансовая система готовит API/events для будущих bet/win/rollback/settlement, но игровые раунды, game-specific settlement logic и proprietary games не входят.</p></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">05</span><span class="v3-est__name">Crypto / Wallet Infrastructure<span class="v3-est__desc">До 3 blockchain networks, deposits, withdrawals, fees, sweep, Hot/Warm/Cold tiers и HSM-backed signing.</span></span><span class="v3-est__block-price v3-num">$10,200</span><span class="v3-est__range">490 ч · диапазон 460–520 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Blockchain abstraction / Gateway</td><td>45 ч</td></tr><tr><td>Blockchain network №1</td><td>35 ч</td></tr><tr><td>Blockchain network №2</td><td>35 ч</td></tr><tr><td>Blockchain network №3</td><td>35 ч</td></tr><tr><td>Deposit address generation</td><td>25 ч</td></tr><tr><td>Deposit monitoring / Watcher</td><td>35 ч</td></tr><tr><td>Confirmations / chain events</td><td>20 ч</td></tr><tr><td>Withdrawal transaction processing</td><td>35 ч</td></tr><tr><td>Network fee / gas handling</td><td>15 ч</td></tr><tr><td>Deposit sweep automation</td><td>25 ч</td></tr><tr><td>Hot Wallet layer</td><td>30 ч</td></tr><tr><td>Warm Wallet / multisig workflow</td><td>30 ч</td></tr><tr><td>Cold Wallet / HSM integration</td><td>45 ч</td></tr><tr><td>Key access / signing policies</td><td>25 ч</td></tr><tr><td>Wallet monitoring / alerts</td><td>30 ч</td></tr><tr><td>Architecture for additional networks</td><td>10 ч</td></tr><tr><td>Итого</td><td>490 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>до 3 согласованных blockchain networks</li><li>deposit addresses, monitoring, confirmations и withdrawals</li><li>fee/gas handling и sweep automation</li><li>Hot / Warm / Cold wallet tiers</li><li>HSM-backed signing, key policies, monitoring и alerts</li></ul></div><p class="v3-est__boundary">Названия сетей согласуются до реализации. Упоминания BTC / ETH / TRON / TON / BSC в примерах не означают включение пяти сетей одновременно. Переход на external custodian требует ревизии scope.</p></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">06</span><span class="v3-est__name">Back Office + Support<span class="v3-est__desc">Dashboard, players, finance panel, operations, audit, settings, affiliate management и support interface.</span></span><span class="v3-est__block-price v3-num">$6,200</span><span class="v3-est__range">300 ч · диапазон 280–320 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Back Office shell / navigation / permissions</td><td>20 ч</td></tr><tr><td>Dashboard</td><td>20 ч</td></tr><tr><td>Players management</td><td>30 ч</td></tr><tr><td>Player profile / activity</td><td>20 ч</td></tr><tr><td>Transactions / Operations</td><td>25 ч</td></tr><tr><td>Finance Panel</td><td>35 ч</td></tr><tr><td>Withdrawal approval interface</td><td>20 ч</td></tr><tr><td>Employees / Roles management</td><td>20 ч</td></tr><tr><td>Audit interface</td><td>25 ч</td></tr><tr><td>Limits / Platform Settings</td><td>20 ч</td></tr><tr><td>Affiliate management interface</td><td>15 ч</td></tr><tr><td>Support operator interface</td><td>20 ч</td></tr><tr><td>Chatwoot integration</td><td>20 ч</td></tr><tr><td>Support escalation workflows</td><td>10 ч</td></tr><tr><td>Итого</td><td>300 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Dashboard, players, profile и operations</li><li>Finance Panel и withdrawal approval</li><li>employees, roles, audit и platform settings</li><li>affiliate management</li><li>ограниченный Support interface и self-hosted Chatwoot integration</li></ul></div><p class="v3-est__boundary">Support работает через специализированный интерфейс и Chatwoot. Собственный helpdesk/CRM уровня Zendesk/Intercom с нуля не входит.</p></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">07</span><span class="v3-est__name">Bonuses / Affiliate / i18n / Communications<span class="v3-est__desc">Bonus Engine, ranks, RevShare, CPA, Hybrid, Partner Cabinet backend, RU/EN и notifications.</span></span><span class="v3-est__block-price v3-num">$4,500</span><span class="v3-est__range">215 ч · диапазон 200–230 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Base Bonus Engine</td><td>30 ч</td></tr><tr><td>Bonus balance / locked balance integration</td><td>15 ч</td></tr><tr><td>Configurable bonus rules</td><td>15 ч</td></tr><tr><td>Wagering tracking interfaces</td><td>20 ч</td></tr><tr><td>Rank / Status system</td><td>15 ч</td></tr><tr><td>Affiliate attribution</td><td>15 ч</td></tr><tr><td>RevShare</td><td>15 ч</td></tr><tr><td>CPA</td><td>10 ч</td></tr><tr><td>Hybrid</td><td>5 ч</td></tr><tr><td>Partner Cabinet backend</td><td>15 ч</td></tr><tr><td>Affiliate anti-fraud rules</td><td>10 ч</td></tr><tr><td>RU / EN i18n architecture</td><td>10 ч</td></tr><tr><td>Notification backend / orchestration</td><td>15 ч</td></tr><tr><td>Mass communications / segmentation</td><td>15 ч</td></tr><tr><td>Итого</td><td>215 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>configurable Bonus Engine и wagering interfaces</li><li>ranks/statuses</li><li>RevShare, CPA, Hybrid и Partner Cabinet backend</li><li>RU / EN i18n architecture</li><li>notification backend, templates, queues и segmentation</li></ul></div><p class="v3-est__boundary">Wagering integration с каждой конкретной игрой, дополнительные языки с переводом/linguistic QA и продвинутые delivery channels оцениваются отдельно.</p></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">08</span><span class="v3-est__name">Telegram Mini App / Bot / Android<span class="v3-est__desc">Telegram adaptation, bot flows, Android Capacitor shell, push, secure storage, biometrics и APK updates.</span></span><span class="v3-est__block-price v3-num">$4,700</span><span class="v3-est__range">225 ч · диапазон 210–240 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Telegram Mini App adaptation</td><td>45 ч</td></tr><tr><td>Telegram initData / HMAC authentication</td><td>15 ч</td></tr><tr><td>Telegram account linking</td><td>10 ч</td></tr><tr><td>Telegram Bot core</td><td>25 ч</td></tr><tr><td>Bot: balance / withdrawal statuses</td><td>10 ч</td></tr><tr><td>Bot: mirrors / referral / support</td><td>10 ч</td></tr><tr><td>Android Capacitor shell</td><td>35 ч</td></tr><tr><td>FCM Push</td><td>10 ч</td></tr><tr><td>Secure token storage</td><td>10 ч</td></tr><tr><td>Biometric unlock</td><td>10 ч</td></tr><tr><td>Certificate pinning</td><td>8 ч</td></tr><tr><td>Root / emulator detection</td><td>7 ч</td></tr><tr><td>APK update mechanism</td><td>15 ч</td></tr><tr><td>Multi-platform testing / adaptation</td><td>15 ч</td></tr><tr><td>Итого</td><td>225 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Telegram Mini App adaptation и initData validation</li><li>Telegram Bot: balance, withdrawal status, mirrors, referral, support</li><li>Android Capacitor shell</li><li>FCM, secure storage, biometrics и certificate pinning</li><li>basic own APK update mechanism</li></ul></div><p class="v3-est__boundary">Отдельное native Android-приложение с независимой codebase, iOS, Telegram Stars и гарантированное размещение в Google Play не входят.</p></div></div></details>
-      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">09</span><span class="v3-est__name">Infrastructure / Security / QA / Launch<span class="v3-est__desc">Environments, Kubernetes, IaC, CI/CD, monitoring, backup, security checks, QA и handover.</span></span><span class="v3-est__block-price v3-num">$9,200</span><span class="v3-est__range">450 ч · диапазон 420–480 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Dev / Stage / Production environments</td><td>30 ч</td></tr><tr><td>Managed Kubernetes setup</td><td>30 ч</td></tr><tr><td>Terraform / Infrastructure as Code</td><td>25 ч</td></tr><tr><td>ArgoCD / GitOps</td><td>20 ч</td></tr><tr><td>CI/CD pipelines</td><td>25 ч</td></tr><tr><td>Network isolation / NetworkPolicy</td><td>20 ч</td></tr><tr><td>Vault / secrets management</td><td>25 ч</td></tr><tr><td>Bastion / production access</td><td>20 ч</td></tr><tr><td>Cloudflare / WAF / CDN</td><td>15 ч</td></tr><tr><td>Mirror monitoring / rotation automation</td><td>20 ч</td></tr><tr><td>Logging stack</td><td>20 ч</td></tr><tr><td>Metrics / Monitoring / Alerting</td><td>20 ч</td></tr><tr><td>WORM Audit storage</td><td>15 ч</td></tr><tr><td>Backup / PITR / Recovery</td><td>25 ч</td></tr><tr><td>SAST / SCA / secret scanning</td><td>15 ч</td></tr><tr><td>DAST / security hardening</td><td>20 ч</td></tr><tr><td>Automated tests</td><td>25 ч</td></tr><tr><td>Manual QA / Regression</td><td>40 ч</td></tr><tr><td>Load / failure / recovery testing</td><td>25 ч</td></tr><tr><td>Production launch / handover</td><td>15 ч</td></tr><tr><td>Итого</td><td>450 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Dev / Stage / Production, managed Kubernetes, Terraform и GitOps</li><li>CI/CD, NetworkPolicy, Vault, Bastion и Cloudflare integration</li><li>logging, monitoring, alerting, WORM audit storage</li><li>backups / PITR, recovery procedures и testing</li><li>SAST/SCA, базовый DAST, QA, regression и handover</li></ul></div><p class="v3-est__boundary">Внешний независимый penetration test и сторонняя security certification не входят. Платформа подготавливается к внешнему pentest.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">01</span><span class="v3-est__name">Проектирование и архитектура<span class="v3-est__desc">Требования, service boundaries, data model, ledger, custody, deployment architecture, реестр событий и операционная модель.</span></span><span class="v3-est__block-price v3-num">$3,000</span><span class="v3-est__range">140 ч · диапазон 130–150 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Финализация требований, scope и технических ограничений</td><td>15 ч</td></tr><tr><td>Пользовательские и ключевые бизнес-сценарии</td><td>10 ч</td></tr><tr><td>Архитектура сервисов и service boundaries</td><td>20 ч</td></tr><tr><td>Архитектура Core / Finance и сетевой изоляции</td><td>15 ч</td></tr><tr><td>Модель данных и основные схемы БД</td><td>15 ч</td></tr><tr><td>Архитектура Internal Ledger</td><td>15 ч</td></tr><tr><td>Wallet/custody architecture</td><td>15 ч</td></tr><tr><td>API Gateway, BFF, gRPC и event contracts</td><td>15 ч</td></tr><tr><td>Permission model / RBAC architecture</td><td>10 ч</td></tr><tr><td>Infrastructure / deployment architecture</td><td>10 ч</td></tr><tr><td>Итого</td><td>140 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>финализация technical scope и service boundaries</li><li>архитектура core, finance, ledger и wallet/custody</li><li>API, gRPC и event contracts</li><li>RBAC и permission architecture</li><li>инфраструктурная и deployment architecture</li><li>реестр событий платформы и операционная модель (документы)</li></ul></div><p class="v3-est__boundary">Детальная работа с контрактами, сервисами и инфраструктурой относится к соответствующим последующим блокам.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">02</span><span class="v3-est__name">Product Design + Web Frontend<span class="v3-est__desc">UX/UI, Design System, Public Web application, responsive states и API integration.</span></span><span class="v3-est__block-price v3-num">$5,200</span><span class="v3-est__range">250 ч · диапазон 230–270 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Анализ референсов и UX-концепция</td><td>15 ч</td></tr><tr><td>2–3 визуальных направления ключевых экранов</td><td>25 ч</td></tr><tr><td>Финализация выбранной концепции</td><td>15 ч</td></tr><tr><td>Design System / UI Kit</td><td>25 ч</td></tr><tr><td>UX пользовательской части платформы</td><td>20 ч</td></tr><tr><td>UI основных пользовательских экранов</td><td>30 ч</td></tr><tr><td>UI wallet / deposit / withdrawal flows и кассы</td><td>15 ч</td></tr><tr><td>Responsive states и adaptive layouts</td><td>15 ч</td></tr><tr><td>Реализация Web Frontend / layout</td><td>55 ч</td></tr><tr><td>Интеграция Frontend с API</td><td>20 ч</td></tr><tr><td>Client-side states / errors / loading / validation</td><td>10 ч</td></tr><tr><td>Cross-browser / responsive polishing</td><td>5 ч</td></tr><tr><td>Итого</td><td>250 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Public Web application для игроков</li><li>UX/UI основных сценариев и Design System</li><li>wallet / deposit / withdrawal interfaces и касса</li><li>client-side validation, states и API integration</li><li>адаптация под desktop и mobile resolutions</li></ul></div><p class="v3-est__boundary">Интерфейсы собственных игр, игровая графика, PixiJS/WebGL-сцены, brandbook и сложные custom 3D/illustration assets не входят без отдельного согласования.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">03</span><span class="v3-est__name">Пользователи / Auth / RBAC<span class="v3-est__desc">Accounts, sessions, 2FA сотрудников и игроков, ответственная игра, permission-based RBAC и контроль доступа на уровнях API и БД.</span></span><span class="v3-est__block-price v3-num">$4,100</span><span class="v3-est__range">235 ч · диапазон 220–250 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Регистрация / авторизация</td><td>20 ч</td></tr><tr><td>Sessions / JWT / rotating refresh tokens</td><td>15 ч</td></tr><tr><td>Account / Profile management</td><td>12 ч</td></tr><tr><td>Password recovery / security flows</td><td>10 ч</td></tr><tr><td>Staff 2FA / TOTP</td><td>12 ч</td></tr><tr><td>Founder FIDO2 security flow</td><td>8 ч</td></tr><tr><td>2FA игрока: по желанию, обязательна при выводе выше порога</td><td>15 ч</td></tr><tr><td>Ответственная игра: лимит пополнения, пауза 1/7/30 дней, самоисключение, блокировка по запросу</td><td>25 ч</td></tr><tr><td>Permission-based RBAC engine</td><td>25 ч</td></tr><tr><td>Реализация 7 базовых ролей (Founder — две учётные записи)</td><td>20 ч</td></tr><tr><td>Permission Matrix</td><td>15 ч</td></tr><tr><td>Row-level access control</td><td>15 ч</td></tr><tr><td>API-level permission enforcement</td><td>15 ч</td></tr><tr><td>DB-level access restrictions</td><td>10 ч</td></tr><tr><td>Maker–checker permissions</td><td>8 ч</td></tr><tr><td>Security / RBAC integration tests</td><td>10 ч</td></tr><tr><td>Итого</td><td>235 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Базовые роли</p><ul class="v3-est__mini-list"><li>Founder — две учётные записи владельца с равными правами</li><li>Admin, Finance, Support</li><li>Affiliate Manager, Partner, Player</li><li>permission-based RBAC вместо проверки только названия роли</li><li>контроль на API, service layer, row-level и DB-level</li></ul></div><p class="v3-est__boundary">Ответственная игра и 2FA игрока добавлены в объём без изменения цены блока.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">04</span><span class="v3-est__name">Финансовая система + FX + KYC<span class="v3-est__desc">Internal Ledger, balances, deposits, withdrawals, limits, risk, reconciliation, audit trail, обменник ₽↔USDT, KYC Sumsub и AML-адаптер.</span></span><span class="v3-est__block-price v3-num">$9,900</span><span class="v3-est__range">570 ч · диапазон 540–600 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Internal Double-Entry Ledger</td><td>75 ч</td></tr><tr><td>Accounts / balances / balance cache</td><td>30 ч</td></tr><tr><td>Ledger invariants и atomic transactions</td><td>25 ч</td></tr><tr><td>Idempotency layer</td><td>20 ч</td></tr><tr><td>Deposit lifecycle</td><td>35 ч</td></tr><tr><td>Withdrawal lifecycle</td><td>50 ч</td></tr><tr><td>Funds reservation / locked balances</td><td>25 ч</td></tr><tr><td>Maker–checker approval workflow</td><td>30 ч</td></tr><tr><td>Limits / thresholds / manual adjustments</td><td>25 ч</td></tr><tr><td>Basic Risk rules</td><td>25 ч</td></tr><tr><td>AML workflow integration layer</td><td>20 ч</td></tr><tr><td>Адаптер AML-анализа криптоадресов (один сервис)</td><td>15 ч</td></tr><tr><td>Интеграция KYC-провайдера Sumsub: верификация до любого вывода</td><td>40 ч</td></tr><tr><td>Reconciliation / balance verification</td><td>30 ч</td></tr><tr><td>Financial Audit Trail</td><td>25 ч</td></tr><tr><td>Rollback / failed transaction handling</td><td>15 ч</td></tr><tr><td>Multi-currency / FX service и conversion logging</td><td>15 ч</td></tr><tr><td>Внутренний обменник ₽↔USDT: источники курса, спред, фиксация курса, проводки (предварительная оценка)</td><td>40 ч</td></tr><tr><td>Financial integration tests</td><td>30 ч</td></tr><tr><td>Итого</td><td>570 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>append-only financial entries, balances и account types</li><li>deposit / withdrawal lifecycle</li><li>reservation, maker–checker, limits и thresholds</li><li>rule-based risk checks, AML-адаптер и KYC Sumsub до любого вывода</li><li>обменник ₽↔USDT со спредом и фиксацией курса</li><li>reconciliation, rollback, audit trail и FX logging</li></ul></div><p class="v3-est__boundary">Финансовая система готовит API/events для bet/win/rollback/settlement агрегатора (блок 07); собственные игры и их settlement logic не входят. Обменник — позиция с предварительной оценкой, его цена входит в $4,000 рублёвого канала (блок 06).</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">05</span><span class="v3-est__name">Crypto / Wallet Infrastructure<span class="v3-est__desc">Три сети: TRON (USDT TRC-20), TON (TON и USDT в TON), Bitcoin (BTC); deposits, withdrawals, fees, sweep, Hot/Warm/Cold tiers и HSM-backed signing.</span></span><span class="v3-est__block-price v3-num">$10,200</span><span class="v3-est__range">490 ч · диапазон 460–520 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Blockchain abstraction / Gateway</td><td>45 ч</td></tr><tr><td>TRON: USDT TRC-20</td><td>35 ч</td></tr><tr><td>TON: TON и USDT в TON (jetton)</td><td>35 ч</td></tr><tr><td>Bitcoin: BTC</td><td>35 ч</td></tr><tr><td>Deposit address generation</td><td>25 ч</td></tr><tr><td>Deposit monitoring / Watcher</td><td>35 ч</td></tr><tr><td>Confirmations / chain events</td><td>20 ч</td></tr><tr><td>Withdrawal transaction processing</td><td>35 ч</td></tr><tr><td>Network fee / gas handling</td><td>15 ч</td></tr><tr><td>Deposit sweep automation</td><td>25 ч</td></tr><tr><td>Hot Wallet layer</td><td>30 ч</td></tr><tr><td>Warm Wallet / multisig workflow</td><td>30 ч</td></tr><tr><td>Cold Wallet / HSM integration</td><td>45 ч</td></tr><tr><td>Key access / signing policies</td><td>25 ч</td></tr><tr><td>Wallet monitoring / alerts</td><td>30 ч</td></tr><tr><td>Режим автоматических выплат и лимиты (на запуске выключены)</td><td>15 ч</td></tr><tr><td>Architecture for additional networks</td><td>10 ч</td></tr><tr><td>Итого</td><td>490 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>три сети, четыре актива: USDT TRC-20, TON, USDT в TON, BTC</li><li>deposit addresses, monitoring, confirmations и withdrawals</li><li>fee/gas handling и sweep automation</li><li>Hot / Warm / Cold wallet tiers</li><li>HSM-backed signing, key policies, monitoring и alerts</li><li>механизм автоматических выплат реализован, на запуске выключен</li></ul></div><p class="v3-est__boundary">На запуске все выводы согласуются вручную: порог автоматической выплаты равен нулю до письменного разрешения владельца. Четвёртая сеть и переход на external custodian оцениваются отдельно.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">06</span><span class="v3-est__name">Рублёвые платежи и касса<span class="v3-est__desc">Один P2P-провайдер: пополнение и вывод, методы по его API, чеки, споры, сверка, каскад; касса как единый интерфейс крипта + рубли.</span></span><span class="v3-est__block-price v3-num">$4,000</span><span class="v3-est__range">210 ч · диапазон 190–230 ч · предварительно</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Адаптер P2P-провайдера (на базе BridgePay): пополнение и вывод</td><td>30 ч</td></tr><tr><td>Методы по API провайдера: карта, СБП, QR НСПК, мобильная коммерция, трансграничные переводы, VIP-маршрут</td><td>30 ч</td></tr><tr><td>Реквизиты со сроком жизни, уникальность сумм, «Я оплатил»</td><td>15 ч</td></tr><tr><td>Колбэки с проверкой подписи и опрос статуса</td><td>15 ч</td></tr><tr><td>Чеки в обе стороны по формату провайдера</td><td>10 ч</td></tr><tr><td>Апелляции и споры, битые реквизиты, 161-ФЗ</td><td>20 ч</td></tr><tr><td>Сверка с отчётами провайдера</td><td>15 ч</td></tr><tr><td>Каскадная маршрутизация с приоритетами и VIP (один провайдер и эмулятор второго)</td><td>20 ч</td></tr><tr><td>Лимиты и сетка комиссий</td><td>10 ч</td></tr><tr><td>Касса — единый интерфейс крипта + рубли: реквизиты с таймером, точная сумма, чек, статусы</td><td>30 ч</td></tr><tr><td>Касса: возврат к прерванной операции, состояния и ошибки</td><td>15 ч</td></tr><tr><td>Итого</td><td>210 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>один провайдер, выбранный заказчиком (на базе BridgePay)</li><li>методы, доступные через API провайдера (ориентир шесть)</li><li>чеки, апелляции, сверка, 161-ФЗ</li><li>каскад с приоритетами и VIP, лимиты и сетка комиссий</li><li>касса с единым сценарием для рублей и криптовалюты</li></ul></div><p class="v3-est__boundary">Позиция с предварительной оценкой: оценка сделана до получения документации и песочницы провайдера и уточняется в течение 10 рабочих дней после их получения (правила ниже). Цена $4,000 включает обменник ₽↔USDT из блока 04. Второй и последующие провайдеры — отдельно (раздел 09).</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">07</span><span class="v3-est__name">Агрегатор игр и витрина<span class="v3-est__desc">Один агрегатор по модели единого кошелька и USDT: весь его каталог через один API; витрина, баннеры, подборки, поиск и публичные страницы.</span></span><span class="v3-est__block-price v3-num">$2,000</span><span class="v3-est__range">205 ч · диапазон 185–225 ч · предварительно</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Интеграция агрегатора: единый кошелёк, USDT, запуск игр в iframe или по ссылке, авторизация</td><td>30 ч</td></tr><tr><td>Баланс, ставка / выигрыш / откат, идемпотентность</td><td>35 ч</td></tr><tr><td>Раунды, сессии, история</td><td>20 ч</td></tr><tr><td>Сверка с отчётами агрегатора</td><td>20 ч</td></tr><tr><td>Каталог через один API, демо-режим, тест-кейсы и сертификация интеграции</td><td>30 ч</td></tr><tr><td>Витрина: главная (баннеры → «Дурак» → продолжить → слоты → живое казино)</td><td>20 ч</td></tr><tr><td>Баннеры с расписанием и аудиториями, категории и подборки</td><td>20 ч</td></tr><tr><td>Карточки игр, поиск, избранное, недавние, «продолжить»</td><td>15 ч</td></tr><tr><td>Локализация витрины, SEO-настройки, публичные страницы</td><td>15 ч</td></tr><tr><td>Итого</td><td>205 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>один агрегатор с поддержкой единого кошелька и USDT</li><li>весь каталог агрегатора через один API, без ограничения числа игр</li><li>ставка / выигрыш / откат, идемпотентность, раунды, сессии, сверка</li><li>витрина: главная, баннеры, категории, подборки, карточки, поиск</li><li>локализация витрины, SEO-настройки и публичные страницы</li></ul></div><p class="v3-est__boundary">Позиция с предварительной оценкой: агрегатор не выбран, оценка уточняется после выбора и получения документации (правила ниже). Цена ниже расчётной — около 100 ч команда берёт на себя в зачёт снятого мобильного приложения. Второй агрегатор или прямой провайдер игр — отдельно.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">08</span><span class="v3-est__name">Back Office + Support + Отчёты<span class="v3-est__desc">Dashboard, players, finance panel, operations, audit, settings, affiliate management, support interface, отчёты и аналитика.</span></span><span class="v3-est__block-price v3-num">$6,200</span><span class="v3-est__range">365 ч · диапазон 345–385 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Back Office shell / navigation / permissions</td><td>20 ч</td></tr><tr><td>Dashboard</td><td>20 ч</td></tr><tr><td>Players management</td><td>30 ч</td></tr><tr><td>Player profile / activity</td><td>20 ч</td></tr><tr><td>Transactions / Operations</td><td>25 ч</td></tr><tr><td>Finance Panel</td><td>35 ч</td></tr><tr><td>Withdrawal approval interface</td><td>20 ч</td></tr><tr><td>Employees / Roles management</td><td>20 ч</td></tr><tr><td>Audit interface</td><td>25 ч</td></tr><tr><td>Limits / Platform Settings</td><td>20 ч</td></tr><tr><td>Affiliate management interface</td><td>15 ч</td></tr><tr><td>Support operator interface</td><td>20 ч</td></tr><tr><td>Chatwoot integration</td><td>20 ч</td></tr><tr><td>Support escalation workflows</td><td>10 ч</td></tr><tr><td>Аналитика: девять отчётов и каталог метрик</td><td>25 ч</td></tr><tr><td>Дашборд из 7 групп показателей</td><td>15 ч</td></tr><tr><td>Выгрузка CSV / Excel</td><td>10 ч</td></tr><tr><td>Аналитическая реплика БД</td><td>15 ч</td></tr><tr><td>Итого</td><td>365 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Dashboard, players, profile и operations</li><li>Finance Panel и withdrawal approval</li><li>employees, roles, audit и platform settings</li><li>affiliate management</li><li>девять отчётов, каталог метрик, дашборд из 7 групп, выгрузка CSV/Excel</li><li>ограниченный Support interface и self-hosted Chatwoot integration</li></ul></div><p class="v3-est__boundary">Support работает через специализированный интерфейс и Chatwoot. Собственный helpdesk/CRM уровня Zendesk/Intercom с нуля не входит.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">09</span><span class="v3-est__name">Bonuses / Affiliate / i18n / Communications<span class="v3-est__desc">Bonus Engine, ranks, RevShare, CPA, Partner Cabinet backend, RU/EN, notifications и transactional email.</span></span><span class="v3-est__block-price v3-num">$4,500</span><span class="v3-est__range">305 ч · диапазон 285–325 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Base Bonus Engine</td><td>30 ч</td></tr><tr><td>Bonus balance / locked balance integration</td><td>15 ч</td></tr><tr><td>Configurable bonus rules</td><td>15 ч</td></tr><tr><td>Wagering tracking interfaces</td><td>20 ч</td></tr><tr><td>Wagering integration с играми агрегатора</td><td>10 ч</td></tr><tr><td>Бонусы: первый депозит с отыгрышем ×15, промокоды, реферальный бонус</td><td>20 ч</td></tr><tr><td>Бесплатные раунды через агрегатор, сегменты и триггеры, согласование кампаний</td><td>15 ч</td></tr><tr><td>Изоляция бонусного баланса, предел вывода, бюджет 10–15 % GGR</td><td>10 ч</td></tr><tr><td>Rank / Status system (косметика)</td><td>15 ч</td></tr><tr><td>Affiliate attribution</td><td>15 ч</td></tr><tr><td>RevShare</td><td>15 ч</td></tr><tr><td>CPA</td><td>10 ч</td></tr><tr><td>Партнёрка: постбэки, метки кампаний, промокоды партнёров</td><td>15 ч</td></tr><tr><td>CPA-квалификация, холд 7/14 дней, отрицательный перенос</td><td>12 ч</td></tr><tr><td>Выплаты партнёрам в USDT</td><td>8 ч</td></tr><tr><td>Partner Cabinet backend</td><td>15 ч</td></tr><tr><td>Affiliate anti-fraud rules</td><td>10 ч</td></tr><tr><td>RU / EN i18n architecture</td><td>10 ч</td></tr><tr><td>Notification backend / orchestration</td><td>15 ч</td></tr><tr><td>Mass communications / segmentation</td><td>15 ч</td></tr><tr><td>Транзакционная почта: поставщик, шаблоны RU/EN, подтверждение почты</td><td>15 ч</td></tr><tr><td>Итого</td><td>305 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>configurable Bonus Engine и wagering interfaces</li><li>RevShare (базовая 30 %, до 60 % по отдельным договорам) и CPA ($10–30 по сумме депозита, порог $10)</li><li>постбэки, метки кампаний, холд, выплаты партнёрам в USDT</li><li>ранги и статусы — только косметика</li><li>RU / EN i18n architecture</li><li>notification backend, templates, queues, segmentation и транзакционная почта</li></ul></div><p class="v3-est__boundary">«Дурак» вне бонусов и отыгрыша. Дополнительные языки с переводом, продвинутые delivery channels и отдельные бонусные механики для «Дурака» оцениваются отдельно.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">10</span><span class="v3-est__name">Telegram Mini App / Bot<span class="v3-est__desc">Mini App как полноценный клиент платформы, initData validation, account linking и Bot со статусами операций.</span></span><span class="v3-est__block-price v3-num">$2,700</span><span class="v3-est__range">170 ч · диапазон 160–180 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Telegram Mini App adaptation</td><td>45 ч</td></tr><tr><td>Telegram initData / HMAC authentication</td><td>15 ч</td></tr><tr><td>Telegram account linking</td><td>10 ч</td></tr><tr><td>Mini App как полноценный клиент: каталог игр, касса с возвратом из внешнего платежа</td><td>20 ч</td></tr><tr><td>Mini App: KYC с переходом в браузер, служебный домен, приглашение друзей</td><td>20 ч</td></tr><tr><td>Telegram Bot core</td><td>25 ч</td></tr><tr><td>Bot: balance / withdrawal statuses</td><td>10 ч</td></tr><tr><td>Bot: mirrors / referral / support</td><td>10 ч</td></tr><tr><td>Тестирование в клиентах Telegram (desktop и mobile)</td><td>15 ч</td></tr><tr><td>Итого</td><td>170 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Telegram Mini App adaptation и initData validation</li><li>каталог игр, касса и KYC внутри Mini App</li><li>Telegram Bot: balance, withdrawal status, mirrors, referral, support</li><li>приглашение друзей и служебный домен</li></ul></div><p class="v3-est__boundary">Бот показывает статусы и не подтверждает выводы. Мобильное приложение, iOS и Telegram Stars не входят.</p></div></div></details>
+      <details class="v3-est__detail"><summary class="v3-est__summary"><span class="v3-est__idx">11</span><span class="v3-est__name">Infrastructure / Security / QA / Launch<span class="v3-est__desc">Environments, Kubernetes, IaC, CI/CD, monitoring, backup, security checks, нагрузочные испытания, QA, документы и handover.</span></span><span class="v3-est__block-price v3-num">$9,200</span><span class="v3-est__range">520 ч · диапазон 490–550 ч</span></summary><div class="v3-est__detail-body"><table class="v3-est__table"><thead><tr><th>Подблок</th><th>Ориентир</th></tr></thead><tbody><tr><td>Dev / Stage / Production environments</td><td>30 ч</td></tr><tr><td>Managed Kubernetes setup</td><td>30 ч</td></tr><tr><td>Terraform / Infrastructure as Code</td><td>25 ч</td></tr><tr><td>ArgoCD / GitOps</td><td>20 ч</td></tr><tr><td>CI/CD pipelines</td><td>25 ч</td></tr><tr><td>Network isolation / NetworkPolicy</td><td>20 ч</td></tr><tr><td>Vault / secrets management</td><td>25 ч</td></tr><tr><td>Bastion / production access</td><td>20 ч</td></tr><tr><td>Cloudflare / WAF / CDN, геоблок</td><td>15 ч</td></tr><tr><td>Mirror monitoring / rotation automation</td><td>20 ч</td></tr><tr><td>Logging stack</td><td>20 ч</td></tr><tr><td>Metrics / Monitoring / Alerting</td><td>20 ч</td></tr><tr><td>WORM Audit storage</td><td>15 ч</td></tr><tr><td>Backup / PITR / Recovery (копии в другом регионе)</td><td>25 ч</td></tr><tr><td>SAST / SCA / secret scanning</td><td>15 ч</td></tr><tr><td>CVE-предиктор: мониторинг уязвимостей зависимостей</td><td>5 ч</td></tr><tr><td>DAST / security hardening</td><td>20 ч</td></tr><tr><td>Automated tests</td><td>25 ч</td></tr><tr><td>Manual QA / Regression</td><td>40 ч</td></tr><tr><td>Load / failure / recovery testing</td><td>25 ч</td></tr><tr><td>Нагрузочные испытания 1 000 / 3 000 / 5 000 одновременных игроков</td><td>15 ч</td></tr><tr><td>Геоблок, две учётные записи владельца, лимиты корректировок по ролям</td><td>15 ч</td></tr><tr><td>Документы и консультации: облако и страна, список стран, домены, SEO-документ, матрица прав, схема оповещения об инцидентах</td><td>35 ч</td></tr><tr><td>Production launch / handover</td><td>15 ч</td></tr><tr><td>Итого</td><td>520 ч</td></tr></tbody></table><div class="v3-est__detail-side"><div><p class="v3-est__mini-title">Входит</p><ul class="v3-est__mini-list"><li>Dev / Stage / Production, managed Kubernetes, Terraform и GitOps</li><li>CI/CD, NetworkPolicy, Vault, Bastion, Cloudflare и геоблок</li><li>logging, monitoring, alerting, WORM audit storage</li><li>backups / PITR в другом регионе, recovery procedures</li><li>SAST/SCA, CVE-предиктор, базовый DAST, QA, regression</li><li>нагрузка 1 000 / 3 000 / 5 000, консультации по облаку и стране, handover</li></ul></div><p class="v3-est__boundary">Один регион, резервные копии в другом. Внешний независимый пентест заказывает заказчик; исправление критичных и высоких находок в собственном коде — до 40 ч в цене. Второй регион с переключением — отдельно.</p></div></div></details>
+    </div>
+
+    <div class="v3-est__prelim" id="s06-prelim">
+      <div class="v3-est__prelim-head">
+        <div>
+          <h3 class="v3-subheading">Позиции с предварительной оценкой</h3>
+        </div>
+        <p class="v3-copy">Три позиции оценены до получения документации и тестовых сред поставщиков: рублёвый провайдер, обменник ₽↔USDT и агрегатор игр. Для каждой записано, что именно входит, сколько часов заложено, что может изменить оценку и когда она уточняется. Остальная стоимость — фиксированная и не зависит от фактической трудоёмкости.</p>
+      </div>
+      <div class="v3-est__prelim-scroll">
+        <table class="v3-est__table v3-est__table--prelim">
+          <thead><tr><th>Позиция</th><th>Что входит (допущения)</th><th>Оценка</th><th>В цене</th><th>Что может изменить оценку</th><th>Когда уточняем</th></tr></thead>
+          <tbody>
+            <tr><td>1. Рублёвый провайдер, один</td><td>Выбранный заказчиком провайдер (на базе BridgePay). Пополнение и вывод. Методы, которые провайдер отдаёт через API, ориентир до шести: карта, СБП, QR НСПК, мобильная коммерция, трансграничные переводы, VIP-маршрут. Колбэки с проверкой подписи и опрос статуса. Чеки в обе стороны по формату провайдера. Апелляции по спорным платежам. Сверка с отчётами провайдера. Каскад с приоритетами и VIP, проверенный на одном провайдере и эмуляторе второго.</td><td>165 ч</td><td>$3,400</td><td>Нет документации и песочницы. Какие методы реально есть в API. Формат чеков. Где живёт разбор споров: в кабинете провайдера или у нас. Ротация VIP-трейдеров на его стороне или нашей. Режим расчётов (сеттл или роллинг).</td><td>10 рабочих дней после документации и песочницы; до начала этапа П-3 «Деньги снаружи»</td></tr>
+            <tr><td>2. Внутренний обменник ₽↔USDT</td><td>Одна пара в обе стороны. Один источник форекс-котировки и один крипто-источник (биржи или CoinMarketCap) по API. Спред как настройка (старт: форекс + 5 %). Фиксация курса на время операции. Проводки, аудит, экран в кассе.</td><td>40 ч</td><td>$800</td><td>Источник форекс-курса с API не выбран (платный или нет). Кто держит USDT-ликвидность для обмена (казна платформы). Лимиты обмена.</td><td>На этапе П-1, до начала этапа П-3 «Деньги снаружи»</td></tr>
+            <tr><td>3. Агрегатор игр, один</td><td>Один агрегатор, поддерживающий единый кошелёк и USDT. Весь его каталог через один API, без ограничения числа игр. Запуск в iframe или по ссылке. Авторизация, баланс, ставка, выигрыш, откат, идемпотентность, раунды, сессии, сверка, история. Демо там, где агрегатор его отдаёт.</td><td>135 ч</td><td>$2,000</td><td>Агрегатор не выбран. Поддержка USDT. Его тест-кейсы и сертификация интеграции. API бесплатных раундов (нужен для бонуса «фриспины»). Сеттл или роллинг. Принимает ли лицензию Анжуан.</td><td>После выбора агрегатора и получения документации; до начала этапа П-4 «Клиентский продукт»</td></tr>
+            <tr><td>Итого</td><td>Расчётно $6,200; в цене предложения — $6,000: рублёвый канал (позиции 1–2) $4,000 и агрегатор игр $2,000. Часть работ по агрегатору и витрине команда берёт на себя.</td><td>340 ч</td><td>$6,000</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ol class="v3-est__prelim-rules">
+        <li><b>Фикс и оценка.</b> Стоимость платформы состоит из фиксированной части и трёх позиций с предварительной оценкой. Фиксированная часть не зависит от фактической трудоёмкости.</li>
+        <li><b>Допущения.</b> Оценка каждой позиции сделана до получения документации и тестовой среды поставщика на основании допущений из таблицы; допущения — часть описания позиции.</li>
+        <li><b>10 рабочих дней.</b> Заказчик предоставляет документацию, доступ к тестовой среде и технический контакт поставщика. Команда уточняет оценку в течение 10 рабочих дней после их получения и направляет протокол уточнения с составом работ, часами и стоимостью.</li>
+        <li><b>Порог 15 %.</b> Если уточнённая трудоёмкость отличается от предварительной не более чем на 15 %, цена позиции не меняется. При большем отклонении подписываем дополнительное соглашение до начала работ по позиции — в любую сторону, по ставке $21/ч.</li>
+        <li><b>Что гарантируем.</b> Соответствие интеграции документации поставщика и прохождение его тестовой среды по согласованным сценариям.</li>
+        <li><b>Зона заказчика.</b> Одобрение заказчика поставщиком, доступность и работоспособность его сервисов, тарифы, сроки ответов и изменение его интерфейсов. Их отсутствие или задержка сдвигает сроки и не является недостатком работ. Замена поставщика после начала работ по позиции оформляется как новая позиция.</li>
+      </ol>
     </div>
 
     <div class="v3-est__notes">
-      <p class="v3-small">Часы показывают расчётную трудоёмкость. Стоимость согласованного объёма фиксирована.</p>
+      <p class="v3-small">Часы показывают расчётную трудоёмкость. Стоимость согласованного объёма фиксирована; позиции с предварительной оценкой уточняются по правилам выше.</p>
+      <p class="v3-small">Справочная ставка предложения — $20,8/ч. Пересчёты, дополнительные соглашения и новые задачи — по ставке $21/ч.</p>
     </div>
   </div>
 </section>
@@ -2351,41 +2439,50 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
       <div>
         <p class="v3-eyebrow">07 · Этапы реализации</p>
         <h2 class="v3-heading">Как проект проходит путь до запуска</h2>
-        <p class="v3-lead">Проект разбит на четыре этапа. У каждого — свой понятный результат, который можно увидеть и принять.</p>
+        <p class="v3-lead">Проект разбит на пять этапов. У каждого — свои недели в календаре, трудоёмкость и проверяемый результат, который можно увидеть и принять.</p>
       </div>
-      <p class="v3-big-number v3-road__term"><span class="v3-big-number__value">18–21 нед.</span><span class="v3-big-number__label">ориентировочный срок от старта проектирования до запуска</span></p>
+      <p class="v3-big-number v3-road__term"><span class="v3-big-number__value">6 месяцев</span><span class="v3-big-number__label">26 недель от старта проектирования до запуска платформы и «Дурака»</span></p>
     </div>
 
     <ol class="v3-timeline">
       <li class="v3-timeline__step">
-        <span class="v3-timeline__when">Этап 01</span>
-        <h3 class="v3-subheading v3-timeline__title">Основа платформы</h3>
-        <p class="v3-timeline__what">Архитектура · Дизайн · Пользователи · Доступы</p>
-        <p class="v3-timeline__result"><b>Результат</b>Согласованы архитектура и визуальное направление, готова основа для финансовой и клиентской части.</p>
+        <span class="v3-timeline__when">П-1 · недели 1–5 · 635 ч</span>
+        <h3 class="v3-subheading v3-timeline__title">Проектирование, дизайн и основа платформы</h3>
+        <p class="v3-timeline__what">Архитектура · Дизайн и Design System · Вход, сессии, роли · Каркас Back Office и аудита · Окружения и инфраструктура</p>
+        <p class="v3-timeline__result"><b>Результат</b>Утверждены архитектура, контракты API и событий, модель данных, дизайн-направление и ключевые экраны. На окружении проверки работают регистрация, вход, сессии, вход сотрудников с TOTP, роли и права, журнал аудита и каркас панели; передана конфигурация инфраструктуры со сметой расходов.</p>
       </li>
       <li class="v3-timeline__step">
-        <span class="v3-timeline__when">Этап 02</span>
-        <h3 class="v3-subheading v3-timeline__title">Деньги и управление</h3>
-        <p class="v3-timeline__what">Финансовое ядро · Crypto · Back Office</p>
-        <p class="v3-timeline__result"><b>Результат</b>На тестовом стенде работают балансы, депозиты, выводы и управление операциями через Back Office.</p>
+        <span class="v3-timeline__when">П-2 · недели 5–11 · 835 ч</span>
+        <h3 class="v3-subheading v3-timeline__title">Учётная система игрока и финансовое ядро</h3>
+        <p class="v3-timeline__what">Профиль и 2FA игрока · Ledger, счета, резервы · Депозиты и выводы · Maker-checker, лимиты, AML · Sumsub · Finance Panel</p>
+        <p class="v3-timeline__result"><b>Результат</b>Полный внутренний путь денег: зачисление → счёт → резерв → ставка и выигрыш через интерфейс ядра → заявка на вывод → расширенная проверка от $200 и вторая подпись от $500 → проводка → сверка и история. Верификация Sumsub до вывода, ответственная игра, панель игроков, операций и согласований.</p>
       </li>
       <li class="v3-timeline__step">
-        <span class="v3-timeline__when">Этап 03</span>
-        <h3 class="v3-subheading v3-timeline__title">Клиентский продукт</h3>
-        <p class="v3-timeline__what">Web · Telegram · Android · Партнёрская система · Бонусы</p>
-        <p class="v3-timeline__result"><b>Результат</b>Клиентские приложения, партнёрский кабинет и бонусы работают с финансовым ядром и готовы к сквозной проверке.</p>
+        <span class="v3-timeline__when">П-3 · недели 9–16 · 785 ч</span>
+        <h3 class="v3-subheading v3-timeline__title">Деньги снаружи: криптовалюта, рублёвые платежи, касса</h3>
+        <p class="v3-timeline__what">TRON, TON, Bitcoin · Кошельки Hot/Warm/Cold, подпись 2 из 3 · Рублёвый провайдер и каскад · Обменник ₽↔USDT · Касса · WORM-архив, WAF</p>
+        <p class="v3-timeline__result"><b>Результат</b>Депозит и вывод в трёх сетях на тестовых сетях; рублёвое пополнение и выплата через тестовую среду провайдера с чеками и колбэками; обмен ₽↔USDT со спредом; касса в Web. Первый полный денежный маршрут: пополнение → запуск игры и ставка через Game Integration Layer на симуляторе или песочнице агрегатора → согласование → вывод → сверка. Кошельки трёх уровней, подписанты назначены, восстановление резерва проверено.</p>
       </li>
       <li class="v3-timeline__step">
-        <span class="v3-timeline__when">Этап 04</span>
-        <h3 class="v3-subheading v3-timeline__title">Проверка и запуск</h3>
-        <p class="v3-timeline__what">Тестирование · Безопасность · Мониторинг · Развёртывание</p>
-        <p class="v3-timeline__result"><b>Результат</b>Платформа проходит финальную проверку, разворачивается в production и передаётся заказчику.</p>
+        <span class="v3-timeline__when">П-4 · недели 12–22 · 965 ч</span>
+        <h3 class="v3-subheading v3-timeline__title">Клиентский продукт: витрина, игры, бонусы, партнёрка, Telegram</h3>
+        <p class="v3-timeline__what">Веб-фронтенд · Агрегатор игр и витрина · Бонусы, промокоды, партнёрка · Telegram Mini App и бот · Поддержка, отчёты, рассылки · Зеркала</p>
+        <p class="v3-timeline__result"><b>Результат</b>Игрок проходит регистрацию, пополнение, игру агрегатора, бонус и вывод в Web и Mini App; партнёр — ссылку, постбэки, статистику и выплату; сотрудник — поддержку, отчёты и рассылку. Зеркала переключаются, бот отдаёт актуальный адрес. «Дурак» подключается через тот же слой по этапу Д-2.</p>
+      </li>
+      <li class="v3-timeline__step">
+        <span class="v3-timeline__when">П-5 · недели 21–26 · 240 ч</span>
+        <h3 class="v3-subheading v3-timeline__title">Проверка, безопасность, запуск и передача</h3>
+        <p class="v3-timeline__what">Мониторинг и оповещения · Резервные копии и восстановление · SAST/SCA, DAST · Нагрузка 1 000/3 000/5 000 · Production · Документация и передача</p>
+        <p class="v3-timeline__result"><b>Результат</b>Production развёрнут, мониторинг и резервные копии в другом регионе работают, восстановление проверено, нагрузочные цели достигнуты, критичные дефекты закрыты, комплект передачи передан, подписан акт с матрицей критериев. Гарантия 45 дней с даты акта.</p>
       </li>
     </ol>
 
+    <p class="v3-small v3-road__map">Этапы соответствуют плану реализации архитектурного документа: П-1 = E0–E1 (контракты и рабочий каркас), П-2 = E2 (финансовое ядро), П-3 = E3–E4 (адаптеры и первый полный денежный маршрут), П-4 = E5 (полный обязательный объём), П-5 = E6–E7 (производственная готовность, контролируемое включение и передача).</p>
+
     <div class="v3-road__notes">
-      <p class="v3-small">Работы частично идут параллельно: тестирование и инфраструктура развиваются вместе с основной разработкой.</p>
-      <p class="v3-small">Срок зависит от своевременного согласования дизайна, blockchain-сетей, wallet-конфигурации и внешних интеграций.</p>
+      <p class="v3-small">Этапы частично перекрываются: следующий начинается, когда готовы его входы, а не после акта предыдущего. Тестирование, безопасность и инфраструктура развиваются вместе с основной разработкой с первого этапа.</p>
+      <p class="v3-small">Срок зависит от своевременного согласования дизайна, wallet-конфигурации и от сроков предоставления документации и тестовых сред поставщиков: платёжного провайдера, агрегатора игр, KYC и AML-сервисов.</p>
+      <p class="v3-small">Параллельно по отдельному предложению идут пять этапов «Дурака» Д-1…Д-5 теми же неделями; запуск вместе с платформой — оба направления рассчитаны на 26 недель.</p>
     </div>
   </div>
 </section>
@@ -2402,7 +2499,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <h3 class="v3-subheading">Кто за что отвечает</h3>
         <div>
           <p class="v3-copy">Права проверяются самой системой, а не только интерфейсом.</p>
-          <p class="v3-small v3-mt-2">Вход сотрудников в Back Office и подтверждение критических операций защищены 2FA.</p>
+          <p class="v3-small v3-mt-2">Вход сотрудников в Back Office и подтверждение критических операций защищены 2FA. У владельца — две учётные записи с равными правами, чтобы доступ не зависел от одного устройства или человека.</p>
         </div>
       </div>
 
@@ -2410,14 +2507,14 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <div class="v3-ctl__group">
           <p class="v3-ctl__gname">Стратегический контроль</p>
           <div>
-            <div class="v3-ctl__role v3-ctl__role--key"><b>Founder</b><span>Максимальный управленческий контроль и подтверждение операций со средствами компании.</span></div>
+            <div class="v3-ctl__role v3-ctl__role--key"><b>Founder · 2 учётные записи</b><span>Максимальный управленческий контроль, подтверждение операций со средствами компании и вторая подпись на выводах от $500. Автоматические выплаты включаются только по письменному разрешению владельца.</span></div>
           </div>
         </div>
         <div class="v3-ctl__group">
           <p class="v3-ctl__gname">Операционное управление</p>
           <div>
-            <div class="v3-ctl__role"><b>Admin</b><span>Работа платформы, пользователи и доступы сотрудников. Финансовые права разделены с Finance.</span></div>
-            <div class="v3-ctl__role v3-ctl__role--key"><b>Finance</b><span>Финансовые операции, проверки и подтверждение выплат.</span></div>
+            <div class="v3-ctl__role"><b>Admin</b><span>Работа платформы, пользователи и доступы сотрудников. Вторая подпись на выводах от $500. Финансовые права разделены с Finance.</span></div>
+            <div class="v3-ctl__role v3-ctl__role--key"><b>Finance</b><span>Финансовый отдел: согласование всех выводов, расширенная проверка от $200, сверка и операции с балансами.</span></div>
             <div class="v3-ctl__role"><b>Support</b><span>Обращения игроков и нужные для поддержки данные, без доступа к финансам компании.</span></div>
           </div>
         </div>
@@ -2449,7 +2546,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <h3 class="v3-title">Критические операции — не в одни руки</h3>
         <p class="v3-copy">Крупные выплаты и чувствительные действия подтверждает вторая ответственная роль.</p>
         <p class="v3-ctl__effect">Один сотрудник не получает единоличный контроль над крупным движением средств.</p>
-        <p class="v3-ctl__meta">Вывод игрока от $500: Admin → Finance. Средства компании: Finance → Founder.</p>
+        <p class="v3-ctl__meta">Вывод игрока: финансовый отдел → от $500 вторая подпись администратора или владельца. Средства компании: Finance → Founder.</p>
       </li>
       <li class="v3-principle">
         <span class="v3-principle__index">03</span>
@@ -2458,6 +2555,8 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <p class="v3-ctl__effect">У владельца остаётся понятная история действий внутри системы.</p>
       </li>
     </ul>
+
+    <p class="v3-callout v3-mt-7"><b>Правило выводов на запуске.</b> Все выводы согласуются вручную: порог автоматической выплаты равен нулю. От $200 — расширенная проверка финансовым отделом, от $500 — вторая подпись администратора или владельца. Механизм автоматических выплат и лимиты реализуются, но остаются выключенными до письменного разрешения владельца. Подпись и отправка транзакции после согласования выполняются программно в защищённом контуре — ключ сотруднику не выдаётся. Автоматизация подписи после человеческого согласования и автоматическое одобрение — разные режимы.</p>
 
   </div>
 </section>
@@ -2469,7 +2568,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
       <div>
         <p class="v3-eyebrow">09 · Границы и расширения</p>
         <h2 class="v3-heading">Что входит сейчас — и что можно добавить дальше</h2>
-        <p class="v3-lead">Базовая стоимость включает весь согласованный технический контур платформы. Собственные игры, дополнительные сети и отдельные внешние сервисы подключаются отдельно.</p>
+        <p class="v3-lead">Стоимость платформы включает весь согласованный технический контур, рублёвый платёжный канал и агрегатор игр. Собственные игры, дополнительные провайдеры и сети, второй регион и внешние сервисы подключаются отдельно.</p>
       </div>
     </div>
 
@@ -2478,11 +2577,13 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <h3 class="v3-subheading">В базовую стоимость входит</h3>
       </div>
       <ul class="v3-bounds__strip" aria-label="Краткий состав базового scope">
-        <li><b>Web + Telegram + Android</b><span>клиентские приложения и Telegram Bot</span></li>
-        <li><b>Финансовое ядро</b><span>балансы, депозиты, выводы и история денег</span></li>
-        <li><b>Crypto-инфраструктура</b><span>до 3 blockchain-сетей</span></li>
-        <li><b>Back Office</b><span>игроки, финансы и операции команды</span></li>
-        <li><b>Партнёрская система</b><span>referrals, RevShare, CPA, Hybrid и кабинет партнёра</span></li>
+        <li><b>Web + Telegram</b><span>клиентские приложения и Telegram Bot</span></li>
+        <li><b>Финансовое ядро</b><span>балансы, депозиты, выводы, обменник ₽↔USDT, KYC и история денег</span></li>
+        <li><b>Crypto-инфраструктура</b><span>3 сети: TRON, TON, Bitcoin</span></li>
+        <li><b>Рублёвые платежи</b><span>один P2P-провайдер, каскад и касса (предварительная оценка)</span></li>
+        <li><b>Агрегатор игр</b><span>один агрегатор по единому кошельку и витрина (предварительная оценка)</span></li>
+        <li><b>Back Office</b><span>игроки, финансы, отчёты и операции команды</span></li>
+        <li><b>Партнёрская система</b><span>referrals, RevShare, CPA и кабинет партнёра</span></li>
         <li><b>UI/UX</b><span>3 дизайн-направления и развитие выбранной концепции</span></li>
         <li><b>Инфраструктура и запуск</b><span>тестирование, мониторинг, резервное копирование и развёртывание</span></li>
       </ul>
@@ -2497,18 +2598,18 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <div class="v3-bounds__row v3-keep">
           <span class="v3-bounds__row-index">01</span>
           <div>
-            <div class="v3-bounds__row-title"><h4>PvP «Дурак»</h4><span class="v3-bounds__tag">отдельно</span></div>
-            <p class="v3-bounds__row-desc">PvP-модуль карточной игры с матчами, балансом платформы, историей партий и управлением в Back Office.</p>
-            <p class="v3-bounds__row-note">Оценка уточняется после согласования механики игры.</p>
+            <div class="v3-bounds__row-title"><h4>«Дурак»</h4><span class="v3-bounds__tag">отдельное КП</span></div>
+            <p class="v3-bounds__row-desc">Собственная карточная игра на USDT для 2–6 игроков: столы, матчи, турниры, античит, панель управления и архитектурная готовность к внешним операторам. Оформляется отдельным предложением и отдельным направлением договора.</p>
+            <p class="v3-bounds__row-note">Пять этапов Д-1…Д-5 ($3,900 / $5,700 / $4,100 / $8,100 / $6,200), состав и приёмка — в предложении <a href="durak-b2b.html">durak-b2b.html</a>. «Дурак» вне бонусов и отыгрыша платформы.</p>
           </div>
-          <div class="v3-bounds__value"><b class="v3-num">$6,000–8,000</b><span>около 3–4 недель разработки</span></div>
+          <div class="v3-bounds__value"><b class="v3-num">$28,000</b><span>1,380 ч · параллельно с платформой</span></div>
         </div>
 
         <div class="v3-bounds__row">
           <span class="v3-bounds__row-index">02</span>
           <div>
-            <div class="v3-bounds__row-title"><h4>Другие игровые модули</h4><span class="v3-bounds__tag">отдельно</span></div>
-            <p class="v3-bounds__row-desc">Crash, Mines, Roulette, Blackjack, Baccarat, Dragon/Tiger и другие игры оцениваются после постановки задачи.</p>
+            <div class="v3-bounds__row-title"><h4>Вторая собственная игра</h4><span class="v3-bounds__tag">не входит</span></div>
+            <p class="v3-bounds__row-desc">Первая версия — казино и «Дурак». Вторая собственная игра (Crash и другие) в объём не входит и оценивается отдельно после постановки задачи.</p>
             <p class="v3-bounds__row-note">Game engine, RNG, Provably Fair, RTP logic, игровые интерфейсы, графика и certification относятся к модулю игры.</p>
           </div>
           <div class="v3-bounds__value">Отдельная оценка</div>
@@ -2517,15 +2618,45 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <div class="v3-bounds__row">
           <span class="v3-bounds__row-index">03</span>
           <div>
-            <div class="v3-bounds__row-title"><h4>Дополнительные blockchain-сети</h4><span class="v3-bounds__tag v3-bounds__tag--base">до 3 сетей в базе</span></div>
-            <p class="v3-bounds__row-desc">Четвёртая и последующие сети оцениваются после выбора blockchain-сети и инфраструктуры.</p>
+            <div class="v3-bounds__row-title"><h4>Второй и последующие рублёвые провайдеры</h4><span class="v3-bounds__tag v3-bounds__tag--base">один в базе</span></div>
+            <p class="v3-bounds__row-desc">Адаптер и сверка под нового провайдера. Каскадная маршрутизация уже входит в базовый объём, поэтому подключение сводится к адаптеру.</p>
+            <p class="v3-bounds__row-note">Оценивается после получения документации провайдера.</p>
+          </div>
+          <div class="v3-bounds__value">Отдельная оценка<span>ориентир 60–100 ч каждый</span></div>
+        </div>
+
+        <div class="v3-bounds__row">
+          <span class="v3-bounds__row-index">04</span>
+          <div>
+            <div class="v3-bounds__row-title"><h4>Внешние операторы «Дурака» и общий пул игроков</h4><span class="v3-bounds__tag">отдельные соглашения</span></div>
+            <p class="v3-bounds__row-desc">Архитектурная готовность входит в предложение «Дурака»: мультиарендная модель, изоляция данных по оператору, Operator API и документация. Песочница и адаптация под протокол внешнего оператора, а также общий пул игроков между операторами оформляются отдельными соглашениями.</p>
+            <p class="v3-bounds__row-note">Пулы изолированы на запуске; архитектура допускает объединение по договору.</p>
+          </div>
+          <div class="v3-bounds__value">Отдельная оценка</div>
+        </div>
+
+        <div class="v3-bounds__row">
+          <span class="v3-bounds__row-index">05</span>
+          <div>
+            <div class="v3-bounds__row-title"><h4>Дополнительные blockchain-сети</h4><span class="v3-bounds__tag v3-bounds__tag--base">3 сети в базе</span></div>
+            <p class="v3-bounds__row-desc">Четвёртая и последующие сети оцениваются после выбора сети и инфраструктуры.</p>
             <p class="v3-bounds__row-note">Объём зависит от API сети, модели транзакций и выбранного провайдера.</p>
           </div>
           <div class="v3-bounds__value">Отдельная оценка</div>
         </div>
 
         <div class="v3-bounds__row">
-          <span class="v3-bounds__row-index">04</span>
+          <span class="v3-bounds__row-index">06</span>
+          <div>
+            <div class="v3-bounds__row-title"><h4>Второй регион с переключением</h4><span class="v3-bounds__tag">отдельно</span></div>
+            <p class="v3-bounds__row-desc">Базовая конфигурация — один регион, резервные копии в другом. Репликация во второй регион, переключение и учения по переключению добавляются отдельно.</p>
+            <p class="v3-bounds__row-note">Оценивается по решению заказчика после выбора облака и страны.</p>
+          </div>
+          <div class="v3-bounds__value">Отдельная оценка</div>
+        </div>
+
+        <div class="v3-bounds__row">
+          <span class="v3-bounds__row-index">07</span>
           <div>
             <div class="v3-bounds__row-title"><h4>External custodian</h4><span class="v3-bounds__tag">альтернатива</span></div>
             <p class="v3-bounds__row-desc">Базовая конфигурация строится на self-custody: Hot / Warm / Cold tiers, HSM-backed signing, key policies и monitoring. External custodian — альтернатива.</p>
@@ -2545,13 +2676,15 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <ul class="v3-bounds__external-list v3-mt-3">
           <li>хостинг, облако, CDN и домен</li>
           <li>blockchain/RPC-провайдер и внешний custody provider</li>
-          <li>тарифы AML/KYC-сервисов и push-уведомлений</li>
+          <li>тарифы рублёвого платёжного провайдера</li>
+          <li>тарифы агрегатора игр</li>
+          <li>тарифы KYC-провайдера Sumsub и AML-сервиса проверки адресов</li>
+          <li>поставщик транзакционной почты и push-уведомлений</li>
           <li>комиссии blockchain-сетей и транзакционные расходы</li>
           <li>лицензия и юридическое сопровождение</li>
-          <li>внешний пентест и сертификация RNG</li>
-          <li>аккаунт Google Play для публикации Android-приложения</li>
+          <li>внешний пентест и сертификация RNG для собственных игр</li>
         </ul>
-        <p class="v3-small v3-mt-3">Базовые Risk/AML-правила и готовность к интеграции входят в проект. Тариф внешнего AML/KYC-провайдера оплачивается отдельно.</p>
+        <p class="v3-small v3-mt-3">Интеграции с этими сервисами входят в проект. Договоры и учётные записи у поставщиков оформляются на заказчика, их тарифы оплачиваются напрямую.</p>
       </div>
     </div>
 
@@ -2567,81 +2700,124 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
         <h2 class="v3-heading">Оплата по результатам этапов</h2>
         <p class="v3-lead">Оплата разбита на пять этапов. Каждый заканчивается демонстрацией, проверкой сценариев и приёмкой результата.</p>
       </div>
-      <p class="v3-format__summary">Фиксированная стоимость · 5 этапов<span>Платёж привязан к приёмке этапа.</span></p>
+      <p class="v3-format__summary">$61,000 · 5 этапов<span>Оплата этапа: 70% до начала работ, 30% после приёмки по акту.</span></p>
     </div>
 
     <div class="v3-format__paystrip" aria-label="Распределение платежей по этапам">
-      <span data-label="20%"></span>
-      <span data-label="20%"></span>
-      <span class="is-key" data-label="25%"></span>
-      <span data-label="20%"></span>
-      <span data-label="15%"></span>
+      <span data-label="18%"></span>
+      <span data-label="24%"></span>
+      <span data-label="22%"></span>
+      <span class="is-key" data-label="26%"></span>
+      <span data-label="10%"></span>
     </div>
 
     <div class="v3-format__milestones">
       <div class="v3-format__milestone v3-keep">
-        <span class="v3-format__index">01</span>
+        <span class="v3-format__index">П-1</span>
         <div>
-          <h3 class="v3-format__title">Проектирование и дизайн</h3>
-          <p class="v3-format__money">20% <span>·</span> $11,400</p>
-          <p class="v3-format__includes">Финальные требования, архитектура, пользовательские сценарии, визуальное направление и основа Design System.</p>
+          <h3 class="v3-format__title">Проектирование, дизайн и основа платформы</h3>
+          <p class="v3-format__money">18% <span>·</span> $11,000</p>
+          <p class="v3-format__weeks">Недели 1–5 · 635 ч</p>
+          <p class="v3-format__includes">Архитектура, границы сервисов, контракты API и событий, модель данных; UX-концепция, три визуальных направления, Design System; регистрация и вход, сессии, 2FA сотрудников и FIDO2 владельцев, семь ролей и матрица прав; каркас Back Office и аудита; окружения, Kubernetes, инфраструктура как код, CI/CD, хранилище секретов.</p>
         </div>
         <div>
-          <p class="v3-format__result"><b>Результат:</b> заказчик видит согласованную архитектуру, пользовательские сценарии и выбранное визуальное направление.</p>
-          <p class="v3-format__accept"><b>Приёмка:</b> согласованы объём работ, архитектура, сценарии, дизайн-направление и ключевые экраны.</p>
+          <p class="v3-format__result"><b>Результат:</b> заказчик видит утверждённую архитектуру, дизайн-направление и ключевые экраны; на окружении проверки работают вход, роли, аудит и каркас панели.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> утверждены архитектура, границы сервисов, модель данных и дизайн-направление; проверены регистрация, вход, сессии, вход сотрудников с TOTP, права по ролям и журнал аудита; передана конфигурация инфраструктуры со сметой расходов.</p>
         </div>
       </div>
 
       <div class="v3-format__milestone v3-keep">
-        <span class="v3-format__index">02</span>
+        <span class="v3-format__index">П-2</span>
         <div>
-          <h3 class="v3-format__title">Основа платформы</h3>
-          <p class="v3-format__money">20% <span>·</span> $11,400</p>
-          <p class="v3-format__includes">Пользователи, авторизация, роли, права доступа и базовый Back Office.</p>
+          <h3 class="v3-format__title">Учётная система игрока и финансовое ядро</h3>
+          <p class="v3-format__money">24% <span>·</span> $14,500</p>
+          <p class="v3-format__weeks">Недели 5–11 · 835 ч</p>
+          <p class="v3-format__includes">Профиль, восстановление, 2FA игрока, ответственная игра; ledger двойной записи, счета и балансы, инварианты, идемпотентность; жизненные циклы депозита и вывода, резервы, maker-checker, лимиты и корректировки, правила риска, слой AML, сверка, аудит-трейл; интеграция Sumsub; дашборд, игроки, операции, Finance Panel, согласование выводов.</p>
         </div>
         <div>
-          <p class="v3-format__result"><b>Результат:</b> на тестовом стенде работают аккаунты, роли и основные разделы Back Office.</p>
-          <p class="v3-format__accept"><b>Приёмка:</b> проверены регистрация, авторизация, профиль, вход сотрудников, доступы и основные действия в Back Office.</p>
+          <p class="v3-format__result"><b>Результат:</b> заказчик проверяет полный путь денег внутри платформы — от зачисления до вывода, сверки и истории.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> на окружении проверки проходит цепочка зачисление → счёт → резерв → ставка и выигрыш через интерфейс ядра → заявка на вывод → расширенная проверка от $200 → вторая подпись от $500 → проводка → сверка; верификация Sumsub до вывода; панель игроков, операций, согласований и настроек.</p>
+        </div>
+      </div>
+
+      <div class="v3-format__milestone v3-keep">
+        <span class="v3-format__index">П-3</span>
+        <div>
+          <h3 class="v3-format__title">Деньги снаружи: криптовалюта, рублёвые платежи, касса</h3>
+          <p class="v3-format__money">22% <span>·</span> $13,500</p>
+          <p class="v3-format__weeks">Недели 9–16 · 785 ч</p>
+          <p class="v3-format__includes">Шлюз сетей TRON (USDT TRC-20), TON, Bitcoin: адреса, подтверждения, выводы, комиссии, консолидация; кошельки Hot/Warm/Cold, подпись 2 из 3, HSM; адаптер рублёвого провайдера с чеками, колбэками, спорами, 161-ФЗ и каскадом; обменник ₽↔USDT; касса; WORM-архив аудита, Cloudflare/WAF. Провайдер и обменник — позиции с предварительной оценкой, уточняются до начала этапа.</p>
+        </div>
+        <div>
+          <p class="v3-format__result"><b>Результат:</b> реальные депозиты и выводы в трёх сетях и в рублях через тестовые среды поставщиков; обмен ₽↔USDT; первый полный денежный маршрут от пополнения до вывода и сверки.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> депозит и вывод проходят в трёх тестовых сетях; рублёвое пополнение и выплата — через тестовую среду провайдера с чеками и колбэками; каскад на провайдере и эмуляторе второго; обмен со спредом; касса с историей и статусами; ставка через Game Integration Layer на симуляторе или песочнице агрегатора; подписанты назначены, восстановление резерва проверено на тестовых ключах.</p>
         </div>
       </div>
 
       <div class="v3-format__milestone v3-format__milestone--key v3-keep">
-        <span class="v3-format__index">03</span>
+        <span class="v3-format__index">П-4</span>
         <div>
-          <h3 class="v3-format__title">Финансовое и crypto-ядро</h3>
-          <p class="v3-format__money">25% <span>·</span> $14,250</p>
-          <p class="v3-format__includes">Финансовый журнал, балансы, депозиты, выводы, подтверждение операций, сверка и интеграция до трёх blockchain-сетей.</p>
+          <h3 class="v3-format__title">Клиентский продукт: витрина, игры, бонусы, партнёрка, Telegram</h3>
+          <p class="v3-format__money">26% <span>·</span> $16,000</p>
+          <p class="v3-format__weeks">Недели 12–22 · 965 ч</p>
+          <p class="v3-format__includes">Веб-фронтенд и адаптивность; агрегатор игр по единому кошельку и витрина; бонусный движок, промокоды, бесплатные раунды, реферальный бонус; партнёрская атрибуция, RevShare и CPA, постбэки, кабинет партнёра, антифрод; RU/EN, уведомления, почта и рассылки; Telegram Mini App и бот; поддержка, Chatwoot, девять отчётов; зеркала. Агрегатор — позиция с предварительной оценкой, уточняется до начала этапа.</p>
         </div>
         <div>
-          <p class="v3-format__result"><b>Результат:</b> заказчик проверяет путь денег от депозита до баланса, операции и вывода.</p>
-          <p class="v3-format__accept"><b>Приёмка:</b> на тестовом стенде проходят депозит, баланс, операция и вывод; доступны история, подтверждения, сверка и blockchain-транзакции.</p>
-        </div>
-      </div>
-
-      <div class="v3-format__milestone v3-keep">
-        <span class="v3-format__index">04</span>
-        <div>
-          <h3 class="v3-format__title">Клиентский и бизнес-контур</h3>
-          <p class="v3-format__money">20% <span>·</span> $11,400</p>
-          <p class="v3-format__includes">Web, Telegram, Android, партнёрский кабинет, уведомления, бонусы и основные сквозные сценарии.</p>
-        </div>
-        <div>
-          <p class="v3-format__result"><b>Результат:</b> игроки, партнёры и команда проходят основные сценарии через свои интерфейсы.</p>
-          <p class="v3-format__accept"><b>Приёмка:</b> доступны аккаунт, баланс, финансовый интерфейс, Web, Telegram, Android, партнёрский сценарий и базовые бонусы. Разработка игр сюда не входит.</p>
+          <p class="v3-format__result"><b>Результат:</b> игрок, партнёр и сотрудник проходят сквозные сценарии через свои интерфейсы; игры агрегатора запускаются; отчёты формируются.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> игрок проходит регистрацию, пополнение, игру агрегатора, бонус и вывод в Web и Mini App; партнёр — ссылку, постбэки, статистику и выплату; сотрудник — поддержку, отчёты и рассылку; зеркала переключаются, бот отдаёт актуальный адрес. «Дурак» подключается через тот же слой по этапу Д-2 и принимается по отдельному предложению.</p>
         </div>
       </div>
 
       <div class="v3-format__milestone v3-keep">
-        <span class="v3-format__index">05</span>
+        <span class="v3-format__index">П-5</span>
         <div>
-          <h3 class="v3-format__title">Финальная проверка и сдача</h3>
-          <p class="v3-format__money">15% <span>·</span> $8,550</p>
-          <p class="v3-format__includes">Финальная проверка, безопасность, мониторинг, backup, восстановление, deployment, документация и передача проекта.</p>
+          <h3 class="v3-format__title">Проверка, безопасность, запуск и передача</h3>
+          <p class="v3-format__money">10% <span>·</span> $6,000</p>
+          <p class="v3-format__weeks">Недели 21–26 · 240 ч</p>
+          <p class="v3-format__includes">Журналы, метрики и оповещения; резервное копирование и учение по восстановлению; SAST/SCA, DAST и укрепление; автотесты и ручная регрессия; нагрузка 1 000/3 000/5 000 и отказы; подготовка к внешнему пентесту и исправление критичных находок; SEO-документ и домены; запуск production; документация и передача. Доля платежа выше доли часов: последний платёж привязан к акту итоговой приёмки.</p>
         </div>
         <div>
-          <p class="v3-format__result"><b>Результат:</b> согласованный объём проверен, развёрнут и передан заказчику.</p>
-          <p class="v3-format__accept"><b>Приёмка:</b> пройдены сквозные сценарии, исправлены критические дефекты, настроены production, мониторинг и backup, передана документация.</p>
+          <p class="v3-format__result"><b>Результат:</b> платформа развёрнута в production, проверена под нагрузкой и передана заказчику с комплектом документации.</p>
+          <p class="v3-format__accept"><b>Приёмка:</b> мониторинг и резервные копии в другом регионе работают, восстановление проверено, нагрузочные цели достигнуты, критичные дефекты закрыты или есть письменное согласие заказчика, комплект передачи передан, подписан акт с матрицей критериев.</p>
         </div>
+      </div>
+
+    </div>
+
+    <div class="v3-format__calendar v3-keep">
+      <div>
+        <h3 class="v3-subheading">Календарь: 26 недель</h3>
+        <p class="v3-small">Этапы частично перекрываются: следующий начинается, когда готовы его входы, а не после акта предыдущего. Три этапа «Дурака» идут параллельно и завершаются вместе с платформой.</p>
+      </div>
+      <ol class="v3-format__gantt" aria-label="Календарь этапов по неделям">
+        <li class="is-axis"><b><small>неделя</small></b><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span></li>
+        <li><b>П-1<small>недели 1–5 · 635 ч</small></b><i style="grid-column:2 / span 5" aria-label="недели 1–5"></i></li>
+        <li><b>П-2<small>недели 5–11 · 835 ч</small></b><i style="grid-column:6 / span 7" aria-label="недели 5–11"></i></li>
+        <li><b>П-3<small>недели 9–16 · 785 ч</small></b><i style="grid-column:10 / span 8" aria-label="недели 9–16"></i></li>
+        <li><b>П-4<small>недели 12–22 · 965 ч</small></b><i style="grid-column:13 / span 11" aria-label="недели 12–22"></i></li>
+        <li><b>П-5<small>недели 21–26 · 240 ч</small></b><i style="grid-column:22 / span 6" aria-label="недели 21–26"></i></li>
+        <li class="is-durak is-gap"><b>Д-1<small>недели 1–5 · 190 ч</small></b><i style="grid-column:2 / span 5" aria-label="недели 1–5"></i></li>
+        <li class="is-durak"><b>Д-2<small>недели 5–11 · 280 ч</small></b><i style="grid-column:6 / span 7" aria-label="недели 5–11"></i></li>
+        <li class="is-durak"><b>Д-3<small>недели 9–16 · 205 ч</small></b><i style="grid-column:10 / span 8" aria-label="недели 9–16"></i></li>
+        <li class="is-durak"><b>Д-4<small>недели 12–22 · 400 ч</small></b><i style="grid-column:13 / span 11" aria-label="недели 12–22"></i></li>
+        <li class="is-durak"><b>Д-5<small>недели 21–26 · 305 ч</small></b><i style="grid-column:22 / span 6" aria-label="недели 21–26"></i></li>
+      </ol>
+    </div>
+
+    <div class="v3-format__durak v3-keep">
+      <div>
+        <h3 class="v3-subheading">«Дурак»: пять этапов параллельно</h3>
+        <p class="v3-small">Отдельное предложение — <a href="durak-b2b.html">durak-b2b.html</a>. 1,380 ч. Этапы идут теми же неделями, что и этапы платформы, и принимаются одним актом с ними.</p>
+      </div>
+      <div>
+        <ol class="v3-format__durak-list">
+          <li><b>Д-1. Правила, спецификация и дизайн</b><span>недели 1–5 · 190 ч · приёмка: свод правил, доли мест, макеты</span><em>$3,900</em></li>
+          <li><b>Д-2. Игровой движок, честность и боты</b><span>недели 5–11 · 280 ч · приёмка: тесты правил, проверка раздачи, боты, партии на симуляторе кошелька</span><em>$5,700</em></li>
+          <li><b>Д-3. Деньги партии и подключение к ядру</b><span>недели 9–16 · 205 ч · приёмка не ранее П-3: партия с реальным резервом, списанием и выплатой через ядро</span><em>$4,100</em></li>
+          <li><b>Д-4. Клиент, лобби и Telegram</b><span>недели 12–22 · 400 ч · приёмка не ранее П-4: полный путь игрока в Web и Mini App, переподключение, несколько столов</span><em>$8,100</em></li>
+          <li><b>Д-5. Панель, контроль, проверка и запуск</b><span>недели 21–26 · 305 ч · приёмка вместе с П-5: панель, контроль сговора, нагрузка, production, акт</span><em>$6,200</em></li>
+        </ol>
+        <p class="v3-format__durak-total">Итого <b>$28,000</b>: $3,900 + $5,700 + $4,100 + $8,100 + $6,200. Платежи «Дурака» не входят в $61,000 платформы и идут по отдельному направлению договора. Сводная оплата по этапам обоих направлений — на странице <a href="stages.html">«Этапы, оплата и приёмка»</a>.</p>
       </div>
     </div>
 
@@ -2662,14 +2838,14 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
 
     <div class="v3-format__after v3-keep">
       <div class="v3-format__warranty">
-        <p class="v3-format__warranty-kicker">0–45 дней после сдачи</p>
+        <p class="v3-format__warranty-kicker">45 дней с даты акта итоговой приёмки</p>
         <h3>45 дней гарантийного сопровождения</h3>
-        <p>В течение 45 календарных дней после финальной сдачи команда без доплаты исправляет ошибки, если реализованная функция работает не так, как было согласовано.</p>
+        <p>В течение 45 календарных дней с даты акта итоговой приёмки команда без доплаты исправляет ошибки, если реализованная функция работает не так, как было согласовано. Реакция — в течение рабочего дня, критичные дефекты исправляются в срок до 3 рабочих дней.</p>
       </div>
 
       <div class="v3-format__support">
         <h3>После гарантийного периода</h3>
-        <p>После гарантии новые задачи оцениваются отдельно. Команда согласовывает объём, срок и стоимость, затем берёт задачу в работу.</p>
+        <p>После гарантии новые задачи оцениваются отдельно по ставке $21/ч. Команда согласовывает объём, срок и стоимость, затем берёт задачу в работу.</p>
         <ol class="v3-format__support-flow" aria-label="Формат поддержки после гарантийного периода">
           <li>Задача</li>
           <li>Оценка часов</li>
@@ -2682,10 +2858,10 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
     <div class="v3-format__tail">
     <div class="v3-format__bugchange">
       <p><b>Ошибка</b>Реализованная функция работает не так, как было согласовано. Такая ошибка исправляется во время проекта или гарантийного сопровождения.</p>
-      <p><b>Новая задача</b>Нужна новая функция, интеграция, изменение логики или расширение объёма. Такая задача оценивается отдельно.</p>
+      <p><b>Новая задача</b>Нужна новая функция, интеграция, изменение логики или расширение объёма. Такая задача оценивается отдельно по ставке $21/ч; та же ставка применяется к пересчёту позиций с предварительной оценкой и дополнительным соглашениям.</p>
     </div>
 
-    <p class="v3-small v3-format__note">График зависит от референсов, решений по blockchain-сетям и провайдерам, а также обратной связи.</p>
+    <p class="v3-small v3-format__note">График зависит от референсов, сроков предоставления документации и тестовых сред поставщиков, решений по облаку и стране, а также обратной связи.</p>
     </div>
   </div>
 </section>
@@ -2697,7 +2873,7 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
 <aside class="v3-closing" aria-label="Следующий шаг">
   <div class="v3-closing__inner">
     <h2 class="v3-closing__title">Готовы перейти к реализации</h2>
-    <p class="v3-closing__copy">После согласования предложения фиксируем финальный объём работ и подписываем договор. Сразу за этим команда приступает к работе.</p>
+    <p class="v3-closing__copy">После согласования предложения фиксируем финальный объём работ и подписываем договор на платформу и «Дурака». Сразу за этим команда приступает к работе.</p>
 
     <ol class="v3-closing__flow">
       <li>Согласование</li>
@@ -2707,7 +2883,8 @@ footer div{font-size:12.5px;line-height:1.6;color:var(--v3-ink-3);max-width:72ch
     </ol>
 
     <div class="v3-closing__summary">
-      <div><b>18–21 нед.</b><span>срок реализации</span></div>
+      <div><b>$61,000</b><span>стоимость платформы</span></div>
+      <div><b>6 месяцев</b><span>срок реализации</span></div>
     </div>
   </div>
 </aside>
