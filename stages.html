@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Этапы, оплата и приёмка работ — Casino Platform и «Дурак»</title>
+<meta name="description" content="Пять этапов казино-платформы и пять параллельных этапов игры «Дурак»: календарь на 26 недель, часы, стоимость, результаты, приёмка, оплата и гарантия.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ===== единая дизайн-система документов проекта ===== */
+:root{
+  --paper:#F5F4EF;--paper-2:#ECEBE4;--surface:#FFFFFF;
+  --ink:#12171B;--ink-2:#3B454D;--ink-3:#6B757E;
+  --line:#E1E0D8;--line-strong:#C4C6BD;
+  --accent:#14505F;--accent-ink:#0B3B47;--accent-soft:#E3EDF0;--accent-light:#7FB6C4;
+  --neg:#8C4A3C;--warn:#8A6A1F;
+  --dark:#080A0C;--dark-2:#101417;--dark-3:#182028;--dark-line:#20262A;--dark-ink:#F3F2ED;--dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;
+  --container:1080px;--gutter:32px;--radius:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent-soft)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:.18em}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:clamp(48px,6vw,76px);scroll-margin-top:64px}
+.section--surface{background:var(--paper-2)}
+.eyebrow{font-size:13.5px;font-weight:500;color:var(--accent);margin:0 0 var(--s2)}
+.heading{font-weight:600;font-size:clamp(26px,3.2vw,36px);line-height:1.12;letter-spacing:-.025em;max-width:26ch;overflow-wrap:break-word;hyphens:auto}
+.lead{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.45;color:var(--ink-2);max-width:56ch}
+.copy{font-size:16.5px;line-height:1.6;color:var(--ink-2);max-width:66ch}
+.copy + .copy{margin-top:.85em}
+.heading + .lead,.heading + .copy,.lead + .copy{margin-top:var(--s3)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.note{font-size:14px;line-height:1.5;color:var(--ink-3);max-width:76ch}
+.note a,.src a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+.note a:hover,.src a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.src{margin-top:var(--s3);font-size:13.5px;line-height:1.7;color:var(--ink-3)}
+.list{list-style:none;margin:0;padding:0}
+.list li{position:relative;padding-left:20px;margin-bottom:8px;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.list li:last-child{margin-bottom:0}
+.list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--accent)}
+.list li b{color:var(--ink)}
+.h3{font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+.h4{font-size:16.5px;font-weight:600;line-height:1.3}
+.intro{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(24px,4vw,56px);align-items:start}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(26px,3.6vw,48px)}
+.callout{margin-top:var(--s4);background:var(--surface);border:1px solid var(--line-strong);border-left:3px solid var(--accent);border-radius:var(--radius);padding:clamp(16px,2vw,22px) clamp(18px,2.4vw,28px)}
+.callout .label{color:var(--accent);display:block;margin-bottom:8px}
+.callout p{font-size:15.5px;line-height:1.55;color:var(--ink);max-width:78ch}
+.callout p + p{margin-top:8px}
+
+/* ---------- верхняя панель ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:40;height:46px;background:rgba(245,244,239,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transform:translateY(-100%);transition:transform .25s ease}
+.topbar.show{transform:none}
+.topbar .in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter);height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13.5px}
+.topbar .doc{color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .doc a{color:var(--ink-3);margin-right:10px}
+.topbar nav{display:flex;gap:18px}
+.topbar nav a{color:var(--ink-2);white-space:nowrap}
+.topbar nav a:hover{color:var(--accent);text-decoration:none}
+.topbar details{position:relative}
+.topbar summary{list-style:none;cursor:pointer;color:var(--accent);white-space:nowrap;padding:6px 0}
+.topbar summary::-webkit-details-marker{display:none}
+.topbar details[open] summary{color:var(--ink)}
+.topbar .menu{position:absolute;right:0;top:100%;background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.12);padding:8px 0;min-width:290px;display:grid}
+.topbar .menu a{padding:8px 16px;color:var(--ink);font-size:14px;display:flex;gap:10px}
+.topbar .menu a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent);padding-top:3px}
+.topbar .menu a:hover{background:var(--paper-2);text-decoration:none}
+
+/* ---------- обложка ---------- */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(44px,6vw,72px)}
+.head__grid{display:grid;grid-template-columns:minmax(0,60fr) minmax(0,40fr);gap:clamp(24px,3.4vw,40px) clamp(28px,4.5vw,56px);align-items:start}
+.head__main{grid-column:1;grid-row:1}
+.head__grid .head__note{grid-column:1;grid-row:2;margin-top:0}
+.head__grid .pricecard{grid-column:2;grid-row:1/span 2;align-self:start}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);margin-bottom:18px}
+.head__eyebrow a{color:var(--dark-muted);border-bottom:1px solid var(--dark-line)}
+.head__eyebrow a:hover{color:var(--dark-ink);text-decoration:none}
+.head__title{font-weight:700;font-size:clamp(30px,4.2vw,48px);line-height:1.05;letter-spacing:-.032em;overflow-wrap:break-word;hyphens:auto}
+.head__lead{font-family:var(--serif);font-size:clamp(17px,1.9vw,20px);line-height:1.5;color:#C9D0D5;max-width:50ch;margin-top:clamp(16px,2.2vw,24px)}
+.head__facts{list-style:none;margin:clamp(20px,2.6vw,28px) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.head__facts li{font-size:14px;color:var(--dark-ink);border:1px solid var(--dark-line);background:var(--dark-2);border-radius:99px;padding:6px 14px}
+.head__note{margin-top:clamp(20px,2.6vw,28px);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:14px;line-height:1.55;color:var(--dark-muted);max-width:62ch}
+.head__note a{color:var(--accent-light)}
+.pricecard{background:var(--dark-2);border:1px solid var(--dark-line);border-radius:8px;padding:clamp(20px,2.6vw,28px)}
+.pricecard .label{color:var(--accent-light);display:block;margin-bottom:12px}
+.pricecard__sum{font-size:clamp(40px,5vw,54px);font-weight:700;letter-spacing:-.035em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.pricecard__cap{margin-top:10px;font-size:15px;line-height:1.5;color:var(--dark-ink)}
+.pricecard dl{margin:var(--s3) 0 0;padding-top:var(--s2);border-top:1px solid var(--dark-line);display:grid;gap:9px;font-size:14px}
+.pricecard dl > div{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+.pricecard dt{color:var(--dark-muted)}
+.pricecard dd{margin:0;color:var(--dark-ink);text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- содержание ---------- */
+.toc{padding-block:var(--s4);border-bottom:1px solid var(--line)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 var(--s5)}
+.toc a{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line);color:var(--ink);font-size:14.5px}
+.toc li:nth-child(-n+3) a{border-top:0}
+.toc a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent)}
+.toc a:hover{text-decoration:none;color:var(--accent)}
+
+/* ---------- таблицы ---------- */
+.tablewrap{margin-top:var(--s4)}
+.tbl{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5}
+.tbl th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 16px 10px 0;border-bottom:2px solid var(--ink);vertical-align:bottom}
+.tbl td{padding:11px 16px 11px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+.tbl th:last-child,.tbl td:last-child{padding-right:0}
+.tbl td:first-child{color:var(--ink);font-weight:600}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+.tbl tr.tot td{border-top:2px solid var(--ink);color:var(--ink);font-weight:600}
+.tbl td a{color:inherit;border-bottom:1px solid var(--line-strong)}
+.tbl td a:hover{color:var(--accent);text-decoration:none;border-color:var(--accent)}
+.tbl small{display:block;font-size:12.5px;color:var(--ink-3);font-weight:400;margin-top:3px}
+.table-note{margin-top:var(--s2);font-size:13.5px;line-height:1.5;color:var(--ink-3);max-width:80ch}
+
+/* ---------- концепция стола ---------- */
+.concept{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,56px);margin-top:var(--s5);align-items:start}
+.concept__txt .label{display:block;margin-bottom:10px}
+.concept__txt p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.concept__txt p + p{margin-top:10px}
+.mock{max-width:360px;margin-inline:auto;background:var(--dark-3);color:var(--dark-ink);border-radius:16px;padding:14px 14px 16px;font-size:13.5px;line-height:1.35;box-shadow:inset 0 0 0 1px #2A343C}
+.mk-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--dark-muted)}
+.mk-top b{color:var(--dark-ink);font-weight:600}
+.mk-table{margin-top:12px;background:#0E2A22;border-radius:12px;padding:12px;position:relative;box-shadow:inset 0 0 0 1px #1E4237}
+.mk-seats{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#9FC2B4}
+.mk-seat{text-align:center;flex:1 1 0;min-width:0}
+.mk-seat b{display:block;color:#fff;font-weight:500;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mk-seat i{font-style:normal;display:block;margin-top:2px}
+.mk-seat.turn b{color:#B9E3D3}
+.mk-seat.turn i{color:var(--accent-light)}
+.mk-center{display:flex;justify-content:center;gap:8px;align-items:flex-end;margin:14px 0 10px;min-height:56px}
+.mk-card{display:inline-flex;flex-direction:column;justify-content:space-between;width:36px;height:52px;background:#FBF8EE;color:#12171B;border-radius:4px;padding:3px 4px;font-weight:600;font-size:12px;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.mk-card.red{color:#B3261E}
+.mk-card.back{background:repeating-linear-gradient(45deg,#3B6E82 0 3px,#2C5766 3px 6px);border:2px solid #E8E4D8}
+.mk-card small{font-size:10px;font-weight:500;align-self:flex-end}
+.mk-card.def{transform:translate(-14px,10px)}
+.mk-info{display:flex;justify-content:space-between;font-size:11px;color:#9FC2B4}
+.mk-info b{color:#fff;font-weight:600}
+.mk-turn{margin-top:11px;text-align:center;font-size:12px;color:#B9E3D3}
+.mk-turn b{color:#fff;font-weight:600}
+.mk-hand{display:flex;justify-content:center;gap:5px;margin-top:10px;flex-wrap:wrap}
+.mk-hand .mk-card{width:38px;height:54px}
+.mk-hand .mk-card.ok{outline:2px solid var(--accent-light);outline-offset:1px}
+.mk-tabs{display:flex;gap:6px;margin-top:12px;padding-top:11px;border-top:1px solid #2A343C;font-size:11.5px}
+.mk-tabs span{border:1px solid #33404A;border-radius:6px;padding:5px 9px;color:var(--dark-muted);white-space:nowrap}
+.mk-tabs span.on{border-color:var(--accent-light);background:#0F2B33;color:#fff}
+.mk-tabs span.free{border-style:dashed}
+
+/* ---------- деньги ---------- */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3) clamp(24px,3.4vw,44px);margin-top:var(--s4)}
+.facts > div{padding-top:var(--s2);border-top:2px solid var(--ink)}
+.facts b{display:block;font-size:17px;font-weight:600;line-height:1.3}
+.facts p{margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.facts small{display:block;margin-top:10px;padding-top:9px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;line-height:1.45;letter-spacing:.03em;color:var(--ink-3)}
+.subs{margin-top:var(--s5);display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(26px,3.6vw,48px)}
+.subs h3{font-size:17px;font-weight:600;line-height:1.3;margin-bottom:10px}
+.subs p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.subs p + p{margin-top:9px}
+
+/* ---------- схема операторов ---------- */
+.b2b{margin-top:var(--s5)}
+.b2b__row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.b2b__op{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);padding:16px 18px}
+.b2b__op b{display:block;font-size:16px;font-weight:600}
+.b2b__op p{margin-top:5px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.b2b__link{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);height:30px}
+.b2b__link span{position:relative;font-family:var(--mono);font-size:11px;color:var(--ink-3);display:flex;align-items:center;justify-content:center}
+.b2b__link span::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line-strong)}
+.b2b__link i{font-style:normal;position:relative;z-index:1;background:var(--paper);padding:0 8px;letter-spacing:.04em}
+.b2b__core{background:var(--dark);color:var(--dark-ink);border-radius:var(--radius);padding:clamp(18px,2.2vw,24px) clamp(18px,2.6vw,28px)}
+.b2b__core b{display:block;font-size:17px;font-weight:600;color:#fff}
+.b2b__core p{margin-top:6px;font-size:14.5px;line-height:1.5;color:var(--dark-muted)}
+.b2b__core ul{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.b2b__core li{font-size:12.5px;color:var(--dark-ink);border:1px solid var(--dark-line);border-radius:99px;padding:4px 11px}
+.b2b__cap{margin-top:var(--s2);font-size:13.5px;line-height:1.5;color:var(--ink-3)}
+
+/* ---------- цена ---------- */
+.price{margin-top:var(--s4);background:var(--dark);color:var(--dark-ink);border-radius:8px;padding:clamp(22px,2.8vw,34px) clamp(20px,3vw,40px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:var(--s3) var(--s5);align-items:center}
+.price .label{color:var(--accent-light);display:block;margin-bottom:10px}
+.price__sum{font-size:clamp(38px,5.2vw,56px);font-weight:700;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;color:#fff}
+.price__unit{margin-top:10px;font-size:14.5px;line-height:1.5;color:var(--dark-muted)}
+.price__txt p{font-size:15.5px;line-height:1.55;color:#D4D9DC}
+.price__txt p + p{margin-top:9px}
+.price__txt b{color:#fff}
+
+/* ---------- надёжность ---------- */
+.rel{margin-top:var(--s5);display:grid;grid-template-columns:1fr 1fr;gap:var(--s4) clamp(28px,4vw,56px)}
+.rel > div{padding-top:var(--s2);border-top:1px solid var(--line-strong)}
+.rel h3{font-size:17px;font-weight:600;line-height:1.3;margin-bottom:9px}
+.rel p{font-size:15.5px;line-height:1.55;color:var(--ink-2)}
+.rel p + p{margin-top:8px}
+
+/* ---------- этапы ---------- */
+.stages{list-style:none;margin:var(--s4) 0 0;padding:0;counter-reset:st}
+.stages li{display:grid;grid-template-columns:34px minmax(0,4fr) minmax(0,7fr);gap:var(--s2) clamp(20px,3vw,40px);padding:16px 0;border-top:1px solid var(--line);align-items:baseline}
+.stages li:first-child{border-top:1px solid var(--line-strong)}
+.stages li:last-child{border-bottom:1px solid var(--line-strong)}
+.stages li::before{counter-increment:st;content:"0" counter(st);font-family:var(--mono);font-size:12px;color:var(--accent)}
+.stages b{font-size:16.5px;font-weight:600;color:var(--ink)}
+.stages span{font-size:15px;line-height:1.55;color:var(--ink-2)}
+
+/* ---------- раскрываемые блоки ---------- */
+.appx{border-top:1px solid var(--line-strong)}
+.appx:last-of-type{border-bottom:1px solid var(--line-strong)}
+.appx summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr 24px;gap:12px;align-items:baseline;padding:16px 0}
+.appx summary::-webkit-details-marker{display:none}
+.appx summary h3{font-size:17.5px;font-weight:600;line-height:1.3}
+.appx summary p{margin-top:4px;font-size:14px;color:var(--ink-3);line-height:1.5;max-width:70ch}
+.appx summary .pm{font-family:var(--mono);font-size:18px;color:var(--accent);text-align:right;line-height:1}
+.appx[open] summary .pm::before{content:"−"}
+.appx:not([open]) summary .pm::before{content:"+"}
+.appx__body{padding:0 0 var(--s4)}
+.appx__body .copy{font-size:15.5px;max-width:78ch}
+.appx__body .copy + .copy{margin-top:.8em}
+.appx__body .h4{margin-top:var(--s3)}
+.appx__body .h4:first-child{margin-top:0}
+.appx__body .tablewrap{margin-top:var(--s3)}
+.appx__body .list{margin-top:12px}
+.st{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:4px;border:1px dashed var(--line-strong);color:var(--ink-2);background:var(--surface);white-space:nowrap}
+
+/* ---------- финал ---------- */
+.next{margin-top:var(--s5);background:var(--dark);color:var(--dark-ink);border-radius:8px;padding:clamp(24px,3.2vw,38px) clamp(22px,3.2vw,42px)}
+.next .label{color:var(--accent-light);display:block;margin-bottom:12px}
+.next__lead{font-family:var(--serif);font-size:clamp(20px,2.4vw,27px);line-height:1.3;letter-spacing:-.01em;color:var(--dark-ink);max-width:36ch}
+.next p:not(.next__lead){margin-top:var(--s2);font-size:15.5px;line-height:1.55;color:var(--dark-muted);max-width:74ch}
+.next a{color:var(--accent-light)}
+.next__back{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--dark-line);font-size:14.5px;display:flex;gap:24px;flex-wrap:wrap}
+
+/* ---------- адаптив ---------- */
+@media (max-width:960px){
+  .head__grid,.intro,.grid2,.subs,.rel,.concept{grid-template-columns:1fr}
+  .head__grid .head__main{grid-column:1;grid-row:auto;order:1}
+  .head__grid .pricecard{grid-column:1;grid-row:auto;order:2}
+  .head__grid .head__note{grid-column:1;grid-row:auto;order:3;padding-top:var(--s3);border-top:1px solid var(--dark-line)}
+  .facts{grid-template-columns:1fr}
+  .price{grid-template-columns:1fr}
+  .stages li{grid-template-columns:30px 1fr}
+  .stages span{grid-column:2}
+  .topbar nav{display:none}
+  .tbl--cards thead{display:none}
+  .tbl--cards,.tbl--cards tbody,.tbl--cards tr,.tbl--cards td{display:block;width:auto}
+  .tbl--cards tr{border-top:2px solid var(--ink);padding:12px 0 8px}
+  .tbl--cards td,.tbl--cards td:first-child,.tbl--cards td.n{border:0;padding:3px 0;white-space:normal;text-align:left;width:auto}
+  .tbl--cards td:first-child{font-size:16px;padding-bottom:5px}
+  .tbl--cards td[data-k]::before{display:block;content:attr(data-k);font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:1px}
+  .tbl--est tr{display:grid;grid-template-columns:1fr auto;column-gap:16px;border-top:1px solid var(--line);padding:12px 0}
+  .tbl--est tr:first-child{border-top:2px solid var(--ink)}
+  .tbl--est tr.tot{border-top:2px solid var(--ink)}
+  .tbl--est td:first-child{grid-column:1;grid-row:1;padding:0;font-size:15.5px}
+  .tbl--est td.n{grid-column:2;grid-row:1;padding:0;text-align:right;font-weight:600;color:var(--ink)}
+  .tbl--est td:last-child{grid-column:1/-1;grid-row:2;padding:5px 0 0;font-size:14px}
+  .tbl--est td[data-k]::before{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  :root{--gutter:20px}
+  .section{scroll-margin-top:56px}
+  .head__title{font-size:27px;letter-spacing:-.028em}
+  .toc ol{grid-template-columns:1fr}
+  .toc li:nth-child(-n+3) a{border-top:1px solid var(--line)}
+  .toc li:first-child a{border-top:0}
+  .b2b__row{grid-template-columns:1fr}
+  .b2b__link{grid-template-columns:1fr;height:26px}
+  .b2b__link span:last-child{display:none}
+  .mock{max-width:none}
+  .mk-hand .mk-card{width:34px;height:48px}
+  .mk-tabs{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.topbar{transition:none}}
+
+@page{size:A4;margin:15mm 14mm}
+@page :first{margin:0}
+@media print{
+  html{scroll-behavior:auto}
+  body{background:#fff;font-size:10pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding-inline:0}
+  .section{padding-block:16px}
+  .section--surface{background:#fff}
+  .head{padding:22mm 16mm 18mm;break-after:page;page-break-after:always}
+  .topbar,.toc,.next__back{display:none}
+  .heading{break-after:avoid;page-break-after:avoid}
+  .tbl tr,.stages li,.rel > div,.facts > div,.callout,.price,.next,.mock,.b2b__op,.b2b__core{break-inside:avoid;page-break-inside:avoid}
+  .tbl thead{display:table-header-group}
+  .appx{border-color:#bbb}
+  .appx summary .pm{display:none}
+  .appx:not([open]) .appx__body{display:block}
+  .price,.next,.b2b__core{background:#fff;color:var(--ink);border:1px solid var(--line-strong)}
+  .price .label,.next .label{color:var(--accent)}
+  .price__sum,.b2b__core b{color:var(--ink)}
+  .price__txt p,.next p:not(.next__lead){color:var(--ink-2)}
+  .price__txt b,.next__lead{color:var(--ink)}
+  .b2b__core p{color:var(--ink-2)}
+  .b2b__core li{color:var(--ink-2);border-color:var(--line-strong)}
+  a{color:inherit}
+}
+
+/* ===== stages page ===== */
+.gantt{margin-top:var(--s4);border-top:2px solid var(--ink);padding-top:12px}
+.gantt__row{display:grid;grid-template-columns:200px repeat(26,minmax(0,1fr));gap:0 2px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}
+.gantt__row.is-axis{border-bottom:1px solid var(--line-strong);padding:0 0 8px}
+.gantt__row.is-axis span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);text-align:center}
+.gantt__row.is-axis b{font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.gantt__row.is-group{border-bottom:0;padding:14px 0 4px}
+.gantt__row.is-group b{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:400;grid-column:1/-1}
+.gantt__row > b{font-size:14.5px;font-weight:600;color:var(--ink);padding-right:12px;line-height:1.25}
+.gantt__row > b small{display:block;font-family:var(--mono);font-size:11px;font-weight:400;color:var(--ink-3);margin-top:2px;letter-spacing:.02em}
+.gantt__bar{height:12px;border-radius:999px;background:var(--ink-3);position:relative}
+.gantt__bar.is-durak{background:var(--accent)}
+.gantt__bar.is-accept::after{content:"";position:absolute;right:-3px;top:-4px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:3px solid var(--ink)}
+.gantt__bar.is-durak.is-accept::after{border-color:var(--accent)}
+.gantt__legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--ink-3)}
+.gantt__legend i{display:inline-block;width:22px;height:8px;border-radius:99px;background:var(--ink-3);vertical-align:middle;margin-right:8px}
+.gantt__legend i.is-durak{background:var(--accent)}
+.gantt__legend i.is-accept{width:12px;height:12px;background:var(--paper);border:3px solid var(--ink)}
+.stage{margin-top:var(--s3);border-top:1px solid var(--line-strong);padding-top:var(--s3);display:grid;grid-template-columns:minmax(0,3fr) minmax(0,9fr);gap:var(--s2) clamp(24px,3.6vw,48px)}
+.stage:first-of-type{margin-top:var(--s4);border-top:2px solid var(--ink)}
+.stage__id{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent)}
+.stage__title{margin-top:6px;font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.stage__meta{margin-top:12px;font-size:14px;line-height:1.7;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.stage__meta b{color:var(--ink);font-weight:600}
+.stage__body{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2) clamp(20px,3vw,40px)}
+.stage__body h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:400;margin:0 0 6px}
+.stage__body p{font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.stage__body .list li{font-size:14.5px;margin-bottom:5px;line-height:1.45}
+.stage__wide{grid-column:1/-1}
+.paystrip{margin-top:var(--s4);display:grid;grid-template-columns:17fr 23fr 20fr 27fr 14fr;gap:4px}
+.paystrip > div{border-top:6px solid var(--ink-3);padding-top:10px;min-width:0}
+.paystrip > div:nth-child(4){border-color:var(--accent)}
+.paystrip b{display:block;font-size:17px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.paystrip span{display:block;font-size:12.5px;color:var(--ink-3);line-height:1.4;margin-top:3px}
+.rule{margin-top:var(--s3);font-size:15px;line-height:1.55;color:var(--ink-2);max-width:80ch}
+.rule b{color:var(--ink)}
+.foot{margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--line-strong);display:flex;gap:24px;flex-wrap:wrap;font-size:14px}
+.foot a{color:var(--ink-2);border-bottom:1px solid var(--line-strong)}
+@media (max-width:960px){
+  .gantt__row{grid-template-columns:120px repeat(26,minmax(0,1fr))}
+  .gantt__row.is-axis span:nth-of-type(even){visibility:hidden}
+  .stage,.stage__body{grid-template-columns:1fr}
+  .paystrip{grid-template-columns:1fr;gap:12px}
+  .paystrip > div{border-top-width:3px}
+}
+@media (max-width:640px){.gantt__row{grid-template-columns:90px repeat(26,minmax(0,1fr))}.gantt__row > b{font-size:13px}}
+@media print{.stage,.paystrip,.gantt{break-inside:avoid;page-break-inside:avoid}.gantt__bar{-webkit-print-color-adjust:exact;print-color-adjust:exact}.foot{display:none}}
+</style>
+</head>
+<body>
+<div class="topbar" id="topbar">
+  <div class="in">
+    <div class="doc"><a href="index.html" title="Все документы проекта">← Документы</a>Этапы, оплата и приёмка</div>
+    <nav aria-label="Разделы"><a href="#s01">Календарь</a><a href="#s02">Этапы платформы</a><a href="#s03">Этапы «Дурака»</a><a href="#s04">Оплата</a><a href="#s05">Приёмка и гарантия</a></nav>
+    <details id="tocmenu">
+      <summary>Содержание</summary>
+      <div class="menu"><a href="#s01"><em>01</em>Календарь</a><a href="#s02"><em>02</em>Этапы платформы</a><a href="#s03"><em>03</em>Этапы «Дурака»</a><a href="#s04"><em>04</em>Оплата</a><a href="#s05"><em>05</em>Приёмка и гарантия</a><a href="offer.html"><em>01</em>Коммерческое предложение</a><a href="durak-b2b.html"><em>09</em>«Дурак»</a><a href="spec.html"><em>10</em>Техническое задание</a><a href="index.html"><em>↑</em>Все документы</a></div>
+    </details>
+  </div>
+</div>
+
+<header class="head">
+  <div class="wrap head__grid">
+    <div class="head__main">
+      <p class="head__eyebrow"><a href="index.html">Документы проекта</a> · Приложение 11 · 22 сентября 2026</p>
+      <h1 class="head__title">Этапы, оплата и приёмка работ</h1>
+      <p class="head__lead">Пять этапов казино-платформы и пять параллельных этапов «Дурака»: сроки, часы, стоимость, результаты и критерии приёмки.</p>
+      <ul class="head__facts">
+        <li>26 недель · 6 месяцев</li>
+        <li>5 + 5 этапов</li>
+        <li>Один акт на этап</li>
+      </ul>
+    </div>
+    <p class="head__note">Суммы совпадают с КП по платформе ($61 000), КП по «Дураку» ($28 000) и Приложением 2 к договору.</p>
+    <div class="pricecard">
+      <span class="label">Стоимость проекта</span>
+      <p class="pricecard__sum">$89 000</p>
+      <p class="pricecard__cap">Оплата по акту каждого из пяти этапов.</p>
+      <dl>
+        <div><dt>Платформа</dt><dd>$61 000 · 3 460 ч</dd></div>
+        <div><dt>«Дурак»</dt><dd>$28 000 · 1 380 ч</dd></div>
+        <div><dt>Предварительные позиции</dt><dd>$6 000</dd></div>
+        <div><dt>Гарантия</dt><dd>45 дней от акта</dd></div>
+      </dl>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Содержание"><div class="wrap"><ol><li><a href="#s01"><em>01</em>Календарь</a></li><li><a href="#s02"><em>02</em>Этапы платформы</a></li><li><a href="#s03"><em>03</em>Этапы «Дурака»</a></li><li><a href="#s04"><em>04</em>Оплата</a></li><li><a href="#s05"><em>05</em>Приёмка и гарантия</a></li></ol></div></nav>
+
+<main id="main">
+
+<section class="section" id="s01">
+  <div class="wrap">
+    <p class="eyebrow">01 · Календарь</p>
+    <h2 class="heading">26 недель, этапы с одним номером сдаются вместе</h2>
+
+    <div class="gantt" role="img" aria-label="Диаграмма Ганта: пять этапов платформы и пять этапов Дурака на 26 неделях">
+      <div class="gantt__row is-axis"><b>Неделя</b><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span></div>
+      <div class="gantt__row is-group"><b>Казино-платформа · 3 460 ч · $61 000</b></div>
+      <div class="gantt__row"><b>П-1 · Проектирование, дизайн и основа<small>635 ч · $11 000</small></b><i class="gantt__bar is-accept" style="grid-column:2/7" title="П-1 · Проектирование, дизайн и основа: недели 1–5"></i></div><div class="gantt__row"><b>П-2 · Учётная система и финансовое ядро<small>835 ч · $14 500</small></b><i class="gantt__bar is-accept" style="grid-column:6/13" title="П-2 · Учётная система и финансовое ядро: недели 5–11"></i></div><div class="gantt__row"><b>П-3 · Деньги снаружи: крипта, рубли, касса<small>785 ч · $13 500</small></b><i class="gantt__bar is-accept" style="grid-column:10/18" title="П-3 · Деньги снаружи: крипта, рубли, касса: недели 9–16"></i></div><div class="gantt__row"><b>П-4 · Клиентский продукт<small>965 ч · $16 000</small></b><i class="gantt__bar is-accept" style="grid-column:13/24" title="П-4 · Клиентский продукт: недели 12–22"></i></div><div class="gantt__row"><b>П-5 · Проверка, безопасность, запуск<small>240 ч · $6 000</small></b><i class="gantt__bar is-accept" style="grid-column:22/28" title="П-5 · Проверка, безопасность, запуск: недели 21–26"></i></div>
+      <div class="gantt__row is-group"><b>«Дурак» · 1 380 ч · $28 000</b></div>
+      <div class="gantt__row"><b>Д-1 · Правила, спецификация и дизайн<small>190 ч · $3 900</small></b><i class="gantt__bar is-durak is-accept" style="grid-column:2/7" title="Д-1 · Правила, спецификация и дизайн: недели 1–5"></i></div><div class="gantt__row"><b>Д-2 · Игровой движок, честность и боты<small>280 ч · $5 700</small></b><i class="gantt__bar is-durak is-accept" style="grid-column:6/13" title="Д-2 · Игровой движок, честность и боты: недели 5–11"></i></div><div class="gantt__row"><b>Д-3 · Деньги партии и подключение к ядру<small>205 ч · $4 100</small></b><i class="gantt__bar is-durak is-accept" style="grid-column:10/18" title="Д-3 · Деньги партии и подключение к ядру: недели 9–16"></i></div><div class="gantt__row"><b>Д-4 · Клиент, лобби и Telegram<small>400 ч · $8 100</small></b><i class="gantt__bar is-durak is-accept" style="grid-column:13/24" title="Д-4 · Клиент, лобби и Telegram: недели 12–22"></i></div><div class="gantt__row"><b>Д-5 · Панель, контроль, проверка и запуск<small>305 ч · $6 200</small></b><i class="gantt__bar is-durak is-accept" style="grid-column:22/28" title="Д-5 · Панель, контроль, проверка и запуск: недели 21–26"></i></div>
+    </div>
+    <div class="gantt__legend"><span><i></i>платформа</span><span><i class="is-durak"></i>«Дурак»</span><span><i class="is-accept"></i>приёмка</span></div>
+
+    <p class="rule"><b>Перекрытие.</b> Этап начинается с готовности входов, не после акта предыдущего. Соответствие архитектуре: П-1 = E0–E1, П-2 = E2, П-3 = E3–E4, П-4 = E5, П-5 = E6–E7.</p>
+  </div>
+</section>
+
+<section class="section section--surface" id="s02">
+  <div class="wrap">
+    <p class="eyebrow">02 · Платформа</p>
+    <h2 class="heading">Пять этапов платформы — 3 460 ч, $61 000</h2>
+    
+    <article class="stage" id="п1">
+      <div>
+        <p class="stage__id">П-1 · недели 1–5</p>
+        <h3 class="stage__title">Проектирование, дизайн и основа</h3>
+        <p class="stage__meta"><b>635 ч</b> · <b>$11 000</b> · 18 %<br>ТЗ: 00, 01, 09, 10, 14–15, 21, 23, 24, 31, 32 · E0–E1</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Архитектура и контракты; три визуальных направления, Design System; вход, сессии, 2FA, роли; каркас Back Office и аудита; окружения, Kubernetes, IaC, CI/CD.</p></div>
+        <div><h4>Результат</h4><p>Архитектура и дизайн утверждены; на стенде вход, роли, аудит.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Архитектура и контракты подписаны заказчиком</li><li>Выбрано одно визуальное направление, Design System утверждена</li><li>Вход игрока и сотрудника с TOTP, роли и аудит работают на стенде</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="п2">
+      <div>
+        <p class="stage__id">П-2 · недели 5–11</p>
+        <h3 class="stage__title">Учётная система и финансовое ядро</h3>
+        <p class="stage__meta"><b>835 ч</b> · <b>$14 500</b> · 24 %<br>ТЗ: 01, 02, 09, 10, 11, 24, 27 · E2</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Профиль, ответственная игра, 2FA игрока; ledger, счета, резервы, депозит и вывод, maker-checker, лимиты, риск, сверка, аудит; Sumsub, AML-адаптер; игроки, Finance Panel, согласование выводов.</p></div>
+        <div><h4>Результат</h4><p>Внутренний путь денег: зачисление → резерв → ставка → заявка → проверка от $200 → вторая подпись от $500 → сверка.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Повтор команды не создаёт второй проводки; балансы сходятся с журналом</li><li>Вывод невозможен без верификации; от $500 — только со второй подписью</li><li>Корректировка баланса ограничена лимитом роли и утверждается второй записью</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="п3">
+      <div>
+        <p class="stage__id">П-3 · недели 9–16</p>
+        <h3 class="stage__title">Деньги снаружи: крипта, рубли, касса</h3>
+        <p class="stage__meta"><b>785 ч</b> · <b>$13 500</b> · 22 %<br>ТЗ: 02.6, 03, 04, 05, 22, 26 · E3–E4</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>TRON, TON, Bitcoin: адреса, мониторинг, выводы, Hot/Warm/Cold, HSM; P2P-провайдер: методы, реквизиты, колбэки, чеки, споры, каскад; обменник ₽↔USDT; касса; WORM-архив, Cloudflare.</p></div>
+        <div><h4>Результат</h4><p>Первый полный маршрут: пополнение → ставка через Game Integration Layer → согласование → вывод → сверка. Три сети и рубли в тестовых средах.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Депозит и вывод проходят в тестовых сетях TRON, TON, Bitcoin</li><li>Рублёвое пополнение и выплата через песочницу провайдера; каскад переключает маршрут при отказе</li><li>Подпись выплаты в защищённом контуре; резерв восстанавливается из двух частей секрета</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="п4">
+      <div>
+        <p class="stage__id">П-4 · недели 12–22</p>
+        <h3 class="stage__title">Клиентский продукт</h3>
+        <p class="stage__meta"><b>965 ч</b> · <b>$16 000</b> · 26 %<br>ТЗ: 06, 12–17, 19, 20, 22, 25 · E5</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Веб-приложение; агрегатор игр и витрина; бонусы, ранги, партнёрка, уведомления, почта, RU/EN; Mini App и бот; поддержка, девять отчётов; зеркала.</p></div>
+        <div><h4>Результат</h4><p>Сквозные сценарии игрока, партнёра и сотрудника в Web и Mini App; игры агрегатора; отчёты.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Ставка и выигрыш в игре агрегатора отражаются в балансе и истории</li><li>Бонус начисляется и отыгрывается по правилам; «Дурак» вне бонусов</li><li>Партнёрская ссылка закрепляет игрока, постбэки и выплаты работают; Mini App и бот работают</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="п5">
+      <div>
+        <p class="stage__id">П-5 · недели 21–26</p>
+        <h3 class="stage__title">Проверка, безопасность, запуск</h3>
+        <p class="stage__meta"><b>240 ч</b> · <b>$6 000</b> · 10 %<br>ТЗ: 21, 23, 24, 28, 29, 30 · E6–E7</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Журналы, метрики, оповещения; резервные копии и восстановление; SAST/SCA, DAST, подготовка к пентесту; регрессия, нагрузка 1 000 / 3 000 / 5 000; production, документация, передача.</p></div>
+        <div><h4>Результат</h4><p>Production, нагрузка и восстановление проверены, комплект передан, акт подписан.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Нагрузка 1 000 / 3 000 / 5 000 без нарушения финансовых инвариантов</li><li>Восстановление из копии другого региона выполнено на учении</li><li>Критичные находки пентеста исправлены; комплект передачи и инструктаж переданы</li></ul></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="s03">
+  <div class="wrap">
+    <p class="eyebrow">03 · «Дурак»</p>
+    <h2 class="heading">Пять этапов «Дурака» — 1 380 ч, $28 000</h2>
+    
+    <article class="stage" id="д1">
+      <div>
+        <p class="stage__id">Д-1 · недели 1–5</p>
+        <h3 class="stage__title">Правила, спецификация и дизайн</h3>
+        <p class="stage__meta"><b>190 ч</b> · <b>$3 900</b> · 14 %<br>ТЗ: 07a</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Свод правил: режимы, составы 2–6, колоды 24/36/52, доли мест, таймеры; макеты лобби и стола для Web и Telegram.</p></div>
+        <div><h4>Результат</h4><p>Утверждённые правила, доли мест и макеты.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Правила покрывают все сочетания режим × колода × состав</li><li>Доли мест 2–6 и округление подписаны заказчиком</li><li>Макеты в едином дизайн-направлении с платформой</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="д2">
+      <div>
+        <p class="stage__id">Д-2 · недели 5–11</p>
+        <h3 class="stage__title">Игровой движок, честность и боты</h3>
+        <p class="stage__meta"><b>280 ч</b> · <b>$5 700</b> · 20 %<br>ТЗ: 07, 07a</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Серверный движок; drand и проверка раздачи; боты; тесты правил.</p></div>
+        <div><h4>Результат</h4><p>Движок проходит тесты правил; раздача проверяема; партии на симуляторе кошелька.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Автотесты правил для каждого сочетания, включая технические поражения</li><li>Отпечаток колоды до партии, раскрытие после; проверка воспроизводит раздачу</li><li>Боты только в тренировке и не попадают в денежные партии</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="д3">
+      <div>
+        <p class="stage__id">Д-3 · недели 9–16</p>
+        <h3 class="stage__title">Деньги партии и подключение к ядру</h3>
+        <p class="stage__meta"><b>205 ч</b> · <b>$4 100</b> · 15 %<br>ТЗ: 07, 08</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Взносы, комиссия, расчёт по местам, возвраты; интеграция с ядром и Operator API; денежные тесты.</p></div>
+        <div><h4>Результат</h4><p>Партия с реальным резервом, списанием и выплатой через ядро платформы.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Выплаты плюс комиссия равны взносам в каждой партии</li><li>Повтор запроса не создаёт второй выплаты</li><li>Отмена поиска и незаполненный стол возвращают резерв</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="д4">
+      <div>
+        <p class="stage__id">Д-4 · недели 12–22</p>
+        <h3 class="stage__title">Клиент, лобби и Telegram</h3>
+        <p class="stage__meta"><b>400 ч</b> · <b>$8 100</b> · 29 %<br>ТЗ: 07, 15, 16</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>HTML5-клиент Web и Mini App; realtime, переподключение, несколько столов; сквозные тесты.</p></div>
+        <div><h4>Результат</h4><p>Полный путь игрока от выбора стола до итога партии в Web и Telegram.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Быстрый поиск и столы всех составов; таймеры 30 и 15 с</li><li>Возврат в партию в течение 60 с с сохранённым состоянием</li><li>Несколько столов; чужие карты не раскрываются клиенту</li></ul></div>
+      </div>
+    </article>
+    <article class="stage" id="д5">
+      <div>
+        <p class="stage__id">Д-5 · недели 21–26</p>
+        <h3 class="stage__title">Панель, контроль, проверка и запуск</h3>
+        <p class="stage__meta"><b>305 ч</b> · <b>$6 200</b> · 22 %<br>ТЗ: 07, 08</p>
+      </div>
+      <div class="stage__body">
+        <div class="stage__wide"><h4>Состав</h4><p>Панель провайдера: история, споры, решения; контроль сговора, «партнёрский игрок»; нагрузка; production; документация.</p></div>
+        <div><h4>Результат</h4><p>Панель и контроль работают; нагрузка пройдена; запуск с П-5; акт.</p></div>
+        <div><h4>Приёмка</h4><ul class="list"><li>Спорная выплата удерживается до решения, решение в журнале</li><li>Совпадение IP и устройства ограничивает совместную игру; исключений из антифрода нет</li><li>Партии восстанавливаются после перезапуска сервера</li></ul></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section section--surface" id="s04">
+  <div class="wrap">
+    <p class="eyebrow">04 · Оплата</p>
+    <h2 class="heading">Оплата по акту этапа</h2>
+
+    <div class="paystrip">
+      <div><b>$14 900</b><span>Этап 1 · 17 %<br>$11 000 + $3 900</span></div>
+      <div><b>$20 200</b><span>Этап 2 · 23 %<br>$14 500 + $5 700</span></div>
+      <div><b>$17 600</b><span>Этап 3 · 20 %<br>$13 500 + $4 100</span></div>
+      <div><b>$24 100</b><span>Этап 4 · 27 %<br>$16 000 + $8 100</span></div>
+      <div><b>$12 200</b><span>Этап 5 · 14 %<br>$6 000 + $6 200</span></div>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Этап</th><th>Недели</th><th class="n">Часы</th><th class="n">Платформа</th><th class="n">«Дурак»</th><th class="n">Итого</th><th class="n">Доля</th></tr></thead>
+        <tbody>
+          <tr><td>1. Проектирование, дизайн, основа, правила игры</td><td data-k="Недели">1–5</td><td class="n" data-k="Часы">825</td><td class="n" data-k="Платформа">$11 000</td><td class="n" data-k="Дурак">$3 900</td><td class="n" data-k="Итого"><b>$14 900</b></td><td class="n" data-k="Доля">17 %</td></tr>
+          <tr><td>2. Учётная система, финансовое ядро, игровой движок</td><td data-k="Недели">5–11</td><td class="n" data-k="Часы">1 115</td><td class="n" data-k="Платформа">$14 500</td><td class="n" data-k="Дурак">$5 700</td><td class="n" data-k="Итого"><b>$20 200</b></td><td class="n" data-k="Доля">23 %</td></tr>
+          <tr><td>3. Крипта, рубли, касса, деньги партии</td><td data-k="Недели">9–16</td><td class="n" data-k="Часы">990</td><td class="n" data-k="Платформа">$13 500</td><td class="n" data-k="Дурак">$4 100</td><td class="n" data-k="Итого"><b>$17 600</b></td><td class="n" data-k="Доля">20 %</td></tr>
+          <tr><td>4. Клиентский продукт, клиент «Дурака»</td><td data-k="Недели">12–22</td><td class="n" data-k="Часы">1 365</td><td class="n" data-k="Платформа">$16 000</td><td class="n" data-k="Дурак">$8 100</td><td class="n" data-k="Итого"><b>$24 100</b></td><td class="n" data-k="Доля">27 %</td></tr>
+          <tr><td>5. Проверка, безопасность, запуск, передача</td><td data-k="Недели">21–26</td><td class="n" data-k="Часы">545</td><td class="n" data-k="Платформа">$6 000</td><td class="n" data-k="Дурак">$6 200</td><td class="n" data-k="Итого"><b>$12 200</b></td><td class="n" data-k="Доля">14 %</td></tr>
+          <tr class="tot"><td>Итого</td><td data-k="Недели">26</td><td class="n" data-k="Часы">4 840</td><td class="n" data-k="Платформа">$61 000</td><td class="n" data-k="Дурак">$28 000</td><td class="n" data-k="Итого">$89 000</td><td class="n" data-k="Доля">100 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Направление</th><th class="n">Этап 1</th><th class="n">Этап 2</th><th class="n">Этап 3</th><th class="n">Этап 4</th><th class="n">Этап 5</th><th class="n">Итого</th></tr></thead>
+        <tbody>
+          <tr><td>Платформа, $</td><td class="n" data-k="Этап 1">11 000</td><td class="n" data-k="Этап 2">14 500</td><td class="n" data-k="Этап 3">13 500</td><td class="n" data-k="Этап 4">16 000</td><td class="n" data-k="Этап 5">6 000</td><td class="n" data-k="Итого">61 000</td></tr>
+          <tr><td>Платформа, ч</td><td class="n" data-k="Этап 1">635</td><td class="n" data-k="Этап 2">835</td><td class="n" data-k="Этап 3">785</td><td class="n" data-k="Этап 4">965</td><td class="n" data-k="Этап 5">240</td><td class="n" data-k="Итого">3 460</td></tr>
+          <tr><td>«Дурак», $</td><td class="n" data-k="Этап 1">3 900</td><td class="n" data-k="Этап 2">5 700</td><td class="n" data-k="Этап 3">4 100</td><td class="n" data-k="Этап 4">8 100</td><td class="n" data-k="Этап 5">6 200</td><td class="n" data-k="Итого">28 000</td></tr>
+          <tr><td>«Дурак», ч</td><td class="n" data-k="Этап 1">190</td><td class="n" data-k="Этап 2">280</td><td class="n" data-k="Этап 3">205</td><td class="n" data-k="Этап 4">400</td><td class="n" data-k="Этап 5">305</td><td class="n" data-k="Итого">1 380</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="rule"><b>Один акт на этап.</b> Если одно направление задерживается, второе принимается отдельным актом на свою сумму. Аванс и окончательный платёж по каждому этапу — по Приложению 2.</p>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Позиция с предварительной оценкой</th><th class="n">Часы</th><th class="n">В цене</th><th>Уточняется</th></tr></thead>
+        <tbody>
+          <tr><td>Рублёвый провайдер, один</td><td class="n" data-k="Часы">165</td><td class="n" data-k="В цене">$3 400</td><td data-k="Уточняется">После документации и песочницы, до начала П-3</td></tr>
+          <tr><td>Обменник ₽↔USDT</td><td class="n" data-k="Часы">40</td><td class="n" data-k="В цене">$800</td><td data-k="Уточняется">На П-1, до начала П-3</td></tr>
+          <tr><td>Агрегатор игр, один</td><td class="n" data-k="Часы">135</td><td class="n" data-k="В цене">$2 000</td><td data-k="Уточняется">После выбора агрегатора и документации, до начала П-4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rule"><b>Правило уточнения.</b> 10 рабочих дней после документации и песочницы. Отклонение до 15 % цену не меняет; больше — доп. соглашение до начала работ, в любую сторону, $21/ч. Гарантируем соответствие документации поставщика и его тестовой среде; одобрение, доступность и тарифы поставщика — зона заказчика.</p>
+
+    <p class="rule"><b>Не входит.</b> Внешние расходы (облако, домены, тарифы провайдера, агрегатора, Sumsub, AML, RPC, почты, лицензия, пентест). Отдельно по $21/ч: второй провайдер, внешние операторы и общий пул «Дурака», вторая игра, второй регион, сопровождение после гарантии.</p>
+  </div>
+</section>
+
+<section class="section" id="s05">
+  <div class="wrap">
+    <p class="eyebrow">05 · Приёмка</p>
+    <h2 class="heading">Приёмка, гарантия и зависимости</h2>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Шаг</th><th>Что происходит</th></tr></thead>
+        <tbody>
+          <tr><td>1. Демонстрация</td><td>Результат этапа по критериям приёмки; доступ к стенду или материалы</td></tr>
+          <tr><td>2. Проверка</td><td>Заказчик проходит сценарии сам. Срок — по договору, ориентир до 10 рабочих дней, промежуточные результаты — до 3</td></tr>
+          <tr><td>3. Замечания</td><td>Единым списком. Ошибка — исправляется в этапе; новая задача — оценивается отдельно</td></tr>
+          <tr><td>4. Акт</td><td>После устранения замечаний — акт по обоим направлениям, оплата по акту</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>Правило</th><th>Содержание</th></tr></thead>
+        <tbody>
+          <tr><td>Ошибка</td><td>Функция работает не так, как согласовано в ТЗ. Исправляется без доплаты в этапе или гарантии</td></tr>
+          <tr><td>Новая задача</td><td>Новая функция, интеграция, изменение принятого решения. Оценка по $21/ч, дополнительное соглашение до начала работ</td></tr>
+          <tr><td>Настройки</td><td>Изменение значений параметров и решения по открытым вопросам в пределах вариантов ТЗ объём и цену не меняют</td></tr>
+          <tr><td>Критичный дефект при запуске</td><td>Запуск только по письменному согласию заказчика</td></tr>
+          <tr><td>Итоговая приёмка</td><td>Акт с матрицей критериев; комплект передачи: код, IaC, доступы, документация, результаты тестов</td></tr>
+          <tr><td>Гарантия</td><td>45 дней с даты акта по каждому направлению. Реакция — рабочий день; критичные дефекты — до 3 рабочих дней</td></tr>
+          <tr><td>После гарантии</td><td>Сопровождение на 6 месяцев с фиксированными часами; изменения интерфейсов поставщиков — сопровождение</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tablewrap">
+      <table class="tbl tbl--cards">
+        <thead><tr><th>К началу этапа</th><th>От заказчика</th></tr></thead>
+        <tbody>
+          <tr><td>До старта</td><td>Договор с приложениями, ответственный за приёмку, референсы</td></tr>
+          <tr><td>Этап 1</td><td>Визуальное направление; страна и облако; владельцы, подписанты, держатели секретов; ставки и доли мест «Дурака»</td></tr>
+          <tr><td>Этап 2</td><td>Учётная запись Sumsub; AML-сервис; матрица прав на настройки</td></tr>
+          <tr><td>Этап 3</td><td>Документация, песочница и контакт провайдера; RPC; источник курса</td></tr>
+          <tr><td>Этап 4</td><td>Агрегатор и документация; домены и бренд; поставщик почты; тексты правил</td></tr>
+          <tr><td>Этап 5</td><td>Исполнитель пентеста; production-аккаунты; решение по критичным дефектам</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rule"><b>Сроки.</b> Задержка входов или поставщика сдвигает окно этапа на срок задержки; цена не меняется.</p>
+
+    <div class="foot"><a href="index.html">← Все документы</a><a href="offer.html">Коммерческое предложение</a><a href="durak-b2b.html">«Дурак»</a><a href="spec.html">Техническое задание</a><a href="technical.html">Архитектура</a></div>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+  var tb=document.getElementById('topbar'),menu=document.getElementById('tocmenu');
+  function onScroll(){tb.classList.toggle('show',window.scrollY>420)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  menu.addEventListener('click',function(e){if(e.target.closest('a'))menu.removeAttribute('open')});
+  document.addEventListener('click',function(e){if(!menu.contains(e.target))menu.removeAttribute('open')});
+})();
+</script>
+</body>
+</html>
