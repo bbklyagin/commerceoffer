@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>White Label — модель, ТЗ и смета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F5F4EF;--paper-2:#ECEBE4;--surface:#FFFFFF;
+  --ink:#12171B;--ink-2:#3B454D;--ink-3:#6B757E;
+  --line:#E1E0D8;--line-strong:#C4C6BD;
+  --accent:#14505F;--accent-soft:#E3EDF0;--accent-light:#7FB6C4;--neg:#8C4A3C;
+  --dark:#080A0C;--dark-2:#101417;--dark-line:#20262A;--dark-ink:#F3F2ED;--dark-muted:#A6AFB6;
+  --sans:"IBM Plex Sans","Segoe UI",-apple-system,system-ui,Helvetica,Arial,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --container:1080px;--gutter:32px;--radius:6px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+b{font-weight:600}
+a{color:var(--accent);text-decoration:none}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:var(--gutter)}
+.section{padding-block:clamp(40px,5vw,64px);scroll-margin-top:16px}
+.section--alt{background:var(--paper-2)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent);margin-bottom:12px}
+.heading{font-weight:600;font-size:clamp(24px,3vw,32px);line-height:1.15;letter-spacing:-.02em}
+.copy{margin-top:16px;font-size:16px;color:var(--ink-2);max-width:72ch}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+
+/* обложка */
+.head{background:var(--dark);color:var(--dark-ink);padding-block:clamp(40px,5vw,64px)}
+.head__grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,4fr);gap:40px;align-items:start}
+.head__eyebrow{font-size:13.5px;color:var(--dark-muted);margin-bottom:16px}
+.head__title{font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.03em}
+.head__lead{font-family:var(--serif);font-size:clamp(17px,1.8vw,19px);line-height:1.5;color:#C9D0D5;max-width:52ch;margin-top:20px}
+.pricecard{background:var(--dark-2);border:1px solid var(--dark-line);border-radius:8px;padding:24px}
+.pricecard .label{color:var(--accent-light);display:block;margin-bottom:10px}
+.pricecard__sum{font-size:clamp(38px,4.6vw,50px);font-weight:700;letter-spacing:-.035em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.pricecard__cap{margin-top:8px;font-size:14.5px;color:var(--dark-muted)}
+.pricecard dl{margin:18px 0 0;padding-top:14px;border-top:1px solid var(--dark-line);display:grid;gap:8px;font-size:14px}
+.pricecard dl>div{display:flex;justify-content:space-between;gap:14px}
+.pricecard dt{color:var(--dark-muted)}
+.pricecard dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+
+/* содержание */
+.toc{padding-block:24px;border-bottom:1px solid var(--line)}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0 32px}
+.toc a{display:flex;gap:10px;align-items:baseline;padding:7px 0;color:var(--ink);font-size:14.5px}
+.toc a em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent)}
+
+/* таблицы */
+.tw{margin-top:24px;overflow-x:auto}
+.tbl{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5}
+.tbl th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;color:var(--ink-3);padding:0 16px 9px 0;border-bottom:2px solid var(--ink);vertical-align:bottom}
+.tbl td{padding:10px 16px 10px 0;border-top:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+.tbl th:last-child,.tbl td:last-child{padding-right:0}
+.tbl td:first-child{color:var(--ink);font-weight:600}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;width:1%}
+.tbl td.m{color:var(--neg)}
+.tbl tr.tot td{border-top:2px solid var(--ink);color:var(--ink);font-weight:600}
+.tbl small{display:block;font-size:12.5px;color:var(--ink-3);font-weight:400;margin-top:2px}
+.tnote{margin-top:12px;font-size:13.5px;line-height:1.5;color:var(--ink-3);max-width:84ch}
+
+
+
+
+/* блоки ТЗ */
+.blk{border-top:1px solid var(--line-strong)}
+.blk:last-of-type{border-bottom:1px solid var(--line-strong)}
+.blk summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:40px 1fr auto 20px;gap:12px;align-items:baseline;padding:14px 0}
+.blk summary::-webkit-details-marker{display:none}
+.blk summary em{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--accent)}
+.blk summary h3{font-size:17px;font-weight:600;line-height:1.3}
+.blk summary .hrs{font-family:var(--mono);font-size:13px;color:var(--ink);white-space:nowrap;text-align:right}
+.blk summary .pm{font-family:var(--mono);color:var(--accent);text-align:right}
+.blk[open] summary .pm::before{content:"−"}
+.blk:not([open]) summary .pm::before{content:"+"}
+.blk__body{padding:0 0 24px 52px}
+.blk__body .tw{margin-top:4px}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:1px 7px;border-radius:4px;border:1px dashed var(--line-strong);color:var(--ink-2);background:var(--surface);white-space:nowrap;margin-left:4px;vertical-align:1px}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px 48px;margin-top:24px}
+.cols h3{font-size:16.5px;font-weight:600;margin-bottom:10px}
+.list{list-style:none;margin:0;padding:0}
+.list li{position:relative;padding-left:18px;margin-bottom:7px;font-size:15px;line-height:1.5;color:var(--ink-2)}
+.list li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:1px;background:var(--accent)}
+.list li b{color:var(--ink)}
+ol.q{margin:0;padding-left:22px}
+ol.q li{margin-bottom:8px;font-size:15px;line-height:1.5;color:var(--ink-2)}
+ol.q li b{color:var(--ink)}
+
+.foot{padding-block:28px;font-size:13px;color:var(--ink-3);border-top:1px solid var(--line)}
+
+@media (max-width:860px){
+  :root{--gutter:20px}
+  .head__grid,.cols{grid-template-columns:1fr}
+    .toc ol{grid-template-columns:1fr 1fr}
+    .blk summary{grid-template-columns:32px 1fr 20px}
+  .blk summary .hrs{grid-column:2;text-align:left}
+  .blk summary .pm{grid-column:3;grid-row:1}
+  .blk__body{padding-left:0}
+}
+@media (max-width:540px){@media print{.blk__body{display:block!important}.head{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap head__grid">
+    <div>
+      <div class="head__eyebrow">Дополнение к проекту · 29.09.2026</div>
+      <h1 class="head__title">White Label: готовое казино для партнёров</h1>
+      <p class="head__lead">Партнёр получает казино под своим брендом на нашей платформе. Деньги, проверки игроков и правила остаются у нас. Мы управляем всеми брендами из своей админки, партнёр — своим брендом из отдельного кабинета.</p>
+    </div>
+    <aside class="pricecard">
+      <span class="label">Стоимость</span>
+      <div class="pricecard__sum">$23 000</div>
+      <p class="pricecard__cap">1 095 часов по $21/ч</p>
+      <dl>
+        <div><dt>Срок</dt><dd>1,5 месяца (6 недель)</dd></div>
+        <div><dt>Этапов оплаты</dt><dd>5</dd></div>
+      </dl>
+    </aside>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <ol>
+      <li><a href="#model"><em>01</em>Модель</a></li>
+      <li><a href="#roles"><em>02</em>Кто за что отвечает</a></li>
+      <li><a href="#money"><em>03</em>Доля партнёра</a></li>
+      <li><a href="#life"><em>04</em>Подключение и отключение</a></li>
+      <li><a href="#spec"><em>05</em>ТЗ и смета</a></li>
+      <li><a href="#stages"><em>06</em>Этапы</a></li>
+      <li><a href="#out"><em>07</em>Не входит</a></li>
+    </ol>
+  </div>
+</nav>
+
+<!-- 01 -->
+<section class="section" id="model">
+  <div class="wrap">
+    <div class="eyebrow">01 · МОДЕЛЬ</div>
+    <h2 class="heading">Ключевые решения</h2>
+    <div class="tw">
+      <table class="tbl">
+        <thead><tr><th>Вопрос</th><th>Решение</th></tr></thead>
+        <tbody>
+          <tr><td>Платформа</td><td>Одна на все бренды. Данные каждого бренда изолированы. Обновления выходят сразу для всех брендов</td></tr>
+          <tr><td>Деньги игроков</td><td>Проходят через нашу кассу: крипта и рубли. Учёт ведётся отдельно по каждому бренду</td></tr>
+          <tr><td>Выводы</td><td>Одобряет только наш финансовый отдел</td></tr>
+          <tr><td>Игроки</td><td>У каждого бренда свои: один человек в двух брендах — два аккаунта. Антифрод видит связи между брендами</td></tr>
+          <tr><td>Доход партнёра</td><td>Доля от чистого дохода его бренда. Бонусы уменьшают чистый доход, поэтому их размер и бюджет ограничиваем мы</td></tr>
+          <tr><td>Витрина</td><td>Наш шаблон в цветах и с логотипом бренда. Свои домены, свой бот и Mini App</td></tr>
+          <tr><td>Подключение</td><td>Бренд заводит наш менеджер через мастер в админке, без разработчиков. У партнёра может быть несколько брендов</td></tr>
+          <tr><td>Данные игроков</td><td>Хранятся у нас. Партнёр не может выгрузить контакты игроков</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="section section--alt" id="roles">
+  <div class="wrap">
+    <div class="eyebrow">02 · КТО ЗА ЧТО ОТВЕЧАЕТ</div>
+    <h2 class="heading">Мы и партнёр</h2>
+    <div class="tw">
+      <table class="tbl">
+        <thead><tr><th>Область</th><th>Мы</th><th>Партнёр</th></tr></thead>
+        <tbody>
+          <tr><td>Касса</td><td>Держим деньги, одобряем выводы</td><td>Видит операции и статусы</td></tr>
+          <tr><td>KYC, AML, антифрод</td><td>Проверяем и блокируем</td><td>Видит статус, может отметить игрока</td></tr>
+          <tr><td>Игры</td><td>Подключаем, задаём разрешённый список</td><td>Включает и сортирует из списка</td></tr>
+          <tr><td>Витрина</td><td>Шаблон</td><td>Логотип, цвета, баннеры, подборки, тексты</td></tr>
+          <tr><td>Бонусы</td><td>Потолок суммы, минимальный отыгрыш, бюджет</td><td>Свои бонусы и промокоды в этих пределах</td></tr>
+          <tr><td>Аффилиаты</td><td>Правила выплат и антифрод</td><td>Ведёт своих аффилиатов</td></tr>
+          <tr><td>Поддержка</td><td>Обращения по деньгам и KYC</td><td>Своя команда, свой ящик Chatwoot</td></tr>
+          <tr><td>Домены и Telegram</td><td>SSL, зеркала, работа бота</td><td>Даёт домен и бота или берёт наши</td></tr>
+          <tr><td>Отчёты</td><td>Вся сеть</td><td>Только свой бренд</td></tr>
+          <tr><td>Доля партнёра</td><td>Считаем и платим в USDT</td><td>Владелец подтверждает выписку</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>Роли в кабинете партнёра</h3>
+        <ul class="list">
+          <li><b>Владелец</b> — всё в бренде, сотрудники, подтверждение выписки</li>
+          <li><b>Менеджер</b> — витрина, игры, бонусы, игроки</li>
+          <li><b>Маркетолог</b> — баннеры, бонусы, аффилиаты, рассылки</li>
+          <li><b>Поддержка</b> — игроки и обращения, без финансов</li>
+          <li><b>Финансы</b> — отчёты и выписки, только просмотр</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Новые роли у нас</h3>
+        <ul class="list">
+          <li><b>Менеджер партнёров</b> — бренды, условия, ограничения, приостановка</li>
+          <li><b>Финансы сети</b> — выписки и выплата доли, вторая подпись</li>
+          <li>У существующих ролей появляется фильтр по брендам</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="section" id="money">
+  <div class="wrap">
+    <div class="eyebrow">03 · ДОЛЯ ПАРТНЁРА</div>
+    <h2 class="heading">Как считается доля партнёра</h2>
+    <p class="copy">Считается раз в месяц по фактическим данным учёта бренда. Ставку партнёра, платёж за подключение и минимум заказчик задаёт каждому партнёру в настройках.</p>
+    <div class="tw">
+      <table class="tbl">
+        <thead><tr><th>Строка выписки</th><th>Откуда берётся</th></tr></thead>
+        <tbody>
+          <tr><td>Доход от игр</td><td>Ставки игроков бренда минус их выигрыши во всех играх</td></tr>
+          <tr><td>− Бонусы</td><td>Бонусы, выданные игрокам бренда</td></tr>
+          <tr><td>− Игровые провайдеры</td><td>Часть счёта агрегатора, приходящаяся на игры бренда</td></tr>
+          <tr><td>− Платёжные расходы</td><td>Комиссии провайдеров и сетей по операциям бренда</td></tr>
+          <tr class="tot"><td>= Чистый доход бренда</td><td></td></tr>
+          <tr><td>Доля партнёра</td><td>Чистый доход × ставка партнёра</td></tr>
+          <tr><td>− Выплаты аффилиатам партнёра</td><td>Начисления аффилиатам бренда за месяц</td></tr>
+          <tr class="tot"><td>= К выплате партнёру</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols">
+      <ul class="list">
+        <li><b>Минусовой месяц.</b> Выплата 0, минус вычитается из следующих месяцев</li>
+        <li><b>Минимум.</b> Если доля сети меньше минимума, разница удерживается из выплаты партнёру, а при её нехватке переносится на следующий месяц</li>
+      </ul>
+      <ul class="list">
+        <li><b>Корректировки</b> (отмена бонуса, фрод) попадают в выписку того месяца, в котором проведены</li>
+        <li><b>Крупный выигрыш</b> выплачивает наша касса, даже если месяц бренда уходит в минус</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="section section--alt" id="life">
+  <div class="wrap">
+    <div class="eyebrow">04 · ПОДКЛЮЧЕНИЕ И ОТКЛЮЧЕНИЕ</div>
+    <h2 class="heading">Что происходит с брендом</h2>
+    <div class="tw">
+      <table class="tbl">
+        <thead><tr><th>Шаг</th><th>Что происходит</th></tr></thead>
+        <tbody>
+          <tr><td>1. Создание</td><td>Менеджер заводит партнёра и бренд в мастере: условия, домен, бот, оформление, игры</td></tr>
+          <tr><td>2. Проверка</td><td>Бренд открыт только по приглашениям. Партнёр настраивает витрину, мы проверяем кассу и игры</td></tr>
+          <tr><td>3. Запуск</td><td>Бренд открыт всем, начинается расчёт доли</td></tr>
+          <tr><td>Приостановка</td><td>Например, при подозрении на фрод. Пополнения и бонусы закрыты, игроки могут играть и выводить деньги</td></tr>
+          <tr><td>Отключение</td><td>Пополнения и игра закрыты. Игроки получают уведомление и выводят балансы (срок задаётся, по умолчанию 90 дней). Затем партнёр получает финальную выписку</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="section" id="spec">
+  <div class="wrap">
+    <div class="eyebrow">05 · ТЗ И СМЕТА</div>
+    <h2 class="heading">9 блоков, 1 095 часов</h2>
+    <p class="copy">Функция считается принятой, если выполнено требование в её строке. В колонке «Модули ТЗ» указаны действующие модули, которые блок дорабатывает под бренды.</p>
+
+    <div class="tw">
+      <table class="tbl">
+        <thead><tr><th>Блок</th><th>Модули ТЗ</th><th class="n">Ч</th><th class="n">$</th></tr></thead>
+        <tbody>
+          <tr><td>W00 Бренды в ядре платформы</td><td>01, 02, 10, 24, 27</td><td class="n">115</td><td class="n">2 415</td></tr>
+          <tr><td>W01 Проектирование</td><td>00, 10, 27</td><td class="n">50</td><td class="n">1 050</td></tr>
+          <tr><td>W02 Управление партнёрами</td><td>09, 10, 25, 27</td><td class="n">155</td><td class="n">3 255</td></tr>
+          <tr><td>W03 Кабинет партнёра</td><td>09, 10, 12, 13, 14, 19, 20</td><td class="n">250</td><td class="n">5 250</td></tr>
+          <tr><td>W04 Витрина бренда</td><td>14, 15, 19</td><td class="n">105</td><td class="n">2 205</td></tr>
+          <tr><td>W05 Домены и Telegram</td><td>16, 17, 22</td><td class="n">75</td><td class="n">1 575</td></tr>
+          <tr><td>W06 Расчёт с партнёрами</td><td>02, 04, 05, 13</td><td class="n">140</td><td class="n">2 940</td></tr>
+          <tr><td>W07 Риск по сети</td><td>11</td><td class="n">65</td><td class="n">1 365</td></tr>
+          <tr><td>W08 Проверка и первый бренд</td><td>24, 28, 29, 30</td><td class="n">140</td><td class="n">2 940</td></tr>
+          <tr class="tot"><td>Итого</td><td>округлено до сотен</td><td class="n">1 095</td><td class="n">23 000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:32px">
+
+    <details class="blk" open>
+      <summary><em>W00</em><div><h3>Бренды в ядре платформы</h3></div><span class="hrs">115 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Признак бренда в данных</td><td>Есть у игроков, счетов, операций, настроек, контента и событий</td><td class="n">20</td></tr>
+          <tr><td>Изоляция</td><td>Бренд определяется по домену и боту. Платформа не отдаёт данные другого бренда</td><td class="n">25</td></tr>
+          <tr><td>Учёт по брендам</td><td>Счета, отчёты и сверка в разрезе бренда</td><td class="n">20</td></tr>
+          <tr><td>Настройки «сеть → бренд»</td><td>Бренд может переопределить настройку сети</td><td class="n">15</td></tr>
+          <tr><td>Уникальность игрока</td><td>Почта и Telegram уникальны внутри бренда</td><td class="n">10</td></tr>
+          <tr><td>Фоновые задачи и отчёты</td><td>Рассылки, начисления, выгрузки и отчёты выполняются в границах бренда</td><td class="n">15</td></tr>
+          <tr><td>Тесты изоляции</td><td>Данные одного бренда недоступны из другого</td><td class="n">10</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    <details class="blk" open>
+      <summary><em>W01</em><div><h3>Проектирование</h3></div><span class="hrs">50 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Правила изоляции</td><td>Описано, что принадлежит бренду, что общее и какие связи видит риск-отдел</td><td class="n">10</td></tr>
+          <tr><td>Расчёт доли</td><td>Формула раздела 03, минусовой месяц, минимум, сверка. Утверждены заказчиком</td><td class="n">10</td></tr>
+          <tr><td>Макеты</td><td>Кабинет партнёра и раздел «Партнёры» в нашей админке. Утверждены заказчиком</td><td class="n">30</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    <details class="blk" open>
+      <summary><em>W02</em><div><h3>Управление партнёрами (наша админка)</h3></div><span class="hrs">155 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Карточка партнёра</td><td>Реквизиты, бренды, условия (ставка, подключение, минимум), кошелёк для выплат, история изменений</td><td class="n">25</td></tr>
+          <tr><td>Мастер подключения</td><td>Бренд → домены → бот → оформление → игры и методы оплаты → администратор → проверка → запуск</td><td class="n">30</td></tr>
+          <tr><td>Шаблон бренда</td><td>Новый бренд можно создать копией настроек существующего</td><td class="n">15</td></tr>
+          <tr><td>Ограничения бренда</td><td>Игры, методы оплаты, лимиты пополнения, вывода и ставки, бонусы. Партнёр не может выйти за них</td><td class="n">25</td></tr>
+          <tr><td>Приостановка и отключение</td><td>Шаги раздела 04, вторая подпись, уведомления игрокам, отсчёт срока на вывод</td><td class="n">20</td></tr>
+          <tr><td>Вход от имени партнёра</td><td>С обязательной причиной, каждое действие записывается в журнал</td><td class="n">15</td></tr>
+          <tr><td>Сводка по сети</td><td>Игроки, деньги, доход, бонусы и доля по каждому бренду. Сравнение брендов, выгрузка в Excel</td><td class="n">25</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    <details class="blk" open>
+      <summary><em>W03</em><div><h3>Кабинет партнёра</h3></div><span class="hrs">250 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Вход и каркас</td><td>Отдельный адрес, обязательная 2FA, видны только данные своего бренда</td><td class="n">25</td></tr>
+          <tr><td>Сотрудники и роли</td><td>Пять ролей из раздела 02, приглашение, блокировка, сброс 2FA</td><td class="n">20</td></tr>
+          <tr><td>Дашборд</td><td>Регистрации, деньги, активные игроки, доход за день, неделю и месяц</td><td class="n">15</td></tr>
+          <tr><td>Игроки</td><td>Поиск, карточка, история, заметки, ограничения. Контакты частично скрыты, выгрузки нет</td><td class="n">25</td></tr>
+          <tr><td>Финансы</td><td>Пополнения и выводы со статусами, только просмотр</td><td class="n">15</td></tr>
+          <tr><td>Витрина</td><td>Оформление, баннеры по расписанию, подборки, игры из разрешённых, тексты, предпросмотр</td><td class="n">30</td></tr>
+          <tr><td>Бонусы</td><td>Бонусы и промокоды в пределах ограничений. Видно, сколько бюджета потрачено</td><td class="n">25</td></tr>
+          <tr><td>Аффилиаты</td><td>Партнёрская программа внутри бренда. Выплаты аффилиатам удерживаются из выплаты партнёру</td><td class="n">25</td></tr>
+          <tr><td>Рассылки</td><td>Рассылки игрокам бренда по сегментам в Telegram и на почту</td><td class="n">15</td></tr>
+          <tr><td>Поддержка</td><td>Ящик Chatwoot на бренд. Обращения по деньгам и KYC передаются нам</td><td class="n">15</td></tr>
+          <tr><td>Отчёты и выписки</td><td>Отчёты по бренду без контактов игроков, подтверждение выписки</td><td class="n">20</td></tr>
+          <tr><td>Уведомления партнёру</td><td>Новая выписка, исчерпание бюджета бонусов, приостановка бренда</td><td class="n">10</td></tr>
+          <tr><td>Журнал действий</td><td>Действия сотрудников партнёра и наших, виден владельцу бренда</td><td class="n">10</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    <details class="blk" open>
+      <summary><em>W04</em><div><h3>Витрина бренда</h3></div><span class="hrs">105 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Оформление</td><td>Цвета, шрифты, логотипы, иконка, заголовки страниц для поиска. Web и Mini App</td><td class="n">35</td></tr>
+          <tr><td>Главная страница</td><td>Партнёр выбирает и меняет порядок разделов главной: баннеры, подборки, категории игр</td><td class="n">20</td></tr>
+          <tr><td>Проверка шаблона</td><td>Три разных оформления без поломок на всех основных экранах</td><td class="n">20</td></tr>
+          <tr><td>Тексты и правила</td><td>Свои страницы и правила бренда на русском и английском, по умолчанию — наши</td><td class="n">15</td></tr>
+          <tr><td>Письма</td><td>Отправитель, логотип и подпись бренда</td><td class="n">15</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    <details class="blk" open>
+      <summary><em>W05</em><div><h3>Домены и Telegram</h3></div><span class="hrs">75 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Домены и зеркала</td><td>Домен бренда, SSL, защита. Зеркала переключаются отдельно по каждому бренду</td><td class="n">25</td></tr>
+          <tr><td>Бот и Mini App</td><td>Подключаются по токену партнёра. Mini App показывает витрину бренда, бот — статусы операций и рабочее зеркало</td><td class="n">30</td></tr>
+          <tr><td>Доступность</td><td>Проверка доступности доменов бренда, оповещение о блокировке</td><td class="n">10</td></tr>
+          <tr><td>Замена домена или бота</td><td>Бренд переносится на новый домен или нового бота, игроки и их доступ сохраняются</td><td class="n">10</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    <details class="blk" open>
+      <summary><em>W06</em><div><h3>Расчёт с партнёрами</h3></div><span class="hrs">140 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Чистый доход бренда</td><td>Считается по формуле раздела 03 и совпадает с проводками учёта</td><td class="n">30</td></tr>
+          <tr><td>Расходы по брендам</td><td>Счета агрегатора и платёжных провайдеров распределяются по брендам по фактическим операциям</td><td class="n">20</td></tr>
+          <tr><td>Условия</td><td>Ставка, подключение, минимум, минусовой месяц. Изменения действуют со следующего месяца</td><td class="n">25</td></tr>
+          <tr><td>Выписка и выплата</td><td>Раз в месяц, после подтверждения владельцем бренда. Выплата в USDT с двумя подписями</td><td class="n">25</td></tr>
+          <tr><td>История и перерасчёт</td><td>Архив выписок. Корректировка после закрытия месяца попадает в следующую выписку</td><td class="n">10</td></tr>
+          <tr><td>Сверка сети</td><td>Сумма по брендам равна кассе. При расхождении приходит оповещение</td><td class="n">15</td></tr>
+          <tr><td>Платёжный магазин на бренд</td><td>Отдельный магазин платёжного провайдера для бренда, если провайдер этого требует</td><td class="n">15</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    <details class="blk" open>
+      <summary><em>W07</em><div><h3>Риск по сети</h3></div><span class="hrs">65 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Связи между брендами</td><td>Находит аккаунты одного человека по устройству, кошельку и KYC. Блокировка во всех брендах одним действием</td><td class="n">25</td></tr>
+          <tr><td>Один человек — несколько брендов</td><td>Настройка сети: по умолчанию человек может играть в нескольких брендах, при необходимости это запрещается</td><td class="n">10</td></tr>
+          <tr><td>Правила</td><td>Общие правила риска для сети, более строгие — для отдельного бренда</td><td class="n">15</td></tr>
+          <tr><td>Контроль бренда</td><td>Оповещение о всплеске бонусов, выводов или регистраций. Бонусы бренда останавливаются автоматически при превышении порога</td><td class="n">15</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+
+    <details class="blk" open>
+      <summary><em>W08</em><div><h3>Проверка и первый бренд</h3></div><span class="hrs">140 ч</span><span class="pm"></span></summary>
+      <div class="blk__body"><div class="tw"><table class="tbl">
+        <thead><tr><th>Функция</th><th>Требование</th><th class="n">Ч</th></tr></thead>
+        <tbody>
+          <tr><td>Изоляция и безопасность</td><td>Автотесты всех разделов кабинета, проверка прав, подготовка к внешней проверке безопасности</td><td class="n">40</td></tr>
+          <tr><td>Нагрузка</td><td>Пять брендов одновременно при целевой нагрузке платформы</td><td class="n">25</td></tr>
+          <tr><td>Основное казино</td><td>Проходит все прежние тестовые сценарии</td><td class="n">30</td></tr>
+          <tr><td>Документация</td><td>Инструкция по подключению бренда, руководство для партнёра, порядок отключения</td><td class="n">20</td></tr>
+          <tr><td>Обучение</td><td>Менеджеры сети и сотрудники первого партнёра работают в своих кабинетах самостоятельно</td><td class="n">10</td></tr>
+          <tr><td>Первый бренд</td><td>Первый партнёр проходит путь от создания до запуска и получает выписку</td><td class="n">15</td></tr>
+        </tbody></table></div></div>
+    </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="section section--alt" id="stages">
+  <div class="wrap">
+    <div class="eyebrow">06 · ЭТАПЫ</div>
+    <h2 class="heading">5 этапов</h2>
+    <div class="tw">
+      <table class="tbl">
+        <thead><tr><th>Этап</th><th>Недели</th><th>Блоки</th><th>Результат</th><th class="n">Ч</th><th class="n">$</th></tr></thead>
+        <tbody>
+          <tr><td>1. Ядро и управление партнёрами</td><td>1–2</td><td>W00–W02</td><td>Бренд создан мастером, данные брендов изолированы</td><td class="n">320</td><td class="n">6 700</td></tr>
+          <tr><td>2. Кабинет партнёра</td><td>2–4</td><td>W03</td><td>Партнёр ведёт витрину, игроков, бонусы, аффилиатов, рассылки</td><td class="n">250</td><td class="n">5 300</td></tr>
+          <tr><td>3. Витрина, домены, Telegram</td><td>2–4</td><td>W04–W05</td><td>Тестовый бренд работает на своём домене и в своём боте</td><td class="n">180</td><td class="n">3 800</td></tr>
+          <tr><td>4. Расчёт и риск</td><td>3–5</td><td>W06–W07</td><td>Выписка бренда сходится с учётом, связи игроков между брендами видны риск-отделу</td><td class="n">205</td><td class="n">4 300</td></tr>
+          <tr><td>5. Проверка и первый бренд</td><td>5–6</td><td>W08</td><td>Тесты пройдены, первый бренд запущен</td><td class="n">140</td><td class="n">2 900</td></tr>
+          <tr class="tot"><td>Итого</td><td>6</td><td></td><td></td><td class="n">1 095</td><td class="n">23 000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="section" id="out">
+  <div class="wrap">
+    <div class="eyebrow">07 · НЕ ВХОДИТ</div>
+    <h2 class="heading">Что можно заказать отдельно</h2>
+    <div class="cols">
+      <ul class="list">
+        <li>Своя касса партнёра</li>
+        <li>Самостоятельная регистрация партнёров</li>
+        <li>Отдельный сервер на партнёра</li>
+        <li>Индивидуальный дизайн бренда</li>
+      </ul>
+      <ul class="list">
+        <li>Свои игровые провайдеры партнёра</li>
+        <li>Единый аккаунт игрока на все бренды</li>
+        <li>Лицензии, юридические тексты, контент и SEO бренда</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">29.09.2026 · ставка $21/ч</div>
+</footer>
+
+</body>
+</html>
